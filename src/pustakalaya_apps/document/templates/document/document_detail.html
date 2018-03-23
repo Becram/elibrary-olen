@@ -155,14 +155,24 @@
                                     style="font-size: 16px;"
                                     class="text-dark text-capitalize text-primary">
                                 {{ author }}<br>
-
+                                <!--{% if forloop.counter != object.document_authors.count %}|{% endif %}-->
                             </div></a>
 
                         {% endfor %}
 
                     </div>
 
+                    <!-- Illustrator section -->
+                    <div class="pb-1">
+                        <!-- Authors -->
+                        <!-- TODO pluralization -->
+                        <!--strong class="text-capitalize font-weight-normal text-dark">{% trans "Illustrators:" %}</strong-->
+                        {% for author in object.document_illustrators.all %}
+                            <span class="text-dark text-capitalize">{{ illustrator }}</span>
+                        {% endfor %}
 
+
+                    </div>
                     <!-- abstract -->
                     <!-- abstract of a document -->
                     <div>
@@ -240,6 +250,8 @@
 
                             </div>
 
+                            {% if  object.publisher.all %}
+                            <div class="pb-1 border-line">
 
                             {% if  object.publisher.all %}
                             <div class="pb-1 border-line">
@@ -271,11 +283,11 @@
 
                             <!-- Publication year -->
                             <div class="pb-1 border-line"
-                                    {% if not object.publication_year_on_text %}
+                                    {% if not object.year_of_available_on_text %}
                                  style="display: none;"
                                     {% endif %}>
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</span>
-                                <span class="text-dark text-capitalize"> {{ object.publication_year_on_text }}</span>
+                                <span class="text-dark text-capitalize"> {{ object.year_of_available_on_text }}</span>
 
 
                             </div>
@@ -398,14 +410,9 @@
                             <div class="pb-1 border-line">
                                 <!-- TODO: implement pluralization in total page -->
                                 <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "languages" %}:</span>
-                              <span class="text-dark ">
-                              {% for language in object.languages.all %}
-                                    {{ language }}
-                                  {%  if not forloop.last %}
-                                    ,
-                                  {%  endif %}
+                                {% for language in object.languages.all %}
+                                    <span class="text-dark "> {{ language }}</span>
                                 {% endfor %}
-                                </span>
                             </div>
                             {% endif %}
 
@@ -417,15 +424,9 @@
                              >
                                 <!-- TODO: implement pluralization in total page -->
                                 <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "education levels" %}:</span>
-                                <span class="text-dark">
                                 {% for education_level in object.education_levels.all %}
-                                    {{ education_level }}
-                                    {%  if not forloop.last %}
-                                            ,
-                                        {%  endif %}
-
+                                    <span class="text-dark"> {{ education_level }}</span>
                                 {% endfor %}
-                                </span>
 
 
                             </div>
@@ -458,15 +459,9 @@
                                     {% endif %}>
                                 <!-- TODO pluralization -->
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</span>
-                               <span class="text-dark text-capitalize">
                                 {% for sponsor in object.sponsors.all %}
-                                    {{ sponsor }}
-                                    {%  if not forloop.last %}
-                                            ,
-                                        {%  endif %}
-
+                                    <span class="text-dark text-capitalize"> {{ sponsor }}</span>
                                 {% endfor %}
-                                      </span>
                             </div>
                         </div>
 
