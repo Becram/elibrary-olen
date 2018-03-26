@@ -25,6 +25,7 @@
     "EMAIL_USE_TLS": "True",
     "FEEDBACK_MESSAGE_TO": [
       "bikram.dhoju@olenepal.org"
+
     ],
     "ADMIN_EMAILS": [
       [
