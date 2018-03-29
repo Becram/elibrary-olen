@@ -409,11 +409,6 @@
                             {% if object.languages.all %}
                             <div class="pb-1 border-line">
                                 <!-- TODO: implement pluralization in total page -->
-<<<<<<< HEAD
-                                <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "languages" %}:</span>
-                                {% for language in object.languages.all %}
-                                    <span class="text-dark "> {{ language }}</span>
-=======
                                 <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "language" %}:</span>
                               <span class="text-dark ">
                               {% for language in object.languages.all %}
@@ -421,7 +416,6 @@
                                   {%  if not forloop.last %}
                                     ,
                                   {%  endif %}
->>>>>>> origin/bhoj
                                 {% endfor %}
                             </div>
                             {% endif %}
