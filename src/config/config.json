@@ -12,6 +12,7 @@
   },
   "ELASTIC": {
     "ES_HOST": "elastic",
+
     "ES_NUMBER_OF_SHARDS": "1",
     "ES_NUMBER_OF_REPLICAS": "0",
     "ES_USE_SSL": "False",
