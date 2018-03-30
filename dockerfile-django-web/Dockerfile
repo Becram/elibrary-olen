@@ -32,7 +32,7 @@ RUN npm install gulp -g
 #RUN gulp sass
 
 RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
-RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
+RUN chown -R ${APP_USER}:${APP_USER} /library/static_root
 RUN chown -R ${APP_USER}:${APP_USER} /src
 RUN chown -R ${APP_USER}:${APP_USER} /var/log
 
