@@ -1,7 +1,7 @@
 version: '2'
 services:
   nginx:
-    image: nginx:1.13
+    image: nginx:latest
     restart: always
     hostname: nginx
     container_name: nginx_01
