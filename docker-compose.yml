@@ -1,7 +1,7 @@
 version: '2'
 services:
   nginx:
-    image: nginx:latest
+    image: nginx:1.13
     restart: always
     hostname: nginx
     container_name: nginx_01
@@ -29,8 +29,8 @@ services:
       - elastic
     volumes:
       - ./src:/src
-      - /library/media_root:/library/media_root
-      - /library/static_root:/library/static_root
+      - /media/bikram/pustakalaya/olen-lib-project/src/media_root:/library/media_root
+      - /media/bikram/pustakalaya/olen-lib-project/src/static_root:/library/static_root
     networks:
       - pustakalaya-network
     ports:
