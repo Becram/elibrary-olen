@@ -40,6 +40,6 @@ RUN chown -R ${APP_USER}:${APP_USER} /var/log
 
 EXPOSE 8000
 
-#USER ${APP_USER}
+USER ${APP_USER}
 
 ADD . ${APP_ROOT}
