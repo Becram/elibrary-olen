@@ -29,8 +29,8 @@ services:
       - elastic
     volumes:
       - ./src:/src
-      - /media/bikram/pustakalaya/olen-lib-project/src/media_root:/library/media_root
-      - /media/bikram/pustakalaya/olen-lib-project/src/static_root:/library/static_root
+      - /library/media_root:/library/media_root
+      - /library/static_root:/library/static_root
     networks:
       - pustakalaya-network
     ports:
