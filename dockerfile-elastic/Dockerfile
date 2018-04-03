@@ -1,4 +1,4 @@
-FROM elasticsearch:5
+FROM elasticsearch:5.6.2
 
 COPY ./conf/elasticsearch.yml  /etc/elasticsearch/elasticsearch.yml
 
