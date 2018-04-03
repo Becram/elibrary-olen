@@ -8,7 +8,7 @@ redf="${esc}[31m"
 whitef="${esc}[37m"
 reset="${esc}[0m"
 remote_backup="/share/Deployment/backup-pustakalaya-django"
-conatiner_name="postgres_01"
+container_name="postgres_01"
 croncmd_backup="docker exec -it postgres_01 bash -c '/script/autopgsqlbackup'"
 cronjob_backup="*/5 * * * * $croncmd_backup"
 
