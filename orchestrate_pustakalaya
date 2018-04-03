@@ -126,12 +126,12 @@ fi
 if [[ "$1" == "getBackup" ]] ; then
         if [ $(docker inspect -f '{{.State.Running}}' $container_name) = "true" ]; then 
               echo "getBack up of postgres"
-              docker exec postgres_01 bash -c "/script/autopgsqlbackup";i
+              docker exec postgres_01 bash -c "/script/autopgsqlbackup";
               echo "backing up the database to file server at location $remote_backup"
-              rsync -a --delete /library/backup_pg_pustakalaya/backup root@192.168.5.20:$remote_backup
+              rsync -a -e "ssh -i /var/lib/jenkins/.ssh/id_rsa" --delete /library/backup_pg_pustakalaya/backup root@192.168.5.20:$remote_backup
               echo "backing up the media and static  to fileserver at location $remote_backup"
-              rsync -a --delete /library/{media_root,static_root} root@192.168.5.20:$remote_backup
-
+              rsync -a -e "ssh -i /var/lib/jenkins/.ssh/id_rsa"  --delete /library/{media_root,static_root} root@192.168.5.20:$remote_backup
+              echo "Successfully backed up to fileserver"
         else 
               echo "Container $container_name is not running";
         fi
