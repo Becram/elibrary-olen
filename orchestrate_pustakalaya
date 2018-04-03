@@ -123,9 +123,14 @@ if [[ "$1" == "mkmigration" ]] ; then
 fi
 
 if [[ "$1" == "getBackup" ]] ; then
-        echo "getBack up of postgres"
-        docker exec postgres_01 bash -c "/script/autopgsqlbackup "
-
+        conatiner_name=postgres_01
+        if [ $(docker inspect -f '{{.State.Running}}' $container_name) = "true" ]; then 
+              echo "getBack up of postgres"
+              docker exec postgres_01 bash -c "/script/autopgsqlbackup";
+        else 
+              echo "Container $container_name is not running";
+        fi
+        
 fi
 
 if [[ "$1" == "migrate" ]] ; then
