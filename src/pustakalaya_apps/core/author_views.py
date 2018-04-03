@@ -38,9 +38,12 @@ def author_list(request):
 
         new_list = []
         for item in author_list:
-            if item.name is not None:
+            print("name=",item.name)
+            if item.name:
                 new_list.append(item)
 
+        print("author_list len =",len(author_list))
+        print("new_list len =",len(new_list))
 
         # Paginate the results
         number_per_page = 15
