@@ -8,7 +8,7 @@ services:
     networks:
       - pustakalaya-network
     ports:
-     - "8000:8000"
+     - "80:8000"
     volumes:
      - ./src:/src
      - ./conf/nginx:/etc/nginx/conf.d
