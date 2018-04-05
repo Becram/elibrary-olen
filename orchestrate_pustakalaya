@@ -13,7 +13,7 @@ croncmd_backup="docker exec -it postgres_01 bash -c '/script/autopgsqlbackup'"
 cronjob_backup="*/5 * * * * $croncmd_backup"
 
 # print a pretty header
-echo "++++++++++++Orchestrating Pustakalaya+++++++++++++++++++++++++++++"
+echo "++++++++++++ORCHEASTRATE PUSTAKALAYA+++++++++++++++++++++++++++++"
 
 
 
