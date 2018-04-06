@@ -1,8 +1,8 @@
 version: '2'
 services:
   nginx:
-#    image: nginx:latest
-    image: funkygibbon/nginx-pagespeed:latest
+    image: nginx:latest
+    # image: funkygibbon/nginx-pagespeed:latest
     restart: always
     hostname: nginx
     container_name: nginx_01
