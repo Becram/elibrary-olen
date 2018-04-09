@@ -11,6 +11,7 @@ remote_backup="/share/Deployment/backup-pustakalaya-django"
 container_name="postgres_01"
 croncmd_backup="docker exec -it postgres_01 bash -c '/script/autopgsqlbackup'"
 cronjob_backup="*/5 * * * * $croncmd_backup"
+local_backup="/library/backup_pg_pustakalaya/backup/daily/pustakalaya"
 
 # print a pretty header
 echo "++++++++++++ORCHEASTRATE PUSTAKALAYA+++++++++++++++++++++++++++++"
@@ -113,9 +114,12 @@ fi
 
 
 if [[ "$1" == "dump_sql" ]] ; then
-        if [[ -f ./src/db_dump/pustakalaya01.sql ]] ; then
-                  docker exec postgres_01 bash -c "psql --username pustakalaya_user -d pustakalaya -f /src/db_dump/pustakalaya01.sql"
-        fi
+        backup_file=${ls $local_backup *bz2 | tail -n 1 }
+        echo "backup file is $backup_file"
+
+        # if [[ -f ./src/db_dump/pustakalaya01.sql ]] ; then
+        #           docker exec postgres_01 bash -c "psql --username pustakalaya_user -d pustakalaya -f /src/db_dump/pustakalaya01.sql"
+        # fi
 fi
 
 
@@ -127,7 +131,7 @@ if [[ "$1" == "mkmigration" ]] ; then
 fi
 
 if [[ "$1" == "getBackup" ]] ; then
-        if [ $(docker inspect -f '{{.State.Running}}' $container_name) = "true" ]; then 
+        if [ $(docker inspect -f '{{.State.Running}}' $container_name) = "true" ]; then
               echo "getBack up of postgres"
               docker exec postgres_01 bash -c "/script/autopgsqlbackup";
               echo "backing up the database to file server at location $remote_backup"
@@ -135,10 +139,10 @@ if [[ "$1" == "getBackup" ]] ; then
               echo "backing up the media and static  to fileserver at location $remote_backup"
               rsync -a -e "ssh -i /var/lib/jenkins/.ssh/id_rsa"  --delete /library/{media_root,static_root} root@192.168.5.20:$remote_backup
               echo "Successfully backed up to fileserver"
-        else 
+        else
               echo "Container $container_name is not running";
         fi
-        
+
 fi
 
 if [[ "$1" == "migrate" ]] ; then
