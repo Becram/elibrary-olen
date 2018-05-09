@@ -1,6 +1,7 @@
 from  django.utils.html import format_html
 from django.contrib import admin
 import datetime
+from django.utils.functional import curry
 
 from .models import (
     Document,
@@ -21,7 +22,6 @@ class DocumentFileUploadInline(admin.TabularInline):
 class DocumentLinkInfoAdminInline(admin.TabularInline):
     model = DocumentLinkInfo
     extra = 1
-
 
 class DocumentIdentifierAdmin(admin.StackedInline):
     model = DocumentIdentifier

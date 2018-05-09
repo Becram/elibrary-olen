@@ -5,14 +5,18 @@ from django.http import HttpResponse
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from hitcount.views import HitCountDetailView
-from .models import DocumentFileUpload
+from .models import DocumentFileUpload,DocumentLinkInfo
 from django.core.exceptions import ValidationError
 #from pustakalaya_apps.review_system.forms import ReviewForm
 from pustakalaya_apps.review_system.models import Review
 from pustakalaya_apps.favourite_collection.models import Favourite
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from pustakalaya_apps.core.abstract_models import LinkInfo
+from .admin import DocumentLinkInfoAdminInline
+from django.http import Http404, HttpResponse
 
+
+# from .forms import BaseDocumentFormSet
 
 def documents(request):
     documents = 1 or Document.objects.all()
@@ -31,6 +35,13 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
 
     def get(self, request, **kwargs):
         self.object = self.get_object()
+        if self.object.published== "no":
+            # return HttpResponseRedirect("/")
+            # return Http404()
+            # msg = "Page not found"
+            # return HttpResponse(msg, status=404)
+            raise Http404
+
         hit_count = HitCount.objects.get_for_object(self.object)
 
 
@@ -38,9 +49,32 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
         # you need to pass it the request object as well
         hit_count_response = HitCountMixin.hit_count(request, hit_count)
         context = self.get_context_data(object=self.object)
+
+
+        # form_set_resonse= {}
+        # import pprint
+
+        # linkinfo = BaseDocumentFormSet(pk=self.object.pk)
+        # linkinfo = DocumentLinkInfoAdminInline(self,request.GET)
+        # linkinfo = LinkInfo(id=self.object.pk)
+
+
+        # linkinfo = BaseDocumentFormSet()
+        # print(linkinfo)
+        # pprint.pprint(linkinfo)
+
+
+
+        # if linkinfo:
+        #     print("link info = ",linkinfo)
+
+        #     pprint.pprint(linkinfo.link_name)
+
+
         data_review = Review.objects.filter(content_id=self.object.pk, content_type='document',published=True)
-        ##########################Review pagination add########################
-        #print(len(data_review))
+
+        #************Review pagination add************#
+
         length = len(data_review)
         number_per_page =15
         if length > number_per_page:

@@ -40,6 +40,8 @@ def search(request):
         # Search in elastic search
         search_obj = PustakalayaSearch(query=query_string, filters=filters)
 
+        # print(search_obj)
+
         # Pagination configuration before executing a query.
         paginator = Paginator(search_obj, 12)
 
@@ -52,7 +54,7 @@ def search(request):
             page = paginator.page(paginator.num_pages)
 
         response = page.object_list.execute()
-
+        # print(response)
         search_result["response"] = response
         search_result["hits"] = response.hits
         search_result["type"] = response.facets.type
@@ -121,8 +123,8 @@ def search(request):
         #     print(month.strftime('%B %Y'), ' (SELECTED):' if selected else ':', count)
         #
         # for (license_type, count, selected) in response.facets.license_type:
-        #     print(license_type, ' (SELECTED):' if selected else ':', count)
-        #
+        #     print(len(license_type), ' (SELECTED):' if selected else ':', count)
+
         # for (month, count, selected) in response.facets.publication_year:
         #     print(month.strftime('%B %Y'), ' (SELECTED):' if selected else ':', count)
 
@@ -141,15 +143,16 @@ def completion(request):
         client = connections.get_connection()
         response = client.search(
             index=settings.ES_INDEX,
-            body={"_source": "suggest",
+            body={"_source":    "suggest",
                   "suggest": {
                       "title_suggest": {
                           "prefix": text,
                           "completion": {
-                              "field": "title_suggest"
-                          }
-                      }
-                  }
+                              "field": "title_suggest",
+
+                          },
+                      },
+                  },
                   })
 
         suggested_items = []
