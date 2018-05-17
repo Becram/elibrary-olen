@@ -2,7 +2,10 @@ version: '2'
 services:
   nginx:
     # image: nginx:latest
-    image: funkygibbon/nginx-pagespeed:latest
+   # image: funkygibbon/nginx-pagespeed:latesti
+    build:
+      context: .
+      dockerfile: ./dockerfile-nginx/Dockerfile
     restart: always
     hostname: nginx
     container_name: nginx_01
@@ -34,10 +37,10 @@ services:
       - /library/static_root:/library/static_root
     networks:
       - pustakalaya-network
-    ports:
-      - "8001:8001"
-    # expose:
-    #   - "8001"
+#    ports:
+#      - "8001:8001"
+    expose:
+      - "8001"
     links:
       - redis
   db:
@@ -62,8 +65,8 @@ services:
       - ./src:/src
     expose:
       - "5432"
-    ports:
-      -  '5432:5432'
+   # ports:
+   #   -  '5432:5432'
 
 
   elastic:
@@ -83,8 +86,8 @@ services:
     expose:
       -  "9200"
       -  "9300"
-    ports:
-      -  '9200:9200'
+    #ports:
+    #  -  '9200:9200'
 
 
   redis:
@@ -94,9 +97,10 @@ services:
     container_name: redis_01
     networks:
       - pustakalaya-network
-    ports:
-     - '6379:6379'
-
+#    ports:
+#     - '6379:6379'
+    expose:
+      - "6379"
   celery:
     build:
       context: .
