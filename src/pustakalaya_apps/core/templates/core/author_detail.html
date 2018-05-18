@@ -5,16 +5,15 @@
 {% block content %}
 
 <div class="container min_height pt-4 min_height_author_detail"style="font-family:arial,sans-serif;" >
-  <div class="row ">
+  <div class="row">
     <!-- Author Name -->
-    <div class="col-md-2 col-xs-12 col-sm-12">
+    <div class="col-md-3 col-xs-12 col-sm-12">
 
-      <p class="text-capitalize  text-dark description h5 mt-2 title-font ">{{ object.getname }}</p>
+      <p class="text-capitalize text-primary text-dark description h5 mt-2 title-font ">{{ object.getname }}</p>
       {% if object.thumbnail  %}
 
       <img src="{{ MEDIA_URL }}{{ object.thumbnail }}"
-           width="210px"
-           height="230px"
+           style="max-width:100%"
            title="{{ object }}"
            alt="{{ object }}" class="rounded img img-responsive">
 
@@ -50,7 +49,7 @@
         {% endif %}
       </p>
     </div>
-    <div class="col-md-10 col-xs-12 col-sm-12 paragraph-font" id="author-detail">
+    <div class="col-md-9 col-xs-12 col-sm-12 paragraph-font" id="author-detail">
       <div class="p-4 rounded">
 
 
@@ -69,6 +68,12 @@
         </div>
         {% endif %}
 
+        {% if object.place_of_birth %}
+        <div class="row">
+        <div class="col-md-2"><b>{% trans "Place of birth" %}: </b></div>
+        <div class="col-md-10">{{ object.place_of_birth }}</div>
+        </div>
+        {% endif %}
 
 
         {% if object.date_of_death %}

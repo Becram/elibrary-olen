@@ -12,22 +12,34 @@ from django.http import JsonResponse, HttpResponseRedirect
 def search(request):
     # Store search result in dict obj
     search_result = {}
-
     # Query string from user input
     query_string = " "
 
+    # default item types 
+    item_types = ["document", "audio", "video"]
+
     if request.method == "GET":
         # Grab query from form.
-
         query_string = request.GET.get('q')
 
-        # To prevent empty search using url only
-        # if query_string == "":
-        #     return HttpResponseRedirect("/")
+        # Grab the default search index. 
+        item_type_to_search = request.GET.get('searchIn', 'all')
 
+        if item_type_to_search == "document":
+            search_in = ["document"]
+        
+        elif item_type_to_search == "audio":
+            search_in = ["audio"]
+        
+        elif item_type_to_search == "video":
+            search_in = ["video"]
+        
+        else:
+            # Default is search
+            search_in = item_types
 
-
-        # Get data ajax request
+    
+        # Get Form filters.
         try:
             filters = json.loads(request.GET.get("form-filter", {}))
 
@@ -37,8 +49,11 @@ def search(request):
 
             }
 
-        # Search in elastic search
-        search_obj = PustakalayaSearch(query=query_string, filters=filters)
+        # Search in elastic search 
+        search_obj = PustakalayaSearch(search_in,query=query_string, filters=filters)
+
+        
+       
 
         data = search_obj
         results = data.execute()
@@ -71,6 +86,7 @@ def search(request):
         search_result["year_of_available"] = response.facets.year_of_available
         search_result["license_type"] = response.facets.license_type
         search_result["q"] = query_string or ""
+        search_result["selected_doc_type"] = request.GET.get('searchIn') or "all"
         search_result["time"] = response.took / float(1000)  # Convert time in msec
         search_result["page_obj"] = page
         search_result["paginator"] = paginator
@@ -144,16 +160,18 @@ def completion(request):
 
     if request.method == "GET":
         text = request.GET.get('suggest_text') or " "
+        # Get the item type to search
+        search_type = request.GET.get('search_type') or "all"
         client = connections.get_connection()
         response = client.search(
             index=settings.ES_INDEX,
-            body={"_source":    "suggest",
+            body={
+                "_source":  "suggest",
                   "suggest": {
                       "title_suggest": {
                           "prefix": text,
                           "completion": {
                               "field": "title_suggest",
-
                           },
                       },
                   },

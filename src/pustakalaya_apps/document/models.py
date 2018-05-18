@@ -40,7 +40,7 @@ def __file_upload_path(instance, filepath):
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(featured="yes", published="yes").order_by("-updated_date")[:5]
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes").order_by("hit_count_generic__hits")[:4]
 
 
 class Document(AbstractItem, HitCountMixin):
@@ -244,8 +244,7 @@ class Document(AbstractItem, HitCountMixin):
     @property
     def getauthors(self):
         author_list = [(author.getname, author.pk) for author in self.document_authors.all()]
-        return author_list or [
-            None]  # If emtpy, return something otherwise it will break elastic index while searching.
+        return author_list or [None]  # If emtpy, return something otherwise it will break elastic index while searching.
 
     @property
     def get_view_count(self):

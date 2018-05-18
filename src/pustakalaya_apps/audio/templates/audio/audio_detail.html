@@ -31,19 +31,19 @@
 </style>
 {% endblock style %}
 {% block content %}
-<div class=" min_height pt-4" style="margin-left:8.0rem;margin-right:8.0rem;">
+<div class=" min_height" style="margin-left:8.0rem;margin-right:8.0rem;">
 
       {% if object.collections.all%}
       <span class=" bold">
         <!-- Bread crums -->
-        In section(s):
+
         {% for collection in object.collections.all %}
         {% if forloop.first %}
         <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}">{{collection.community_name | transtolocal  }}</a>
         <span> >> </span>
         {% endif %}
 
-        <a class="paragraph-font " href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
+        <a   href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
         {{ collection.collection_name | transtolocal }}
         </a>
         {%  if not forloop.last %} ,{%  endif %}
@@ -126,8 +126,8 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
        {%  if request.user.is_superuser %}
 
-                     <p class="text-primary description">
-                      <a href="{{ object.get_admin_url }}" class="btn btn-sm">{%  trans "Edit" %}</a>
+                     <p class="text-primary description" style="font-size:120%;">
+                      <a href="{{ object.get_admin_url }}" class="btn btn-md btn-secondary">{%  trans "Edit" %}</a>
                      </p>
 
            {%  endif %}
@@ -148,7 +148,7 @@
       <div class="read-section">
 
 
-        {% if  object.audio_read_by %}
+        {% if  object.audio_read_by.all %}
       <div class="row border-line " style="overflow-wrap: break-word;" >
         <!-- Read by/Voice -->
         <!-- TODO pluralization -->

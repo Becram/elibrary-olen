@@ -28,7 +28,7 @@ from pustakalaya_apps.core.models import (
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(featured="yes", published="yes").order_by("-updated_date")[:5]
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes").order_by("-updated_date")[:2]
 
 
 class Video(AbstractItem):
@@ -175,15 +175,17 @@ class Video(AbstractItem):
         verbose_name=_("Running time in minutes"),
         max_length=255,
         blank=True,
-       
+
     )
 
     @property
     def getauthors(self):
         if not self.video_director:
-            return None
-        author_list = [author.getName for author in self.video_director.all()] #[(author.getname, author.pk) for author in [self.video_director]]
-        return author_list or [None]
+            return [None]
+
+        return [(author.getName, author.pk) for author in self.video_director.all()] or [None]
+
+
 
     def get_absolute_url(self):
         from django.urls import reverse

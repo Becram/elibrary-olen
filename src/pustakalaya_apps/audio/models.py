@@ -26,7 +26,7 @@ from .search import AudioDoc
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(featured="yes", published="yes").order_by("-updated_date")[:5]
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes").order_by("-updated_date")[:2]
 
 
 
@@ -171,7 +171,9 @@ class Audio(AbstractItem):
         if not self.audio_read_by.all():
             return None
 
-        return [author.getName for author in self.audio_read_by.all()] or None
+        return [(author.getName, author.pk) for author in self.audio_read_by.all()] or [None]
+
+
 
 
     def get_absolute_url(self):
