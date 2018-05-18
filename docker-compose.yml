@@ -2,10 +2,10 @@ version: '2'
 services:
   nginx:
     # image: nginx:latest
-   # image: funkygibbon/nginx-pagespeed:latesti
-    build:
-      context: .
-      dockerfile: ./dockerfile-nginx/Dockerfile
+    image: funkygibbon/nginx-pagespeed:latest
+#    build:
+#      context: .
+#      dockerfile: ./dockerfile-nginx/Dockerfile
     restart: always
     hostname: nginx
     container_name: nginx_01
@@ -65,8 +65,8 @@ services:
       - ./src:/src
     expose:
       - "5432"
-   # ports:
-   #   -  '5432:5432'
+    ports:
+      -  '5432:5432'
 
 
   elastic:
