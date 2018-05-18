@@ -18,7 +18,7 @@ DATABASES = {
         'NAME': 'pustakalaya',
         'USER': 'pustakalaya_user',
         'PASSWORD': 'pustakalaya123',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
