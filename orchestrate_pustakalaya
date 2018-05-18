@@ -124,7 +124,7 @@ if [[ "$1" == "dump_sql" ]] ; then
              docker exec postgres_01 bash -c "psql --username pustakalaya_user -d pustakalaya -f /pg_backups/backup/daily/pustakalaya/$backup_file_sql"
              if [ $? -eq 0 ]; then
                    echo "Dumpped  from $backup_file_sql"
-               #    rm -rvf $local_backup/*sql
+                   rm -rvf $local_backup/*sql
 
              else
                    echo "Failed Dumping file"
