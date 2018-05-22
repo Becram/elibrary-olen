@@ -5,7 +5,7 @@ services:
 #    image: funkygibbon/nginx-pagespeed:latest
     build:
       context: ./dockerfile-nginx/
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     restart: always
     hostname: nginx
     container_name: nginx_01
@@ -23,11 +23,11 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./dockerfile-django-web/Dockerfile
+      dockerfile: ./dockerfile-django-web/Dockerfile.dev
     restart: always
     hostname: web
     container_name: django_web_01
-    command: ./script.d/run_web
+    command: ./script.d/run_web.sh
     depends_on:
       - db
       - elastic
@@ -45,8 +45,8 @@ services:
       - redis
   db:
     build:
-      context: ./dockerfile-postgres
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./dockerfile-postgres/Dockerfile
     restart: always
     environment:
       - POSTGRES_USER=pustakalaya_user
@@ -91,7 +91,7 @@ services:
 
 
   redis:
-    image: redis:4.0
+    image: redis:latest
     restart: always
     hostname: redis
     container_name: redis_01
@@ -108,8 +108,7 @@ services:
     hostname: celery
     restart: always
     container_name: celery_01
-#    command: ./script.d/run_celery
-    command: celery -A pustakalaya  worker -l info
+    command: ./script.d/run_celery.sh
     networks:
       - pustakalaya-network
     volumes:

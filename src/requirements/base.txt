@@ -16,6 +16,7 @@ git+https://github.com/Pustakalaya/django-hitcount
 Wand==0.4.4
 # Celery
 celery==4.1.0
+kombu==4.1.0
 # Postgresql db python client.
 psycopg2==2.7.3.2
 # Django debug toolbar
@@ -29,7 +30,8 @@ django-bootstrap-pagination==1.6.4
 #django-cleanup
 django-cleanup==2.1.0
 
-
+#core api for REST
+coreapi==2.3.3
 
 
 

@@ -6,10 +6,10 @@
 NAME="celery-pustakalaya"
 
 # project directory
-PROJECTDIR=/www/pustakalaya.org
+PROJECTDIR=$(pwd)
 
 # django project virutalenv directory
-VENVDIR=/www/pustakalaya.org/venv
+#VENVDIR=/www/pustakalaya.org/venv
 
 # Project source directory
 SRCDIR=/src
