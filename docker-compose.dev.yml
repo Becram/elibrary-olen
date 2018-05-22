@@ -27,7 +27,7 @@ services:
     restart: always
     hostname: web
     container_name: django_web_01
-    command: ./script.d/run_web.sh
+    command: ./script.d/run_web
     depends_on:
       - db
       - elastic

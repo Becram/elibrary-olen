@@ -1,8 +1,45 @@
-FROM becram/olen_elib_django:v1.1
+FROM python:3.6.5
+ENV PYTHONUNBUFFERED 1
 
-MAINTAINER Bikram Dhoju <itsbecram@gmail.com>
+#ENV C_FORCE_ROOT true
 
-#COPY ./script.d/run_web /src/script.d/
+ENV APP_USER myapp
+ENV APP_ROOT /src
+RUN mkdir /src
+#RUN groupadd -r ${APP_USER} \
+#    && useradd -r -m \
+#    --home-dir ${APP_ROOT} \
+#    -s /usr/sbin/nologin \
+#    -g ${APP_USER} ${APP_USER}
+#
+RUN adduser --disabled-password --gecos '' ${APP_USER}
+WORKDIR ${APP_ROOT}
 
 
-CMD ["/src/script.d/run_web"]
+
+RUN mkdir -p /library/media_root
+RUN mkdir -p  /library/static_root
+RUN mkdir /config
+ADD src/requirements/requirements_dev.txt /config/
+ADD src/requirements/base.txt /config/
+ADD src/requirements/requirements_prod.txt /config/
+RUN pip install -r /config/requirements_prod.txt
+
+#Sass installation
+RUN apt-get update -y && apt-get install curl -y
+RUN curl -sL https://deb.nodesource.com/setup_9.x | bash
+RUN apt-get install nodejs -y
+RUN npm install gulp -g
+
+#RUN gulp sass
+
+RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
+RUN chown -R ${APP_USER}:${APP_USER} /library/static_root
+RUN chown -R ${APP_USER}:${APP_USER} /src
+RUN chown -R ${APP_USER}:${APP_USER} /var/log
+
+EXPOSE 8000
+
+USER ${APP_USER}
+
+ADD . ${APP_ROOT}
