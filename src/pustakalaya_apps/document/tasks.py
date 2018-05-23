@@ -38,11 +38,12 @@ def convert_pdf(file_path, instance_id=None):
 
     print("Destinatin Dir:", file_dir)
     print("FileNmae:", file_name)
-    print("COnverstion started")
+    print("Conversion aborted since we dont need the conversion, since flibbook option not implemented")
+#    print("COnverstion started")
     # Start to convert pdf to jpej
     # success = subprocess.call(['pdftocairo', '-png', file_path, file_dir])
-    success = subprocess.call("pdftocairo -png {} {}/".format(file_path, file_dir), shell=True)
-    print("conversion finished")
+    #success = subprocess.call("pdftocairo -png {} {}/".format(file_path, file_dir), shell=True)
+#    print("conversion finished")
 
     if success == 0:  #
         total_converted_page = 0

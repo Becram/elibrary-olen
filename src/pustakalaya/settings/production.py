@@ -2,6 +2,8 @@ from .base import *  # NOQA
 
 DEBUG = True
 
+#CELERY_BROKER_URL = 'amqp://rabbitmq'
+
 try:
     db_name = config["DATABASE"]["NAME"]
     db_user = config["DATABASE"]["USER"]

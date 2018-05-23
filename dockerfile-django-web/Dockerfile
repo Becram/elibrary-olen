@@ -30,7 +30,7 @@ RUN apt-get update -y && apt-get install curl -y
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash
 RUN apt-get install nodejs -y
 RUN npm install gulp -g
-
+#RUN gulp sass
 #RUN gulp sass
 
 RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
