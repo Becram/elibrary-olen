@@ -4,6 +4,7 @@ set +x
 HOST=$(ifconfig enp1s0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 LOCAL_BACKUP="/library/backup_pg_pustakalaya/backup/daily/pustakalaya"
 
+
 if [ $# -ne 1 ] ; then
  echo "Usage: $0 command" >&2 ; exit 1
 fi
@@ -67,10 +68,16 @@ process() {
                     docker_rebuild_images
                     shift
                     ;;
-                "-up" | "--composer-up")
+                "--up" | "--composer-up")
                     docker_up
                     shift
                     ;;
+                "--release" )
+                    make_name
+                    notify "deploying $name"
+
+                    shift
+                        ;;
                 "--dump" )
                     docker_dump_sql
                     shift
@@ -87,22 +94,37 @@ process() {
                     run_composer_update
                     shift
                     ;;
+              "--ci")
+                  docker_stop
+                  notify "Building containers"
+                  docker_rebuild_images
+                  notify "Migrating django DB"
+                  docker_migrate
+                  notify "Indexing"
+                  docker_index
+                  notify "Collecting statics"
+                  docker_collectstatic | grep "static files copied"
+                  shift
+                  ;;
               "--production")
                     showLoading
                     # echo "Backing up"
                     # docker_backup_local
-                    echo "Removing containers"
+                    notify "Removing containers"
                     docker_remove
-                    echo "Building containers"
+                    notify "Building containers"
 
-                    docker_rebuild_images 
-                    echo "Waiting...."
+                    docker_rebuild_images
+                    notify "Waiting...."
                     sleep  20
-                    echo "Dumping database"
+                    notify "Dumping database"
                     docker_dump_sql &> /dev/null
-                    echo "Indexing"
+                    notify "Migrating django DB"
+                    docker_migrate
+
+                    notify "Indexing"
                     docker_index
-                    echo "collecting statics"
+                    notify "collecting statics"
                     docker_collectstatic | grep "static files copied"
 
                     shift
@@ -115,12 +137,53 @@ process() {
     fi
 }
 
+
+
+#####################################################################
+#Logging from
+#####################################################################
+notify() { log "LOG: $1"; }
+log() {
+        RED='\033[0;31m'
+        NC='\033[0m'
+        exec 3>&2
+        datestring=`date +'%Y%m%d%H:%M:%S'`
+        # Expand escaped characters, wrap at 70 chars, indent wrapped lines
+        echo -e "$datestring ${RED}$1${NC}" | fold -w70 -s | sed '2~1s/^/  /' >&3
+}
+
+get_release() {
+    # Does this commit have an associated release tag?
+    git tag --points-at HEAD | tail -n1 2>/dev/null |
+        sed -e 's/^release-//'
+}
+
+release_is_number() {
+    get_release | grep -Eqx "[0-9]+"
+}
+
+make_name() {
+    prefix="EP"
+    release=$(get_release)
+
+    if [ -z "$release" ]; then
+        die "No release tag found; quitting"
+    fi
+
+    name=$prefix-$release
+}
+
+
 launch_containers() {
     docker-compose up -d
 }
 
 docker_rebuild_images() {
      docker-compose build && launch_containers
+}
+
+docker_stop(){
+   docker-compose stop
 }
 
 docker_up() {
