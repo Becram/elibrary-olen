@@ -9,3 +9,7 @@ RUN mkdir -p $BACKUP_DIR
 ADD autopgsqlbackup /script/
 ADD *.bz2 $BACKUP_DIR
 RUN chmod +x /script/autopgsqlbackup
+
+#Set timezone
+ENV TZ=Asia/Kathmandu
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

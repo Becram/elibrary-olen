@@ -39,6 +39,9 @@ RUN apt-get update && apt-get install poppler-utils -y
 #RUN chown -R ${APP_USER}:${APP_USER} /src
 EXPOSE 8000
 ADD . ${APP_ROOT}
+#Set timezone 
+ENV TZ=Asia/Kathmandu
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 USER ${APP_USER}
 

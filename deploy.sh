@@ -72,9 +72,9 @@ process() {
                     docker_up
                     shift
                     ;;
-                "--release" )
-                    make_name
-                    notify "deploying $name"
+                "--backup" )
+                    notify "get backup"
+                    docker_backup_local
 
                     shift
                         ;;
@@ -155,7 +155,8 @@ log() {
 get_release() {
     # Does this commit have an associated release tag?
     git tag --points-at HEAD | tail -n1 2>/dev/null |
-        sed -e 's/^release-//'
+       sed -e 's/^release-//'
+
 }
 
 release_is_number() {
@@ -167,7 +168,7 @@ make_name() {
     release=$(get_release)
 
     if [ -z "$release" ]; then
-        die "No release tag found; quitting"
+        log "No release tag found; quitting"
     fi
 
     name=$prefix-$release
