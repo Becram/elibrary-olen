@@ -9,8 +9,6 @@
 {% block style %}
   {{ block.super }}
 {% endblock style %}
-
-
 {% block content %}
 
 <!-- index page need following fonts and scripts -->
@@ -37,7 +35,7 @@
               <li data-v-03b85949="" class="format-option"> <a href="/community/other-educational-materials/" class="text-capitalize">
                   <i class="fa fa-1x fa-flask mr-2" aria-hidden="true"></i>{% trans "other educational Materials" %}</a></li>
               <li data-v-03b85949="" class="more-colors"> <a href="/community/newspaper-and-magazines/" class="text-capitalize">
-              <i class="fa fa-1x fa-newspaper mr-2" aria-hidden="true"></i>{% trans "Newspapers &amp; Magazines" %}</a>
+              <i class="fa fa-1x fa-newspaper-o mr-2" aria-hidden="true"></i>{% trans "Newspapers &amp; Magazines" %}</a>
               </li>
             </ul>
           </div>
@@ -102,7 +100,7 @@
         </div>
         <div class="col-md-3 hom-par-for-mar">
             <div class="container " style="padding: 0px;">
-                <p class="title-heads" style="margin-bottom: 0px;">E-Paath</p>
+                <p class="title-heads" style="margin-bottom: 0px;">{% trans "E-Paath" %}</p>
                 <a href="https://pustakalaya.org/epaath/" target="_blank"><img  style="width: 100%;" src="{% static 'images_new/sliding-images.gif' %}" alt="ole logo"></a>
                 </div>
         </div>
@@ -238,10 +236,10 @@
             <p class="home-stats">{{total_authors}}</p>
             <span></span>{% trans "Number of Authors" %}</span>
           </div>
-          
+
         </div>
 
-        
+
     </div>
 </div>
 {% endblock content %} {% block script %} {{ block.super }} {% endblock script %}

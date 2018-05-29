@@ -30,6 +30,8 @@ from pustakalaya_apps.core.models import (
 )
 from .search import DocumentDoc
 
+from django.contrib.contenttypes.models import ContentType
+from star_ratings.models import Rating
 
 def __file_upload_path(instance, filepath):
     # Should return itemtype/year/month/filename
@@ -250,6 +252,10 @@ class Document(AbstractItem, HitCountMixin):
     def get_view_count(self):
         return self.hit_count_generic.count() or 0
 
+
+    def get_similar_items(self):
+        return Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
+
     def __str__(self):
         return self.title
 
@@ -368,6 +374,7 @@ class Document(AbstractItem, HitCountMixin):
     def document_link_name(self):
         return self.link_name;
 
+
 class UnpublishedDocument(Document):
     """
     This is the proxy model of Document,
@@ -446,8 +453,6 @@ class DocumentLinkInfo(LinkInfo):
 
     class Meta:
         ordering=['created_date']
-
-
 
 
 class DocumentIdentifier(AbstractTimeStampModel):

@@ -174,6 +174,10 @@ class Audio(AbstractItem):
         return [(author.getName, author.pk) for author in self.audio_read_by.all()] or [None]
 
 
+    def get_similar_items(self):
+        return Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
+
+
 
 
     def get_absolute_url(self):
@@ -255,9 +259,6 @@ class Audio(AbstractItem):
     class Meta:
         db_table = "audio"
 
-
-
-
 class AudioGenre(AbstractTimeStampModel):
     genre = models.CharField(
         _("Genre name"),
@@ -274,7 +275,6 @@ class AudioGenre(AbstractTimeStampModel):
 
     def __str__(self):
         return self.genre
-
 
 class AudioSeries(AbstractSeries):
     def __str__(self):
@@ -313,7 +313,6 @@ class AudioFileUpload(AbstractTimeStampModel):
         db_table = "audio_file"
         ordering = ["created_date"]
 
-
 class AudioLinkInfo(LinkInfo):
     audio = models.ForeignKey(
         Audio,
@@ -327,7 +326,6 @@ class AudioLinkInfo(LinkInfo):
 
     class Meta:
         ordering=["created_date"]
-
 
 class AudioType(models.Model):
     """DB to store type of audios"""

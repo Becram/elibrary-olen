@@ -43,7 +43,7 @@
                         action="/search"
                         class="searchbox sbx-custom">
                             <div role="search" class="sbx-google__wrapper"  style="height:35px;">
-                              <div class="ole-custom-select">
+                                <div class="ole-custom-select">
                                     <select name="searchIn"
                                     onchange="setPadding()"
                                      id="searchIn">
@@ -59,11 +59,13 @@
                                       <option value="video"
                                       {% if  selected_doc_type == "video" %} selected {% endif %}
                                       >{% trans "Video" %}</option>
-                                      
+
                                     </select>
                                 </div>
 
-                
+
+
+
                             <style>
                             #project-label {
                                 display: block;
@@ -99,7 +101,7 @@
                                                 url:  '/search/completion/?suggest_text='+event.target.value,
                                                 dataType:"json",
                                                 success: function (data) {
-                    
+
                                                 data = JSON.parse(data);
 
                                                 var projects = []; // array
@@ -111,11 +113,11 @@
                                                     };
                                                     // Add to projects
 
-                                            
 
-                                                   projects.push(item);    
 
-                                                    
+                                                   projects.push(item);
+
+
                                                 }); // end for each
 
                                                 response(projects);
@@ -161,7 +163,7 @@
 
                                 if (event.keyCode === 13) {
 
-                                   
+
                                 }
                             }
                             })(window);
@@ -171,9 +173,9 @@
 
                             <input type="search" name="q"
                             placeholder="Search E-Pustakalaya"
-                            id="project" 
+                            id="project"
                             value="{{q}}"
-                            onkeypress="searchSuggestion(event);" 
+                            onkeypress="searchSuggestion(event);"
                             onkeyup="$.fn.getSuggestion(event)"
                             autocomplete="off" required="required" class="sbx-custom__input">
                             <button type="submit" title="Submit your search query." class="sbx-custom__submit">
@@ -216,26 +218,26 @@
                                 <a href="/authors">{% trans "AUTHOR" %}</a>
                             </li>
                             <li>
-                                <a href="">{% trans "CATEGORIES" %} &#9662;</a>
+                                <a href="/community/all/">{% trans "CATEGORIES" %} &#9662;</a>
                                 <ul class="dropdown-items">
                                     <li>
-                                        <a href="/community/literatures-and-arts/"><i class="fa fa-book"></i> Literature And Arts</a>
+                                        <a href="/community/literatures-and-arts/#cat-1"><i class="fa fa-book"></i> Literature And Arts</a>
                                     </li>
                                     <li>
-                                        <a href="/community/course-materials/"><i class="fa fa-desktop"></i> Course Materials</a>
+                                        <a href="/community/course-materials/#cat-1"><i class="fa fa-desktop"></i> Course Materials</a>
                                     </li>
                                     <li>
-                                        <a href="/community/teaching-materials/"><i class="fa fa-graduation-cap"></i> Teaching Materials</a>
+                                        <a href="/community/teaching-materials/#cat-3"><i class="fa fa-graduation-cap"></i> Teaching Materials</a>
                                     </li>
 
                                     <li>
-                                        <a href="/community/reference-materials/"><i class="fa fa-briefcase"></i> Reference Materials</a>
+                                        <a href="/community/reference-materials/#cat-4"><i class="fa fa-briefcase"></i> Reference Materials</a>
                                     </li>
                                     <li>
-                                        <a href="/community/other-educational-materials/"><i class="fa fa-flask"></i> Other Educational Materials</a>
+                                        <a href="/community/other-educational-materials/#cat-5"><i class="fa fa-flask"></i> Other Educational Materials</a>
                                     </li>
                                     <li>
-                                        <a href="/community/newspaper-and-magazines/"><i class="fa fa-newspaper-o"></i> Newspapers & Magazines</a>
+                                        <a href="/community/newspaper-and-magazines/#cat-6"><i class="fa fa-newspaper-o"></i> Newspapers & Magazines</a>
                                     </li>
                                 </ul>
                             </li>
@@ -271,7 +273,7 @@
 
 
 
-                            <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm" >
+                            <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm-web" >
                                     {% get_current_language as LANGUAGE_CODE %}
                                     {% csrf_token %}
                                     <!-- Change value to current_url without language -->
@@ -284,7 +286,7 @@
                                         <!-- <i class="flag-icon flag-icon-gb"></i> -->
                                         <span
                                         class= "lang-swi"
-                                        onclick="change_language(this)"
+                                        onclick="change_language(this, 'changeLanguageForm-web')"
                                         data-lang="ne"
                                         ><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" />&nbsp;नेपाली</span>
 
@@ -295,7 +297,7 @@
                                     <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
                                     <span
                                    class= "lang-swi"
-                                    onclick="change_language(this)"
+                                    onclick="change_language(this, 'changeLanguageForm-web')"
                                     data-lang="en"
                                     ><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" />&nbsp; English</span>
 
@@ -321,7 +323,7 @@
                                     class="lang-name"
                                     style="padding-bottom: 5px; padding-top:5px; cursor:pointer; width:100%"
                                     >
-                        
+
                                         <img class="oleflags" src="{% if lang.0 == "ne" %}
                                         {% static 'images_new/nepal.png' %}
                                         {% endif %}
@@ -422,7 +424,7 @@
 
 
 
-                        <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm" >
+                        <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm-mobile" >
                                 {% get_current_language as LANGUAGE_CODE %}
                                 {% csrf_token %}
                                 <!-- Change value to current_url without language -->
@@ -459,7 +461,7 @@
 
                                 <!-- detect on click on this a tag and post to server -->
                                 <a
-                                onclick="change_language(this)"
+                                onclick="change_language(this, 'changeLanguageForm-mobile')"
                                 data-lang={{lang.0}}
                                 class="text-white"
                                 >
@@ -527,10 +529,12 @@
 <script>
     (function (window) {
 
-        window.change_language = function (element) {
+        window.change_language = function (element, id) {
 
             // get the form.
-            var changeLanguageForm = document.getElementById("changeLanguageForm");
+           //  var changeLanguageForm = document.getElementById("changeLanguageForm");
+
+           var changeLanguageForm = document.getElementById(id);
 
             // Select language input
             var languageInputField = changeLanguageForm.elements.language;
@@ -542,7 +546,7 @@
 
             // set the user selected languge to input field
             languageInputField.setAttribute('value', language_Code);
-            
+
             // submit the form.
             changeLanguageForm.submit();
         }
@@ -554,6 +558,6 @@
 
 
     })(window);
-    
-    
+
+
 </script>

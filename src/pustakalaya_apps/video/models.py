@@ -28,7 +28,7 @@ from pustakalaya_apps.core.models import (
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes").order_by("-updated_date")[:2]
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes").order_by("-updated_date")[:3]
 
 
 class Video(AbstractItem):
@@ -191,6 +191,12 @@ class Video(AbstractItem):
         from django.urls import reverse
         return reverse("video:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
 
+
+
+    def get_similar_items(self):
+        return Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
+
+
     def doc(self):
         # Parent attr
         item_attr = super(Video, self).doc()
@@ -303,6 +309,15 @@ class VideoFileUpload(AbstractTimeStampModel):
     upload = models.FileField(
         upload_to="uploads/videos/%Y/%m/",
         max_length=255
+    )
+
+
+    thumbnail = models.ImageField(
+        upload_to="uploads/thumbnails/videofile/%Y/%m/%d",
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text=_("maximum size of thumbnail should be 165px by 93px")
     )
 
     def __str__(self):
