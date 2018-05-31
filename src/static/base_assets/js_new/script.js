@@ -51,9 +51,8 @@ $(document).ready(function(){
         this.classList.toggle("select-arrow-active");
       });
   }
+
   setPadding();
-
-
 
   function closeAllSelect(elmnt) {
     /*a function that will close all select boxes in the document,
@@ -191,15 +190,30 @@ $(".tit-filter-btn").click(function(){
   $(".tit-sid-lst").toggle();
 });
 
+$( ".select-items div:eq(0)" ).trigger( "click" );
+
+setTimeout(function(){
+  changePadding();
+
+},2000);
+
 $(".select-items div").click(function(){
-  var forPadd;
+  changePadding();
+});
+
+function changePadding(){
+  var forPadd = 0;
   forPadd = $(".ole-custom-select").width();
   forPadd = forPadd + 10;
+  console.log(forPadd);
   $(".sbx-custom__input").css("padding-left", forPadd + "px");
-});
+}
 
-});
-
+// audio length calculator function
+function myFunction() {
+    var x = document.getElementById("myAudio").duration;
+    document.getElementById("demo").innerHTML = x;
+}
 
 function setPadding() {
     // script to set the padding of search bar
@@ -244,3 +258,60 @@ function readMore($curRev){
     $("#button_more").hide(0);
   });
 }
+
+// Select all links with hashes
+$('a[href*="#"]')
+  // Remove links that don't actually link to anything
+  .not('[href="#"]')
+  .not('[href="#0"]')
+  .click(function(event) {
+    // On-page links
+    if (
+      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+      &&
+      location.hostname == this.hostname
+    ) {
+      // Figure out element to scroll to
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      // Does a scroll target exist?
+      if (target.length) {
+        // Only prevent default if animation is actually gonna happen
+        event.preventDefault();
+        $('html, body').animate({
+          scrollTop: target.offset().top
+        }, 1000, function() {
+          // Callback after animation
+          // Must change focus!
+          var $target = $(target);
+          $target.focus();
+          if ($target.is(":focus")) { // Checking if the target was focused
+            return false;
+          } else {
+            $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
+            $target.focus(); // Set focus again
+          };
+        });
+      }
+    }
+  });
+
+// scroll to top of the page
+$(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('#back-to-top').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+
+        $('#back-to-top').tooltip('show');
+});
