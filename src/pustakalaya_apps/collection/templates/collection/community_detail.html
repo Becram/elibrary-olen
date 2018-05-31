@@ -39,14 +39,14 @@
         </div>
             <hr>
             <div id="cat-1" class="row ath-list-cont">
-            <div class="col-md-3">
+                <div class="col-md-3">
                 <div class="page-cap-cont">
                 <i class="fa fa-1x fa-book mr-2" aria-hidden="true"></i>
                 </div>
                 <br>
                 <h6>{% trans "Literature and Arts" %}</h6>
             </div>
-            <div class="col-md-9">
+                <div class="col-md-9">
                 <div class="row">
 
                     {% for collection in literature_and_arts.collection_list %}
@@ -71,14 +71,14 @@
             <hr>
 
             <div id="cat-2" class="row ath-list-cont">
-            <div class="col-md-3">
+             <div class="col-md-3">
                 <div class="page-cap-cont">
                 <i class="fa fa-1x fa-desktop mr-2" aria-hidden="true"></i>
                 </div>
                 <br>
                 <h6>{% trans "Course Materials" %}</h6>
             </div>
-            <div class="col-md-9">
+              <div class="col-md-9">
                 <div class="row">
 
                     {% for collection in course_materials.collection_list %}
@@ -98,7 +98,7 @@
 
                 </div>
 
-            </div>
+                 </div>
             </div>
             <hr>
 
@@ -173,7 +173,6 @@
             <div class="col-md-9">
                 <div class="row">
 
-
                 {% for collection in othereducational_materials.collection_list %}
                 <div class="col-md-4 col-12">
                         <a class="text-capitalize"
@@ -202,6 +201,7 @@
                 <h6>{% trans "Newspapers and Magazines" %}</h6>
             </div>
             <div class="col-md-9">
+                    <div class="row">
                     {% for collection in newpapers_and_magazines.collection_list %}
                     <div class="col-md-4 col-12">
                             <a class="text-capitalize"
@@ -214,11 +214,19 @@
                     </div>
 
                     {% endfor %}
+                    </div>
+
+
+
+
+
+
 
                 </div>
 
             </div>
             </div>
+
             <hr>
         </div>
         </div>

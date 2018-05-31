@@ -3,7 +3,7 @@
 <form action="" id="sortingForm" style="display:inline-block" method="GET">
   <div class="row">
     <div class="col-md-6 col-sm-12 col-xs-12 pr-1">
-          <select class="form-control form-control-sm text-capitalize" name="sort_by">
+          <select class="form-control form-control-sm text-capitalize tit-drpdn"  name="sort_by">
               <option class="text-capitalize" value="title.keyword" readonly
                       {% if sort_by == "title.keyword" %} selected {% endif %}>{% trans "Title" %}
               </option>
@@ -21,7 +21,7 @@
 
     </div>
     <div class="col-md-6 col-sm-12 col-xs-12 pr-1">
-        <select class="form-control form-control-sm form-control-xs" name="sort_order">
+        <select class="form-control form-control-sm form-control-xs tit-drpdn"  name="sort_order">
             <option class="text-capitalize" value="asc"
                     {% if sort_order == "asc" %} selected {% endif %} >{% trans "Ascending" %}
             </option>
