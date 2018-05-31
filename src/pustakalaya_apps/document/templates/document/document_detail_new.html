@@ -73,10 +73,7 @@
 
         <div class="ratings-container">
         {% for document in object.documentfileupload_set.all %}
-          {% if document.upload.size %}
           <p>{% trans "File size: " %}{{ document.upload.size | file_size_format }}</p>
-
-          {% endif %}
         {% endfor %}
 
           <p>Rate this book:</p>

@@ -1,4 +1,31 @@
-from elasticsearch_dsl import DocType, Date, Text, Keyword, Completion, Integer
+from elasticsearch_dsl import (
+    DocType, 
+    Date, 
+    Text, 
+    Keyword, 
+    Completion, 
+    Integer,
+    analyzer,
+    token_filter
+)
+
+
+english_analyzer = analyzer(
+    'english_analyzer',
+    tokenizer="standard",
+    filter=["standard","lowercase",
+    token_filter(
+        'english_excluded_words',
+        type='stop',
+        stopwords='_english_'),
+        ])                         
+
+
+# html_strip = analyzer('html_strip',
+#     tokenizer="standard",
+#     filter=["standard", "lowercase", "stop", "snowball"],
+#     char_filter=["html_strip"]
+# )
 
 
 class ItemDoc(DocType):
