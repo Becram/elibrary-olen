@@ -39,12 +39,13 @@
           {%  if not forloop.last %} ,{%  endif %}
           {% endfor %}
         </span>
+        <hr>
         {% endif %}
 
       </div>
     </div>
 
-    <hr>
+
 
     <div class="row">
       <div class="col-md-12">
@@ -58,7 +59,7 @@
             <div class="col-md-8 col-sm-12 col-xs-12 ole-vdo-cont">
                 <video class="video-js vjs-default-skin" width="100%" height="450px"
                        id="selectedVideo" controls="controls" loop controlsList="nodownload" preload="auto"
-                       style="border: 5px solid rgba(127,140,141,0.11)"
+                       style="border: 5px solid #4D4D4D; background: #4D4D4D;"
                        src="{{ MEDIA_URL }}{{ object.videofileupload_set.first.upload }}"
                        type="video/mp4"
                        data-setup='{ "aspectRatio":"640:360", "playbackRates": [1, 1.5, 2] }'>
@@ -140,7 +141,7 @@
       <div class="col-md-3 det-img-cont">
 
         {%  if request.user.is_superuser %}
-         <div class="col-12 text-primary description mb-2">
+         <div class="description mb-2">
           <a href="{{ object.get_admin_url }}" class="btn btn-sm btn-secondary">{%  trans "Edit" %}</a>
          </div>
        {%  endif %}
@@ -707,13 +708,16 @@
   <div class="row">
     <div class="col-md-12">
       {% if object.get_similar_items.all %}
-      <h5 id="det-book-title">{% trans "Similar Videos You May Like" %}</h5>
+          {% if object.get_similar_items.all|length != 1%}
+            <hr>
+            <h5 id="det-book-title">{% trans "Similar Videos You May Like" %}</h5>
+          {% endif %}
       {% endif %}
     </div>
 
      {% for similar_object in object.get_similar_items %}
-
-    <div class="col-md-2 col-sm-6 col-6">
+          {% if similar_object.pk != object.pk %}
+          <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
           <div class="img-cont">
              <a href=" {% url 'video:detail_without_slug'  similar_object.pk %}">
@@ -734,10 +738,9 @@
 
           </div>
       </div>
-
+          {% endif %}
 
     {% endfor %}
-
 
 
 

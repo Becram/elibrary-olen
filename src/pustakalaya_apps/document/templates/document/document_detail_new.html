@@ -66,9 +66,9 @@
             {% endif %}
 
          {%  if request.user.is_superuser %}
-           <p class="text-primary ">
-            <a href="{{ object.get_admin_url }}" class="btn btn-md btn-secondary">{%  trans "Edit" %}</a>
-           </p>
+           <div class="btn btn-sm">
+            <a href="{{ object.get_admin_url }}" class="btn btn-sm btn-secondary">{%  trans "Edit" %}</a>
+           </div>
        {%  endif %}
 
         <div class="ratings-container">
@@ -690,18 +690,20 @@
     </div>
   </div>
 
-   <hr>
 
   <!-- start of similar books -->
   <div class="row">
     <div class="col-md-12">
       {% if object.get_similar_items.all %}
-      <h5 id="det-book-title">{% trans "Similar Books You May Like" %}</h5>
+        {% if object.get_similar_items.all|length != 1%}
+         <hr>
+          <h5 id="det-book-title">{% trans "Similar Books You May Like" %}</h5>
+        {% endif %}
       {% endif %}
     </div>
     {% for similar_object in object.get_similar_items %}
-
-    <a href="{% url 'document:detail_without_slug'  similar_object.pk %}">
+      {% if similar_object.pk != object.pk %}
+        <a href="{% url 'document:detail_without_slug'  similar_object.pk %}">
     <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
           <div class="img-cont">
@@ -720,6 +722,7 @@
         </div>
       </div>
     </a>
+      {% endif %}
 
 
 
