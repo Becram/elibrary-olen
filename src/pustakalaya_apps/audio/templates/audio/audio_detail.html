@@ -90,7 +90,9 @@
 
 
         <!--Review btn for model button-->
-        <button type="button" class="btn ole-btn-trans" data-toggle="modal" data-target="#myModal" style="margin-bottom: 1rem;"><i class="fa fa-comment det-rev-active"></i> {% trans "Leave a Review" %}</button>
+
+       <button type="button" class="btn ole-btn-trans" id="review_btn_real" style="margin-bottom: 1rem;"><i class="fa fa-comment det-rev-active"></i> {% trans "Leave a Review" %}</button>
+        <button type="button" class="btn ole-btn-trans" id="review_btn_trigger" data-toggle="modal" data-target="#myModal" hidden >review</button>
         <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
         <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog">
@@ -640,6 +642,19 @@
 
 /***************************Review code****************************/
 
+  //review_btn_trigger
+     $("#review_btn_real").click(function (e){
+      e.preventDefault();
+        var user_name = $("input[type='hidden'][name='user']").val().trim();
+        if(user_name == "" || user_name == "AnonymousUser" ){
+          $("#information_message_p_tag").text('Login to post you message');
+          $("#info_message_display").click();
+          return;
+        }else{
+        $("#review_btn_trigger").click();
+        }
+
+     });
     //--for the review system
     $("#submitButton").click(function (e){
       e.preventDefault();
