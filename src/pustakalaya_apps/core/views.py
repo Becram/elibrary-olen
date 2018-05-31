@@ -22,7 +22,7 @@ def home(request):
 
     featured_audio = Audio.featured_objects.all() # Provide only top 2 items
     featured_video = Video.featured_objects.all() # Provide only top 2 items
-    
+
     if not featured_books:
         featured_books = Document.objects.filter(featured="yes", published="yes").order_by('-updated_date')[:3]
 

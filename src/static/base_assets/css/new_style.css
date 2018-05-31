@@ -976,8 +976,11 @@ a.text-primary:focus, a.text-primary:hover {
   overflow: hidden;
 }
 
-.grid-book-cont .img-cont img{
+.grid-book-cont .img-cont img {
+  position: relative;
   width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .grid-book-cont .page-link{
@@ -1251,15 +1254,16 @@ a.text-primary:focus, a.text-primary:hover {
   padding-right: 0px !important;
 }
 
-.ole-playlist-cont{
-  background: #4D4D4D;
-  border: 5px solid #4D4D4D;
+.ole-playlist-cont {
+  background: #EEEEEE;
+  border: 5px solid #F5F5F5;
 }
 
 .video-elems {
-    position: relative;
-    float: left;
-    color: #fff;
+  position: relative;
+  float: left;
+  color: #fff;
+  margin-right: 5px;
 }
 
 .video-thumb.video-elems {
@@ -1508,4 +1512,10 @@ a.text-primary:focus, a.text-primary:hover {
 .card {
     background-color: transparent !important;
     border: 0px solid rgba(0,0,0,.125) !important;
-} 
+}
+
+.title-font {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'roboto slab';
+}

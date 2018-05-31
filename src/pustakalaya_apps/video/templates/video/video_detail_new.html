@@ -65,7 +65,7 @@
                        data-setup='{ "aspectRatio":"640:360", "playbackRates": [1, 1.5, 2] }'>
                 </video>
             </div>
-            <div id="videoList" class="col-md-4 col-sm-12 col-xs-12 ole-playlist-cont" style="max-height: 450px; width:426px; overflow-y: scroll;">
+            <div id="videoList" class="col-md-4 col-sm-12 col-xs-12 ole-playlist-cont" style="max-height: 450px; width:426px; overflow-y: scroll; ">
 
                {% for video in object.videofileupload_set.all %}
 
@@ -79,9 +79,7 @@
                                   show-playing-msg
                                    {% else %}
                                    hide-playing-msg
-                                   text-white
                                    {% endif %}
-                                   font-weight-bold
                                   text-capitalize" >
 
                           <div class="video-thumb video-elems mr-1">
@@ -771,7 +769,7 @@
 
 
                 $("#videoList").children("div").children("span").addClass('hide-playing-msg');
-                $("#videoList").children("div").children("span").addClass('text-white');
+                $("#videoList").children("div").children("span").addClass('text-dark');
                 $("#videoList").children("div").children("span").removeClass('show-playing-msg');
 
                 // Add class to this video
