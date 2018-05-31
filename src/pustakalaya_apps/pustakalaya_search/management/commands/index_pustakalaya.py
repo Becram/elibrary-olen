@@ -1,11 +1,12 @@
 from django.core.management.base import BaseCommand
-
 from pustakalaya_apps.audio.search import index_audio
 from pustakalaya_apps.collection.search import index_collection
 from pustakalaya_apps.document.search import index_document
 from pustakalaya_apps.video.search import index_video
+from django.conf import settings
+from elasticsearch_dsl.connections import connections
 
-
+client = connections.get_connection()
 class Command(BaseCommand):
     help = "Index db to index server"
 

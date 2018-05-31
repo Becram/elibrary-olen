@@ -40,34 +40,34 @@ line-height: 1.5!important;
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-              <h6>E-PUSTAKALAYA</h6>
-              <p>E-Pustakalaya is an education-focused digital library containing full-text documents, images, videos and audio files that can be accessed through an intranet or the internet. The user can either read documents, view videos, and listen to audio clips directly from the E-library server or she can download these materials to her personal computer and view them later.</p>
+              <h6>{% trans "E-PUSTAKALAYA" %}</h6>
+              <p>{% trans "E-Pustakalaya is an education-focused digital library containing full-text documents, images, videos and audio files that can be accessed through an intranet or the internet. The user can either read documents, view videos, and listen to audio clips directly from the E-library server or she can download these materials to her personal computer and view them later." %}</p>
             </div>
             <div class="col-md-2">
-              <h6>SUPPORT</h6>
+              <h6>{% trans "SUPPORT" %}</h6>
               <ul class="">
                   <li>
-                      <a href="#">Offline Access</a>
+                      <a href="#">{% trans "Offline Access" %}</a>
                   </li>
                   <li>
-                      <a href="{% url 'about' %}">About</a>
+                      <a href="{% url 'about' %}">{% trans "About" %}</a>
                   </li>
                   <li>
-                      <a href="{% url 'feedback' %}">Feedback</a>
+                      <a href="{% url 'feedback' %}">{% trans "Feedback" %}</a>
                   </li>
                   <li>
-                      <a href="{% url 'help' %}">Help</a>
+                      <a href="{% url 'help' %}">{% trans "Help" %}</a>
                   </li>
               </ul>
             </div>
             <div class="col-md-2">
-              <h6>CONTACT US</h6>
+              <h6>{% trans "CONTACT US" %}</h6>
               <ul class="">
                   <li>
-                      Sanepa, Lalitpur
+                      {% trans "Sanepa, Lalitpur" %}
                   </li>
                   <li>
-                      +977-1-5544441, 552-0075
+                      {% trans "+977-1-5544441" %}
                   </li>
                   <li>
                       info@olenepal.org
@@ -75,30 +75,30 @@ line-height: 1.5!important;
               </ul>
             </div>
             <div class="col-md-2">
-              <h6>FOLLOW US</h6>
+              <h6>{% trans "FOLLOW US" %}</h6>
               <a href="https://twitter.com/olenepal/" target="_blank"><img class="social-ico" src="{%  static 'images/footer/twitter-ico.png' %}" alt="twitter" /></a>
               <a href="https://www.facebook.com/olenepal/" target="_blank" ><img class="social-ico" src="{%  static 'images/footer/facebook-logo.png' %}" alt="facebook" /></a>
 
             </div>
             <div class="col-md-2">
-              <h6>DOWNLOAD APP</h6>
+              <h6>{% trans "DOWNLOAD APP" %}</h6>
               <a class="a-android pt-4 pb-1" href="https://play.google.com/store/apps/details?id=com.ole.epustakalaya" target="_blank"><img class="social-ico" src="{%  static 'images/footer/android-logo.png' %}" alt="android" /></a>
             </div>
 
           </div>
           <div class="row">
             <div class="col-md-2">
-              <h6>DEVELOPED AND MAINTAINED BY</h6>
-              <img class="footer-logo" src="{%  static 'images/footer/ole_logo.png' %}" alt="OLE Nepal" />
+              <h6>{% trans "DEVELOPED AND MAINTAINED BY" %}</h6>
+              <img class="footer-logo" src="{%  static 'images/footer/ole-logo.png' %}" alt="OLE Nepal" />
             </div>
             <div class="col-md-2">
-              <h6>MAJOR PARTNER</h6>
+              <h6>{% trans "MAJOR PARTNER" %}</h6>
               <a href="http://www.idrf.org/" target="_blank" title="IDRF">
                 <img class="footer-logo" src="{%  static 'images/footer/idrf_new_logo.png' %}" alt="OLE Nepal" />
               </a>
             </div>
             <div class="col-md-2">
-              <h6>PAST SUPPORTERS</h6>
+              <h6>{% trans "PAST SUPPORTERS" %}</h6>
              <a  href="https://www.maitritrust.org.uk/" target="_blank" title="Maitri Trust">
                <img class="footer-logo" src="{%  static 'images/footer/maitri-trust.png' %}" alt="OLE Nepal" />
              </a>
@@ -107,7 +107,7 @@ line-height: 1.5!important;
              </a>
             </div>
             <div class="col-md-6">
-              <h6>CONTENT CONTRIBUTION</h6>
+              <h6>{% trans "CONTENT CONTRIBUTION"%}</h6>
               <a href="https://www.britishcouncil.org.np/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/bc.png' %}" alt="OLE Nepal" /></a>
               <a href="http://www.digitalhimalaya.com/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/DH_logo_small.png' %}" alt="Digital Himalaya" /></a>
               <a href="http://www.e-learningforkids.org/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/e-learning-for-kids.png' %}" alt="E-Learning for Kids" /></a>
@@ -125,7 +125,7 @@ line-height: 1.5!important;
           <div class="row">
             <div class="col-md-12 footcc">
               <img src="{%  static 'images/footer/creative-commons.png' %}" alt="OLE Nepal" />
-              Unless explicitly mentioned, all the contents on this website are licensed under Creative Commons
+            {% trans "Unless explicitly mentioned, all the contents on this website are licensed under Creative Commons" %}
             </div>
           </div>
 
