@@ -1495,6 +1495,8 @@ a.text-primary:focus, a.text-primary:hover {
 .modal-header {
     background: #00838F;
     color: white;
+    border-top-left-radius: .2rem;
+    border-top-right-radius: .2rem;
 }
 
 .DeleteComment, .EditComment{
@@ -1525,5 +1527,5 @@ a.text-primary:focus, a.text-primary:hover {
 .title-font {
     font-size: 16px;
     font-weight: 700;
-    font-family: 'roboto slab';
+    font-family: 'Roboto Slab';
 }

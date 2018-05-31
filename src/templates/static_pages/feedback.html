@@ -19,7 +19,7 @@
             <hr/>
 
             <!-- some test -->
-            <div class="container bg-white p-3">
+            <div class="container p-3">
                 <!-- Feedback form -->
                 <div class="row" style="font-family:sans-serif">
                     <div class="col-md-5 col-sm-12 col-xs-12">
@@ -28,7 +28,7 @@
                             {% csrf_token %}
                                 {{ form | crispy }}
 
-                            <input class="btn btn-primary paragraph-font" type="submit" value="{% trans 'Send Feedback' %}">
+                            <input class="btn btn-primary ole-btn paragraph-font" type="submit" value="{% trans 'Send Feedback' %}">
                         </form>
 
                     </div>
