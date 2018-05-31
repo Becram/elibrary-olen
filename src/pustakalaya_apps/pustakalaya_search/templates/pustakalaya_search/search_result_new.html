@@ -42,7 +42,7 @@
               <i class="fa fa-list ole-gr-lt-icon ole-gr-ly-inactive" style="margin-right: 35px;"></i>
 
               <div class="form-group" style="display: inline;">
-                <label for="exampleSelect1" style="display: inline;">Sort By: </label>
+                <label for="exampleSelect1" style="display: inline;">{% trans "Sort By" %}: </label>
                 <!--<select class="form-control" id="tit-drpdn">-->
                   <!--<option>Date Added</option>-->
                   <!--<option>Popularity</option>-->
@@ -60,7 +60,7 @@
     <div class="row">
 
       <div class="col-md-12 tit-filter-btn">
-        <p class="">Filter <i class="fa fa-filter" style="margin-left:10px;"></i></p>
+        <p class="">{% trans "Filter" %} <i class="fa fa-filter" style="margin-left:10px;"></i></p>
       </div>
 
       <div class="col-md-3 tit-sid-lst">
@@ -75,8 +75,8 @@
             <div id="type" >
             {% for type, count, selected in response.facets.type %}
             <div class="checkbox">
-              <label class="lab-cont text-capitalize" for="{{ type }}">{% blocktrans %} {{ type }} {% endblocktrans %} <span class="text-muted">&nbsp;({{ count }})</span>
-                <input id="{{ type }}" value="{{ type }}"
+              <label class="lab-cont text-capitalize" for="type-{{ type }}">{% blocktrans %} {{ type }} {% endblocktrans %} <span class="text-muted">&nbsp;({{ count }})</span>
+                <input id="type-{{ type }}" value="{{ type }}"
                       {% if selected %} checked {% endif %}
                      type="checkbox"
                      onclick="queryAndFilter()">
@@ -154,13 +154,11 @@
                                               return this.keywords.filter(function (keyword) {
                                                   return keyword.keyword.toLowerCase().indexOf(self.search.toLowerCase()) >= 0;
                                               });
-                                              //return this.customers;
                                           },
                                       }
                                   });
 
                               </script>
-
               </div>
 
           {% endif %}
@@ -174,8 +172,8 @@
               <div  id="languages">
                   {% for language, count, selected in languages %}
                   <div class="checkbox">
-                    <label class="lab-cont text-capitalize facet-element">{{ language }} <span class="text-muted">&nbsp;({{ count }})</span>
-                      <input id="{{ language }}" value="{{ language }}" {% if selected %} checked {% endif %} type="checkbox" onclick="queryAndFilter()">
+                    <label class="lab-cont text-capitalize facet-element" for="lang-{{language}}">{{ language }} <span class="text-muted">&nbsp;({{ count }})</span>
+                      <input id="lang-{{ language }}" value="{{ language }}" {% if selected %} checked {% endif %} type="checkbox" onclick="queryAndFilter()">
                       <span class="checkmark"></span>
                     </label>
                   </div>
@@ -193,10 +191,10 @@
               <div id="education_levels">
                    {% for type, count, selected in education_levels %}
                   <div class="checkbox">
-                    <label class="lab-cont text-capitalize" for="{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
+                    <label class="lab-cont text-capitalize" for="education-{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
                       <span class="text-muted">&nbsp;({{ count }})</span>
 
-                       <input id="{{ type }}" value="{{ type }}"
+                       <input id="education-{{ type }}" value="{{ type }}"
                           {% if selected %} checked {% endif %}
                          type="checkbox"
                          onclick="queryAndFilter()">
@@ -220,10 +218,11 @@
             <div id="collections">
             {% for type, count, selected in collections %}
             <div class="checkbox">
-              <label class="lab-cont text-capitalize" for="{{ type }}">{{ type | transtolocal }} <span class="text-muted">&nbsp;({{ count }})</span>
-                <input id="{{ type }}" type="checkbox"
+
+              <label class="lab-cont text-capitalize" for="collection-{{ type }}">{{ type | transtolocal }} <span class="text-muted">&nbsp;({{ count }})</span>
+                <input id="collection-{{ type }}" type="checkbox"
                     {% if selected %} checked {% endif %}
-                   value="{{ type }}"
+                   value="{{ type  }}"
                    onclick="queryAndFilter()">
                 <span class="checkmark"></span>
               </label>
@@ -245,9 +244,9 @@
             <div id="license_type">
             {% for type, count, selected in license_type %}
             <div class="checkbox">
-              <label class="lab-cont text-capitalize" for="{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
+              <label class="lab-cont text-capitalize" for="license-{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
                 <span class="text-muted">&nbsp;({{ count }})</span>
-                <input id="{{ type }}" type="checkbox"
+                <input id="license-{{ type }}" type="checkbox"
                       {% if selected %} checked {% endif %}
                      value="{{ type }}"
                       onclick="queryAndFilter()">
@@ -295,6 +294,23 @@
                   </div>
               <!-- end of submit form-->
 
+              <!-- script to for google SEO -->
+              <script type="application/ld+json">
+                {
+                  "@context": "http://schema.org",
+                  "@type": "WebSite",
+                  "url": "https://www.pustakalaya.org/",
+                  "potentialAction": [{
+                    "@type": "SearchAction",
+                    "target": "https://pustakalaya.org/search/?q={search_term_string}",
+                    "query-input": "required name=q"
+                  },{
+                    "@type": "SearchAction",
+                    "target": "https/pustakalaya.org/search/?q={search_term_string}",
+                    "query-input": "required name=q"
+                  }]
+                }
+                </script>
 
 
               <div class="col-md-12 applied-filters" style="margin-top: 15px;">
@@ -302,7 +318,7 @@
                 <div id="selected-badges"></div>
 
                 <span class="applied-filters__add-button">
-                  <button type="button" class="-js-add-filter button button--small">Add filter</button>
+                  <button type="button" class="-js-add-filter button button--small">{% trans "Add filter" %}</button>
                 </span>
               </div>
 
@@ -310,6 +326,7 @@
             {% for hit in hits %}
               <div class="col-md-3 col-sm-6 col-6">
 
+                <a href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}">
                 <div class="grid-book-cont">
                   <div class="img-cont">
 
@@ -332,11 +349,11 @@
                   <p class="book-label"> <a href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}">{{ hit.title|truncatewords:11 }}</a></p>
                   <p class="book-type">
                       {% if hit.type == "document"%}
-                        <i class="fa fa-book"></i> Document
+                        <i class="fa fa-book"></i> {% trans "Document" %}
                       {% elif hit.type == "audio"%}
-                        <i class="fa fa-headphones"></i> Audiobook
+                        <i class="fa fa-headphones"></i> {% trans "Audiobook" %}
                        {% else %}
-                        <i class="fa fa-video"></i> Video
+                        <i class="fa fa-video-camera"></i> {% trans "Video" %}
                       {% endif %}
                   </p>
 
@@ -344,18 +361,23 @@
                     {{ hit.abstract|truncatewords:40 }}
                     <br>
                     <strong class="text-black">{% trans "Views" %}:&nbsp;{{ hit.view_count }}</strong>
-                    &nbsp;1
+
                    </div>
 
-                  <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Read" %}</a>
 
+                    {% if hit.type == "document"%}
+                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Read" %}</a>
+                      {% elif hit.type == "audio"%}
+                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Listen" %}</a>
+                       {% else %}
+                        <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Watch" %}</a>
+                      {% endif %}
                 </div>
+                </a>
 
 
               </div>
               {% endfor %}
-              <!--end book audio video-->
-
 
             </div>
 
@@ -373,25 +395,25 @@
                         .sad_container{
                             text-align: center;
                           }
-                          
+
                           .sad_container > .sadface{
                             font-size: 100px;
                           }
-                          
+
                 </style>
                 <div class="main-contain"></div>
                 <div class="container">
                   <div class="sad_container">
-              
+
                     <div class="sadface">
                       <i class="fa fa-frown-o"></i>
                     </div>
                     <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found"%}</h5>
                     <br>
-                    <p>{% trans "Your search" %} <b>{{q}}</b> {% trans "did not match any documents" %}.</p>
+                    <p>{% trans "Your search" %} <b>{{q}}</b> {% trans "did not match any title" %}.</p>
                     <p>{% trans "Make sure you spelled the words correctly or try a different keyword" %}.</p>
                   </div>
-              
+
                 </div>
               </div>
             <div>
@@ -484,7 +506,8 @@
 
             }
 
-            loopSelectedOption(filters.type);
+
+
 
             // construct the query
             var query = {
@@ -557,7 +580,24 @@
           else if(key == "collections"){
           // collections
           for(var i =0;i<dictionary[key].length;i++){
-            RenderSelectedItem(key,dictionary[key][i]);
+
+            if($(".lang-swi").attr("data-lang")=="ne"){
+                var str = dictionary[key][i];
+                var trimmed =str.split("[[");
+                var trimmed_english = trimmed[0] ;
+               
+                //RenderSelectedItem(key,dictionary[key][i]);
+                SpecialRenderForCollections(key,dictionary[key][i],trimmed_english);
+            }else{
+                var str = dictionary[key][i];
+                var trimmed =str.substring(str.lastIndexOf('[')+1,str.lastIndexOf(']]'));
+                if(!trimmed){
+                    trimmed=dictionary[key][i];
+                }
+                //console.log("nepali text"+trimmed);
+                var trimmed_nepali = trimmed;
+                SpecialRenderForCollections(key,dictionary[key][i],trimmed_nepali);
+            }
            }
           }
           else if(key == "keywords"){
@@ -585,19 +625,26 @@
         var mainElement = document.getElementById('selected-badges');
 
          var type_full_text = type;
-         console.log("string=",type)
-
+         //console.log("string=",type)
+        
+         var string = ""; 
          if (type == "type"){
          type_full_text="Media Type";
+         string= "type-";
          }else if(type=="education_levels"){
+            string= "education-";
           type_full_text="Education Level";
+
          }else if(type=="license_type"){
+            string= "license-";
           type_full_text="License Type";
          }else if(type=="collections"){
+             
           type_full_text="Collections";
          }else if(type=="keywords"){
           type_full_text="Keywords";
          }else if(type=="languages"){
+            string= "lang-";
           type_full_text="Language";
          }
 
@@ -607,14 +654,46 @@
            div.innerHTML='<span class="filter-badge__icon">\
                     <span class="sr-only">Filter</span>\
                   </span>\
-                  <span class="filter-badge__description">'+ type_full_text +'::'+ value +'</span>\
-                  <button type="button" class="filter-badge__remove-button" onclick="clickDocument('  + "'" + value + "'"   +')\">\
+                  <span class="filter-badge__description text-capitalize">'+ type_full_text +'::'+ value +'</span>\
+                  <button type="button" class="filter-badge__remove-button" onclick="clickDocument('  + "'" + string  + value + "'"   +')\">\
                     <i class="fa fa-times-circle" aria-hidden="true"></i>\
                     <span class="sr-only">Close</span>\
                   </button>';
 
           mainElement.appendChild(div);
       }
+
+       /*This function actually renders the filter badges*/
+      function SpecialRenderForCollections(type,actual_value,trimmed_value){
+        var mainElement = document.getElementById('selected-badges');
+
+         var type_full_text = type;
+         //console.log("string=",type)
+
+         var string = "";
+         if(type=="collections"){
+            string= "collection-";
+          type_full_text="Collections";
+         }
+
+
+           var div = document.createElement('div');
+              div.className = 'filter-badge';
+           div.innerHTML='<span class="filter-badge__icon">\
+                    <span class="sr-only">Filter</span>\
+                  </span>\
+                  <span class="filter-badge__description">'+ type_full_text +'::'+ trimmed_value +'</span>\
+                  <button type="button" class="filter-badge__remove-button" onclick="clickDocument('  + "'" + string + actual_value + "'"   +')\">\
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>\
+                    <span class="sr-only">Close</span>\
+                  </button>';
+
+          mainElement.appendChild(div);
+      }
+
+
+
+
 
        /*click trigger click*/
        function clickDocument(itemID){
@@ -627,9 +706,9 @@
       //console.log(JSON.parse(urlParams["form-filter"]))
       //console.log(urlParams["form-filter"])
 
-
-      loopSelectedOption(JSON.parse(urlParams["form-filter"]));
-
+      if(urlParams["form-filter"] != ""){
+          loopSelectedOption(JSON.parse(urlParams["form-filter"]));
+       }
 
 
 

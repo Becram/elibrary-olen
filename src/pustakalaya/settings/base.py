@@ -372,10 +372,10 @@ ELERY_BROKER_URL = 'amqp://admin:mypass@rabbitmq:5672'
 # Django logging settings
 LOG_DIR = os.path.join(os.path.dirname(BASE_DIR), 'logs')
 
-# Django restframework  settings        
+# Django restframework  settings
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,    
+    'PAGE_SIZE': 10,
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAdminUser', # Only staff are allowed to access an API
     ),
@@ -405,7 +405,7 @@ REST_FRAMEWORK = {
 #             'level':'DEBUG',
 #             'class':'logging.StreamHandler',
 #             'formatter': 'verbose'
-#         },    
+#         },
 #         'logfile': {
 #             'level':'DEBUG',
 #             'class':'logging.handlers.RotatingFileHandler',
@@ -453,9 +453,9 @@ REST_FRAMEWORK = {
 
 # Security mitigation settings.
 # X_FRAME_OPTIONS = 'DENY'
-# CSRF_COOKIE_SECURE = True # Need ssl support 
-# SESSION_COOKIE_SECURE = True # Need ssl support 
-# SECURE_SSL_REDIRECT = True # Need https support. 
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
+# CSRF_COOKIE_SECURE = True # Need ssl support
+# SESSION_COOKIE_SECURE = True # Need ssl support
+# SECURE_SSL_REDIRECT = True # Need https support.
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
 # SECURE_HSTS_SECONDS = 3600 # Need ssl

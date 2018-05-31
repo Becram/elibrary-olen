@@ -10,11 +10,11 @@
             color: #fff;
             padding: 10px;
           }
-          
+
           .ole-btn-cats {
               padding: 6px 8px;
           }
-          
+
           @media only screen and (max-width: 576px) {
             .ole-btn-cats {
                 padding: 6px 8px;
@@ -48,21 +48,28 @@
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    
+
                     {% for collection in literature_and_arts.collection_list %}
                 <div class="col-md-4 col-12">
-                    <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
-                
+
+                    <a class="text-capitalize"
+                     href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
+                      {{ collection.collection_name | transtolocal }}
+                      <span class="text-muted">
+                          ({{ collection.es_count }})
+                        </span>
+                    </a>
+
                 </div>
 
                 {% endfor %}
-                
+
                 </div>
-    
+
             </div>
             </div>
             <hr>
-    
+
             <div id="cat-2" class="row ath-list-cont">
             <div class="col-md-3">
                 <div class="page-cap-cont">
@@ -74,21 +81,27 @@
             <div class="col-md-9">
                 <div class="row">
 
-
                     {% for collection in course_materials.collection_list %}
                     <div class="col-md-4 col-12">
-                        <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
-                    
+
+                        <a class="text-capitalize"
+                        href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
+                         {{ collection.collection_name | transtolocal }}
+                         <span class="text-muted">
+                             ({{ collection.es_count }})
+                           </span>
+                       </a>
+
                     </div>
 
                     {% endfor %}
-                
+
                 </div>
-    
+
             </div>
             </div>
             <hr>
-    
+
             <div id="cat-3" class="row ath-list-cont">
             <div class="col-md-3">
                 <div class="page-cap-cont">
@@ -102,18 +115,24 @@
 
                 {% for collection in teaching_materials.collection_list %}
                 <div class="col-md-4 col-12">
-                    <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
-                
+
+                        <a class="text-capitalize"
+                        href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
+                         {{ collection.collection_name | transtolocal }}
+                         <span class="text-muted">
+                             ({{ collection.es_count }})
+                           </span>
+                       </a>
                 </div>
 
                 {% endfor %}
-            
+
                 </div>
-    
+
             </div>
             </div>
             <hr>
-    
+
             <div id="cat-4" class="row ath-list-cont">
             <div class="col-md-3">
                 <div class="page-cap-cont">
@@ -127,18 +146,22 @@
 
                     {% for collection in reference_materials.collection_list %}
                     <div class="col-md-4 col-12">
-                        <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
-                    
+                            <a class="text-capitalize"
+                            href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
+                             {{ collection.collection_name | transtolocal }}
+                             <span class="text-muted">
+                                 ({{ collection.es_count }})
+                               </span>
+                           </a>
                     </div>
 
                     {% endfor %}
-                
+
                 </div>
-    
-            </div>
+
             </div>
             <hr>
-    
+
             <div id="cat-5" class="row ath-list-cont">
             <div class="col-md-3">
                 <div class="page-cap-cont">
@@ -149,22 +172,27 @@
             </div>
             <div class="col-md-9">
                 <div class="row">
-                
+
 
                 {% for collection in othereducational_materials.collection_list %}
                 <div class="col-md-4 col-12">
-                    <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
-                
+                        <a class="text-capitalize"
+                        href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
+                         {{ collection.collection_name | transtolocal }}
+                         <span class="text-muted">
+                             ({{ collection.es_count }})
+                           </span>
+                       </a>
                 </div>
 
                 {% endfor %}
 
                 </div>
-    
+
             </div>
             </div>
             <hr>
-    
+
             <div id="cat-6" class="row ath-list-cont">
             <div class="col-md-3">
                 <div class="page-cap-cont">
@@ -176,20 +204,26 @@
             <div class="col-md-9">
                     {% for collection in newpapers_and_magazines.collection_list %}
                     <div class="col-md-4 col-12">
-                        <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
-                    
+                            <a class="text-capitalize"
+                            href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
+                             {{ collection.collection_name | transtolocal }}
+                             <span class="text-muted">
+                                 ({{ collection.es_count }})
+                               </span>
+                           </a>
                     </div>
 
                     {% endfor %}
-                
+
                 </div>
-    
+
             </div>
             </div>
             <hr>
         </div>
+        </div>
     </div>
-    
+
     </div>
 {% endblock content %}
 

@@ -42,7 +42,7 @@ def __file_upload_path(instance, filepath):
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes")[:3]
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes")[:6]
 
 
 class Document(AbstractItem, HitCountMixin):
