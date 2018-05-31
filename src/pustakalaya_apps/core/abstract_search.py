@@ -1,32 +1,4 @@
-from elasticsearch_dsl import (
-    DocType, 
-    Date, 
-    Text, 
-    Keyword, 
-    Completion, 
-    Integer,
-    analyzer,
-    token_filter
-)
-
-
-english_analyzer = analyzer(
-    'english_analyzer',
-    tokenizer="standard",
-    filter=["standard","lowercase",
-    token_filter(
-        'english_excluded_words',
-        type='stop',
-        stopwords='_english_'),
-        ])                         
-
-
-# html_strip = analyzer('html_strip',
-#     tokenizer="standard",
-#     filter=["standard", "lowercase", "stop", "snowball"],
-#     char_filter=["html_strip"]
-# )
-
+from elasticsearch_dsl import DocType, Date, Text, Keyword, Completion, Integer
 
 class ItemDoc(DocType):
     """
@@ -35,13 +7,13 @@ class ItemDoc(DocType):
     id = Text()
     title = Text(fields={'keyword': Keyword()})
     title_suggest = Completion()
-    abstract = Text()
+    abstract = Text(analyzer='snowball')
     type = Text(fields={'keyword': Keyword()})
     education_levels = Text(multi=True, fields={'keyword': Keyword()})
-    communities = Text(multi=True, fields={'keyword': Keyword()})
+    communities = Text(analyzer='snowball',multi=True, fields={'keyword': Keyword()})
     collections = Text(multi=True, fields={'keyword': Keyword()})
     languages = Text(multi=True, fields={'keyword': Keyword()})
-    description = Text()
+    description = Text(analyzer='snowball')
     license_type = Text(fields={'keyword': Keyword()})
     year_of_available = Date()
     publication_year = Date()
