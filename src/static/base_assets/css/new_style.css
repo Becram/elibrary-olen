@@ -398,7 +398,7 @@ a.text-primary:focus, a.text-primary:hover {
     background-color: #00BCD4;
     overflow-x: hidden;
     display: none;
-    margin-top: -20px;
+    margin-top: -10px;
 }
 
 /* Style the sidenav links and the dropdown button */
@@ -881,9 +881,9 @@ a.text-primary:focus, a.text-primary:hover {
   color: #CCCCCC;
 }
 
-#tit-drpdn{
+.tit-drpdn{
   display: inline;
-  width: 30%;
+  /* width: 30%; removing for bhoj's code */
 }
 
 .dd-pare{
@@ -944,8 +944,12 @@ a.text-primary:focus, a.text-primary:hover {
         border-left-width: 0px;
         border-left-style: none;
         border-left-color: currentcolor;
-    border-left: 1px solid hsla(0,0%,100%,.2);
     padding: 6px;
+}
+
+.filter-badge__remove-button:focus {
+  border: 0px !important;
+  outline: 0 !important;
 }
 
 .applied-filters__add-button {
@@ -1138,7 +1142,7 @@ a.text-primary:focus, a.text-primary:hover {
     text-align: center;
   }
 
-  #tit-drpdn{
+  .tit-drpdn{
     display: inline;
     width: 90%;
     margin-top: 10px;
@@ -1527,5 +1531,5 @@ a.text-primary:focus, a.text-primary:hover {
 .title-font {
     font-size: 16px;
     font-weight: 700;
-    font-family: 'Roboto Slab';
+    font-family: 'Roboto Slab', serif;
 }
