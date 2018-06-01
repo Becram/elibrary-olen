@@ -117,7 +117,7 @@ class Biography(AbstractBaseAuthor):
 
     @property
     def getName(self):
-        return self.name
+        return self.name or "_"
 
     def __str__(self):
         return self.name
