@@ -225,7 +225,7 @@
       <div id="audioList" style="overflow-y: auto;max-height: 300px;">
         <!-- audio playlist -->
         {% for audio in object.audiofileupload_set.all %}
-              <div class="pl-3   {% if forloop.counter == 1 %}curr-playing-audio{% endif %}">
+              <div class="pl-3 playAudioDiv  {% if forloop.counter == 1 %}curr-playing-audio{% endif %}">
 
                   {% if forloop.counter == 1 %}
                   <img src="{% static 'base_assets/img/source.gif' %}" style="width: 12.25px;" alt="currently playing" />
@@ -538,8 +538,11 @@
            {% endif %}
 
 
+            <!-- Leave a encouraging message to leave review-->
+           {% if  data_review|length == 0 and paginated_data|length == 0 %}
 
-
+            {% trans "This item has not yet been reviewed. Be the first to" %} <span  id="rev_this" ><a href="#"> {% trans "review this item" %} </a></span>
+           {% endif %}
 
 
 
@@ -639,10 +642,35 @@
 
 <script>
 
+/***************Audio trigger div******************/
+
+     // audio div trigger function
+     $(".playAudioDiv").click(function (e){
+        e.preventDefault();
+      console.log("event",e)
+        $(e.target).children('span.playspan').click();
+     });
+
+/***************End Audio trigger div******************/
+
 
 /***************************Review code****************************/
 
-  //review_btn_trigger
+    // review trigger for a tag
+   $("#rev_this").click(function (e){
+      e.preventDefault();
+        var user_name = $("input[type='hidden'][name='user']").val().trim();
+        if(user_name == "" || user_name == "AnonymousUser" ){
+          $("#information_message_p_tag").text('Login to post you message');
+          $("#info_message_display").click();
+          return;
+        }else{
+        $("#review_btn_trigger").click();
+        }
+
+     });
+
+    //review_btn_trigger for button
      $("#review_btn_real").click(function (e){
       e.preventDefault();
         var user_name = $("input[type='hidden'][name='user']").val().trim();
@@ -711,7 +739,7 @@
                   '<br><h5 id="posted_title_'+pk_value+'">'+user_title+'</h5>'+
                   '<p>By: <span>' +user_name+'</span></p>'+
                   '<p id="posted_message_'+pk_value+'">'+user_input+'</p>'+
-                  '<p>status:unpublished</p>'+
+                  '<p>review status is unpublished</p>'+
                   '<button type="button" value="'+pk_value+'" id="'+pk_value+'" class="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>'+
                    '<button type="button" value="'+pk_value+'" class="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button><hr>'+
              '</div>');
@@ -794,7 +822,7 @@
          $("#"+id_div).append('<br><h5 id="posted_title_'+pk_value+'">'+user_input_title+'</h5>'+
               '<p>By: <span>' +user_name+'</span></p>'+
               '<p id="posted_message_'+pk_value+'">'+user_input+'</p>'+
-              '<p>status:unpublished</p>'+
+              '<p>review status is unpublished</p>'+
               '<button type="button" value="'+pk_value+'" id="'+pk_value+'" class="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>'+
               '<button type="button" value="'+pk_value+'" class="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button><hr>'+
          '');

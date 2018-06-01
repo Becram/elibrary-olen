@@ -53,7 +53,12 @@ class VideoDetailView(DetailView):
         #adding pagination to the review system
 
         # review system data extractions
-        data_review = Review.objects.filter(content_id= self.object.pk,content_type='video')
+        # data_review = Review.objects.filter(content_id= self.object.pk,content_type='video')
+        if request.user.is_authenticated:
+
+            data_review = Review.objects.filter(content_id=self.object.pk, content_type='video')
+        else:
+            data_review = Review.objects.filter(content_id=self.object.pk, content_type='video', published=True)
 
         # adding pagination to the review system
         ##########################Review pagination add########################
