@@ -197,7 +197,12 @@ class Video(AbstractItem):
     def get_similar_items(self):
         from pustakalaya_apps.document.models import Document
         from pustakalaya_apps.audio.models import Audio
-        return Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
+
+        documents = Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        audios =   Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        videos = Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        return chain(documents, audios, videos)
+      
 
 
     def doc(self):

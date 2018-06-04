@@ -181,9 +181,7 @@ class Audio(AbstractItem):
         documents = Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
         audios =   Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
         videos = Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
-        
-        return documents.extend(audios).extend(videos)
-        # return chain(documents, audios, videos)
+        return chain(documents, audios, videos)
 
     def get_absolute_url(self):
         from django.urls import reverse
