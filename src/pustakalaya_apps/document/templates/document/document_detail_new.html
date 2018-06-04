@@ -713,7 +713,7 @@
     </div>
     {% for similar_object in object.get_similar_items %}
       {% if similar_object.pk != object.pk %}
-        <a href="{% url 'document:detail_without_slug'  similar_object.pk %}">
+        <a href="{{similar_object.get_absolute_url}} ">
     <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
           <div class="img-cont">
@@ -727,7 +727,7 @@
            {% endif %}
 
           </div>
-          <p class="book-label text-capitalize"> <a href="{% url 'document:detail_without_slug'  similar_object.pk %}">{{similar_object.title}}</p>
+          <p class="book-label text-capitalize"> <a href="{{similar_object.get_absolute_url}}">{{similar_object.title}}</p>
           <p class="book-type text-capitalize"> <i class="fa fa-book"></i>&nbsp;{{similar_object.type}}</p>
         </div>
       </div>

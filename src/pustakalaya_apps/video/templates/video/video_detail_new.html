@@ -725,7 +725,7 @@
           <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
           <div class="img-cont">
-             <a href=" {% url 'video:detail_without_slug'  similar_object.pk %}">
+             <a href="{{similar_object.get_absolute_url}}">
 
             {% if similar_object.thumbnail  %}
             <img  src="{{ MEDIA_URL }}{{ similar_object.thumbnail }}"

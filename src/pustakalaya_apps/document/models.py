@@ -2,6 +2,7 @@
 import uuid
 import time
 import os
+from itertools import chain
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.auth.models import User
 from django.db import models
@@ -27,7 +28,10 @@ from pustakalaya_apps.core.models import (
     EducationLevel,
     Language,
     LicenseType
-)
+)   
+
+from pustakalaya_apps.audio.models import Audio
+from pustakalaya_apps.video.models import Video
 from .search import DocumentDoc
 
 from django.contrib.contenttypes.models import ContentType
@@ -254,7 +258,13 @@ class Document(AbstractItem, HitCountMixin):
 
 
     def get_similar_items(self):
-        return Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
+        from pustakalaya_apps.video.models import Video
+        from pustakalaya_apps.audio.models import Audio
+        documents = Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        audios =   Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        videos = Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+
+        return chain(documents, audios, videos)
 
     def __str__(self):
         return self.title
