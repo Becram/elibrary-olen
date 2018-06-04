@@ -282,9 +282,9 @@
                   <tr>
                       <th scope="col">{% trans "Voice by"%}:</th>
                       <td class="text-capitalize">
-                        {% for audio_author in object.audio_read_by.all %}
-                        <a href="{% url 'author:author_detail' author.getname|slugify_unicode audio_author.pk %}">
-                          {{audio_author.getName}}
+                        {% for author in object.audio_read_by.all %}
+                        <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}">
+                         {{ author }}
                           {% if not forloop.last %}
                             , &nbsp;
                           {% endif%}
@@ -579,13 +579,31 @@
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% else %}
 
-            <img  src="{% static 'images_new/audio_thumnail.png' %}"
-                alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
+            <!--<img  src="{% static 'images_new/audio_thumnail.png' %}"-->
+                <!--alt="{{ similar_object.title }}" title="{{ similar_object.title }}">-->
+
+                {% if similar_object.type == "document"%}
+                  <img  src="{% static 'images_new/book_thumnail.png' %}"/>
+                 {% elif similar_object.type == "audio"%}
+                  <img  src="{% static 'images_new/audio_thumnail.png' %}"/>
+                 {% else %}
+                  <img  src="{% static 'images_new/video_thumnail.png' %}"/>
+                  {% endif %}
+
+
            {% endif %}
 
           </div>
           <p class="book-label text-capitalize text-dark"> {{similar_object.title}}</p>
-          <p class="book-type text-capitalize"> <i class="fa fa-headphones"></i>&nbsp;{{similar_object.type}}</p>
+          <p class="book-type text-capitalize">
+            {% if similar_object.type == "document" %}
+            <i class="fa fa-book "></i>
+              {% elif similar_object.type == "audio" %}
+              <i class="fa fa-headphones"></i>
+             {% else %}
+                <i class="fa fa-video-camera"></i>
+             {% endif %}
+            &nbsp;{{similar_object.type}} </p>
           </a>
 
           </div>

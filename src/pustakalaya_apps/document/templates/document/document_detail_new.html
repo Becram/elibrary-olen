@@ -723,13 +723,28 @@
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% else %}
 
-            <img  src="{% static 'images_new/book_thumnail.png' %}"
-                alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
+            <!--<img  src="{% static 'images_new/book_thumnail.png' %}"-->
+                <!--alt="{{ similar_object.title }}" title="{{ similar_object.title }}">-->
+            {% if similar_object.type == "document"%}
+            <img  src="{% static 'images_new/book_thumnail.png' %}"/>
+           {% elif similar_object.type == "audio"%}
+            <img  src="{% static 'images_new/audio_thumnail.png' %}"/>
+           {% else %}
+            <img  src="{% static 'images_new/video_thumnail.png' %}"/>
+            {% endif %}
            {% endif %}
 
           </div>
           <p class="book-label text-capitalize"> <a href="{{similar_object.get_absolute_url}}">{{similar_object.title}}</p>
-          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>&nbsp;{{similar_object.type}}</p>
+          <p class="book-type text-capitalize">
+            {% if similar_object.type == "document" %}
+            <i class="fa fa-book "></i>
+              {% elif similar_object.type == "audio" %}
+              <i class="fa fa-headphones"></i>
+             {% else %}
+                <i class="fa fa-video-camera"></i>
+             {% endif %}
+            &nbsp;{{similar_object.type}}</p>
         </div>
       </div>
     </a>
