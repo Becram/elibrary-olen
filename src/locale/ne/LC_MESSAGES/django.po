@@ -2113,7 +2113,7 @@ msgstr ""
 #: templates/_partials/sorting_form.html:12
 #: templates/_partials/sorting_form_for_search_result.html:12
 msgid "updated date"
-msgstr "अध्यावधिक मिति"
+msgstr "मिति"
 
 #: templates/_partials/sorting_form.html:15
 msgid "Rating"
