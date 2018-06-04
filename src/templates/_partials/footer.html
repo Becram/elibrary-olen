@@ -46,9 +46,12 @@ line-height: 1.5!important;
             <div class="col-md-2">
               <h6>{% trans "SUPPORT" %}</h6>
               <ul class="">
+                  <!--Commented This for production uncomment later-->
+                 {% comment %}
                   <li>
                       <a href="#">{% trans "Offline Access" %}</a>
                   </li>
+                {% endcomment %}
                   <li>
                       <a href="{% url 'about' %}">{% trans "About" %}</a>
                   </li>
@@ -80,10 +83,13 @@ line-height: 1.5!important;
               <a href="https://www.facebook.com/olenepal/" target="_blank" ><img class="social-ico" src="{%  static 'images/footer/facebook-logo.png' %}" alt="facebook" /></a>
 
             </div>
+            <!--Commented This for production uncomment later-->
+            {% comment %}
             <div class="col-md-2">
               <h6>{% trans "DOWNLOAD APP" %}</h6>
               <a class="a-android pt-4 pb-1" href="https://play.google.com/store/apps/details?id=com.ole.epustakalaya" target="_blank"><img class="social-ico" src="{%  static 'images/footer/android-logo.png' %}" alt="android" /></a>
             </div>
+            {% endcomment %}
 
           </div>
           <div class="row">
