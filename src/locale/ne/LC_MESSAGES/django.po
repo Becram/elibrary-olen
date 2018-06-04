@@ -2556,7 +2556,7 @@ msgstr "खान एकेडेमी"
 
 #: templates/index.html:192
 msgid "Reference Sites"
-msgstr "थप सन्दर्भ साइटहरू"
+msgstr "सन्दर्भ साइटहरू"
 
 #: templates/index.html:243
 msgid "Collection of Books"
