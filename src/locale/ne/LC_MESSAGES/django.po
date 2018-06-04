@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pustakalaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-04 09:33+0545\n"
+"POT-Creation-Date: 2018-06-04 15:16+0545\n"
 "PO-Revision-Date: 2017-10-03 00:01-0400\n"
 "Last-Translator: nix1947 <openpy.manoj@gmail.com>\n"
 "Language-Team: Nepali\n"
@@ -55,7 +55,7 @@ msgid "Your Message"
 msgstr "तपाईँको सुझाव"
 
 #: pustakalaya/settings/base.py:302 pustakalaya_apps/core/constants.py:20
-#: templates/_partials/navbar_new.html:438
+#: templates/_partials/navbar_new.html:436
 msgid "English"
 msgstr "अङग्रेजी"
 
@@ -71,7 +71,6 @@ msgid "Audio"
 msgstr "अडियो"
 
 #: pustakalaya_apps/audio/models.py:38
-
 msgid "Audio types"
 msgstr ""
 
@@ -79,15 +78,15 @@ msgstr ""
 msgid "Add this audio to these collection"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:56 pustakalaya_apps/video/models.py:175
+#: pustakalaya_apps/audio/models.py:56 pustakalaya_apps/video/models.py:176
 msgid "Running time in minutes"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:66 pustakalaya_apps/video/models.py:48
+#: pustakalaya_apps/audio/models.py:66 pustakalaya_apps/video/models.py:49
 msgid "Original Author(s)"
 msgstr "लेखन"
 
-#: pustakalaya_apps/audio/models.py:73 pustakalaya_apps/video/models.py:55
+#: pustakalaya_apps/audio/models.py:73 pustakalaya_apps/video/models.py:56
 msgid "Release date"
 msgstr ""
 
@@ -99,12 +98,12 @@ msgstr ""
 msgid "Audio publisher"
 msgstr "प्रकाशक"
 
-#: pustakalaya_apps/audio/models.py:106 pustakalaya_apps/document/models.py:197
+#: pustakalaya_apps/audio/models.py:106 pustakalaya_apps/document/models.py:201
 msgid "Select list of keywords"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:113 pustakalaya_apps/document/models.py:207
-#: pustakalaya_apps/video/models.py:162
+#: pustakalaya_apps/audio/models.py:113 pustakalaya_apps/document/models.py:211
+#: pustakalaya_apps/video/models.py:163
 msgid "license"
 msgstr ""
 
@@ -112,59 +111,59 @@ msgstr ""
 msgid "Audio Genre"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:136 pustakalaya_apps/video/models.py:84
+#: pustakalaya_apps/audio/models.py:136 pustakalaya_apps/video/models.py:85
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:494
 msgid "Languages"
-msgstr "भाषा" 
+msgstr "भाषा"
 
-#: pustakalaya_apps/audio/models.py:150 pustakalaya_apps/document/models.py:100
+#: pustakalaya_apps/audio/models.py:150 pustakalaya_apps/document/models.py:104
 msgid "Series"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:157 pustakalaya_apps/document/models.py:222
-#: pustakalaya_apps/video/models.py:119
+#: pustakalaya_apps/audio/models.py:157 pustakalaya_apps/document/models.py:226
+#: pustakalaya_apps/video/models.py:120
 msgid "Sponsor"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:264 pustakalaya_apps/video/models.py:346
+#: pustakalaya_apps/audio/models.py:267 pustakalaya_apps/video/models.py:354
 msgid "Genre name"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:269 pustakalaya_apps/video/models.py:351
+#: pustakalaya_apps/audio/models.py:272 pustakalaya_apps/video/models.py:359
 msgid "Genre description"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:291 pustakalaya_apps/document/models.py:410
-#: pustakalaya_apps/video/models.py:299
+#: pustakalaya_apps/audio/models.py:294 pustakalaya_apps/document/models.py:420
+#: pustakalaya_apps/video/models.py:307
 msgid "File name"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:319 pustakalaya_apps/document/models.py:446
-#: pustakalaya_apps/video/models.py:333
+#: pustakalaya_apps/audio/models.py:322 pustakalaya_apps/document/models.py:456
+#: pustakalaya_apps/video/models.py:341
 msgid "Link"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:333
+#: pustakalaya_apps/audio/models.py:336
 msgid "Rhymes"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:334
+#: pustakalaya_apps/audio/models.py:337
 msgid "Novel"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:335
+#: pustakalaya_apps/audio/models.py:338
 msgid "Short Story"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:336
+#: pustakalaya_apps/audio/models.py:339
 msgid "Children Song"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:340
+#: pustakalaya_apps/audio/models.py:343
 msgid "Audio type"
 msgstr "अडियो प्रकार"
 
-#: pustakalaya_apps/audio/models.py:345
+#: pustakalaya_apps/audio/models.py:348
 msgid "Audio description"
 msgstr ""
 
@@ -213,7 +212,6 @@ msgstr "शिर्षक"
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail.html:165
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:166
-
 msgid "Message"
 msgstr "तपाईँको सुझाव"
 
@@ -245,7 +243,7 @@ msgstr "के तपाईँ निश्चित रूपमा यो म�
 #: pustakalaya_apps/audio/templates/audio/audio_detail.html:194
 #: pustakalaya_apps/core/abstract_models.py:263
 #: pustakalaya_apps/core/abstract_models.py:273
-#: pustakalaya_apps/document/models.py:54
+#: pustakalaya_apps/document/models.py:58
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:216
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:250
 msgid "Yes"
@@ -273,12 +271,11 @@ msgid "Reviews"
 msgstr "समीक्षाहरू"
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail.html:283
-
 msgid "Voice by"
 msgstr "आवाज"
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail.html:301
-#: pustakalaya_apps/video/models.py:148
+#: pustakalaya_apps/video/models.py:149
 msgid "Publisher"
 msgstr "प्रकाशक"
 
@@ -399,12 +396,12 @@ msgstr "यो पुस्तक/सामग्रीको हालसम्
 msgid "review this item"
 msgstr "समीक्षा गर्नुहोस्"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:562
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:560
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:564
 msgid "Similar Audio Books You May Like"
 msgstr "समान किसिमका सामग्रीहरू"
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:118
-
 msgid "Read by/Voice:"
 msgstr "आवाज"
 
@@ -460,7 +457,7 @@ msgid "sponsors:"
 msgstr "प्रायोजक"
 
 #: pustakalaya_apps/collection/apps.py:7
-#: templates/_partials/navbar_new.html:403
+#: templates/_partials/navbar_new.html:401
 msgid "Categories"
 msgstr "विषयगत् कक्षहरू"
 
@@ -523,35 +520,34 @@ msgid "Sort by"
 msgstr "क्रम मिलाउने आधार"
 
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:32
-
 msgid "Literatures and Arts"
 msgstr "साहित्य र कला"
 
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:33
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:79
-#: templates/_partials/navbar_new.html:227
-#: templates/_partials/navbar_new.html:408 templates/index.html:30
+#: templates/_partials/navbar_new.html:225
+#: templates/_partials/navbar_new.html:406 templates/index.html:30
 msgid "Course Materials"
 msgstr "विषयगत् सामग्री"
 
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:34
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:111
-#: templates/_partials/navbar_new.html:230
-#: templates/_partials/navbar_new.html:409 templates/index.html:32
+#: templates/_partials/navbar_new.html:228
+#: templates/_partials/navbar_new.html:407 templates/index.html:32
 msgid "Teaching Materials"
 msgstr "शिक्षण सामग्री"
 
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:35
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:142
-#: templates/_partials/navbar_new.html:234
-#: templates/_partials/navbar_new.html:410
+#: templates/_partials/navbar_new.html:232
+#: templates/_partials/navbar_new.html:408
 msgid "Reference Materials"
 msgstr "सन्दर्भ सामग्री"
 
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:36
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:173
-#: templates/_partials/navbar_new.html:237
-#: templates/_partials/navbar_new.html:411
+#: templates/_partials/navbar_new.html:235
+#: templates/_partials/navbar_new.html:409
 msgid "Other Educational Materials"
 msgstr "अन्य शिक्षाप्रद सामग्री"
 
@@ -673,13 +669,13 @@ msgstr ""
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:352
 #: templates/_partials/navbar_new.html:54
 msgid "Document"
-msgstr ""
+msgstr "पुस्तक"
 
 #: pustakalaya_apps/core/abstract_models.py:167
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:356
 #: pustakalaya_apps/video/apps.py:7 templates/_partials/navbar_new.html:60
 msgid "Video"
-msgstr ""
+msgstr "भिडियो"
 
 #: pustakalaya_apps/core/abstract_models.py:168
 msgid "Image"
@@ -1102,7 +1098,7 @@ msgstr ""
 msgid "Category description"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:30 pustakalaya_apps/document/models.py:188
+#: pustakalaya_apps/core/models.py:30 pustakalaya_apps/document/models.py:192
 msgid "Publisher name"
 msgstr ""
 
@@ -1134,7 +1130,7 @@ msgstr ""
 msgid "Author(s) name in other language"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:130 templates/_partials/navbar_new.html:402
+#: pustakalaya_apps/core/models.py:130 templates/_partials/navbar_new.html:400
 msgid "Author"
 msgstr ""
 
@@ -1173,17 +1169,22 @@ msgstr ""
 #: pustakalaya_apps/core/models.py:171
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:190
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:340
-#: pustakalaya_apps/video/models.py:78
+#: pustakalaya_apps/video/models.py:79
 msgid "Education Level"
-msgstr ""
+msgstr "शैक्षिक तह"
 
 #: pustakalaya_apps/core/models.py:192
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:473
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:171
-#: templates/_partials/navbar_new.html:420
+#: templates/_partials/navbar_new.html:418
 msgid "Language"
 msgstr "भाषा"
 
+#: pustakalaya_apps/core/models.py:208
+#, fuzzy
+#| msgid "MIT License"
+msgid "License"
+msgstr "मानोज"
 
 #: pustakalaya_apps/core/templates/core/author_books.html:13
 msgid "Books by"
@@ -1206,7 +1207,7 @@ msgstr ""
 
 #: pustakalaya_apps/core/templates/core/author_detail.html:147
 #: templates/_partials/footer.html:53 templates/_partials/navbar.html:158
-#: templates/_partials/navbar_new.html:263
+#: templates/_partials/navbar_new.html:261
 msgid "About"
 msgstr " हाम्रो बारेमा"
 
@@ -1220,7 +1221,7 @@ msgstr "मृत्यु"
 
 #: pustakalaya_apps/core/templates/core/author_detail_new.html:126
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:98
-#: pustakalaya_apps/video/models.py:155
+#: pustakalaya_apps/video/models.py:156
 msgid "Keywords"
 msgstr "मुख्य शब्दावलीहरू"
 
@@ -1303,149 +1304,149 @@ msgstr ""
 msgid "You haven't submitted any item"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:56
+#: pustakalaya_apps/document/models.py:60
 msgid "Not applicable"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:60
+#: pustakalaya_apps/document/models.py:64
 msgid "Book"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:61
+#: pustakalaya_apps/document/models.py:65
 msgid "Working paper"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:62
+#: pustakalaya_apps/document/models.py:66
 msgid "Thesis"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:63
+#: pustakalaya_apps/document/models.py:67
 msgid "Journal paper"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:64
+#: pustakalaya_apps/document/models.py:68
 msgid "Technical report"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:65
+#: pustakalaya_apps/document/models.py:69
 msgid "Article"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:70
+#: pustakalaya_apps/document/models.py:74
 msgid "PPT"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:71
+#: pustakalaya_apps/document/models.py:75
 msgid "Doc"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:72
+#: pustakalaya_apps/document/models.py:76
 msgid "Docx"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:73
+#: pustakalaya_apps/document/models.py:77
 msgid "PDF"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:74
+#: pustakalaya_apps/document/models.py:78
 msgid "Excel"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:75
+#: pustakalaya_apps/document/models.py:79
 msgid "Epub"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:76
+#: pustakalaya_apps/document/models.py:80
 msgid "Rtf"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:77
+#: pustakalaya_apps/document/models.py:81
 msgid "Mobi"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:82
+#: pustakalaya_apps/document/models.py:86
 msgid "Add to these collections"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:86
+#: pustakalaya_apps/document/models.py:90
 msgid "Document type"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:92
+#: pustakalaya_apps/document/models.py:96
 msgid "Document file type"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:109
+#: pustakalaya_apps/document/models.py:113
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:484
 msgid "Education Levels"
 msgstr "शैक्षिक तह"
 
-#: pustakalaya_apps/document/models.py:115
+#: pustakalaya_apps/document/models.py:119
 msgid "Language(s)"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:119
+#: pustakalaya_apps/document/models.py:123
 msgid "Interactive"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:138
+#: pustakalaya_apps/document/models.py:142
 msgid "Total Pages"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:146
+#: pustakalaya_apps/document/models.py:150
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:296
 msgid "Author(s)"
 msgstr "लेखक"
 
-#: pustakalaya_apps/document/models.py:160
+#: pustakalaya_apps/document/models.py:164
 msgid "Editor(s)"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:167
+#: pustakalaya_apps/document/models.py:171
 msgid "Translator(s)"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:174
+#: pustakalaya_apps/document/models.py:178
 msgid "Illustrator"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:217
+#: pustakalaya_apps/document/models.py:221
 msgid "maximum size of thumbnail should be 255px by 300px"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:390
+#: pustakalaya_apps/document/models.py:400
 msgid "Document series"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:460
+#: pustakalaya_apps/document/models.py:470
 msgid "Identifier Type"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:464
+#: pustakalaya_apps/document/models.py:474
 msgid "ISSN"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:465
+#: pustakalaya_apps/document/models.py:475
 msgid "ISMN"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:466
+#: pustakalaya_apps/document/models.py:476
 msgid "Gov't Doc"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:467
+#: pustakalaya_apps/document/models.py:477
 msgid "URI"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:468
+#: pustakalaya_apps/document/models.py:478
 msgid "ISBN"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:472
+#: pustakalaya_apps/document/models.py:482
 msgid "Identifier ID"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:479
+#: pustakalaya_apps/document/models.py:489
 msgid "document"
 msgstr ""
 
@@ -1572,12 +1573,10 @@ msgstr "प्रकाशन मिति"
 
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:394
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:355
-
 msgid "Available year:"
 msgstr "उपलब्ध मिति"
 
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:403
-
 msgid "Keywords:"
 msgstr "मुख्य शब्दावलीहरू"
 
@@ -1597,7 +1596,6 @@ msgstr "अन्तर्क्रियात्मक"
 
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:513
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:525
-
 msgid "Sponsors:"
 msgstr "प्रायोजक"
 
@@ -1606,12 +1604,15 @@ msgid "Rights:"
 msgstr "अधिकार"
 
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:549
-
 msgid "Description:"
 msgstr "संस्करण"
 
-#: pustakalaya_apps/document/templates/document/document_detail_new.html:710
-msgid "Similar Books You May Like"
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:707
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:711
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:715
+#, fuzzy
+#| msgid "Similar Videos You May Like"
+msgid "Similar Items You May Like"
 msgstr "समान किसिमका सामग्रीहरू"
 
 #: pustakalaya_apps/pustakalaya_account/models.py:22
@@ -1700,8 +1701,12 @@ msgid ""
 msgstr ""
 
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:35
+msgid "Showing"
+msgstr "उपलब्ध"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:35
 msgid "results"
-msgstr "परिणाम"
+msgstr "सामग्री"
 
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:45
 msgid "Sort By"
@@ -1776,31 +1781,31 @@ msgstr ""
 msgid "result not found for"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:41
+#: pustakalaya_apps/video/models.py:42
 msgid "Add this video to these collection"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:70
+#: pustakalaya_apps/video/models.py:71
 msgid "Producer"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:95 pustakalaya_apps/video/models.py:288
+#: pustakalaya_apps/video/models.py:96 pustakalaya_apps/video/models.py:296
 msgid "Video series"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:107
+#: pustakalaya_apps/video/models.py:108
 msgid "Certification"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:112
+#: pustakalaya_apps/video/models.py:113
 msgid "Age group"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:135
+#: pustakalaya_apps/video/models.py:136
 msgid "Video Genre"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:320
+#: pustakalaya_apps/video/models.py:328
 msgid "maximum size of thumbnail should be 165px by 93px"
 msgstr ""
 
@@ -1875,11 +1880,10 @@ msgid "Right:"
 msgstr "अधिकार"
 
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:562
-
 msgid "Additional note"
 msgstr "थप टिप्पणी"
 
-#: pustakalaya_apps/video/templates/video/video_detail_new.html:718
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:719
 msgid "Similar Videos You May Like"
 msgstr "समान किसिमका सामग्रीहरू"
 
@@ -1924,7 +1928,14 @@ msgid ""
 "intranet or the internet. The user can either read documents, view videos, "
 "and listen to audio clips directly from the E-library server or she can "
 "download these materials to her personal computer and view them later."
-msgstr "ई-पुस्तकालय शिक्षाकेन्द्रित पुस्तकालय हो। यसमा दस्तावेज, किताब, पत्रपत्रिका, अडियो, भिडियो लगायत साझा शिक्षा ई-पाटीद्वारा निर्मित राष्ट्रिय पाठ्यक्रममा आधारित अन्तर्क्रियात्मक ई-पाठ क्रियाकलाप समेत समावेस गरिएका छन्। प्रयोगकर्ताहरूले ई-पुस्तकालयमा रहेका सामग्रीहरूलाई आन्तरिक-नेट (intra-net) अथवा ईन्टरनेटको माध्यमबाट खोलेर अध्ययन गर्न, भिडियो हेर्न र अडियो पुस्तकहरू सुन्न सक्नुहुन्छ। हाल ई-पुस्तकालयमा नेपाली र अङ्ग्रेजी भाषाका सङ्ग्रहहरूका साथै नेपालभित्र बोलिने अन्य राष्ट्रिय भाषाका सामग्रीहरू समेत राखिएका छन्"
+msgstr ""
+"ई-पुस्तकालय शिक्षाकेन्द्रित पुस्तकालय हो। यसमा दस्तावेज, किताब, पत्रपत्रिका, अडियो, "
+"भिडियो लगायत साझा शिक्षा ई-पाटीद्वारा निर्मित राष्ट्रिय पाठ्यक्रममा आधारित "
+"अन्तर्क्रियात्मक ई-पाठ क्रियाकलाप समेत समावेस गरिएका छन्। प्रयोगकर्ताहरूले ई-पुस्तकालयमा "
+"रहेका सामग्रीहरूलाई आन्तरिक-नेट (intra-net) अथवा ईन्टरनेटको माध्यमबाट खोलेर अध्ययन "
+"गर्न, भिडियो हेर्न र अडियो पुस्तकहरू सुन्न सक्नुहुन्छ। हाल ई-पुस्तकालयमा नेपाली र अङ्ग्रेजी "
+"भाषाका सङ्ग्रहहरूका साथै नेपालभित्र बोलिने अन्य राष्ट्रिय भाषाका सामग्रीहरू समेत राखिएका "
+"छन्"
 
 #: templates/_partials/footer.html:47
 msgid "SUPPORT"
@@ -1935,13 +1946,13 @@ msgid "Offline Access"
 msgstr "अफलाइन पहुँच"
 
 #: templates/_partials/footer.html:56 templates/_partials/footer_old.html:69
-#: templates/_partials/navbar.html:171 templates/_partials/navbar_new.html:266
+#: templates/_partials/navbar.html:171 templates/_partials/navbar_new.html:264
 #: templates/static_pages/feedback.html:10
 msgid "Feedback"
 msgstr "सुझाव"
 
 #: templates/_partials/footer.html:59 templates/_partials/footer_old.html:74
-#: templates/_partials/navbar.html:167 templates/_partials/navbar_new.html:269
+#: templates/_partials/navbar.html:167 templates/_partials/navbar_new.html:267
 msgid "Help"
 msgstr "सहयोग"
 
@@ -1985,7 +1996,9 @@ msgstr "सामग्री सहयोग"
 msgid ""
 "Unless explicitly mentioned, all the contents on this website are licensed "
 "under Creative Commons"
-msgstr "निश्चित सामग्रीका लागि उल्लेख गरिए बाहेक, सबै सामग्रीहरु creative commons अनुसार उपलब्ध छन्। "
+msgstr ""
+"निश्चित सामग्रीका लागि उल्लेख गरिए बाहेक, सबै सामग्रीहरु creative commons अनुसार "
+"उपलब्ध छन्। "
 
 #: templates/_partials/footer_old.html:43
 msgid "Developed and maintained By"
@@ -2033,13 +2046,13 @@ msgstr ""
 msgid "Authors"
 msgstr "लेखक"
 
-#: templates/_partials/navbar.html:227 templates/_partials/navbar_new.html:382
-#: templates/_partials/navbar_new.html:506
+#: templates/_partials/navbar.html:227 templates/_partials/navbar_new.html:380
+#: templates/_partials/navbar_new.html:504
 msgid "profile"
 msgstr "प्रोफाइल"
 
-#: templates/_partials/navbar.html:229 templates/_partials/navbar_new.html:384
-#: templates/_partials/navbar_new.html:508
+#: templates/_partials/navbar.html:229 templates/_partials/navbar_new.html:382
+#: templates/_partials/navbar_new.html:506
 msgid "logout"
 msgstr "लग-आउट"
 
@@ -2047,60 +2060,60 @@ msgstr "लग-आउट"
 msgid "All"
 msgstr "सबै"
 
-#: templates/_partials/navbar_new.html:215
+#: templates/_partials/navbar_new.html:213
 msgid "TITLES"
 msgstr "शिर्षक"
 
-#: templates/_partials/navbar_new.html:218
+#: templates/_partials/navbar_new.html:216
 msgid "AUTHOR"
 msgstr "लेखक"
 
-#: templates/_partials/navbar_new.html:221
+#: templates/_partials/navbar_new.html:219
 msgid "CATEGORIES"
 msgstr "विषयगत् कक्षहरू"
 
-#: templates/_partials/navbar_new.html:224
+#: templates/_partials/navbar_new.html:222
 msgid "Literature And Arts"
 msgstr "साहित्य र कला"
 
-#: templates/_partials/navbar_new.html:240
+#: templates/_partials/navbar_new.html:238
 msgid "Newspapers & Magazines"
 msgstr "पत्र-पत्रिका"
 
-#: templates/_partials/navbar_new.html:245
-#: templates/_partials/navbar_new.html:246
+#: templates/_partials/navbar_new.html:243
+#: templates/_partials/navbar_new.html:244
 msgid "LEVEL"
 msgstr "शैक्षिक तह"
 
-#: templates/_partials/navbar_new.html:360
-#: templates/_partials/navbar_new.html:519
+#: templates/_partials/navbar_new.html:358
+#: templates/_partials/navbar_new.html:517
 msgid "Log In"
 msgstr "लग-ईन"
 
-#: templates/_partials/navbar_new.html:401
+#: templates/_partials/navbar_new.html:399
 msgid "Titles"
 msgstr "शिर्षक"
 
-#: templates/_partials/navbar_new.html:407
+#: templates/_partials/navbar_new.html:405
 msgid "Literature &amp; Arts"
 msgstr "साहित्य र कला"
 
-#: templates/_partials/navbar_new.html:412 templates/index.html:38
+#: templates/_partials/navbar_new.html:410 templates/index.html:38
 msgid "Newspapers &amp; Magazines"
 msgstr "पत्र-पत्रिका"
 
-#: templates/_partials/navbar_new.html:414
+#: templates/_partials/navbar_new.html:412
 msgid "Level"
 msgstr "शैक्षिक तह"
 
-#: templates/_partials/navbar_new.html:445
+#: templates/_partials/navbar_new.html:443
 msgid "नेपाली"
 msgstr ""
 
 #: templates/_partials/sorting_form.html:12
 #: templates/_partials/sorting_form_for_search_result.html:12
 msgid "updated date"
-msgstr "अध्यावधिक मिति"
+msgstr "मिति"
 
 #: templates/_partials/sorting_form.html:15
 msgid "Rating"
@@ -2173,7 +2186,9 @@ msgstr "सावधान:"
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
-msgstr "तपाईँको अहिले कुनै पनि ईमेल ठेगाना राखिएको छैन। तपाईँले एउटा ईमेल ठेगाना राखेर पासवर्ड रिसेट गर्नु पर्ने छ।"
+msgstr ""
+"तपाईँको अहिले कुनै पनि ईमेल ठेगाना राखिएको छैन। तपाईँले एउटा ईमेल ठेगाना राखेर पासवर्ड "
+"रिसेट गर्नु पर्ने छ।"
 
 #: templates/account/email.html:57
 msgid "Add E-mail Address"
@@ -2541,7 +2556,7 @@ msgstr "खान एकेडेमी"
 
 #: templates/index.html:192
 msgid "Reference Sites"
-msgstr "थप सन्दर्भ साइटहरू"
+msgstr "सन्दर्भ साइटहरू"
 
 #: templates/index.html:243
 msgid "Collection of Books"
@@ -3615,6 +3630,8 @@ msgstr ""
 msgid "Create Pustakalaya Account"
 msgstr "पुस्तकालय खाता खोल्नुहोस्।"
 
+#~ msgid "Similar Books You May Like"
+#~ msgstr "समान किसिमका सामग्रीहरू"
 
 #~ msgid "Audio Link:"
 #~ msgstr "अडियो पुस्तक"

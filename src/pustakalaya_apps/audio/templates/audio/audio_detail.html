@@ -556,16 +556,18 @@
   <!-- start of similar books -->
   <div class="row">
     <div class="col-md-12">
+      <hr>
+      <h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>
       {% if object.get_similar_items.all %}
         {% if object.get_similar_items.all|length != 1%}
-          <hr>
-          <h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>
+          <!--<hr>-->
+          <!--<h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>-->
         {% endif %}
       {% endif %}
     </div>
 
     {% for similar_object in object.get_similar_items %}
-    <h5 id="det-book-title">{% trans "Similar Items You May Like" %}</h5>
+
      {% if similar_object.pk != object.pk %}
     <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
