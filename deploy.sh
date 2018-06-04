@@ -95,7 +95,10 @@ process() {
                     shift
                     ;;
               "--ci")
+                  notify "Stopping conatiners"
                   docker_stop
+                  notify "Deletelting UNTAGGED images"
+                  docker rmi $(docker images | grep "^<none>" | awk "{print $3}") 
                   notify "Building containers"
                   docker_rebuild_images
                   notify "Migrating django DB"
