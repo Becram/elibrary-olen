@@ -48,9 +48,11 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
         hit_count_response = HitCountMixin.hit_count(request, hit_count)
         context = self.get_context_data(object=self.object)
 
+        if request.user.is_authenticated:
 
-
-        data_review = Review.objects.filter(content_id=self.object.pk, content_type='document')
+            data_review = Review.objects.filter(content_id=self.object.pk, content_type='document')
+        else:
+            data_review = Review.objects.filter(content_id=self.object.pk, content_type='document',published=True)
 
         #************Review pagination add************#
 
