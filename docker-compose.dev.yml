@@ -5,7 +5,7 @@ services:
 #    image: funkygibbon/nginx-pagespeed:latest
     build:
       context: ./dockerfile-nginx/
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     restart: always
     hostname: nginx
     container_name: nginx_01
@@ -23,7 +23,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./dockerfile-django-web/Dockerfile
+      dockerfile: ./dockerfile-django-web/Dockerfile.dev
     restart: always
     hostname: web
     container_name: django_web_01
@@ -41,12 +41,12 @@ services:
 #      - "8001:8001"
     expose:
       - "8001"
-#    links:
-#      - redis
+    links:
+      - redis
   db:
     build:
-      context: ./dockerfile-postgres
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./dockerfile-postgres/Dockerfile
     restart: always
     environment:
       - POSTGRES_USER=pustakalaya_user
@@ -65,12 +65,14 @@ services:
       - ./src:/src
     expose:
       - "5432"
+    ports:
+      -  '5432:5432'
 
 
   elastic:
     build:
-      context: ./dockerfile-elastic
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./dockerfile-elastic/Dockerfile
     hostname: elastic
     restart: always
     container_name: elasticsearch_01
@@ -87,19 +89,18 @@ services:
     #ports:
     #  -  '9200:9200'
 
-  rabbitmq:
-    image: rabbitmq:latest
-    hostname: rabbitmq
+
+  redis:
+    image: redis:latest
     restart: always
-    container_name: rabbitmq_01
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=mypass
-    expose:
-      - "5672"
+    hostname: redis
+    container_name: redis_01
     networks:
       - pustakalaya-network
-
+#    ports:
+#     - '6379:6379'
+    expose:
+      - "6379"
   celery:
     build:
       context: .
@@ -107,20 +108,14 @@ services:
     hostname: celery
     restart: always
     container_name: celery_01
-    command: celery -A pustakalaya  worker -l info
+    command: ./script.d/run_celery.sh
     networks:
       - pustakalaya-network
     volumes:
       - ./src:/src
-      - /library/media_root:/library/media_root
-      - /library/static_root:/library/static_root
-
     links:
       - db
-      - rabbitmq
-   
-
-
+      - redis
 networks:
   pustakalaya-network:
     driver: bridge

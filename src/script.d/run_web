@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
- sleep 10
+sleep 10
 
 NAME=pustakalaya
 # Project source directory
@@ -52,6 +52,7 @@ gunicorn ${DJANGO_WSGI_MODULE}:application \
   --name $NAME \
   --workers $NUM_WORKERS \
    --user=$APP_USER   \
+   --timeout=90  \
   --bind=0.0.0.0:8001 \
   --log-level=debug \
   --log-file=/var/log/gunicorn-error.log

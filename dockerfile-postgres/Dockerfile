@@ -1,8 +1,15 @@
 FROM postgres:9.6
 
 ENV APP_ROOT /src
+ENV BACKUP_DIR /library/backup_pg_pustakalaya/backup/daily/pustakalaya/
+
 WORKDIR ${APP_ROOT}
 #RUN mkdir -p  /script && > /etc/cron.d/pg_backup-cron && echo "*/5 * * * * /script/autopgsqlbackup" >> /etc/cron.d/pg_backup-cron
-ADD src/script.d/autopgsqlbackup /script/
-
+RUN mkdir -p $BACKUP_DIR
+ADD autopgsqlbackup /script/
+ADD *.bz2 $BACKUP_DIR
 RUN chmod +x /script/autopgsqlbackup
+
+#Set timezone
+ENV TZ=Asia/Kathmandu
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

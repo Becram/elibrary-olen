@@ -1,63 +1,78 @@
 version: '2'
 services:
   nginx:
-    image: nginx:latest
+    # image: nginx:latest
+#    image: funkygibbon/nginx-pagespeed:latest
+    build:
+      context: ./dockerfile-nginx/
+      dockerfile: Dockerfile
+    restart: always
     hostname: nginx
     container_name: nginx_01
     networks:
       - pustakalaya-network
     ports:
-     - "8000:8000"
+     - "80:8000"
     volumes:
      - ./src:/src
-     - ./conf/nginx:/etc/nginx/conf.d
-     - /media/bikram/pustakalaya/olen-lib-project/src/media_root:/library/media_root
-     - /media/bikram/pustakalaya/olen-lib-project/src/static_root:/library/static_root
+#     - ./conf/nginx:/etc/nginx/conf.d
+     - /library/media_root:/library/media_root
+     - /library/static_root:/library/static_root
     depends_on:
      - web
   web:
     build:
       context: .
       dockerfile: ./dockerfile-django-web/Dockerfile
+    restart: always
     hostname: web
     container_name: django_web_01
-    # command: bash -c 'python manage.py makemigrations && python manage.py migrate --settings=pustakalaya.settings.production && gunicorn pustakalaya.wsgi -b 0.0.0.0:8001 && python manage.py --settings=pustakalaya.settings.production'
-    command: ./run_web.sh
+    command: ./script.d/run_web
     depends_on:
       - db
       - elastic
     volumes:
       - ./src:/src
-      - /media/bikram/pustakalaya/olen-lib-project/src/media_root:/library/media_root
-      - /media/bikram/pustakalaya/olen-lib-project/src/static_root:/library/static_root
+      - /library/media_root:/library/media_root
+      - /library/static_root:/library/static_root
     networks:
       - pustakalaya-network
-    ports:
-      - "8001:8001"
-    # expose:
-    #   - "8001"
+#    ports:
+#      - "8001:8001"
+    expose:
+      - "8001"
     links:
       - redis
-
   db:
-    image: postgres:9.6
-      
+    build:
+      context: ./dockerfile-postgres
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - POSTGRES_USER=pustakalaya_user
+      - POSTGRES_DB=pustakalaya
+      - POSTGRES_PASSWORD=pustakalaya123
+      - POSTGRES_BACKUP_DIR=/pg_backups
+      # - BUILD_NUM=${BUILD_NUMBER}
 
     hostname: db
     container_name: postgres_01
     networks:
       - pustakalaya-network
-    # command: ./run_db.sh
+     # command: ./run_db.sh
     volumes:
+      - /library/backup_pg_pustakalaya:/pg_backups
       - ./src:/src
     expose:
-      -  "5432"
+      - "5432"
+
 
   elastic:
     build:
       context: .
       dockerfile: ./dockerfile-elastic/Dockerfile
     hostname: elastic
+    restart: always
     container_name: elasticsearch_01
     volumes:
       - ./conf:/conf
@@ -69,26 +84,30 @@ services:
     expose:
       -  "9200"
       -  "9300"
-    ports:
-      -  '9200:9200'
+    #ports:
+    #  -  '9200:9200'
 
 
   redis:
-    image: redis:latest
+    image: redis:4.0
+    restart: always
     hostname: redis
     container_name: redis_01
     networks:
       - pustakalaya-network
-    ports:
-     - '6379:6379'
-
+#    ports:
+#     - '6379:6379'
+    expose:
+      - "6379"
   celery:
     build:
       context: .
       dockerfile: ./dockerfile-celery/Dockerfile
     hostname: celery
+    restart: always
     container_name: celery_01
-    command: ./run_celery.sh
+#    command: ./script.d/run_celery
+    command: celery -A pustakalaya  worker -l info
     networks:
       - pustakalaya-network
     volumes:

@@ -6,8 +6,8 @@ from django.conf import settings
 
 # Set the default environ module
 # Use base settings.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', "pustakalaya.settings.base")
-app = Celery('pustakalaya')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', "pustakalaya.settings.production")
+app = Celery('pustakalaya', broker='amqp://admin:mypass@rabbitmq:5672')
 
 # Using a string here means the worker will not have to
 # pickle the object when using Windows.

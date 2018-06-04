@@ -221,28 +221,27 @@ ES_CONNECTIONS = {
         }]
     }
 }
-
-## Cache server configuration.
-try:
-    REDIS_IP = config["REDIS"]["IP"]
-    REDIS_PORT = config["REDIS"]["PORT"]
-
-except KeyError:
-    raise ImproperlyConfigured("{} or {} Improperly configured in config.json".format("REDIS IP", "REDIS_PORT"))
-
-# Cache time to live is 0 minutes.
-CACHE_TTL = 60 * 0  # 0 minutes
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://{}:{}/1".format(REDIS_IP, REDIS_PORT),
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
-        },
-        "KEY_PREFIX": "pustakalaya"
-    }
-}
-
+#### Cache server configuration.
+##try:
+##    REDIS_IP = config["RABBITMQ"]["IP"]
+##    REDIS_PORT = config["RABBITMQ"]["PORT"]
+##
+##except KeyError:
+##    raise ImproperlyConfigured("{} or {} Improperly configured in config.json".format("RABBITMQ IP", "RABBITMQ PORT"))
+##
+### Cache time to live is 0 minutes.
+##CACHE_TTL = 60 * 0  # 0 minutes
+##CACHES = {
+##    "default": {
+##        "BACKEND": "django_redis.cache.RedisCache",
+##        "LOCATION": "rabbitmq://{}:{}/1".format(REDIS_IP, REDIS_PORT),
+##        "OPTIONS": {
+##            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+##        },
+##        "KEY_PREFIX": "pustakalaya"
+##    }
+##}
+##
 # Django jet configuration
 JET_DEFAULT_THEME = 'light-gray'
 JET_SIDE_MENU_COMPACT = True
@@ -362,14 +361,14 @@ GOOGLE_ANALYTICS_ANONYMIZE_IP = True
 GOOGLE_ANALYTICS_SESSION_COOKIE_TIMEOUT = 3600000
 GOOGLE_ANALYTICS_VISITOR_COOKIE_TIMEOUT = 3600000
 
-# Celery configuration
-BROKER_URL = 'redis://{}:{}'.format(REDIS_IP, REDIS_PORT)
-CELERY_RESULT_BACKEND = 'redis://{}:{}'.format(REDIS_IP, REDIS_PORT)
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Kathmandu'
-
+#i# Celery configuration
+#BROKER_URL = 'redis://{}:{}'.format("rabbitmq", "5672")
+#CELERY_RESULT_BACKEND = 'redis://{}:{}'.format("rabbitmq", "5672")
+#CELERY_ACCEPT_CONTENT = ['application/json']
+#CELERY_TASK_SERIALIZER = 'json'
+#CELERY_RESULT_SERIALIZER = 'json'
+#CELERY_TIMEZONE = 'Asia/Kathmandu'
+ELERY_BROKER_URL = 'amqp://admin:mypass@rabbitmq:5672'
 # Django logging settings
 LOG_DIR = os.path.join(os.path.dirname(BASE_DIR), 'logs')
 

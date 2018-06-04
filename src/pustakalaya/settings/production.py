@@ -2,6 +2,8 @@ from .base import *  # NOQA
 
 DEBUG = False
 
+#CELERY_BROKER_URL = 'amqp://rabbitmq'
+
 try:
     db_name = config["DATABASE"]["NAME"]
     db_user = config["DATABASE"]["USER"]
@@ -18,7 +20,7 @@ DATABASES = {
         'NAME': 'pustakalaya',
         'USER': 'pustakalaya_user',
         'PASSWORD': 'pustakalaya123',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
