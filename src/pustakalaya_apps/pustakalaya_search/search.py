@@ -13,6 +13,7 @@ from elasticsearch_dsl import (
 
 class PustakalayaSearch(FacetedSearch):
 
+
     def __init__(self, search_types, sort_values, *args, **kwargs):
         # Doc types to search
         self.doc_types = search_types

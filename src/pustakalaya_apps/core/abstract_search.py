@@ -6,15 +6,15 @@ class ItemDoc(DocType):
     Don't get index in the index server."""
     id = Text()
     title = Text(fields={'keyword': Keyword()})
-    title_search = Text(analyzer='snowball') # Field to search the keyword
+    title_search = Text() # Field to search the keyword
     title_suggest = Completion()
-    abstract = Text(analyzer='snowball')
+    abstract = Text()
     type = Text(fields={'keyword': Keyword()})
     education_levels = Text(multi=True, fields={'keyword': Keyword()})
-    communities = Text(analyzer='snowball',multi=True, fields={'keyword': Keyword()})
+    communities = Text(multi=True, fields={'keyword': Keyword()})
     collections = Text(multi=True, fields={'keyword': Keyword()})
     languages = Text(multi=True, fields={'keyword': Keyword()})
-    description = Text(analyzer='snowball')
+    description = Text()
     license_type = Text(fields={'keyword': Keyword()})
     year_of_available = Date()
     publication_year = Date()
