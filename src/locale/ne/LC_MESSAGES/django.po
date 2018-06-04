@@ -196,12 +196,12 @@ msgstr "सम्पादन"
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:116
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:150
 msgid "Leave a Review"
-msgstr ""
+msgstr "समीक्षा गर्"
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail.html:157
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:213
 msgid "Edit Review"
-msgstr ""
+msgstr "समीक्षा सम्पादन गर्न"
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail.html:163
 #: pustakalaya_apps/core/abstract_models.py:174

@@ -23,7 +23,7 @@ class PustakalayaSearch(FacetedSearch):
     index = settings.ES_INDEX
     # Boost values
     fields = [
-        'title^10',
+        'title_search^10',
         'keywords',
         'abstract^5',
         'description',
