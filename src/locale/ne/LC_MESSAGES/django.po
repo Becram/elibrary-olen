@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pustakalaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-01 17:15+0545\n"
+"POT-Creation-Date: 2018-06-04 09:33+0545\n"
 "PO-Revision-Date: 2017-10-03 00:01-0400\n"
 "Last-Translator: nix1947 <openpy.manoj@gmail.com>\n"
 "Language-Team: Nepali\n"
@@ -71,8 +71,7 @@ msgid "Audio"
 msgstr "अडियो"
 
 #: pustakalaya_apps/audio/models.py:38
-#, fuzzy
-#| msgid "Audio type"
+
 msgid "Audio types"
 msgstr "अडियो प्रकार"
 
@@ -214,8 +213,7 @@ msgstr ""
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail.html:165
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:166
-#, fuzzy
-#| msgid "Your Message"
+
 msgid "Message"
 msgstr "तपाईँको सुझाव"
 
@@ -275,8 +273,7 @@ msgid "Reviews"
 msgstr ""
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail.html:283
-#, fuzzy
-#| msgid "Read/Voice by:"
+
 msgid "Voice by"
 msgstr "आवाज"
 
@@ -407,8 +404,7 @@ msgid "Similar Audio Books You May Like"
 msgstr ""
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:118
-#, fuzzy
-#| msgid "Read/Voice by:"
+
 msgid "Read by/Voice:"
 msgstr "आवाज"
 
@@ -420,8 +416,6 @@ msgid "Publisher:"
 msgstr "प्रकाशक"
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:157
-#, fuzzy
-#| msgid "Place of Publication:"
 msgid "Place of publication:"
 msgstr "प्रकाशन स्थान"
 
@@ -529,8 +523,7 @@ msgid "Sort by"
 msgstr ""
 
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:32
-#, fuzzy
-#| msgid "literatures and Arts"
+
 msgid "Literatures and Arts"
 msgstr "साहित्य र कला"
 
@@ -564,14 +557,10 @@ msgstr "अन्य शिक्षाप्रद सामग्री"
 
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:37
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:203
-#, fuzzy
-#| msgid "Newspapers &amp; Magazines"
 msgid "Newspapers and Magazines"
 msgstr "पत्रपत्रिका"
 
 #: pustakalaya_apps/collection/templates/collection/community_detail.html:47
-#, fuzzy
-#| msgid "literatures and Arts"
 msgid "Literature and Arts"
 msgstr "साहित्य र कला"
 
@@ -739,7 +728,7 @@ msgstr ""
 
 #: pustakalaya_apps/core/abstract_models.py:259
 msgid "Featured"
-msgstr ""
+msgstr "लोकप्रीय"
 
 #: pustakalaya_apps/core/abstract_models.py:269
 msgid "published"
@@ -826,8 +815,6 @@ msgid "Australian English"
 msgstr ""
 
 #: pustakalaya_apps/core/constants.py:22
-#, fuzzy
-#| msgid "English"
 msgid "British English"
 msgstr "अंग्रेजी"
 
@@ -1016,8 +1003,6 @@ msgid "Punjabi"
 msgstr ""
 
 #: pustakalaya_apps/core/constants.py:70
-#, fuzzy
-#| msgid "English"
 msgid "Polish"
 msgstr "अंग्रेजी"
 
@@ -1199,11 +1184,6 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:208
-#, fuzzy
-#| msgid "MIT License"
-msgid "License"
-msgstr "मानोज"
 
 #: pustakalaya_apps/core/templates/core/author_books.html:13
 msgid "Books by"
@@ -1245,8 +1225,6 @@ msgid "Keywords"
 msgstr ""
 
 #: pustakalaya_apps/core/templates/core/author_detail_new.html:146
-#, fuzzy
-#| msgid "Place of Publication:"
 msgid "Author's Publications"
 msgstr "प्रकाशन स्थान"
 
@@ -1559,8 +1537,6 @@ msgstr ""
 
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:160
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:194
-#, fuzzy
-#| msgid "Your Message"
 msgid "Info message"
 msgstr "तपाईँको सुझाव"
 
@@ -1591,21 +1567,17 @@ msgstr ""
 
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:385
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:347
-#, fuzzy
-#| msgid "publication year:"
 msgid "Publication year:"
 msgstr "प्रकाशन मिति"
 
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:394
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:355
-#, fuzzy
-#| msgid "available year:"
+
 msgid "Available year:"
 msgstr "उपलब्ध मिति"
 
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:403
-#, fuzzy
-#| msgid "keywords:"
+
 msgid "Keywords:"
 msgstr "मूख्य शब्दावलीहरू"
 
@@ -1625,8 +1597,7 @@ msgstr ""
 
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:513
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:525
-#, fuzzy
-#| msgid "sponsors:"
+
 msgid "Sponsors:"
 msgstr "प्रायोजक"
 
@@ -1635,8 +1606,7 @@ msgid "Rights:"
 msgstr ""
 
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:549
-#, fuzzy
-#| msgid "edition:"
+
 msgid "Description:"
 msgstr "संस्करण"
 
@@ -1651,8 +1621,6 @@ msgstr ""
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:234
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:221
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:234
-#, fuzzy
-#| msgid "Audio type"
 msgid "Media type"
 msgstr "अडियो प्रकार"
 
@@ -1942,8 +1910,18 @@ msgstr ""
 msgid "Contact Us"
 msgstr ""
 
-#: templates/500.html:5
-msgid "Some server error :("
+#: templates/500.html:11
+msgid "500"
+msgstr ""
+
+#: templates/500.html:12
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/500.html:14
+msgid ""
+"Something went wrong on our end. <br>Try refreshing the page, or going back "
+"and attempting the action again."
 msgstr ""
 
 #: templates/_partials/footer.html:43
@@ -2546,67 +2524,59 @@ msgstr "सन्दर्भ सामग्री"
 msgid "other educational Materials"
 msgstr "अन्य शिक्षाप्रद सामग्री"
 
-#: templates/index.html:47
-#, fuzzy
-#| msgid "Popular Titles"
-msgid "Featured Titles"
+#: templates/index.html:48
+msgid "featured titles"
 msgstr "लोकप्रीय शिर्षकहरू"
 
-#: templates/index.html:106
-#, fuzzy
-#| msgid "Popular Titles"
+#: templates/index.html:107
 msgid "Show all featured items"
-msgstr "लोकप्रीय शिर्षकहरू"
+msgstr "लोकप्रीय शिर्षकहरूs"
 
-#: templates/index.html:114
+#: templates/index.html:115
 msgid "E-Paath"
 msgstr ""
 
-#: templates/index.html:122
-#, fuzzy
-#| msgid "Other Educational Materials"
+#: templates/index.html:123
 msgid "Educational Softwares"
 msgstr "अन्य शिक्षाप्रद सामग्री"
 
-#: templates/index.html:133
+#: templates/index.html:134
 msgid "E-Learning for Kids"
 msgstr "बालबालिकाका लागि ई-अध्ययन"
 
-#: templates/index.html:141
-#, fuzzy
-#| msgid "English"
+#: templates/index.html:142
 msgid "Learn English"
 msgstr "अंग्रेजी"
 
-#: templates/index.html:149
+#: templates/index.html:150
 msgid "PhET Simulations"
 msgstr "फेट सिमुलेसन"
 
-#: templates/index.html:157
+#: templates/index.html:158
 msgid "Environmental Activities"
 msgstr "वातावरण क्रियाकलाप"
 
-#: templates/index.html:165
+#: templates/index.html:166
 msgid "Khan Academy"
 msgstr "खान एकेडेमी"
 
-#: templates/index.html:191
+#: templates/index.html:192
 msgid "Reference Sites"
 msgstr "थप सन्दर्भ सामग्रीहरू"
 
-#: templates/index.html:242
+#: templates/index.html:243
 msgid "Collection of Books"
 msgstr ""
 
-#: templates/index.html:247
+#: templates/index.html:248
 msgid "Collection of Audiobooks"
 msgstr ""
 
-#: templates/index.html:252
+#: templates/index.html:253
 msgid "Collection of Videos"
 msgstr ""
 
-#: templates/index.html:257
+#: templates/index.html:258
 msgid "Number of Authors"
 msgstr ""
 
@@ -3666,8 +3636,7 @@ msgstr ""
 msgid "Create Pustakalaya Account"
 msgstr ""
 
-#, fuzzy
-#~| msgid "Audio Book"
+
 #~ msgid "Audio Link:"
 #~ msgstr "अडियो पुस्तक"
 

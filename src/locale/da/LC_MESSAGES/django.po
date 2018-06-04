@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pustakalaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-01 17:15+0545\n"
+"POT-Creation-Date: 2018-06-04 09:33+0545\n"
 "PO-Revision-Date: 2017-10-02 23:42-0400\n"
 "Last-Translator: nix1947 <openpy.manoj@gmail.com>\n"
 "Language-Team: Danish\n"
@@ -1886,8 +1886,18 @@ msgstr ""
 msgid "Contact Us"
 msgstr ""
 
-#: templates/500.html:5
-msgid "Some server error :("
+#: templates/500.html:11
+msgid "500"
+msgstr ""
+
+#: templates/500.html:12
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/500.html:14
+msgid ""
+"Something went wrong on our end. <br>Try refreshing the page, or going back "
+"and attempting the action again."
 msgstr ""
 
 #: templates/_partials/footer.html:43
@@ -2480,59 +2490,59 @@ msgstr ""
 msgid "other educational Materials"
 msgstr ""
 
-#: templates/index.html:47
-msgid "Featured Titles"
+#: templates/index.html:48
+msgid "featured titles"
 msgstr ""
 
-#: templates/index.html:106
+#: templates/index.html:107
 msgid "Show all featured items"
 msgstr ""
 
-#: templates/index.html:114
+#: templates/index.html:115
 msgid "E-Paath"
 msgstr ""
 
-#: templates/index.html:122
+#: templates/index.html:123
 msgid "Educational Softwares"
 msgstr ""
 
-#: templates/index.html:133
+#: templates/index.html:134
 msgid "E-Learning for Kids"
 msgstr ""
 
-#: templates/index.html:141
+#: templates/index.html:142
 msgid "Learn English"
 msgstr ""
 
-#: templates/index.html:149
+#: templates/index.html:150
 msgid "PhET Simulations"
 msgstr ""
 
-#: templates/index.html:157
+#: templates/index.html:158
 msgid "Environmental Activities"
 msgstr ""
 
-#: templates/index.html:165
+#: templates/index.html:166
 msgid "Khan Academy"
 msgstr ""
 
-#: templates/index.html:191
+#: templates/index.html:192
 msgid "Reference Sites"
 msgstr ""
 
-#: templates/index.html:242
+#: templates/index.html:243
 msgid "Collection of Books"
 msgstr ""
 
-#: templates/index.html:247
+#: templates/index.html:248
 msgid "Collection of Audiobooks"
 msgstr ""
 
-#: templates/index.html:252
+#: templates/index.html:253
 msgid "Collection of Videos"
 msgstr ""
 
-#: templates/index.html:257
+#: templates/index.html:258
 msgid "Number of Authors"
 msgstr ""
 
