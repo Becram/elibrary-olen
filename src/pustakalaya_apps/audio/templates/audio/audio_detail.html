@@ -565,7 +565,7 @@
     </div>
 
     {% for similar_object in object.get_similar_items %}
-
+    <h5 id="det-book-title">{% trans "Similar Items You May Like" %}</h5>
      {% if similar_object.pk != object.pk %}
     <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
