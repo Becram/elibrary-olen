@@ -134,7 +134,7 @@
                                                 $( "#project-id" ).val( ui.item.value );
                                                 $( "#project-description" ).html( ui.item.desc );
                                                 $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
-
+                                                $(this).closest("form").submit();
                                                 return false;
                                             }
                                             })
@@ -144,10 +144,7 @@
                                                 .append("<div><a href='/search/?form-filter=&q="+item.label +"'"+"><div>" + item.label  +   "</div></a></div>" )
                                                 .appendTo( ul );
                                             };
-
-
                                       }  // getSuggestion End
-
 
                                     });
                             </script>
@@ -160,8 +157,9 @@
                                     window.searchSuggestion = function (event) {
 
 
-
                                 if (event.keyCode === 13) {
+                                    
+                                    
 
 
                                 }
@@ -221,23 +219,23 @@
                                 <a href="/community/all/">{% trans "CATEGORIES" %} &#9662;</a>
                                 <ul class="dropdown-items">
                                     <li>
-                                        <a href="/community/literatures-and-arts/#cat-1"><i class="fa fa-book"></i> Literature And Arts</a>
+                                        <a href="/community/literatures-and-arts/#cat-1"><i class="fa fa-book"></i> {% trans "Literature And Arts" %}</a>
                                     </li>
                                     <li>
-                                        <a href="/community/course-materials/#cat-1"><i class="fa fa-desktop"></i> Course Materials</a>
+                                        <a href="/community/course-materials/#cat-1"><i class="fa fa-desktop"></i> {% trans "Course Materials" %}</a>
                                     </li>
                                     <li>
-                                        <a href="/community/teaching-materials/#cat-3"><i class="fa fa-graduation-cap"></i> Teaching Materials</a>
+                                        <a href="/community/teaching-materials/#cat-3"><i class="fa fa-graduation-cap"></i> {% trans "Teaching Materials" %}</a>
                                     </li>
 
                                     <li>
-                                        <a href="/community/reference-materials/#cat-4"><i class="fa fa-briefcase"></i> Reference Materials</a>
+                                        <a href="/community/reference-materials/#cat-4"><i class="fa fa-briefcase"></i> {% trans "Reference Materials" %}</a>
                                     </li>
                                     <li>
-                                        <a href="/community/other-educational-materials/#cat-5"><i class="fa fa-flask"></i> Other Educational Materials</a>
+                                        <a href="/community/other-educational-materials/#cat-5"><i class="fa fa-flask"></i> {% trans "Other Educational Materials" %}</a>
                                     </li>
                                     <li>
-                                        <a href="/community/newspaper-and-magazines/#cat-6"><i class="fa fa-newspaper-o"></i> Newspapers & Magazines</a>
+                                        <a href="/community/newspaper-and-magazines/#cat-6"><i class="fa fa-newspaper-o"></i> {% trans "Newspapers & Magazines" %}</a>
                                     </li>
                                 </ul>
                             </li>

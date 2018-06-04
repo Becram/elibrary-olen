@@ -556,10 +556,12 @@
   <!-- start of similar books -->
   <div class="row">
     <div class="col-md-12">
+      <hr>
+      <h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>
       {% if object.get_similar_items.all %}
         {% if object.get_similar_items.all|length != 1%}
-          <hr>
-          <h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>
+          <!--<hr>-->
+          <!--<h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>-->
         {% endif %}
       {% endif %}
     </div>
@@ -570,7 +572,7 @@
     <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
           <div class="img-cont">
-             <a href=" {% url 'audio:detail_without_slug'  similar_object.pk %}">
+             <a href="{{similar_object.get_absolute_url}}">
 
             {% if similar_object.thumbnail  %}
             <img  src="{{ MEDIA_URL }}{{ similar_object.thumbnail }}"

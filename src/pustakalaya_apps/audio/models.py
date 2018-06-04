@@ -1,3 +1,4 @@
+from itertools import chain
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
@@ -21,7 +22,6 @@ from pustakalaya_apps.core.models import (
     genre_audio_video
 )
 from .search import AudioDoc
-
 
 
 class FeaturedItemManager(models.Manager):
@@ -175,10 +175,13 @@ class Audio(AbstractItem):
 
 
     def get_similar_items(self):
-        return Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
+        from pustakalaya_apps.document.models import Document
+        from pustakalaya_apps.video.models import Video
 
-
-
+        documents = Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        audios =   Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        videos = Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        return chain(documents, audios, videos)
 
     def get_absolute_url(self):
         from django.urls import reverse

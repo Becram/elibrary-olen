@@ -32,7 +32,7 @@
 
     <div class="row">
           <div class="col-md-4 res-class">
-            <h5>Showing  {{ response.hits.total }} {% trans "results" %}
+            <h5>{% trans "Showing" %}  {{ response.hits.total }} {% trans "results" %}
                  </h5>
           </div>
 
@@ -585,7 +585,7 @@
                 var str = dictionary[key][i];
                 var trimmed =str.split("[[");
                 var trimmed_english = trimmed[0] ;
-               
+
                 //RenderSelectedItem(key,dictionary[key][i]);
                 SpecialRenderForCollections(key,dictionary[key][i],trimmed_english);
             }else{
@@ -626,8 +626,8 @@
 
          var type_full_text = type;
          //console.log("string=",type)
-        
-         var string = ""; 
+
+         var string = "";
          if (type == "type"){
          type_full_text="Media Type";
          string= "type-";
@@ -639,7 +639,7 @@
             string= "license-";
           type_full_text="License Type";
          }else if(type=="collections"){
-             
+
           type_full_text="Collections";
          }else if(type=="keywords"){
           type_full_text="Keywords";

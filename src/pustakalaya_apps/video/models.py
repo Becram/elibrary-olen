@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from itertools import chain
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from pustakalaya_apps.collection.models import Collection
@@ -194,7 +195,14 @@ class Video(AbstractItem):
 
 
     def get_similar_items(self):
-        return Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
+        from pustakalaya_apps.document.models import Document
+        from pustakalaya_apps.audio.models import Audio
+
+        documents = Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        audios =   Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        videos = Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        return chain(documents, audios, videos)
+      
 
 
     def doc(self):

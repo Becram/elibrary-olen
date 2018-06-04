@@ -19,6 +19,7 @@ class DocumentFileUploadInline(admin.TabularInline):
     fields = ["upload"]
 
 
+
 class DocumentLinkInfoAdminInline(admin.TabularInline):
     model = DocumentLinkInfo
     extra = 1
