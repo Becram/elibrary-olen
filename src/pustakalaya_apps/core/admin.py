@@ -6,7 +6,8 @@ from .models import (
     Publisher,
     EducationLevel,
     Language,
-    LicenseType
+    LicenseType,
+    genre_audio_video,
 
 )
 from  django.utils.html import format_html
@@ -35,8 +36,18 @@ class LicenseTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Keyword)
 class KeyWordAdmin(admin.ModelAdmin):
+    search_fields = (
+        'keyword',
+    )
     pass
 
+
+@admin.register(genre_audio_video)
+class genre_audio_videoAdmin(admin.ModelAdmin):
+    search_fields = (
+        'custom_genre',
+    )
+    pass
 
 @admin.register(Biography)
 class BiographyAdmin(admin.ModelAdmin):
@@ -52,7 +63,7 @@ class BiographyAdmin(admin.ModelAdmin):
     )
 
     def author(self,obj):
-        return format_html('<a href="%s">%s</a>' % (obj.get_absolute_url(), obj.getName()))
+        return format_html('<a href="%s">%s</a>' % (obj.get_absolute_url(), obj.getName))
 
     def edit_link(self, obj):
         return format_html("<a href='{url}'>Edit</a>", url=obj.get_admin_url())

@@ -17,7 +17,12 @@ class AudioDetailView(DetailView):
         context = self.get_context_data(object=self.object)
 
         # review system data extractions
-        data_review = Review.objects.filter(content_id=self.object.pk, content_type='audio', published=True)
+        # data_review = Review.objects.filter(content_id=self.object.pk, content_type='audio')
+        if request.user.is_authenticated:
+
+            data_review = Review.objects.filter(content_id=self.object.pk, content_type='audio')
+        else:
+            data_review = Review.objects.filter(content_id=self.object.pk, content_type='audio',published=True)
 
         #adding pagination to the review system
         ##########################Review pagination add########################

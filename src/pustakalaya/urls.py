@@ -23,6 +23,7 @@ from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 
+
 from . import views
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -66,6 +67,14 @@ urlpatterns = [
 
 ]
 
+# API Version1 endpoint url. 
+# API V1 URL endpoint. 
+urlpatterns += [
+    url('^api/v1/', include('pustakalaya.api_v1_urls', namespace="api_v1")),
+    # API authentication
+    url(r'^api-auth/', include('rest_framework.urls'))
+]
+
 # Enable i18n based urls
 urlpatterns += i18n_patterns(
     # Search endpoint
@@ -94,13 +103,6 @@ urlpatterns += i18n_patterns(
     # Ratings.
     url(r'^ratings/', include('star_ratings.urls', namespace='ratings')),
 
-
-    # Wikipedia app
-    # TODO:
-
-    # Maps app
-    # TODO:
-
     # Dashboard app
     # /dashboard/
     url(r'^dashboard/', include('pustakalaya_apps.dashboard.urls', namespace="dashboard")),
@@ -118,7 +120,7 @@ urlpatterns += i18n_patterns(
     # /about/
     url(
         r'^about/$',
-        cache_page(CACHE_TTL)(TemplateView.as_view(template_name="static_pages/about.html")),
+        TemplateView.as_view(template_name="static_pages/about.html"),
         name="about"
     ),
 
@@ -150,6 +152,8 @@ urlpatterns += i18n_patterns(
     ),
     prefix_default_language=True   ,
 )
+
+
 
 if settings.DEBUG:
     # Serve media in development mode

@@ -1,5 +1,17 @@
 {% load static %}
+{% load pustakalaya_filters %}
 {% load i18n %}
+{% block style %}
+<style>
+  .btn-color{
+  background-color:#00838f;
+  display:block;
+  border :1px solid #00838f;
+  border-radius: 2px;
+  padding:0px 5
+  }
+</style>
+{% endblock %}
 <div class="col-md-12" style="font-family:sans-serif,arial;">
     {% for hit in response %}
         <ul class="list-unstyled">
@@ -55,7 +67,7 @@
 
                      <p class=" text-white pull-right">
 
-                       <a href='{% url "admin:"|add:hit.type|add:"_"|add:hit.type|add:"_change"  hit.id %}' class="text-white   btn btn-sm btn-primary">
+                       <a href='{% url "admin:"|add:hit.type|add:"_"|add:hit.type|add:"_change"  hit.id %}' class="text-white btn-color ">
                                     {% trans 'Edit' %}
                        </a>
 
@@ -74,7 +86,7 @@
                             {% else %}
                                 <!-- hard link are used as so as, wrong urls can break the page -->
                                 <a style="text-decoration: none" class="text-description text-info"
-                                   href="/authors/{{ author.0|slugify }}/{{ author.1 }}">
+                                   href="/authors/{{ author.0|slugify_unicode }}/{{ author.1 }}">
                                     {{ author.0 }}
                                 </a>
                                 <span class="text-dark">{% if not forloop.last %},{% endif %}</span>

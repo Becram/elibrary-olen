@@ -4,14 +4,15 @@ from .models import (
     Video,
     VideoSeries,
     VideoFileUpload,
-    VideoLinkInfo
+    VideoLinkInfo,
+    VideoGenre
 )
 
 
 class VideoFileUploadAdmin(admin.TabularInline):
     model = VideoFileUpload
     extra = 1
-    fields = ["file_name","upload"]
+    fields = ["file_name","upload", 'thumbnail']
 
 
 class AudioLinkInfoAdminInline(admin.StackedInline):
@@ -43,6 +44,9 @@ class VideoAdmin(admin.ModelAdmin):
         "languages",
         "place_of_publication",
         "publisher",
+        "featured",
+        "video_original_document_authors",
+        "video_release_date",
         "publication_year_on_text",
         "year_of_available_on_text",
         "video_running_time",
@@ -64,7 +68,7 @@ class VideoAdmin(admin.ModelAdmin):
         "thumbnail"
     )
 
-    list_display = ['title_link', 'published_',  'edit_link', 'updated_date_']
+    list_display = ['title_link', 'published_','featured_',  'edit_link', 'updated_date_']
 
     def edit_link(self, obj):
         return format_html("<a href='{url}'>Edit</a>", url=obj.get_admin_url())
@@ -75,7 +79,8 @@ class VideoAdmin(admin.ModelAdmin):
     def published_(self, obj):
         return format_html('%s' % (obj.published_yes_no()))
 
-
+    def featured_(self,obj):
+        return format_html('%s' % (obj.featured_yes_no()))
 
     def updated_date_(self, obj):
         return format_html('%s' % (obj.updated_date_string()))
@@ -88,3 +93,7 @@ class VideoAdmin(admin.ModelAdmin):
 class VideoSeriesAdmin(admin.ModelAdmin):
     pass
 
+
+@admin.register(VideoGenre)
+class VideoGenreAdmin(admin.ModelAdmin):
+    pass

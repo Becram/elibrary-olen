@@ -26,19 +26,52 @@
     .jumbotron{
       padding:5px 15px!important;
     }
+     .add_to_favourite{
+        font-size:120%;
+        background-color: #000 !important;
+        color:white;
+      }
       .add_to_favourite:hover{
         background-color: #d63031 !important;
       }
     #added_to_favourite{
-      background-color: #d63031 ;
+      background-color: #d63031 !important;
+       font-size:120%;
+       color:#fff;
+      }
+    .container-breadcrum{
+    display:left;
+
     }
+
+
     </style>
 
 
 {% endblock style %}
 
 {% block content %}
-    <div>
+
+    <div class="container">
+      {% if object.collections.all%}
+      <span class="container-breadcrum bold">
+        <!-- Bread crums -->
+
+        {% for collection in object.collections.all %}
+        {% if forloop.first %}
+        <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}">{{collection.community_name | transtolocal  }}</a>
+        <span> >> </span>
+        {% endif %}
+
+        <a   href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
+        {{ collection.collection_name | transtolocal }}
+        </a>
+        {%  if not forloop.last %} ,{%  endif %}
+        {% endfor %}
+
+      </span><!--End of container-breadcrum-->
+      {% endif %}
+
         <div class=" min_height_document_detail pt-4 large-device-padding padding-left-right">
             <div class="row">
 
@@ -54,12 +87,13 @@
 
                     <!-- Logo -->
 
+
+
                     {% for document in object.documentfileupload_set.all %}
                            <div class="text-center">
                         <a href="{{ MEDIA_URL }}{{ document.upload }}" target="_blank"
                            class="pull-left pr-5 pl-4 pt-2 pb-2 mt-2 mr-4 text-white bg-primary text-capitalize "
                         style="border-radius: 3px;"><span class="fa fa-download"></span>&nbsp;{% trans 'download ' %}</a>
-
 
 
                         {% if document.total_pages >= 1 %}
@@ -81,15 +115,15 @@
 
                  {%  if request.user.is_superuser %}
 
-                     <p class="text-primary description">
-                      <a href="{{ object.get_admin_url }}" class="btn btn-sm">{%  trans "Edit" %}</a>
+                     <p class="text-primary " style="font-size:120%;">
+                      <a href="{{ object.get_admin_url }}" class="btn btn-md btn-secondary">{%  trans "Edit" %}</a>
                      </p>
                  {%  endif %}
 
                   <!-- Rating -->
                     {% ratings object %}
 
-
+                  <br><br>
                   <!--For favourite collection-->
                   <span id="favourite_hanging_place">
                     {% if  request.user.is_authenticated %}
@@ -99,15 +133,16 @@
                        <button type="button" class="btn btn-sm" value="{{object.pk }}" id="added_to_favourite">Added to favourite <i class="fa fa-check-circle"></i></button>
 
                       {% else %}
-                      <button type="button" value="{{ object.pk  }}" class="btn  bg-dark btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>
+                      <button type="button" value="{{ object.pk  }}" class="btn   btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>
 
                       {% endif %}
                   {% else %}
-                  <button type="button" value="{{ object.pk  }}" class="btn  bg-dark btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>
+                  <button type="button" value="{{ object.pk  }}" class="btn   btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>
 
                   {% endif %}
                     {% endif %}
                 </span>
+                  <br><br>
                     <!-- share buttons section -->
                     <section class="pull-left share-buttons text-center">
                         <a class="share-facebook p-1 btn btn-md bg-white"
@@ -139,7 +174,7 @@
                 <div class="col-md-9 col-sm-12 col-xs-12">
                     <!-- title of a document -->
 
-                    <h4 class="text-capitalize h4 lead mt-0 pt-0 description text-dark" style="border-bottom: 1px dotted #ccccff; overflow-wrap: break-word;">
+                    <h4 class=" h4  mt-0 pt-0 description text-dark" style="border-bottom: 1px dotted #ccccff; overflow-wrap: break-word;">
 
                         {{ object.title }}
                     </h4>
@@ -150,10 +185,10 @@
                         <!-- TODO pluralization -->
                         <!--strong class="text-capitalize font-weight-normal">{% trans "Authors:" %}</strong-->
                         {% for author in object.document_authors.all %}
-                            <a href="{% url 'author:author_detail' author.getname|slugify author.pk %}">
+                            <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}">
                              <div
                                     style="font-size: 16px;"
-                                    class="text-dark text-capitalize text-primary">
+                                    class="text-dark   text-primary">
                                 {{ author }}<br>
 
                             </div></a>
@@ -186,9 +221,9 @@
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 capitalize font-weight-normal text-dark">{% trans "Author(s):" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">
+                                <div class="col-lg-9 text-dark ">
                                 {% for author in object.document_authors.all %}
-                                   <a href="{% url 'author:author_detail' author.getname|slugify author.pk %}">{{ author }}</a>
+                                   <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}"> {{  author }}</a>
                                   {%  if not forloop.last %}
                                             ,
                                   {%  endif %}
@@ -197,13 +232,16 @@
                             </div>
                           {% endif %}
 
+                           <!--name in other langauage--->
+
+
                             <!-- Illustrator section -->
                            {% if  object.document_illustrators.all %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "illustrators:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">
+                                <div class="col-lg-9 text-dark ">
                                 {% for illustrator in object.document_illustrators.all %}
                                   {{ illustrator }}
                                   {%  if not forloop.last %}
@@ -221,7 +259,7 @@
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Editor(s):" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">
+                                <div class="col-lg-9 text-dark ">
                                 {% for editor in object.document_editors.all %}
                                     {{ editor }}
                                   {%  if not forloop.last %}
@@ -239,8 +277,8 @@
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
-                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Translator(s):" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">
+                       <div class="col-lg-3  font-weight-normal text-dark">{% trans "Translator(s):" %}</div>
+                                <div class="col-lg-9 text-dark  ">
                                 {% for translator in object.document_translator.all %}
                                     {{ translator }}
                                   {%  if not forloop.last %}
@@ -258,7 +296,7 @@
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
 
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Publisher:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">
+                                <div class="col-lg-9 text-dark ">
                                  {% for publisher in object.publisher.all %}
                                     {{ publisher.publisher_name }}
                                   {%  if not forloop.last %}
@@ -274,8 +312,8 @@
                             <!-- place of publication -->
                           {% if  object.place_of_publication %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
-                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Place of publication:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"> {{ object.place_of_publication }}</div>
+                                <div class="col-lg-3 font-weight-normal text-dark">{% trans "Place of Publication:" %}</div>
+                                <div class="col-lg-9 text-dark "> {{ object.place_of_publication }}</div>
 
                             </div>
                            {% endif %}
@@ -285,7 +323,7 @@
                           {% if  object.publication_year_on_text %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"> {{ object.publication_year_on_text }}</div>
+                                <div class="col-lg-9 text-dark  "> {{ object.publication_year_on_text }}</div>
 
                             </div>
                           {% endif %}
@@ -295,7 +333,7 @@
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
 
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"> {{ object.year_of_available_on_text }}</div>
+                                <div class="col-lg-9 text-dark  "> {{ object.year_of_available_on_text }}</div>
 
                             </div>
                           {% endif %}
@@ -307,7 +345,7 @@
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark" style="vertical-align: top;">{% trans "keywords:" %}</div>
 
-                              <div class="col-lg-9 text-dark text-capitalize">
+                              <div class="col-lg-9 text-dark  ">
                                {% for keyword in object.keywords.all %}
 
                                       <a href="{% url 'keyword:keyword_detail' keyword.keyword %}" class="mr-2">
@@ -322,22 +360,14 @@
                              {%  endif  %}
 
 
-                            <!-- Description -->
-                          {% if  object.description %}
-                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
-                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"
-                                      style="vertical-align: top;">{{ object.description }}</div>
 
-                            </div>
-                          {% endif %}
 
                             <!-- License type -->
                           {% if  object.license.license %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 capitalize font-weight-normal text-dark">{% trans "License type:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"> {{ object.license.license }}</div>
+                                <div class="col-lg-9 text-dark  "> {{ object.license.license }}</div>
                             </div>
                           {% endif %}
 
@@ -346,7 +376,7 @@
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <!-- Add 2px right margin in each -->
                                 <div class="col-lg-3 capitalize font-weight-normal text-dark">{% trans "Series:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">{{ object.document_series }}</div>
+                                <div class="col-lg-9 text-dark  ">{{ object.document_series }}</div>
                             </div>
 
                             {%  endif %}
@@ -373,7 +403,7 @@
                             <!-- document isb -->
                            {% if  object.documentidentifier.identifier_id %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
-                                <div class="col-lg-3 capitalize text-dark font-weight-normal text-capitalize">{{ object.documentidentifier.identifier_type }}:</div>
+                                <div class="col-lg-3  text-dark font-weight-normal  text-uppercase">{{ object.documentidentifier.identifier_type }}:</div>
                                 <div class="col-lg-9 text-dark">{{ object.documentidentifier.identifier_id }}</div>
                             </div>
                           {% endif %}
@@ -434,22 +464,12 @@
                             {%  endif %}
                             {%  endif %}
 
-
-                            <!-- Rights -->
-                          {% if  object.custom_license %}
-                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;" >
-                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "rights:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"
-                                      style="vertical-align: top;"> {{ object.custom_license }}</div>
-                            </div>
-                          {% endif %}
-
                             <!-- sponsor -->
                           {% if  object.sponsors.all %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</div>
-                               <div class="col-lg-9 text-dark text-capitalize">
+                               <div class="col-lg-9 text-dark ">
                                 {% for sponsor in object.sponsors.all %}
                                     {{ sponsor }}
                                     {%  if not forloop.last %}
@@ -460,6 +480,57 @@
                                       </div>
                             </div>
                           {% endif %}
+
+
+                            <!-- Rights -->
+                          {% if  object.custom_license %}
+                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;" >
+                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "rights:" %}</div>
+                                <div class="col-lg-9 text-dark "
+                                      style="vertical-align: top;"> {{ object.custom_license }}</div>
+                            </div>
+                          {% endif %}
+
+                           <!-- additional_note -->
+                          {% if  object.additional_note %}
+                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;" >
+                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Additional note:" %}</div>
+                                <div class="col-lg-9 text-dark "
+                                      style="vertical-align: top;"> {{ object.additional_note }}</div>
+                            </div>
+                          {% endif %}
+
+                           <!-- Description -->
+                          {% if  object.description %}
+                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
+                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
+                                <div class="col-lg-9 text-dark "
+                                      style="vertical-align: top;">{{ object.description }}</div>
+
+                            </div>
+                          {% endif %}
+
+
+                          <!-- link_name and link description -->
+
+                           {% if object.documentlinkinfo_set.all %}
+                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
+                                <!-- Authors -->
+                                <!-- TODO pluralization -->
+                               {% for link in  object.documentlinkinfo_set.all %}
+
+                               <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Link:" %}</div>
+                              <div class="col-lg-9 text-dark "><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></div>
+
+
+                               <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Link Description:" %}</div>
+                                <div class="col-lg-9 text-dark ">{{ link.link_description }}</div>
+
+                               {% endfor %}
+                            </div>
+                           {% endif %}
+
+
                         </div>
 
                     </div>
@@ -809,7 +880,7 @@
           $("#favourite_hanging_place")
 
            $("#favourite_hanging_place").append(''+
-                           '<button type="button" value="'+ content_id +'" class="btn  bg-dark btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>'
+                           '<button type="button" value="'+ content_id +'" class="btn   btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>'
                +'');
 
         },

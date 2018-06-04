@@ -67,6 +67,8 @@ THIRDPARTY_APPS = [
     'bootstrap_pagination',
     'admin_reorder',
     'django_cleanup',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 PUSTAKALAYA_APPS = [
@@ -133,16 +135,8 @@ DATABASES = {
     'default': {
 
         #---Sqlite settings
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-
-        #---Postgres settings
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pustakalaya',
-        'USER': 'pustakalaya_user',
-        'PASSWORD': 'pustakalaya123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+         'ENGINE': 'django.db.backends.sqlite3',
+         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -379,6 +373,23 @@ CELERY_TIMEZONE = 'Asia/Kathmandu'
 # Django logging settings
 LOG_DIR = os.path.join(os.path.dirname(BASE_DIR), 'logs')
 
+# Django restframework  settings
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser', # Only staff are allowed to access an API
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+}
+
 # LOGGING = {
 #     'version': 1,
 #     'disable_existing_loggers': False,
@@ -441,3 +452,11 @@ LOG_DIR = os.path.join(os.path.dirname(BASE_DIR), 'logs')
 # STAR_RATINGS_RATING_MODEL = 'pustakalaya_rating.PustakalayaRating'
 
 
+# Security mitigation settings.
+# X_FRAME_OPTIONS = 'DENY'
+# CSRF_COOKIE_SECURE = True # Need ssl support
+# SESSION_COOKIE_SECURE = True # Need ssl support
+# SECURE_SSL_REDIRECT = True # Need https support.
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_HSTS_SECONDS = 3600 # Need ssl

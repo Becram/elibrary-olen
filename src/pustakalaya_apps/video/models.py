@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from itertools import chain
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from pustakalaya_apps.collection.models import Collection
@@ -22,7 +23,13 @@ from pustakalaya_apps.core.models import (
     Language,
     EducationLevel,
     LicenseType,
+    genre_audio_video
 )
+
+
+class FeaturedItemManager(models.Manager):
+    def get_queryset(self):
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes").order_by("-updated_date")[:5]
 
 
 class Video(AbstractItem):
@@ -37,12 +44,26 @@ class Video(AbstractItem):
 
     )
 
-    video_director = models.ForeignKey(
+    video_original_document_authors = models.ManyToManyField(
+        Biography,
+        verbose_name=_("Original Author(s)"),
+        related_name="video_original_document_authors",
+        blank=True,
+
+    )
+
+    video_release_date = models.CharField(
+        verbose_name=_("Release date"),
+        max_length=255,
+        blank=True,
+    )
+
+    video_director = models.ManyToManyField(
         Biography,
         verbose_name=("Director"),
         related_name="directors",
         blank=True,
-        null=True
+
     )
 
     video_producers = models.ManyToManyField(
@@ -65,6 +86,10 @@ class Video(AbstractItem):
         blank=True,
 
     )
+
+    # Manager to return the featured objects.
+    objects = models.Manager()
+    featured_objects = FeaturedItemManager()
 
     video_series = models.ForeignKey(
         "VideoSeries",
@@ -97,13 +122,21 @@ class Video(AbstractItem):
 
     )
 
-    video_genre = models.ForeignKey(
-        "VideoGenre",
+    # custom video genre inherit from genre_audio_video
+
+    # video_genre = models.ForeignKey(
+    #     "VideoGenre",
+    #     verbose_name=_("Video Genre"),
+    #     blank=True,
+    #     null=True
+    # )
+
+    video_genre = models.ManyToManyField(
+        genre_audio_video,
         verbose_name=_("Video Genre"),
         blank=True,
-        null=True
-    )
 
+    )
     # publisher = models.ForeignKey(
     #     Publisher,
     #     verbose_name=_("Publisher"),
@@ -128,6 +161,7 @@ class Video(AbstractItem):
     license = models.ForeignKey(
         LicenseType,
         verbose_name=_("license"),
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
     )
@@ -142,19 +176,34 @@ class Video(AbstractItem):
         verbose_name=_("Running time in minutes"),
         max_length=255,
         blank=True,
-        default="0"
+
     )
 
     @property
     def getauthors(self):
         if not self.video_director:
-            return None
-        author_list = [(author.getname, author.pk) for author in [self.video_director]]
-        return author_list or [None]
+            return [None]
+
+        return [(author.getName, author.pk) for author in self.video_director.all()] or [None]
+
+
 
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse("video:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
+
+
+
+    def get_similar_items(self):
+        from pustakalaya_apps.document.models import Document
+        from pustakalaya_apps.audio.models import Audio
+
+        documents = Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        audios =   Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        videos = Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        return chain(documents, audios, videos)
+      
+
 
     def doc(self):
         # Parent attr
@@ -173,10 +222,14 @@ class Video(AbstractItem):
             languages=[language.language.lower() for language in self.languages.all()],
             video_running_time=self.video_running_time,
             thumbnail=self.thumbnail.name,
-            video_director=getattr(self.video_director, "getname", ""),
+            # License type
+            license_type=self.license.license if self.license else None,
+            video_director=self.getauthors,#getattr(self.video_director, "getname", ""),
             video_series=getattr(self.video_series, "series_name", ""),
             video_certificate_license=self.video_certificate_license,
-            video_genre=getattr(self.video_genre, "genre", ""),
+            # video_genre=getattr(self.video_genre, "genre", ""),
+            video_genre=[video_genre.custom_genre for video_genre in self.video_genre.all()],
+            #video_genre=self.video_genre.genre if self.video_genre else None,
             author_list=self.getauthors,
             url = self.get_absolute_url()
 
@@ -190,8 +243,12 @@ class Video(AbstractItem):
         """
         Call this method to index an instance to search server
         """
-        # Save video instance
-        self.doc().save()
+        if self.published == "no":
+            # delete this if the published is set to no form
+            self.delete_index()
+        else:
+           # save the doc
+            self.doc().save()
 
     def get_admin_url(self):
         return urlresolvers.reverse("admin:%s_%s_change" %(self._meta.app_label, self._meta.model_name), args=(self.pk,))
@@ -202,6 +259,8 @@ class Video(AbstractItem):
     def published_yes_no(self):
         return self.published
 
+    def featured_yes_no(self):
+        return self.featured
 
 
     def updated_date_string(self):
@@ -235,6 +294,7 @@ class VideoSeries(AbstractSeries):
 
     class Meta:
         verbose_name_plural = _("Video series")
+        ordering = ["created_date"]
 
     def __str__(self):
         return "{}".format(self.series_name)
@@ -259,8 +319,20 @@ class VideoFileUpload(AbstractTimeStampModel):
         max_length=255
     )
 
+
+    thumbnail = models.ImageField(
+        upload_to="uploads/thumbnails/videofile/%Y/%m/%d",
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text=_("maximum size of thumbnail should be 165px by 93px")
+    )
+
     def __str__(self):
         return self.file_name
+
+    class Meta:
+        ordering = ["created_date"]
 
 
 class VideoLinkInfo(LinkInfo):
@@ -273,6 +345,8 @@ class VideoLinkInfo(LinkInfo):
 
     def __str__(self):
         return self.video.title
+    class Meta:
+        ordering=["created_date"]
 
 
 class VideoGenre(AbstractTimeStampModel):
@@ -282,7 +356,8 @@ class VideoGenre(AbstractTimeStampModel):
     )
 
     genre_description = models.TextField(
-        verbose_name=_("Genre description")
+        verbose_name=_("Genre description"),
+        blank=True
     )
 
     class Meta:
@@ -290,3 +365,4 @@ class VideoGenre(AbstractTimeStampModel):
 
     def __str__(self):
         return self.genre
+

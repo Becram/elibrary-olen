@@ -1,3 +1,4 @@
+from itertools import chain
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
@@ -17,9 +18,16 @@ from pustakalaya_apps.core.models import (
     Sponsor,
     Language,
     EducationLevel,
-    LicenseType
+    LicenseType,
+    genre_audio_video
 )
 from .search import AudioDoc
+
+
+class FeaturedItemManager(models.Manager):
+    def get_queryset(self):
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes").order_by("-updated_date")[:5]
+
 
 
 class Audio(AbstractItem):
@@ -53,11 +61,25 @@ class Audio(AbstractItem):
     # TODO file size
     # Like that format the given no in MB, KB, GB for entered MB size
 
-    audio_read_by = models.ForeignKey(
+    audio_original_document_authors = models.ManyToManyField(
+        Biography,
+        verbose_name=_("Original Author(s)"),
+        related_name="audio_original_document_authors",
+        blank=True,
+
+    )
+
+    audio_release_date = models.CharField(
+        verbose_name=_("Release date"),
+        max_length=255,
+        blank=True,
+    )
+
+    audio_read_by = models.ManyToManyField(
         Biography,
         verbose_name=_("Read / Voice by"),
+        related_name="audio_read_by",
         blank=True,
-        null=True
 
     )
 
@@ -75,6 +97,10 @@ class Audio(AbstractItem):
 
     )
 
+    # Manager to return the featured objects.
+    objects = models.Manager()
+    featured_objects = FeaturedItemManager()
+
     keywords = models.ManyToManyField(
         Keyword,
         verbose_name=_("Select list of keywords"),
@@ -85,16 +111,24 @@ class Audio(AbstractItem):
     license = models.ForeignKey(
         LicenseType,
         verbose_name=_("license"),
+        on_delete=models.SET_NULL,
         blank=True,
         null=True
 
     )
+    #genre_audio_video
 
-    audio_genre = models.ForeignKey(
-        "AudioGenre",
+    # audio_genre = models.ForeignKey(
+    #     "AudioGenre",
+    #     verbose_name=_("Audio Genre"),
+    #     blank=True,
+    #     null=True
+    # )
+    audio_genre = models.ManyToManyField(
+        genre_audio_video,
         verbose_name=_("Audio Genre"),
         blank=True,
-        null=True
+
     )
 
     languages = models.ManyToManyField(
@@ -134,10 +168,20 @@ class Audio(AbstractItem):
 
     @property
     def getauthors(self):
-        if not self.audio_read_by:
+        if not self.audio_read_by.all():
             return None
-        author_list = [(author.getname, author.pk) for author in [self.audio_read_by]]
-        return author_list or [None]
+
+        return [(author.getName, author.pk) for author in self.audio_read_by.all()] or [None]
+
+
+    def get_similar_items(self):
+        from pustakalaya_apps.document.models import Document
+        from pustakalaya_apps.video.models import Video
+
+        documents = Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        audios =   Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        videos = Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        return chain(documents, audios, videos)
 
     def get_absolute_url(self):
         from django.urls import reverse
@@ -161,8 +205,12 @@ class Audio(AbstractItem):
             languages=[language.language.lower() for language in self.languages.all()],
             audio_running_time=self.audio_running_time,
             thumbnail=self.thumbnail.name,
-            audio_read_by= self.audio_read_by.getname if self.audio_read_by else None,
-            audio_genre=self.audio_genre.genre if self.audio_genre else None,
+
+            # License type
+            license_type=self.license.license if self.license else None,
+            audio_read_by= self.getauthors,
+            # audio_genre=self.audio_genre.genre if self.audio_genre else None,
+            audio_genre=[audio_genre.custom_genre for audio_genre in self.audio_genre.all()],
             audio_series=self.audio_series.series_name if self.audio_series else None,
             author_list = self.getauthors,
             url = self.get_absolute_url()
@@ -177,7 +225,12 @@ class Audio(AbstractItem):
 
     def index(self):
         """index an instance of audio to elastic search index server"""
-        self.doc().save()
+        if self.published == "no":
+            # delete this if the published is set to no form
+            self.delete_index()
+        else:
+            # save only when published is yes
+            self.doc().save()
 
     def bulk_index(self):
         return self.doc().to_dict(include_meta=True)
@@ -191,7 +244,8 @@ class Audio(AbstractItem):
     def published_yes_no(self):
         return self.published
 
-
+    def featured_yes_no(self):
+        return self.featured
 
     def updated_date_string(self):
         return self.updated_date
@@ -208,9 +262,6 @@ class Audio(AbstractItem):
     class Meta:
         db_table = "audio"
 
-
-
-
 class AudioGenre(AbstractTimeStampModel):
     genre = models.CharField(
         _("Genre name"),
@@ -218,7 +269,8 @@ class AudioGenre(AbstractTimeStampModel):
     )
 
     genre_description = models.TextField(
-        verbose_name=_("Genre description")
+        verbose_name=_("Genre description"),
+        blank=True,
     )
 
     class Meta:
@@ -227,7 +279,6 @@ class AudioGenre(AbstractTimeStampModel):
     def __str__(self):
         return self.genre
 
-
 class AudioSeries(AbstractSeries):
     def __str__(self):
         return "{}".format(self.series_name)
@@ -235,7 +286,7 @@ class AudioSeries(AbstractSeries):
     class Meta:
         db_table = "audio_series"
 
-
+from django import forms
 class AudioFileUpload(AbstractTimeStampModel):
     """Class to upload the multiple document objects"""
 
@@ -243,6 +294,7 @@ class AudioFileUpload(AbstractTimeStampModel):
         _("File name"),
         max_length=255,
         blank=True,
+        #widget=forms.CharField(attrs={'placeholder': 'Less then 255 chars'})
 
 
     )
@@ -262,7 +314,7 @@ class AudioFileUpload(AbstractTimeStampModel):
 
     class Meta:
         db_table = "audio_file"
-
+        ordering = ["created_date"]
 
 class AudioLinkInfo(LinkInfo):
     audio = models.ForeignKey(
@@ -275,6 +327,8 @@ class AudioLinkInfo(LinkInfo):
     def __str__(self):
         return self.audio.title
 
+    class Meta:
+        ordering=["created_date"]
 
 class AudioType(models.Model):
     """DB to store type of audios"""
@@ -291,7 +345,8 @@ class AudioType(models.Model):
     )
 
     description = models.TextField(
-        verbose_name=_("Audio description")
+        verbose_name=_("Audio description"),
+        blank=True
     )
 
     def __str__(self):
