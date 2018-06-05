@@ -56,15 +56,18 @@ def search(request):
         sort_by = request.GET.get('sort_by') or 'title.keyword'
         # print(sort_by)
 
-
-
-        sort_values = [
-            {sort_by: {"order": order_by}},
-            {"updated_date": {"order": order_by}},
-            {"view_count": {"order": order_by}},
-            'updated_date',
-            'view_count',
-        ]
+        # this if not is added to remove error for default value with keyword sortby and asc orderby
+        # if default is keyword and asc make sort_values=[]
+        if not sort_by and not order_by:
+            sort_values = [
+                {sort_by: {"order": order_by}},
+                {"updated_date": {"order": order_by}},
+                {"view_count": {"order": order_by}},
+                'updated_date',
+                'view_count',
+            ]
+        else:
+            sort_values = []
 
         # Search in elastic search
         search_obj = PustakalayaSearch(search_in, sort_values,
