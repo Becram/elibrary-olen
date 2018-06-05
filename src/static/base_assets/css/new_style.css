@@ -1533,3 +1533,17 @@ a.text-primary:focus, a.text-primary:hover {
     font-weight: 700;
     font-family: 'Roboto Slab', serif;
 }
+
+/* user dashboard */
+
+.das-intro h5{
+  display: inline;
+}
+
+.das-intro .das-sett {
+    float: right;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    font-size: 1rem;
+}

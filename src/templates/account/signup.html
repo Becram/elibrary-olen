@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load i18n %}
+{% load i18n %}
 {% load pustakalaya_filters %}
 {% block title %}{% trans "Signup" %}{% endblock %}
 {% block content %}
@@ -24,16 +25,15 @@
                     <button class="btn btn-primary btn-sm" type="submit">{% trans "Sign Up" %} &raquo;</button>
                 </form>
                 <div class="text-center pt-1"><span>{% trans 'Log in with' %}:</span>
-                    <!--<a href="/facebook/login/" class="no-uline" style="color: #2980b9 !important;">-->
-                        <!--<span class="fa fa-2x fa-facebook-square mx-1"></span></a>-->
-                    <!--<a href="/twitter/login/?method=oauth2" class="no-uline">-->
-                        <!--<span class="fa fa-2x fa-twitter-square"></span></a>-->
-                    <!--<a href="/google/login/?method=oauth2" class="no-uline" style="color:#c0392b !important;">-->
-                        <!--<span class="fa fa-2x fa-google-plus-square"></span></a>-->
+                 
                   <ul class="socialaccount_providers ">
                   {% include "socialaccount/snippets/provider_list.html" with process="login" %}
                   </ul>
                 </div>
+
+                <p class="text-muted text-center" style="font-size:0.8em;">
+                    {% trans "By clicking Sign Up, you agree to our <a href='/terms-and-conditions/' target='_blank'>terms</a> , Data Policy and Cookie Policy.You may receive email notifications from us and can opt out at any time" %}
+                </p>
 
                 <p class="text-center">{% trans 'Already have Pustakalaya account' %}? <a
                         href="{{ login_url }}">{% trans 'Log in' %}</a></p>

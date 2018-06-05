@@ -1,6 +1,6 @@
-{%  extends 'dashboard/base.html' %}
+{%  extends 'dashboard/dashboard.html' %}
 {%  load crispy_forms_tags %}
-{%  block content %}
+{%  block dashboard_content %}
     <div class="container">
         <div class="col-md-8">
             <form action="." method="post" enctype="multipart/form-data">
@@ -8,8 +8,8 @@
             {{ video_form  | crispy }}
                 <!-- fileupload form -->
                 {{ video_file_upload_form | crispy }}
-              <input type="submit" value="Create Video" class="btn btn-primary">
+              <input type="submit" value="Create Video" class="btn ole-btn">
             </form>
         </div>
     </div>
-{%  endblock content %}
+{%  endblock dashboard_content %}

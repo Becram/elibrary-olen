@@ -7,6 +7,7 @@ from pustakalaya_apps.favourite_collection.models import Favourite
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from django.shortcuts import HttpResponseRedirect
+from django.contrib.auth.models import User
 
 
 
@@ -19,7 +20,6 @@ def dashboard(request):
     popular_documents = Document.objects.order_by('-updated_date')[:5]
 
     # Now lets get the users books first
-    #item_list = Favourite.objects.filter(favourite_item_type="document", user=request.user)
     item_list = Favourite.objects.filter(user=request.user)
 
     document_fav_list = []
@@ -34,17 +34,17 @@ def dashboard(request):
     paginator = Paginator(document_fav_list, 10)
     page = request.GET.get('page')
     try:
-        users = paginator.page(page)
+        fav_items = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        users = paginator.page(1)
+        fav_items = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 7777), deliver last page of results.
-        users = paginator.page(paginator.num_pages)
+        fav_items = paginator.page(paginator.num_pages)
 
-    return render(request, "dashboard/dashboard_base.html", {
+    return render(request, "dashboard/dashboard.html", {
         'popular_documents': popular_documents,
-        'favourite_documents':users
+        'favourite_documents':fav_items
     })
 
 @login_required()
@@ -64,13 +64,19 @@ def profile_edit(request):
 
 
 class ProfileEdit(UpdateView):
-    model = UserProfile
+    model = User
+
     fields = (
-        "first_name",
-        "last_name",
-        "phone_no",
+        'first_name',
+        'last_name',
+        'email',
+        
     )
     template_name = 'dashboard/profile/profile.html'
+
+    success_url = '/dashboard/'
+
+
 
 
 

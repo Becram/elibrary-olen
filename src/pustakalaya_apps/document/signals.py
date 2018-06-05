@@ -19,6 +19,10 @@ from .tasks import convert_pdf
 @receiver(post_save, sender=Document)
 @transaction.atomic
 def index_or_update_document(sender, instance, **kwargs):
+    
+    # By pass for unpublished items
+    if instance.published == "no":
+        return 
 
     if instance.license is not None:
         if instance.license:

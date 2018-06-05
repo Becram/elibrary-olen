@@ -38,7 +38,7 @@ class DocumentForm(forms.ModelForm):
         super(DocumentForm, self).__init__(*args, **kwargs)
 
         self.fields['thumbnail'].widget.attrs = {
-            'class': 'btn btn-small btn-primary btn-block',
+            'class': 'btn btn-block',
             'name': 'myCustomName',
             'placeholder': 'Item thumbnail'
         }
@@ -55,7 +55,7 @@ class DocumentFileUploadForm(forms.ModelForm):
         super(DocumentFileUploadForm, self).__init__(*args, **kwargs)
 
         self.fields['upload'].widget.attrs = {
-            'class': 'btn btn-small btn-primary btn-block',
+            'class': 'btn btn-block',
             'name': 'myCustomName',
             'placeholder': 'Upload file'
         }
@@ -107,7 +107,7 @@ class AudioFileUploadForm(forms.ModelForm):
         super(AudioFileUploadForm, self).__init__(*args, **kwargs)
 
         self.fields['upload'].widget.attrs = {
-            'class': 'btn btn-small btn-primary btn-block',
+            'class': 'btn  btn-block',
             'name': 'myCustomName',
             'placeholder': 'Upload file'
         }
@@ -157,7 +157,7 @@ class VideoFileUploadForm(forms.ModelForm):
         super(VideoFileUploadForm, self).__init__(*args, **kwargs)
 
         self.fields['upload'].widget.attrs = {
-            'class': 'btn btn-small btn-primary btn-block',
+            'class': 'btn  btn-block',
             'name': 'myCustomName',
             'placeholder': 'Upload file'
         }

@@ -1,0 +1,63 @@
+
+<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="/dashboard" class="simple-text">
+                   Welcome {{ request.user }}
+                </a>
+            </div>
+
+            <ul class="nav">
+
+              <li>
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <p>View Site</p>
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a href="/dashboard">
+                        <i class="ti-panel"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <!--<li>-->
+                    <!--<a href="#"-->
+                        <!--<i class="ti-user"></i>-->
+                        <!--<p>User Profile</p>-->
+                    <!--</a>-->
+                <!--</li>-->
+
+                <li>
+                    <a href="{% url 'dashboard:document_add' %}">
+                        <i class="fa fa-file fa-3x"></i>
+                        <p>Add Document</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:audio_add' %}">
+                        <i class="fa fa-volume-up fa-3x"></i>
+                        <p>Add Audio</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:video_add' %}">
+                        <i class="fa fa-play-circle fa-3x"></i>
+                        <p>Add Video</p>
+                    </a>
+                </li>
+                <!--<li>-->
+                    <!--<a href="maps.html">-->
+                        <!--<i class="ti-map"></i>-->
+                        <!--<p>My Favorite Book</p>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <li>
+                    <a href="#">
+                        <i class="ti-bell"></i>
+                        <p onclick="window.location.href='/dashboard/submission/list'">My Submissions</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>

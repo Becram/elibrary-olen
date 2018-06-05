@@ -1,7 +1,7 @@
-{%  extends 'dashboard/base.html' %}
+{%  extends 'dashboard/dashboard.html' %}
 {%  load crispy_forms_tags %}
 {%  load i18n %}
-{%  block content %}
+{%  block dashboard_content %}
 
     {% comment %}
     <div class="container">
@@ -11,7 +11,7 @@
             {{ form  | crispy }}
              <!-- fileupload form -->
                 {{ document_file_upload_form | crispy }}
-              <input type="submit" value="Create Document" class="btn btn-primary">
+              <input type="submit" value="Create Document" class="btn ole-btn">
             </form>
         </div>
     </div>
@@ -27,9 +27,9 @@
     {{ form | crispy  }}
      <h3>{%  trans "upload file" %}</h3>
     {{ inlines | crispy }}
-    <input type="submit" value="Upload document" class="btn btn-primary">
+    <input type="submit" value="Upload document" class="btn ole-btn">
     </form>
             </div>
         </div>
     </div>
-{%  endblock content %}
+{%  endblock dashboard_content %}
