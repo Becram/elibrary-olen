@@ -58,7 +58,7 @@ def search(request):
 
         # this if not is added to remove error for default value with keyword sortby and asc orderby
         # if default is keyword and asc make sort_values=[]
-        if not sort_by and not order_by:
+        if not sort_by is 'title.keyword' and not order_by is 'asc':
             sort_values = [
                 {sort_by: {"order": order_by}},
                 {"updated_date": {"order": order_by}},

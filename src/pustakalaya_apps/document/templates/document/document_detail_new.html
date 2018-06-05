@@ -484,7 +484,7 @@
                   <th scope="col">{% trans "Education Levels" %}:</th>
                   <td class="text-capitalize">
                     {% for education_level in object.education_levels.all %}
-                        {{ education_level }}
+                        {{ education_level| transtolocal }}
                         {%  if not forloop.last %}
                                 ,
                             {%  endif %}
