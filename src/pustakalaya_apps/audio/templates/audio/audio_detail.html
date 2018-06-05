@@ -682,7 +682,7 @@
       e.preventDefault();
         var user_name = $("input[type='hidden'][name='user']").val().trim();
         if(user_name == "" || user_name == "AnonymousUser" ){
-          $("#information_message_p_tag").text('Login to post you message');
+          $("#information_message_p_tag").text('Login to post your message');
           $("#info_message_display").click();
           return;
         }else{
@@ -696,7 +696,7 @@
       e.preventDefault();
         var user_name = $("input[type='hidden'][name='user']").val().trim();
         if(user_name == "" || user_name == "AnonymousUser" ){
-          $("#information_message_p_tag").text('Login to post you message');
+          $("#information_message_p_tag").text('Login to post your message');
           $("#info_message_display").click();
           return;
         }else{
@@ -716,16 +716,14 @@
       //alert("detail="+ user_input);
       //return;
       if(user_name == "" || user_name == "AnonymousUser" ){
-        //alert("Login to post you message");
 
         //$("#close_model_box").click();
-        $("#information_message_p_tag").text('Login to post you message');
+        $("#information_message_p_tag").text('Login to post your message');
         $("#info_message_display").click();
 
 
         return;
       }else if(user_input == "" || user_title == "" ){
-        //alert("Please enter you title and message properly!");
 
         //$("#close_model_box").click();
         $("#information_message_p_tag").text('Please enter the title and message properly!');
