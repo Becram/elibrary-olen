@@ -124,6 +124,12 @@ urlpatterns += i18n_patterns(
         name="about"
     ),
 
+    # /terms-and-conditions/
+    url(
+        r'^terms-and-conditions/$', TemplateView.as_view(template_name="static_pages/terms_and_conditions.html"),
+        name="terms-and-conditions/"
+    ),
+
     # Feedback page
     # /feedback/
     url(

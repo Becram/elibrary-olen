@@ -14,6 +14,11 @@ def index_or_update_audio(sender, instance, **kwargs):
     """
     Index or update audio instance to es server
     """
+
+     # By pass for unpublished items
+    if instance.published == "no":
+        return 
+        
     if instance.license is not None:
         if instance.license.license:
             instance.license_type = instance.license.license

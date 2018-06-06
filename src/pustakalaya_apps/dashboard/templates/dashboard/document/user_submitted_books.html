@@ -1,16 +1,14 @@
-{% extends 'dashboard/base.html' %}
+{% extends 'dashboard/dashboard.html' %}
 {% load i18n %}
 {
 {% load crispy_forms_tags %}
-{% block content %}
+{% block dashboard_content %}
     <div class="container">
-
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">Item submitted by you</h4>
+                        <h4 class="title">{% trans "Item submitted by you" %}</h4>
                     </div>
                     <div class="content">
                         {%  if items %}
@@ -24,17 +22,17 @@
 
                                     </div>
                                     <div class="col-xs-3">
-                                        <h5 class="text-primary text-bold"> Title</h5>
+                                        <h5 class="text-primary text-bold">{% trans "Title" %}</h5>
                                         <br>
                                         <span class="text-muted"><small>{{ item.type }}</small></span>
                                     </div>
                                     <div class="col-xs-3">
-                                        <h5 class="text-primary text-bold"> Edit</h5>
+                                        <h5 class="text-primary text-bold">{% trans "Edit" %}</h5>
                                         <br>
 
                                     </div>
                                     <div class="col-xs-3">
-                                        <h5 class="text-primary text-bold"> Delete</h5>
+                                        <h5 class="text-primary text-bold">{% trans "Delete" %}</h5>
                                         <br>
 
                                     </div>
@@ -84,4 +82,4 @@
 
         </div>
     </div>
-{% endblock content %}
+{% endblock dashboard_content %}

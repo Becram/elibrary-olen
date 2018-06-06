@@ -120,7 +120,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
-                'django.template.context_processors.media'
+                'django.template.context_processors.media',
+                # Context processor. 
+                'pustakalaya_apps.core.context_processor.getlang',
             ],
         },
     },

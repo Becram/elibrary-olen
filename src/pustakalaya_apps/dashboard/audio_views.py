@@ -35,9 +35,7 @@ class AddAudioView(SuccessMessageMixin, CreateView):
         # form = context["form"]
         status = form.is_valid()
         statusset = inlines.is_valid()
-        print(status, statusset)
-
-
+       
         if form.is_valid() and inlines.is_valid():
             # Save the object. and its children.
             self.object = form.save(commit=False)

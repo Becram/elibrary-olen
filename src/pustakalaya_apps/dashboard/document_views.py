@@ -1,3 +1,4 @@
+from itertools import chain
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.shortcuts import HttpResponseRedirect, render
 from django.core.urlresolvers import reverse_lazy
@@ -9,6 +10,10 @@ from pustakalaya_apps.document.models import (
     DocumentFileUpload,
     Document
 )
+
+from pustakalaya_apps.audio.models import Audio
+from pustakalaya_apps.video.models import Video
+
 from .forms import (
     DocumentForm,
     DocumentFileUploadFormSet
@@ -62,9 +67,18 @@ class AddDocumentView(SuccessMessageMixin, CreateView):
 def user_submission(request):
     # Grab all the list in pagination format.
     user = request.user
-    documents = Document.objects.filter(submitted_by=user)
+    # User submitted documents. 
+    user_documents = Document.objects.filter(submitted_by=user)
+    # User submitted audio 
+    user_audios = Audio.objects.filter(submitted_by=user)
+    # User submitted video
+    user_videos = Video.objects.filter(submitted_by=user)
+
+    user_submitted_items = chain(user_documents, user_audios, user_videos)
+
+
     return render(request, 'dashboard/document/user_submitted_books.html', {
-        'items': documents
+        'items': user_submitted_items
     })
 
 
