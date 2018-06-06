@@ -1,5 +1,6 @@
 {% extends 'dashboard/dashboard.html' %}
 {% load i18n %}
+{% load static %}
 {
 {% load crispy_forms_tags %}
 {% block dashboard_content %}
@@ -8,70 +9,51 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">{% trans "Item submitted by you" %}</h4>
                     </div>
                     <div class="content">
                         {%  if items %}
-                            <ul class="list-unstyled team-members">
-                            <li>
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <div class="avatar">
-
-                                        </div>
-
+                        <h5 id="det-book-title">{% trans "Item submitted by you" %}</h5>
+                        <div class="row">
+                       
+                            {% for doc in items %}
+                                <a href="{{doc.get_absolute_url}}">
+                                <div class="col-md-3 col-sm-6 col-6">
+                                    <div class="grid-book-cont">
+                                      <div class="img-cont">
+                                        {% if doc.thumbnail  %}
+                                        <img  src="{{ MEDIA_URL }}{{ doc.thumbnail }}"
+                                            alt="{{ doc.title }}" title="{{ doc.title }}">
+                                       {% else %}
+                                        {% if doc.type == "document"%}
+                                        <img  src="{% static 'images_new/book_thumnail.png' %}"/>
+                                       {% elif doc.type == "audio"%}
+                                        <img  src="{% static 'images_new/audio_thumnail.png' %}"/>
+                                       {% else %}
+                                        <img  src="{% static 'images_new/video_thumnail.png' %}"/>
+                                        {% endif %}
+                                       {% endif %}
+                                      </div>
+                                      <p class="book-label">
+                                        <a href="{{doc.get_absolute_url}}">{{doc.title}}</a>
+                                      </p>
+                                      <p class="book-type">
+                                          {% if doc.type == "document" %}
+                                          <i class="fa fa-book "></i>
+                                            {% elif doc.type == "audio" %}
+                                            <i class="fa fa-headphones"></i>
+                                           {% else %}
+                                              <i class="fa fa-video-camera"></i>
+                                           {% endif %}
+                                           {{doc.type}}
+                                           </p>
                                     </div>
-                                    <div class="col-xs-3">
-                                        <h5 class="text-primary text-bold">{% trans "Title" %}</h5>
-                                        <br>
-                                        <span class="text-muted"><small>{{ item.type }}</small></span>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <h5 class="text-primary text-bold">{% trans "Edit" %}</h5>
-                                        <br>
-
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <h5 class="text-primary text-bold">{% trans "Delete" %}</h5>
-                                        <br>
-
-                                    </div>
-
-
-                                </div>
-                            </li>
-                            {% for item in items %}
-                                <li>
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <div class="avatar">
-                                                <img src="{{ MEDIA_URL }}{{ item.thumbnail }}" alt="{{ item.title }}"
-                                                >
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-xs-3">
-                                            {{ item.title }}
-                                            <br>
-                                            <span class="text-muted"><small>{{ item.type }}</small></span>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <i class="ti-new-window"></i>
-                                            <br>
-
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <i class="ti-trash"></i>
-                                            <br>
-
-                                        </div>
-                                    </div>
-                                </li>
-
+                                  </div>
+                          
                             {% endfor %}
-
-                        </ul>
+                        </a>
+                      </div>
+                  
+                    </div>
                             {%  else %}
                             <p class="text-primary">{%  trans "You haven't submitted any item" %}</p>
                         {%  endif %}

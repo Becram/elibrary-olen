@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from elasticsearch.exceptions import NotFoundError
 from django.core import urlresolvers
+from django.contrib.auth.models import User
 from pustakalaya_apps.collection.models import Collection
 from pustakalaya_apps.core.abstract_models import (
     AbstractItem,
@@ -149,6 +150,13 @@ class Audio(AbstractItem):
         'AudioSeries',
         verbose_name=_("Series"),
         blank=True,
+        null=True
+    )
+
+    submitted_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        editable=False,
         null=True
     )
 

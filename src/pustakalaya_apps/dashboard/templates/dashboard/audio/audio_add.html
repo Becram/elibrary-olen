@@ -10,6 +10,8 @@
                 {{ audio_file_upload_form | crispy }}
               <input type="submit" value="Create Audio" class="btn ole-btn">
             </form>
+            <br>
+            {% include "license_agreement.html" %}
         </div>
     </div>
 {%  endblock dashboard_content %}
