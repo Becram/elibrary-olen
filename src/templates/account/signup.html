@@ -22,7 +22,7 @@
                     {% if redirect_field_value %}
                         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
                     {% endif %}
-                    <button class="btn btn-primary btn-sm" type="submit">{% trans "Sign Up" %} &raquo;</button>
+                    <button class="btn ole-btn btn-sm" type="submit">{% trans "Sign Up" %} &raquo;</button>
                 </form>
                 <div class="text-center pt-1"><span>{% trans 'Log in with' %}:</span>
                  
@@ -31,9 +31,7 @@
                   </ul>
                 </div>
 
-                <p class="text-muted text-center" style="font-size:0.8em;">
-                    {% trans "By clicking Sign Up, you agree to our <a href='/terms-and-conditions/' target='_blank'>terms</a> , Data Policy and Cookie Policy.You may receive email notifications from us and can opt out at any time" %}
-                </p>
+               {% include 'terms_and_condition.html' %}
 
                 <p class="text-center">{% trans 'Already have Pustakalaya account' %}? <a
                         href="{{ login_url }}">{% trans 'Log in' %}</a></p>
@@ -47,7 +45,7 @@
                         </div>
                         <div class="media-body">
                             <h5>#1 Pustakalaya Site of Nepal</h5>
-                            <span class="text-muted">Alexa Ranking, Google Analytics, Social Medias, Pustakalaya has always put us on top!</span>
+                            <span class="text-muted">Digital Library of nepal</span>
                         </div>
                     </div>
                     <div class="media mt-3">
