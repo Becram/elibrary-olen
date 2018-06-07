@@ -466,6 +466,36 @@
               {% endif %}
               </tbody>
             </table>
+
+
+            <!-- link_name and link description -->
+             {% if object.audiolinkinfo_set.all %}
+             <hr>
+            <h5>{% trans "Related Links" %}</h5>
+              <table class="table">
+                <tbody>
+
+
+               {% for link in  object.audiolinkinfo_set.all %}
+
+               <tr>
+                  <th scope="col">{% trans "Link:" %}</th>
+                  <td><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></td>
+                </tr>
+
+                {% if  link.link_description  %}
+               <tr>
+                  <th scope="col">{% trans "Link Description:" %}</th>
+                  <td class="text-capitalize">{{ link.link_description }}</td>
+                </tr>
+               {% endif %}
+
+               {% endfor %}
+
+                </tbody>
+              </table>
+            {% endif %}
+
           </div>
         </div>
 
@@ -592,11 +622,10 @@
   <div class="row">
     <div class="col-md-12">
       <hr>
-      <h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>
-      {% if object.get_similar_items.all %}
-        {% if object.get_similar_items.all|length != 1%}
-          <!--<hr>-->
-          <!--<h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>-->
+      {% if object.get_similar_items %}
+        {% if object.get_similar_items|length != 1%}
+          <hr>
+          <h5 >{% trans "Similar Audio Books You May Like" %}</h5>
         {% endif %}
       {% endif %}
     </div>

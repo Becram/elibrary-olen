@@ -12,6 +12,7 @@ from pustakalaya_apps.core.abstract_models import (
     AbstractTimeStampModel,
     AbstractSeries,
     LinkInfo,
+    EmbedVideoAudioLink
 )
 from pustakalaya_apps.core.models import (
     Keyword,
@@ -348,6 +349,22 @@ class AudioLinkInfo(LinkInfo):
 
     class Meta:
         ordering=["created_date"]
+
+
+class AudioEmbedLink(EmbedVideoAudioLink):
+    audio = models.ForeignKey(
+        Audio,
+        verbose_name=_("Embed audio Link"),
+        on_delete=models.CASCADE,
+
+    )
+
+    def __str__(self):
+        return self.audio.title
+
+    class Meta:
+        ordering=["created_date"]
+
 
 class AudioType(models.Model):
     """DB to store type of audios"""

@@ -175,6 +175,7 @@ def list_search_from_elastic_work(request,author_name, query_type="match"):
     return context
 
 
+<<<<<<< HEAD
 def send_mail_on_user_submission(item=None):
     """
     Send an email to a user when an item is published to pustakalaya archive. 
@@ -203,3 +204,7 @@ def send_mail_on_user_submission(item=None):
         
 
 
+=======
+def isAuthorAlreadyExist():
+    pass
+>>>>>>> a4a4e74118b7d5fe847c3e844c1aaa5a6a4ffa5d

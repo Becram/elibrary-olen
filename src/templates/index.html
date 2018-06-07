@@ -19,7 +19,7 @@
 <div class="main-contain">
   <div class="container">
       <div class="row" style="margin-bottom: 20px;">
-        <div class="col-md-3 hom-par-for-mar">
+        <div class="col-md-3 col-sm-12 col-12 ">
           <div class="container-fluid ep-white-bg cat-cont" style="padding: 0px !important;">
             <h6 style="background:#4D4D4D; color:#fff; font-family: 'Roboto Slab', serif; padding: 10px 10px 10px 15px;">{% trans "Browse By Categories" %}</h6>
 
@@ -40,7 +40,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-9 hom-par-for-mar">
+        <div class="col-md-9 col-sm-12 col-12 ">
           <div class="container">
             <div class="row">
               <div class="col-md-12">
@@ -98,6 +98,7 @@
                       {% endif %}
 
                       " alt="ole logo" />
+                     <p class="ole-book-name">{{ item.title }}</p>
                   </div>
                   </a>
 
@@ -110,13 +111,13 @@
           </div>
 
         </div>
-        <div class="col-md-3 hom-par-for-mar">
+        <div class="col-md-3 offset-md-0 col-sm-8 offset-sm-2 col-8 offset-2 hom-par-for-mar">
             <div class="container " style="padding: 0px;">
-                <p class="title-heads" style="margin-bottom: 0px;">{% trans "E-Paath" %}</p>
+                <h6 style="background:#4D4D4D; color:#fff; font-family: 'Roboto Slab', serif; padding: 10px 10px 10px 15px;">{% trans "E-Paath Interactive Lessons" %}</h6>
                 <a href="https://pustakalaya.org/epaath/" target="_blank"><img  style="width: 100%;" src="{% static 'images_new/sliding-images.gif' %}" alt="ole logo"></a>
                 </div>
         </div>
-        <div class="col-md-9 hom-par-for-mar">
+        <div class="col-md-9 col-sm-12 col-12 hom-par-for-mar">
           <div class="container ">
             <div class="row">
               <div class="col-md-12">
@@ -171,7 +172,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 hom-par-for-mar">
+        <div class="col-md-3 offset-md-0 col-sm-8 offset-sm-2 col-8 offset-2 hom-par-for-mar">
           <div class="container" style="padding: 0px;">
             <a href='/search/?q=&form-filter={"type":["audio"],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>
                 <img class="av-books"  src="{% static 'images_new/audio_books.png' %}" alt="ole logo">
@@ -185,7 +186,7 @@
           </div>
         </div>
 
-        <div class="col-md-9 hom-par-for-mar">
+        <div class="col-md-9 col-sm-12 col-12 hom-par-for-mar">
           <div class="container ">
             <div class="row">
               <div class="col-md-12">
@@ -242,22 +243,22 @@
 
       <div class="row" style="text-align: center;">
 
-          <div class="col-md-3 col-12">
+          <div class="col-md-3 col-sm-3 col-6">
             <p class="home-stats">{{total_document}}</p>
             <span>{% trans "Collection of Books" %}</span>
           </div>
 
-          <div class="col-md-3 col-12">
+          <div class="col-md-3  col-sm-3 col-6">
             <p class="home-stats">{{total_audio}}</p>
             <span>{% trans "Collection of Audiobooks" %}</span>
           </div>
 
-          <div class="col-md-3 col-12">
+          <div class="col-md-3  col-sm-3 col-6">
             <p class="home-stats">{{total_video}}</p>
             <span>{% trans "Collection of Videos" %}</span>
           </div>
 
-          <div class="col-md-3 col-12">
+          <div class="col-md-3 col-sm-3 col-6">
             <p class="home-stats">{{total_authors}}</p>
             <span></span>{% trans "Number of Authors" %}</span>
           </div>
