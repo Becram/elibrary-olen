@@ -51,9 +51,8 @@ $(document).ready(function(){
         this.classList.toggle("select-arrow-active");
       });
   }
+
   setPadding();
-
-
 
   function closeAllSelect(elmnt) {
     /*a function that will close all select boxes in the document,
@@ -110,8 +109,8 @@ $(document).ready(function(){
     {
       breakpoint: 480,
       settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToShow: 2,
+        slidesToScroll: 2
       }
     }
   ]
@@ -142,8 +141,8 @@ responsive: [
   {
     breakpoint: 480,
     settings: {
-      slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToShow: 2,
+      slidesToScroll: 2
     }
   }
 ]
@@ -191,15 +190,30 @@ $(".tit-filter-btn").click(function(){
   $(".tit-sid-lst").toggle();
 });
 
+$( ".select-items div:eq(0)" ).trigger( "click" );
+
+setTimeout(function(){
+  changePadding();
+
+},2000);
+
 $(".select-items div").click(function(){
-  var forPadd;
+  changePadding();
+});
+
+function changePadding(){
+  var forPadd = 0;
   forPadd = $(".ole-custom-select").width();
   forPadd = forPadd + 10;
+  console.log(forPadd);
   $(".sbx-custom__input").css("padding-left", forPadd + "px");
-});
+}
 
-});
-
+// audio length calculator function
+function myFunction() {
+    var x = document.getElementById("myAudio").duration;
+    document.getElementById("demo").innerHTML = x;
+}
 
 function setPadding() {
     // script to set the padding of search bar
@@ -222,28 +236,6 @@ function setPadding() {
   }
 }
 
-
-// book, audio and detail page read more code
-function readMore($curRev){
-  var length = $curRev.text().length;
-  var originalText = $curRev.text();
-  var splittedText = "";
-
-  if (length > 100) {
-    splittedText = $curRev.text().substring(0, 100);
-    splittedText += "...";
-    $curRev.siblings(".ole-read-more").show(0);
-  }
-
-  $curRev.text(splittedText);
-
-  $("#button_more").click(function() {
-    $curRev.text(originalText);
-    $curRev.hide(0);
-    $curRev.show(0);
-    $("#button_more").hide(0);
-  });
-}
 
 // book, audio and detail page read more code
 function readMore($curRev){
@@ -306,19 +298,20 @@ $('a[href*="#"]')
 
 // scroll to top of the page
 $(window).scroll(function () {
-  if ($(this).scrollTop() > 50) {
-      $('#back-to-top').fadeIn();
-  } else {
-      $('#back-to-top').fadeOut();
-  }
-});
-// scroll body to 0px on click
-$('#back-to-top').click(function () {
-  $('#back-to-top').tooltip('hide');
-  $('body,html').animate({
-      scrollTop: 0
-  }, 800);
-  return false;
-});
+            if ($(this).scrollTop() > 50) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('#back-to-top').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
 
-$('#back-to-top').tooltip('show');
+        $('#back-to-top').tooltip('show');
+});

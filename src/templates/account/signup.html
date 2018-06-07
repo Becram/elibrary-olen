@@ -22,21 +22,27 @@
                     {% if redirect_field_value %}
                         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
                     {% endif %}
+                   <p class="text-muted font-sm">
+                    {% blocktrans %} By clicking on 'Sign up' below you are agreeing to the'
+                    <a href="/terms-and-conditions/" target="_blank">terms</a> and
+                    <a href="/privacy-policy/" target="_blank">privacy policy</a> of Pustakalaya! {% endblocktrans %}
+                </p>
                     <button class="btn ole-btn btn-sm" type="submit">{% trans "Sign Up" %} &raquo;</button>
                 </form>
                 <div class="text-center pt-1"><span>{% trans 'Log in with' %}:</span>
-                 
+
                   <ul class="socialaccount_providers ">
                   {% include "socialaccount/snippets/provider_list.html" with process="login" %}
                   </ul>
                 </div>
 
-               {% include 'terms_and_condition.html' %}
+
 
                 <p class="text-center">{% trans 'Already have Pustakalaya account' %}? <a
                         href="{{ login_url }}">{% trans 'Log in' %}</a></p>
             </div>
 
+          {% comment %}
             <div class="col-md-7 p-4">
                 <div class="mt-4">
                     <div class="media">
@@ -86,6 +92,8 @@
                     </div>
                 </div>
             </div>
+         {% endcomment %}
         </div>
+
     </div>
 {% endblock %}
