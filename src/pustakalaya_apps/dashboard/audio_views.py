@@ -53,7 +53,7 @@ class AddAudioView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
        
             # Clear all other message and add message
-            storage = messages.get_messages(request)
+            storage = messages.get_messages(self.request)
             storage.used = True
              
             messages.add_message(

@@ -8,8 +8,6 @@ from .tasks import convert_pdf
 from pustakalaya_apps.core.utils import send_mail_on_user_submission
 
 
-
-
 @receiver(m2m_changed, sender=Document.keywords.through)
 @receiver(m2m_changed, sender=Document.document_authors.through)
 @receiver(m2m_changed, sender=Document.education_levels.through)
@@ -20,9 +18,14 @@ from pustakalaya_apps.core.utils import send_mail_on_user_submission
 @receiver(post_save, sender=Document)
 @transaction.atomic
 def index_or_update_document(sender, instance, **kwargs):
+    # send an email to user when the document is published.
+
     # By pass for unpublished items
     if instance.published == "no":
         return 
+
+    if instance.published == "yes":
+        send_mail_on_user_submission(item=instance)
 
     if instance.license is not None:
         if instance.license:
@@ -31,11 +34,7 @@ def index_or_update_document(sender, instance, **kwargs):
     # Save or update index
     instance.index()
 
-    # send an email to user when the document is published.
-    send_mail_on_user_submission(item=instance)
-     
-    
-
+  
 @receiver(pre_delete, sender=Document)
 @transaction.atomic
 def delete_document(sender, instance, **kwargs):

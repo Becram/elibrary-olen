@@ -7,7 +7,7 @@ from elasticsearch_dsl import Search
 from elasticsearch_dsl.connections import connections
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core import mail
-from pustakalaya_apps.document.tasks import send_feedback_email_task
+from pustakalaya_apps.document.tasks import send_email_to_item_owner
 from django.conf import settings
 from django.contrib.sites.models import Site
 
@@ -185,7 +185,7 @@ def send_mail_on_user_submission(item=None):
         return 
     else:
         message = """{} has been Published in {}
-        click http://{}/{} to view the  {} details
+        click http://{}{} to view the  {} details
          """.format(
              item.title, 
              domain_name,
@@ -194,7 +194,7 @@ def send_mail_on_user_submission(item=None):
              item.type
          )
 
-        send_feedback_email_task.delay(
+        return send_email_to_item_owner.delay(
             "{} has been approved in {}".format(item.title, domain_name),
             message=message, 
             send_to_list=[item.submitted_by.email]

@@ -4,6 +4,7 @@
 from django.db.models.signals import post_save, pre_delete, m2m_changed
 from django.dispatch import receiver
 from django.db import transaction
+from pustakalaya_apps.core.utils import send_mail_on_user_submission
 
 from .models import Video
 
@@ -21,15 +22,19 @@ def index_or_update_video(sender, instance, **kwargs):
     # By pass for unpublished items
     if instance.published == "no":
         return 
+    
+
+    if instance.published == "yes":
+        send_mail_on_user_submission(item=instance)
 
     if instance.license is not None:
         if instance.license.license:
             instance.license_type = instance.license.license
 
     # TODO: use logging system
-    #print("Instance", sender, instance)
-
     instance.index()
+
+     
 
 
 @receiver(pre_delete, sender=Video)

@@ -65,11 +65,24 @@ def convert_pdf(file_path, instance_id=None):
 def send_feedback_email_task(title, message, send_to_list=None):
     """sends an email when feedback form is filled successfully"""
     logger.info("Sent feedback email")
-    send_mail(
+    return send_mail(
          title,
          message,
          settings.EMAIL_HOST_USER,
          send_to_list or settings.FEEDBACK_MESSAGE_TO,
+         fail_silently=False
+         )
+
+
+@shared_task(name="send email to item owner")
+def send_email_to_item_owner(title, message, send_to_list=None):
+    """sends an email when feedback form is filled successfully"""
+    logger.info("Sent feedback email")
+    return send_mail(
+         title,
+         message,
+         settings.EMAIL_HOST_USER,
+         send_to_list,
          fail_silently=False
          )
 
