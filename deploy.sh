@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set +x
-HOST=$(ifconfig enp1s0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
+#HOST=$(ifconfig enp1s0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 LOCAL_BACKUP="/library/backup_pg_pustakalaya/backup/daily/pustakalaya"
 
 
