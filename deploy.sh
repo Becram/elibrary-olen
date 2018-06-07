@@ -124,7 +124,7 @@ process() {
                     notify "Waiting...."
                     sleep  20
                     notify "Dumping database"
-                    docker_dump_sql &> /dev/null
+                    docker_dump_sql
                     notify "Migrating django DB"
                     docker_migrate
 
