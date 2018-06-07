@@ -1,3 +1,4 @@
+from itertools import chain
 from django.shortcuts import render
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,8 +11,11 @@ from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
-
-
+from django.contrib.messages.views import SuccessMessageMixin
+from django.template import RequestContext
+from pustakalaya_apps.document.models import Document
+from pustakalaya_apps.audio.models import Audio
+from pustakalaya_apps.video.models import Video
 
 
 @login_required()
@@ -20,7 +24,11 @@ def dashboard(request):
         return HttpResponseRedirect("/")
 
 
-    popular_documents = Document.objects.order_by('-updated_date')[:5]
+    featured_items = chain(
+        Document.featured_objects.all(),
+        Audio.featured_objects.all(),
+        Video.featured_objects.all(),
+    )
 
     # Now lets get the users books first
     item_list = Favourite.objects.filter(user=request.user)
@@ -46,7 +54,7 @@ def dashboard(request):
         fav_items = paginator.page(paginator.num_pages)
 
     return render(request, "dashboard/dashboard.html", {
-        'popular_documents': popular_documents,
+        'popular_documents': featured_items,
         'favourite_documents':fav_items
     })
 
@@ -66,16 +74,15 @@ def profile_edit(request):
     pass
 
 
-class ProfileEdit(LoginRequiredMixin, UpdateView):
+class ProfileEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get(self, request, *args, **kwargs):
         
         if str(request.user.pk) != str(kwargs.get('pk')):
             return HttpResponseForbidden("Permission denied")
         
         return super(ProfileEdit, self).get(request, *args, **kwargs)
+        
 
-    
-  
         
     model = User
     fields = (
@@ -86,6 +93,7 @@ class ProfileEdit(LoginRequiredMixin, UpdateView):
     
     template_name = 'dashboard/profile/profile.html'
     success_url = '/dashboard/'
+    success_message = "Profile updated successfully"
 
  
         

@@ -32,6 +32,7 @@ def home(request):
     if not featured_video:
         featured_video = Video.objects.filter(featured="yes", published="yes").order_by('-updated_date')[:2]
 
+
     items = list(chain(featured_audio, featured_books, featured_video))
 
     # Get the total audio, videos and author count

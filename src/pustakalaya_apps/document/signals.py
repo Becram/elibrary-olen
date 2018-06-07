@@ -35,6 +35,11 @@ def index_or_update_document(sender, instance, **kwargs):
 @receiver(pre_delete, sender=Document)
 @transaction.atomic
 def delete_document(sender, instance, **kwargs):
+    
+     # By pass for unpublished items
+    if instance.published == "no":
+        return 
+        
     # Delete an index first before instance in db.
     instance.delete_index()
 

@@ -4,6 +4,12 @@ from django.shortcuts import HttpResponseRedirect, render
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from pustakalaya_apps.document.models import Document
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+
+
+
 
 from django.shortcuts import redirect
 from pustakalaya_apps.document.models import (
@@ -20,11 +26,12 @@ from .forms import (
 )
 
 
-class AddDocumentView(SuccessMessageMixin, CreateView):
+class AddDocumentView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = DocumentForm
     template_name = "dashboard/document/document_add.html/"
     model = Document
-    success_url = "/dashboard"
+    success_url = '/dashboard/'
+    success_message = "Profile updated successfully"
 
     # the inline forms in `inlines`
     def get_context_data(self, **kwargs):
@@ -55,15 +62,27 @@ class AddDocumentView(SuccessMessageMixin, CreateView):
             # Here instance is Document.
             inlines.instance = self.object
             inlines.save()
+
+            #Clear all other message and add message
+            storage = messages.get_messages(request)
+            storage.used = True 
+           
+            messages.add_message(
+               self.request,
+                messages.SUCCESS,
+                 'Document added successfully, we will notify you after reviewing it'
+                )
             return redirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data(form=form))
+
+        
 
     # Handle the form in case all the invalid form.
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
 
-
+@login_required
 def user_submission(request):
     # Grab all the list in pagination format.
     user = request.user
@@ -82,7 +101,7 @@ def user_submission(request):
     })
 
 
-class UpdateDocumentView(SuccessMessageMixin, UpdateView):
+class UpdateDocumentView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Document
     fields = [
         'title',
@@ -98,9 +117,9 @@ class UpdateDocumentView(SuccessMessageMixin, UpdateView):
     ]
 
     template_name = "dashboard/document/document_edit.html/"
-    success_url = 'dashboard/document/document_edit.html/'
-    success_message = "was update successfully !!"
-    success_url = reverse_lazy("dashboard:profile")
+    success_url = '/dashboard/'
+    success_message = "Document updated  successfully"
+    
 
     def clean(self, UpdateDocument):
         cleaned_data = super(UpdateDocument, self).clean()
@@ -119,7 +138,7 @@ class UpdateDocumentView(SuccessMessageMixin, UpdateView):
             raise cleaned_data.ValidationError('You have to write something!')
 
 
-class DeleteDocumentView(SuccessMessageMixin, DeleteView):
+class DeleteDocumentView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Document
     fields = [
         'title',
@@ -137,4 +156,10 @@ class DeleteDocumentView(SuccessMessageMixin, DeleteView):
 
     template_name = "dashboard/document/document_delete.html/"
     success_url = '/'
-    success_message = "was deleted successfully"
+    success_message = "Document deleted successfully"
+
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeleteDocumentView, self).delete(request, *args, **kwargs)
+

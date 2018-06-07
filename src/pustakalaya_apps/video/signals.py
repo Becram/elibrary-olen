@@ -17,6 +17,11 @@ from .models import Video
 @transaction.atomic
 def index_or_update_video(sender, instance, **kwargs):
     """Update or create an instance to index server."""
+
+    # By pass for unpublished items
+    if instance.published == "no":
+        return 
+
     if instance.license is not None:
         if instance.license.license:
             instance.license_type = instance.license.license
@@ -31,6 +36,12 @@ def index_or_update_video(sender, instance, **kwargs):
 @transaction.atomic
 def delete_video(sender, instance, **kwargs):
     """Delete an item from index server."""
+
+      # By pass for unpublished items
+    if instance.published == "no":
+        return 
+
+        
     # TODO: Use logging system
     print("Delete index object")
     instance.delete_index()

@@ -34,7 +34,30 @@
 
         </div>
       </div>
-      <hr> {% block dashboard_content %}
+      <hr> 
+ 
+           
+      {% if messages %}
+
+      <div class="alert alert-info" role="alert">
+        
+
+
+            {% for message in messages %}
+         
+            <p style="margin:none;" class="text-{% if message.tags %} {{ message.tags }} {% endif %}">{{ message }}</p>
+          {% endfor %}
+
+         
+
+           
+       
+      </div>
+
+
+      {% endif %}
+      
+      {% block dashboard_content %}
 
 
       <h5 id="det-book-title">{% trans "Popular items" %}</h5>

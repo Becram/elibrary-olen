@@ -6,9 +6,11 @@ from django.contrib.auth.decorators import login_required
 from pustakalaya_apps.video.models import Video
 from .forms import VideoFileUploadForm,VideoForm, VideoFileUploadFormSet
 from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class AddVideoView(SuccessMessageMixin,CreateView):
+class AddVideoView(LoginRequiredMixin,  SuccessMessageMixin,CreateView):
     model = Video
     form_class = VideoForm
     template_name = "dashboard/video/video_add.html/"
@@ -46,6 +48,15 @@ class AddVideoView(SuccessMessageMixin,CreateView):
             # Here instance is Document.
             inlines.instance = self.object
             inlines.save()
+
+            # Clear all other message and add message
+            storage = messages.get_messages(request)
+            storage.used = True
+            messages.add_message(
+               self.request,
+                messages.SUCCESS,
+                 'Video added successfully, we will notify you after reviewing it.'
+                )
             return redirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data(form=form))
@@ -58,7 +69,7 @@ class AddVideoView(SuccessMessageMixin,CreateView):
 
 
 
-class UpdateVideoView(UpdateView):
+class UpdateVideoView(LoginRequiredMixin, UpdateView):
     model = Video
 
     fields = [
@@ -94,7 +105,7 @@ class UpdateVideoView(UpdateView):
             raise cleaned_data.ValidationError('You have to write something!')
 
 
-class DeleteVideoView(SuccessMessageMixin, DeleteView):
+class DeleteVideoView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Video
 
     fields = [
@@ -111,5 +122,9 @@ class DeleteVideoView(SuccessMessageMixin, DeleteView):
     ]
 
     template_name = "dashboard/video/video_delete.html/"
-    success_url = 'dashboard:profile'
-    success_message = "was deleted successfully"
+    success_url = '/dashboard/'
+    success_message = "Video was deleted successfully"
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeleteVideoView, self).delete(request, *args, **kwargs)

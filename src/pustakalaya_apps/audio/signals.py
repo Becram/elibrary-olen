@@ -34,6 +34,12 @@ def delete_audio(sender, instance, **kwargs):
     """
     Delete audio instance from es server
     """
+
+      # By pass for unpublished items
+    if instance.published == "no":
+        return 
+
+        
     # Update or index audio doc type
     # TODO: implement logging
     # TODO: log this event

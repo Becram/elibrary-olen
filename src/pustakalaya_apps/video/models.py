@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 from pustakalaya_apps.collection.models import Collection
 from elasticsearch.exceptions import NotFoundError
 from django.contrib.auth.models import User
+from django.urls import reverse
 from .search import VideoDoc
 from django.core import urlresolvers
 from pustakalaya_apps.core.abstract_models import (
@@ -199,6 +200,16 @@ class Video(AbstractItem):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse("video:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
+
+    def get_dashboard_edit_url(self):
+        return reverse("dashboard:video_update", kwargs={"pk": self.pk})
+
+
+
+    def get_dashboard_delete_url(self):
+        return reverse("dashboard:video_delete", kwargs={"pk": self.pk})
+
+        
 
 
 

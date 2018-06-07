@@ -4,6 +4,7 @@ import time
 import os
 from itertools import chain
 from django.contrib.contenttypes.fields import GenericRelation
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -358,10 +359,18 @@ class Document(AbstractItem, HitCountMixin):
         return self.doc().to_dict(include_meta=True)
 
 
-
     def get_absolute_url(self):
-        from django.urls import reverse
         return reverse("document:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
+
+    def get_dashboard_edit_url(self):
+        return reverse("dashboard:document_update", kwargs={"pk": self.pk})
+    
+    def get_dashboard_delete_url(self):
+        return reverse("dashboard:document_delete", kwargs={"pk": self.pk})
+
+
+    
+        
 
     def get_admin_url(self):
         return urlresolvers.reverse("admin:%s_%s_change" %(self._meta.app_label, self._meta.model_name), args=(self.pk,))
