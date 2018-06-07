@@ -1750,8 +1750,6 @@ msgid "Add filter"
 msgstr "फिल्टर थप्नुहोस्"
 
 #: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:354
-#, fuzzy
-#| msgid "Audio"
 msgid "Audiobook"
 msgstr "अडियो"
 
