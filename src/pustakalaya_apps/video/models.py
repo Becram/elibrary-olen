@@ -5,6 +5,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from pustakalaya_apps.collection.models import Collection
 from elasticsearch.exceptions import NotFoundError
+from django.contrib.auth.models import User
 from .search import VideoDoc
 from django.core import urlresolvers
 from pustakalaya_apps.core.abstract_models import (
@@ -120,6 +121,13 @@ class Video(AbstractItem):
         verbose_name=_("Sponsor"),
         blank=True,
 
+    )
+
+    submitted_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        editable=False,
+        null=True
     )
 
     # custom video genre inherit from genre_audio_video
