@@ -94,11 +94,14 @@ process() {
                     run_composer_update
                     shift
                     ;;
-              "--ci")
+              "--developement")
+
                   notify "Stopping conatiners"
                   docker_stop
-                  notify "Deletelting UNTAGGED images"
-                  docker rmi $(docker images | grep "^<none>" | awk "{print $3}") 
+                  notify "Backing up"
+                  docker_backup_local
+                  # notify "Deletelting UNTAGGED images"
+                  # docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
                   notify "Building containers"
                   docker_rebuild_images
                   notify "Migrating django DB"
@@ -208,7 +211,7 @@ container="postgres_01"
 if [ $(docker inspect -f '{{.State.Running}}' $container) = "true" ]; then
       echo "getBack up of postgres"
       docker exec postgres_01 bash -c "/script/autopgsqlbackup";
-      echo "Successfully backed up to fileserver"
+      echo "Successfully backed up"
 else
       echo "Container $container is not running";
 fi
