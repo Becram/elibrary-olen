@@ -6,6 +6,10 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.connections import connections
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core import mail
+from pustakalaya_apps.document.tasks import send_feedback_email_task
+from django.conf import settings
+from django.contrib.sites.models import Site
 
 
 def list_search_from_elastic(request, query_type="match", **kwargs):
@@ -82,9 +86,6 @@ def list_search_from_elastic(request, query_type="match", **kwargs):
     context["page_number_count"] = start_item_count
 
     return context
-
-
-
 
 
 def list_search_from_elastic_work(request,author_name, query_type="match"):
@@ -172,3 +173,33 @@ def list_search_from_elastic_work(request,author_name, query_type="match"):
     context["page_number_count"] = start_item_count
 
     return context
+
+
+def send_mail_on_user_submission(item=None):
+    """
+    Send an email to a user when an item is published to pustakalaya archive. 
+    """
+    domain_name  = Site.objects.get_current().domain or "http://pustakalaya.org"
+
+    if not item or item.published == "no":
+        return 
+    else:
+        message = """{} has been Published in {}
+        click http://{}/{} to view the  {} details
+         """.format(
+             item.title, 
+             domain_name,
+             domain_name,
+             item.get_absolute_url(),
+             item.type
+         )
+
+        send_feedback_email_task.delay(
+            "{} has been approved in {}".format(item.title, domain_name),
+            message=message, 
+            send_to_list=[item.submitted_by.email]
+        )
+
+        
+
+

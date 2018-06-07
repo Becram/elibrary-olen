@@ -368,10 +368,6 @@ class Document(AbstractItem, HitCountMixin):
     def get_dashboard_delete_url(self):
         return reverse("dashboard:document_delete", kwargs={"pk": self.pk})
 
-
-    
-        
-
     def get_admin_url(self):
         return urlresolvers.reverse("admin:%s_%s_change" %(self._meta.app_label, self._meta.model_name), args=(self.pk,))
 
@@ -392,7 +388,6 @@ class Document(AbstractItem, HitCountMixin):
 
     def document_link_name(self):
         return self.link_name;
-
 
 class UnpublishedDocument(Document):
     """
