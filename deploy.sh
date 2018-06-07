@@ -94,7 +94,7 @@ process() {
                     run_composer_update
                     shift
                     ;;
-              "--developement")
+              "--development")
 
                   notify "Stopping conatiners"
                   docker_stop
