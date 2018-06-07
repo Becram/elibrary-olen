@@ -96,10 +96,11 @@ process() {
                     ;;
               "--development")
 
-                  notify "Stopping conatiners"
-                  docker_stop
                   notify "Backing up"
                   docker_backup_local
+                  notify "Stopping conatiners"
+                  docker_stop
+
                   # notify "Deletelting UNTAGGED images"
                   # docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
                   notify "Building containers"
