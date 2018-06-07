@@ -84,9 +84,6 @@ def list_search_from_elastic(request, query_type="match", **kwargs):
     return context
 
 
-
-
-
 def list_search_from_elastic_work(request,author_name, query_type="match"):
     """
     Return a list of matching document when query value matches the field value.
@@ -172,3 +169,7 @@ def list_search_from_elastic_work(request,author_name, query_type="match"):
     context["page_number_count"] = start_item_count
 
     return context
+
+
+def isAuthorAlreadyExist():
+    pass

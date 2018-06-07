@@ -10,16 +10,15 @@
 
 body{
   background-color: #FAFAFA;
+  font-size: 14px;
 }
 
 body:lang(ne){
   font-family: Nirmala !important;
-  font-size: 12px;
  }
 
 body:lang(en){
   font-family: Roboto, sans-serif !important;
-  font-size: 14px;
  }
 
 a:hover {
@@ -145,6 +144,10 @@ a.text-primary:focus, a.text-primary:hover {
   box-shadow: 0 0 2px #7f8c8d;
   font-weight: bold;
 }
+
+#olenavbar:lang(ne){
+  font-weight: normal;
+ }
 
 #olenavbar .dropdown-items{
   font-weight: normal;

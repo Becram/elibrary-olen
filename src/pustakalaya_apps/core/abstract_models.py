@@ -26,7 +26,6 @@ class AbstractTimeStampModel(models.Model):
 class AbstractBaseAuthor(AbstractTimeStampModel):
     """Base author class that holds the common attributes for other author class."""
 
-
     first_name = models.CharField(
         _("First name"),
         max_length=255,
@@ -124,8 +123,11 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
         return reverse("author:author_detail", kwargs={"author_name": slugify(self.name), "pk": self.pk})
 
 
+
+
     class Meta:
         abstract = True
+
 
 
 
