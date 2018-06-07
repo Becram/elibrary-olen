@@ -323,3 +323,21 @@ class LinkInfo(AbstractTimeStampModel):
 
     class Meta:
         abstract = True
+
+
+
+
+class EmbedVideoAudioLink(AbstractTimeStampModel):
+    video_audio_link_name = models.URLField(
+        verbose_name=_("Embed Link URL(add only if you do not upload item)"),
+        max_length = 500,
+    )
+
+    video_audio_link_description = models.TextField(
+        max_length=500,
+        verbose_name=_("Embed Link Description"),
+        blank=True
+    )
+
+    class Meta:
+        abstract = True

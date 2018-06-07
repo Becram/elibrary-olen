@@ -6,7 +6,8 @@ from .models import (
     AudioGenre,
     AudioSeries,
     AudioLinkInfo,
-    AudioType
+    AudioType,
+    AudioEmbedLink
 )
 
 
@@ -16,16 +17,23 @@ class AudioFileUploadInline(admin.StackedInline):
     fields = ["file_name","upload"]
 
 
-
 class AudioLinkInfoAdminInline(admin.StackedInline):
     model = AudioLinkInfo
     extra = 1
+    verbose_name_plural = "Related Link"
+
+
+class AudioEmbedLinkAdminInline(admin.StackedInline):
+    model = AudioEmbedLink
+    extra = 1
+    verbose_name_plural = "Youtube Embed Link"
 
 
 @admin.register(Audio)
 class DocumentAdmin(admin.ModelAdmin):
     inlines = [
         AudioLinkInfoAdminInline,
+        AudioEmbedLinkAdminInline,
         AudioFileUploadInline,
     ]
 

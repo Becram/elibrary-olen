@@ -5,7 +5,8 @@ from .models import (
     VideoSeries,
     VideoFileUpload,
     VideoLinkInfo,
-    VideoGenre
+    VideoGenre,
+    VideoEmbedLink
 )
 
 
@@ -18,12 +19,21 @@ class VideoFileUploadAdmin(admin.TabularInline):
 class AudioLinkInfoAdminInline(admin.StackedInline):
     model = VideoLinkInfo
     extra = 1
+    verbose_name_plural = "Related Link"
+
+
+class VideoEmbedLinkAdminInline(admin.StackedInline):
+    model = VideoEmbedLink
+    extra = 1
+    verbose_name_plural = "Youtube Embed Link"
+
 
 
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
     inlines = [
         AudioLinkInfoAdminInline,
+        VideoEmbedLinkAdminInline,
         VideoFileUploadAdmin
     ]
 
