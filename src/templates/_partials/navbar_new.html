@@ -18,7 +18,14 @@
                <a href="/">
                     <img class="logo"
                 style="cursor:pointer; outline:none;"
-                 src="{% static 'images_new/pustlogo.png' %}" alt="ole logo" />
+                 src="
+                 {% if LANGUAGE_CODE == 'ne' %}
+                  {% static 'images_new/pustlogo-nep.png' %}
+                  {% else  %}
+                 {% static 'images_new/pustlogo.png' %}
+                  {% endif %}
+
+                  " alt="ole logo" />
                </a>
             </div>
             <!-- 4 column search and nav1 -->
