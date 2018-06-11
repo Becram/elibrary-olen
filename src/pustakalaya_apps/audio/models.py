@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from elasticsearch.exceptions import NotFoundError
 from django.core import urlresolvers
+from django.urls import reverse
 from django.contrib.auth.models import User
 from pustakalaya_apps.collection.models import Collection
 from pustakalaya_apps.core.abstract_models import (
@@ -195,6 +196,16 @@ class Audio(AbstractItem):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse("audio:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
+
+    def get_dashboard_edit_url(self):
+        return reverse("dashboard:audio_update", kwargs={"pk": self.pk})
+
+      
+    def get_dashboard_delete_url(self):
+        return reverse("dashboard:audio_delete", kwargs={"pk": self.pk})
+
+
+    
 
     def doc(self):
         # Parent attributes

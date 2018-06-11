@@ -123,6 +123,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 # Context processor. 
                 'pustakalaya_apps.core.context_processor.getlang',
+                
             ],
         },
     },

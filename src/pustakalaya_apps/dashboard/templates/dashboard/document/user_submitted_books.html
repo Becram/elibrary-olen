@@ -44,8 +44,25 @@
                                            {% else %}
                                               <i class="fa fa-video-camera"></i>
                                            {% endif %}
-                                           {{doc.type}}
+                                           {{doc.type}} 
                                            </p>
+                                           <p class="text-center p1">
+
+                                                {% if doc.published == "no" %} 
+                                            <p class="text-muted text-small">Not published &nbsp;</p>
+                                             <span class="p-3">
+                                                    <a href="{{doc.get_dashboard_edit_url}}{{doc.pk}}">{% trans "Edit" %}</a>
+                                                    &nbsp;&nbsp;
+
+                                                    <a class="text-danger" href="{{doc.get_dashboard_delete_url}}{{doc.pk}}">{% trans "Delete" %}</a>
+                                                    
+                                             </span>
+                                            {% else %}
+                                                <p class="text-muted">Published</p>
+                                           {% endif %}
+
+                                            </p>
+                                           
                                     </div>
                                   </div>
                           
