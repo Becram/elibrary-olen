@@ -346,7 +346,9 @@
 
 
                   </div>
-                  <p class="book-label"> <a href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}">{{ hit.title|truncatewords:11 }}</a></p>
+                  <p class="book-label"> <a href="{% url hit.type|add:':detail_without_slug'  hit.id %}">{{ hit.title|truncatewords:11 }}</a></p>
+
+
                   <p class="book-type">
                       {% if hit.type == "document"%}
                         <i class="fa fa-book"></i> {% trans "Document" %}
@@ -366,11 +368,11 @@
 
 
                     {% if hit.type == "document"%}
-                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Read" %}</a>
+                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail_without_slug'  hit.id %}" style="cursor:pointer;">{% trans "Read" %}</a>
                       {% elif hit.type == "audio"%}
-                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Listen" %}</a>
+                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail_without_slug'  hit.id %}" style="cursor:pointer;">{% trans "Listen" %}</a>
                        {% else %}
-                        <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Watch" %}</a>
+                        <a class="list-btn ole-btn" href="{% url hit.type|add:':detail_without_slug'  hit.id %}" style="cursor:pointer;">{% trans "Watch" %}</a>
                       {% endif %}
                 </div>
                 </a>
