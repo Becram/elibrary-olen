@@ -194,6 +194,11 @@ def send_mail_on_user_submission(item=None):
              item.get_absolute_url(),
              item.type
          )
+        # if the submitted email is none the return because admin user doesnot have
+        # email while uploading
+        if item.submitted_by == None:
+
+            return;
 
         return send_email_to_item_owner.delay(
             "{} has been approved in {}".format(item.title, domain_name),
