@@ -6,9 +6,11 @@ from django.contrib.auth.decorators import login_required
 from pustakalaya_apps.audio.models import Audio
 from .forms import AudioFileUploadForm,AudioForm, AudioFileUploadFormSet
 from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class AddAudioView(SuccessMessageMixin, CreateView):
+class AddAudioView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Audio
     form_class = AudioForm
     template_name = "dashboard/audio/audio_add.html/"
@@ -35,9 +37,7 @@ class AddAudioView(SuccessMessageMixin, CreateView):
         # form = context["form"]
         status = form.is_valid()
         statusset = inlines.is_valid()
-        print(status, statusset)
-
-
+       
         if form.is_valid() and inlines.is_valid():
             # Save the object. and its children.
             self.object = form.save(commit=False)
@@ -49,6 +49,18 @@ class AddAudioView(SuccessMessageMixin, CreateView):
             # Here instance is Document.
             inlines.instance = self.object
             inlines.save()
+
+
+       
+            # Clear all other message and add message
+            storage = messages.get_messages(self.request)
+            storage.used = True
+             
+            messages.add_message(
+               self.request,
+                messages.SUCCESS,
+                'Audio added successfully, we will notify you after reviewing it'
+                )
             return redirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data(form=form))
@@ -60,7 +72,7 @@ class AddAudioView(SuccessMessageMixin, CreateView):
         return self.render_to_response(self.get_context_data(form=form))
 
 
-class UpdateAudioView(UpdateView):
+class UpdateAudioView(LoginRequiredMixin, UpdateView):
     model = Audio
     fields = [
                 'title',
@@ -77,7 +89,7 @@ class UpdateAudioView(UpdateView):
     ]
 
     template_name = "dashboard/audio/audio_edit.html/"
-    success_url = reverse_lazy("dashboard:profile")
+    success_url = '/dashboard/submission/list/'
 
     def clean(self, UpdateAudioView):
         cleaned_data = super(UpdateAudioView, self).clean()
@@ -100,7 +112,7 @@ class UpdateAudioView(UpdateView):
             raise cleaned_data.ValidationError('You have to write something!')
 
 
-class DeleteAudioView(SuccessMessageMixin, DeleteView):
+class DeleteAudioView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Audio
     fields = [
                 'title',
@@ -117,5 +129,11 @@ class DeleteAudioView(SuccessMessageMixin, DeleteView):
     ]
 
     template_name = "dashboard/audio/audio_delete.html/"
-    success_url = 'dashboard:profile'
+    success_url = '/dashboard/submission/list/'
     success_message = "was deleted successfully"
+
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeleteAudioView, self).delete(request, *args, **kwargs)
+

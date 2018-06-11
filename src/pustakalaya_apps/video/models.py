@@ -5,13 +5,16 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from pustakalaya_apps.collection.models import Collection
 from elasticsearch.exceptions import NotFoundError
+from django.contrib.auth.models import User
+from django.urls import reverse
 from .search import VideoDoc
 from django.core import urlresolvers
 from pustakalaya_apps.core.abstract_models import (
     AbstractItem,
     AbstractSeries,
     AbstractTimeStampModel,
-    LinkInfo
+    LinkInfo,
+    EmbedVideoAudioLink
 
 )
 
@@ -122,6 +125,13 @@ class Video(AbstractItem):
 
     )
 
+    submitted_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        editable=False,
+        null=True
+    )
+
     # custom video genre inherit from genre_audio_video
 
     # video_genre = models.ForeignKey(
@@ -192,6 +202,16 @@ class Video(AbstractItem):
         from django.urls import reverse
         return reverse("video:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
 
+    def get_dashboard_edit_url(self):
+        return reverse("dashboard:video_update", kwargs={"pk": self.pk})
+
+
+
+    def get_dashboard_delete_url(self):
+        return reverse("dashboard:video_delete", kwargs={"pk": self.pk})
+
+        
+
 
 
     def get_similar_items(self):
@@ -202,7 +222,7 @@ class Video(AbstractItem):
         audios =   Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
         videos = Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
         return chain(documents, audios, videos)
-      
+
 
 
     def doc(self):
@@ -345,8 +365,26 @@ class VideoLinkInfo(LinkInfo):
 
     def __str__(self):
         return self.video.title
+
     class Meta:
         ordering=["created_date"]
+
+
+class VideoEmbedLink(EmbedVideoAudioLink):
+    video = models.ForeignKey(
+        Video,
+        verbose_name=_("Embed Link"),
+        on_delete=models.CASCADE,
+
+    )
+
+    def __str__(self):
+        return self.video.title
+
+    class Meta:
+        ordering=["created_date"]
+
+
 
 
 class VideoGenre(AbstractTimeStampModel):

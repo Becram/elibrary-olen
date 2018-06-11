@@ -8,6 +8,9 @@
 <!--New div container -->
 
 <!--REMOVE THIS LATER-->
+{% if object.published == "yes" %}
+
+
  <input type="hidden" name="content_type" value="video"/>
  <input type="hidden" name="content_id" value="{{ object.pk }}">
   {% if user %}
@@ -57,7 +60,7 @@
 
     <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12 ole-vdo-cont">
-                <video class="video-js vjs-default-skin" width="100%" height="450px"
+                <video class="video-js vjs-default-skin" width="100%" height="450px"  autoplay="autoplay"
                        id="selectedVideo" controls="controls" loop controlsList="nodownload" preload="auto"
                        style="border: 5px solid #4D4D4D; background: #4D4D4D;"
                        src="{{ MEDIA_URL }}{{ object.videofileupload_set.first.upload }}"
@@ -509,7 +512,7 @@
                     <th scope="col">{% trans "Education levels" %}:</th>
                     <td>
                        {% for education_level in object.education_levels.all %}
-                           {{ education_level }}
+                           {{ education_level| transtolocal }}
                         {%  if not forloop.last %}
                                               ,
                         {%  endif %}
@@ -566,26 +569,39 @@
 
 
 
+              </tbody>
+            </table>
 
 
-               {% if object.videolinkinfo_set.all %}
-                <!-- Authors -->
-                <!-- TODO pluralization -->
+            <!-- link_name and link description -->
+             {% if object.videolinkinfo_set.all %}
+             <hr>
+            <h5>{% trans "Related Links" %}</h5>
+              <table class="table">
+                <tbody>
+
+
                {% for link in  object.videolinkinfo_set.all %}
-                  <tr>
+
+               <tr>
                   <th scope="col">{% trans "Link:" %}</th>
                   <td><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></td>
                 </tr>
 
-                  <tr>
+                {% if  link.link_description  %}
+               <tr>
                   <th scope="col">{% trans "Link Description:" %}</th>
-                  <td>{{ link.link_description }}</td>
+                  <td class="text-capitalize">{{ link.link_description }}</td>
                 </tr>
-               {% endfor %}
                {% endif %}
 
-              </tbody>
-            </table>
+               {% endfor %}
+
+                </tbody>
+              </table>
+            {% endif %}
+
+
           </div>
         </div>
 
@@ -712,11 +728,11 @@
 
   <div class="row">
     <div class="col-md-12">
-        <h5 id="det-book-title">{% trans "Similar Items You May Like" %}</h5>
-      {% if object.get_similar_items.all %}
-          {% if object.get_similar_items.all|length != 1%}
+
+      {% if object.get_similar_items %}
+          {% if object.get_similar_items|length != 1%}
             <hr>
-            <h5 id="det-book-title">{% trans "Similar Videos You May Like" %}</h5>
+            <h5 >{% trans "Similar Videos You May Like" %}</h5>
           {% endif %}
       {% endif %}
     </div>
@@ -770,6 +786,20 @@
   </div>
 
 </div>
+{% else  %}
+  <div class="container">
+  <div class="sad_container">
+
+        <div class="sadface">
+          <i class="fa fa-frown-o"></i>
+        </div>
+        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found"%}</h5>
+        <br>
+        <p>{% trans "The link is either broken or the item is not published yet" %}.</p>
+    </div>
+  </div>
+{% endif  %}
+
 
 <!--End New div container -->
 
@@ -823,7 +853,7 @@
       e.preventDefault();
         var user_name = $("input[type='hidden'][name='user']").val().trim();
         if(user_name == "" || user_name == "AnonymousUser" ){
-          $("#information_message_p_tag").text('Login to post you message');
+          $("#information_message_p_tag").text('Login to post your message');
           $("#info_message_display").click();
           return;
         }else{
@@ -837,7 +867,7 @@
     e.preventDefault();
       var user_name = $("input[type='hidden'][name='user']").val().trim();
       if(user_name == "" || user_name == "AnonymousUser" ){
-        $("#information_message_p_tag").text('Login to post you message');
+        $("#information_message_p_tag").text('Login to post your message');
         $("#info_message_display").click();
         return;
       }else{
@@ -867,7 +897,7 @@
 
         return;
       }else if(user_input == "" || user_title == "" ){
-        //alert("Please enter you title and message properly!");
+        //alert("Please enter the title and message properly!");
 
         //$("#close_model_box").click();
         $("#information_message_p_tag").text('Please enter the title and message properly!');

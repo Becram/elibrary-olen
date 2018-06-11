@@ -26,7 +26,6 @@ class AbstractTimeStampModel(models.Model):
 class AbstractBaseAuthor(AbstractTimeStampModel):
     """Base author class that holds the common attributes for other author class."""
 
-
     first_name = models.CharField(
         _("First name"),
         max_length=255,
@@ -124,8 +123,11 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
         return reverse("author:author_detail", kwargs={"author_name": slugify(self.name), "pk": self.pk})
 
 
+
+
     class Meta:
         abstract = True
+
 
 
 
@@ -318,6 +320,24 @@ class LinkInfo(AbstractTimeStampModel):
     link_description = models.TextField(
         max_length=500,
         verbose_name=_("Link Description"),
+        blank=True
+    )
+
+    class Meta:
+        abstract = True
+
+
+
+
+class EmbedVideoAudioLink(AbstractTimeStampModel):
+    video_audio_link_name = models.URLField(
+        verbose_name=_("Embed Link URL(add only if you do not upload item)"),
+        max_length = 500,
+    )
+
+    video_audio_link_description = models.TextField(
+        max_length=500,
+        verbose_name=_("Embed Link Description"),
         blank=True
     )
 

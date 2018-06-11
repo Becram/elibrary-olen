@@ -14,7 +14,7 @@
 
 {% block content %}
 
-
+{% if object.published == "yes" %}
 <!--REMOVE THIS LATER-->
  <input type="hidden" name="content_type" value="document"/>
  <input type="hidden" name="content_id" value="{{ object.pk }}">
@@ -36,7 +36,7 @@
           <!-- Bread crums -->
           {% for collection in object.collections.all %}
           {% if forloop.first %}
-          <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}" class="text-capitalize">{{collection.community_name | transtolocal  }}</a>&emsp;
+          <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}" class="text-capitalize">{{ collection.community_name|transtolocal  }}</a>&emsp;
 
           <span style="color: #00838F;"> <i class="fa fa-caret-right"></i></span>&emsp;
           {% endif %}
@@ -74,12 +74,15 @@
         <div class="ratings-container">
         {% for document in object.documentfileupload_set.all %}
           {% if  document.upload %}
-          <p>{% trans "File size: " %}{{ document.upload.size | file_size_format }}</p>
+          <p>{% trans "File size: " %} {{ document.upload.size | file_size_format }}</p>
           {% endif %}
         {% endfor %}
 
+          {% if request.user.is_authenticated %}
           <p>Rate this book:</p>
           <p>{% ratings object %}</p>
+          {% endif %}
+
         </div>
 
 
@@ -91,17 +94,19 @@
            {% if favourite_data.first.user != "" %}
 
             {% if request.user == favourite_data.first.user %}
-             <button type="button" class="btn ole-btn-trans det-fav-added" value="{{object.pk }}" id="added_to_favourite"><i class="fa fa-check-circle"> Added to favourite </i></button>
+             <button type="button" class="btn ole-btn-trans det-fav-added" value="{{object.pk }}" id="added_to_favourite"><i class="fa fa-check-circle">{% trans "Added to favourite" %}</i></button>
 
             {% else %}
-            <button type="button" value="{{ object.pk  }}"class="btn ole-btn-trans add_to_favourite" ><i class="fa fa-heart det-fav-active"></i> Add to favourite </button>
+            <button type="button" value="{{ object.pk  }}"class="btn ole-btn-trans add_to_favourite" ><i class="fa fa-heart det-fav-active"></i> {% trans "Add to favourite" %} </button>
 
             {% endif %}
         {% else %}
-        <button type="button" value="{{ object.pk  }}" class="btn ole-btn-trans add_to_favourite"><i class="fa fa-heart det-fav-active"> Add to favourite </i></button>
+        <button type="button" value="{{ object.pk  }}" class="btn ole-btn-trans add_to_favourite"><i class="fa fa-heart det-fav-active"> {% trans "Add to favourite" %} </i></button>
 
         {% endif %}
           {% endif %}
+          <span id="add_to_fav" style="display:none;">{% trans "Add to favourite" %}</span>
+          <span id="added_to_fav" style="display:none;">{% trans "Added to favourite" %}</span>
         </p>
 
 
@@ -254,7 +259,7 @@
 
 
         {% for document in object.documentfileupload_set.all %}
-          <a href="{{ MEDIA_URL }}{{ document.upload }}" target="_blank" title='{% trans "File size: " %}{{ document.upload.size | file_size_format }}'>
+          <a href="{{ MEDIA_URL }}{{ document.upload }}" target="_blank" title='{% trans "File size: " %}  {{ document.upload.size | file_size_format }}'>
             <button type="button" class="btn ole-btn">
           {% trans 'Read Book ' %}
           </button>
@@ -484,7 +489,7 @@
                   <th scope="col">{% trans "Education Levels" %}:</th>
                   <td class="text-capitalize">
                     {% for education_level in object.education_levels.all %}
-                        {{ education_level }}
+                        {{ education_level| transtolocal }}
                         {%  if not forloop.last %}
                                 ,
                             {%  endif %}
@@ -552,27 +557,45 @@
               {% endif %}
 
 
+              </tbody>
+            </table>
 
-              <!-- link_name and link description -->
+
+            <!-- link_name and link description -->
              {% if object.documentlinkinfo_set.all %}
+             <hr>
+            <h5>{% trans "Related Links" %}</h5>
+              <table class="table">
+                <tbody>
+
+
                {% for link in  object.documentlinkinfo_set.all %}
                <tr>
                   <th scope="col">{% trans "Link:" %}</th>
                   <td><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></td>
                 </tr>
 
+                {% if  link.link_description  %}
                <tr>
                   <th scope="col">{% trans "Link Description:" %}</th>
                   <td class="text-capitalize">{{ link.link_description }}</td>
                 </tr>
+               {% endif %}
+
                {% endfor %}
-             {% endif %}
+
+                </tbody>
+              </table>
+            {% endif %}
 
 
 
 
-              </tbody>
-            </table>
+
+
+
+
+
           </div>
         </div>
 
@@ -704,11 +727,10 @@
   <!-- start of similar books -->
   <div class="row">
     <div class="col-md-12">
-        <h5 id="det-book-title">{% trans "Similar Items You May Like" %}</h5>
-      {% if object.get_similar_items.all %}
-        {% if object.get_similar_items.all|length != 1%}
+      {% if object.get_similar_items %}
+        {% if object.get_similar_items|length != 1%}
          <hr>
-          <h5 id="det-book-title">{% trans "Similar Items You May Like" %}</h5>
+          <h5>{% trans "Similar Items You May Like" %}</h5>
         {% endif %}
       {% endif %}
     </div>
@@ -763,6 +785,20 @@
 <!-- css scripts for book rating -->
 <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
 
+{% else  %}
+  <div class="container">
+  <div class="sad_container">
+
+        <div class="sadface">
+          <i class="fa fa-frown-o"></i>
+        </div>
+        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found"%}</h5>
+        <br>
+        <p>{% trans "The link is either broken or the item is not published yet" %}.</p>
+    </div>
+  </div>
+{% endif  %}
+
 
 {% endblock content %}
 
@@ -781,7 +817,7 @@
       e.preventDefault();
         var user_name = $("input[type='hidden'][name='user']").val().trim();
         if(user_name == "" || user_name == "AnonymousUser" ){
-          $("#information_message_p_tag").text('Login to post you message');
+          $("#information_message_p_tag").text('Login to post your message');
           $("#info_message_display").click();
           return;
         }else{
@@ -795,7 +831,7 @@
     e.preventDefault();
       var user_name = $("input[type='hidden'][name='user']").val().trim();
       if(user_name == "" || user_name == "AnonymousUser" ){
-        $("#information_message_p_tag").text('Login to post you message');
+        $("#information_message_p_tag").text('Login to post your message');
         $("#info_message_display").click();
         return;
       }else{
@@ -816,7 +852,7 @@
       //alert("detail="+ user_input);
       //return;
       if(user_name == "" || user_name == "AnonymousUser" ){
-        //alert("Login to post you message");
+
 
         //$("#close_model_box").click();
         $("#information_message_p_tag").text('Login to post you message');
@@ -825,7 +861,7 @@
 
         return;
       }else if(user_input == "" || user_title == "" ){
-        //alert("Please enter you title and message properly!");
+        //alert("Please enter the title and message properly!");
 
         //$("#close_model_box").click();
         $("#information_message_p_tag").text('Please enter the title and message properly!');
@@ -1053,8 +1089,11 @@
         },
         success: function (data) {
           $('.add_to_favourite').remove();
+          //This reading is done for multi language support
+           var favourite_added_text = $('#added_to_fav').text();
+
            $("#favourite_hanging_place").append(''+
-                           '<button type="button" class="btn ole-btn-trans det-fav-added" value="'+ content_id +'" id="added_to_favourite"><i class="fa fa-check-circle"></i> Added to favourite</button>'
+                           '<button type="button" class="btn ole-btn-trans det-fav-added" value="'+ content_id +'" id="added_to_favourite"><i class="fa fa-check-circle"></i> '+favourite_added_text+'</button>'
                       +'');
 
         },
@@ -1090,10 +1129,12 @@
         },
         success: function (data) {
           $("#added_to_favourite").remove();
-          $("#favourite_hanging_place")
+          //$("#favourite_hanging_place")
+          //This reading is done for multi language support
+           var favourite_add_text = $('#add_to_fav').text();
 
            $("#favourite_hanging_place").append(''+
-                           '<button type="button" value="'+ content_id +'" class="btn ole-btn-trans add_to_favourite" ><i class="fa fa-heart det-fav-active"></i> Add to favourite</button>'
+                           '<button type="button" value="'+ content_id +'" class="btn ole-btn-trans add_to_favourite" ><i class="fa fa-heart det-fav-active"></i> '+favourite_add_text+'</button>'
                +'');
 
         },
@@ -1175,3 +1216,6 @@
 
 
 {% endblock script %}
+
+
+

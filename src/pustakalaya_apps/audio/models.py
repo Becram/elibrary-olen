@@ -4,12 +4,15 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from elasticsearch.exceptions import NotFoundError
 from django.core import urlresolvers
+from django.urls import reverse
+from django.contrib.auth.models import User
 from pustakalaya_apps.collection.models import Collection
 from pustakalaya_apps.core.abstract_models import (
     AbstractItem,
     AbstractTimeStampModel,
     AbstractSeries,
     LinkInfo,
+    EmbedVideoAudioLink
 )
 from pustakalaya_apps.core.models import (
     Keyword,
@@ -152,6 +155,13 @@ class Audio(AbstractItem):
         null=True
     )
 
+    submitted_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        editable=False,
+        null=True
+    )
+
     sponsors = models.ManyToManyField(
         Sponsor,
         verbose_name=_("Sponsor"),
@@ -186,6 +196,16 @@ class Audio(AbstractItem):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse("audio:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
+
+    def get_dashboard_edit_url(self):
+        return reverse("dashboard:audio_update", kwargs={"pk": self.pk})
+
+      
+    def get_dashboard_delete_url(self):
+        return reverse("dashboard:audio_delete", kwargs={"pk": self.pk})
+
+
+    
 
     def doc(self):
         # Parent attributes
@@ -329,6 +349,22 @@ class AudioLinkInfo(LinkInfo):
 
     class Meta:
         ordering=["created_date"]
+
+
+class AudioEmbedLink(EmbedVideoAudioLink):
+    audio = models.ForeignKey(
+        Audio,
+        verbose_name=_("Embed audio Link"),
+        on_delete=models.CASCADE,
+
+    )
+
+    def __str__(self):
+        return self.audio.title
+
+    class Meta:
+        ordering=["created_date"]
+
 
 class AudioType(models.Model):
     """DB to store type of audios"""

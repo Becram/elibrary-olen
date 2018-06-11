@@ -71,7 +71,7 @@
         {% if type %}
           <div class="ep-white-bg" style="padding-bottom: 5px;">
             {% if type %}
-            <p class="title-heads">{% trans "Media Type" %}</p>
+            <p class="title-heads" id="type_head_label">{% trans "Media Type" %}</p>
             <div id="type" >
             {% for type, count, selected in response.facets.type %}
             <div class="checkbox">
@@ -95,7 +95,7 @@
           <!-- category keywords -->
         {% if keywords %}
           <div class="ep-white-bg" style="margin-top: 15px; padding-bottom: 10px;">
-            <p class="title-heads">{% trans "Keywords" %}</p>
+            <p class="title-heads" id="keywords_head_label">{% trans "Keywords" %}</p>
 
              <script> var keywords = "{{keywords_js|escapejs}}" </script>
 
@@ -168,7 +168,7 @@
           <!-- category language -->
         {% if languages %}
           <div class="ep-white-bg" style=" margin-top: 15px; padding-bottom: 5px;">
-            <p class="title-heads">{% trans "Language" %}</p>
+            <p class="title-heads" id="languages_head_label">{% trans "Language" %}</p>
               <div  id="languages">
                   {% for language, count, selected in languages %}
                   <div class="checkbox">
@@ -187,11 +187,11 @@
           <!-- category education level -->
          {% if education_levels %}
           <div class="ep-white-bg" style=" margin-top: 15px; padding-bottom: 5px;">
-            <p class="title-heads">{% trans "Education Level" %}</p>
+            <p class="title-heads" id="education_levels_head_label">{% trans "Education Level" %}</p>
               <div id="education_levels">
                    {% for type, count, selected in education_levels %}
                   <div class="checkbox">
-                    <label class="lab-cont text-capitalize" for="education-{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
+                    <label class="lab-cont text-capitalize" for="education-{{ type }}"> {{ type |transtolocal }}
                       <span class="text-muted">&nbsp;({{ count }})</span>
 
                        <input id="education-{{ type }}" value="{{ type }}"
@@ -214,12 +214,12 @@
           <!-- category Collections -->
         {% if collections %}
           <div class="ep-white-bg" style=" margin-top: 15px; padding-bottom: 5px;">
-            <p class="title-heads">{% trans "Collections" %}</p>
+            <p class="title-heads" id="collections_head_label">{% trans "Collections" %}</p>
             <div id="collections">
             {% for type, count, selected in collections %}
             <div class="checkbox">
 
-              <label class="lab-cont text-capitalize" for="collection-{{ type }}">{{ type | transtolocal }} <span class="text-muted">&nbsp;({{ count }})</span>
+              <label class="lab-cont text-capitalize" for="collection-{{ type }}">{{ type |transtolocal }} <span class="text-muted">&nbsp;({{ count }})</span>
                 <input id="collection-{{ type }}" type="checkbox"
                     {% if selected %} checked {% endif %}
                    value="{{ type  }}"
@@ -239,7 +239,7 @@
           <!-- category Liscene Type -->
         {% if license_type %}
           <div class="ep-white-bg" style=" margin-top: 15px; padding-bottom: 5px;">
-            <p class="title-heads">{% trans "License Type" %}</p>
+            <p class="title-heads" id="license_type_head_label">{% trans "License Type" %}</p>
 
             <div id="license_type">
             {% for type, count, selected in license_type %}
@@ -326,7 +326,7 @@
             {% for hit in hits %}
               <div class="col-md-3 col-sm-6 col-6">
 
-                <a href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}">
+                <a href="{% url hit.type|add:':detail_without_slug'  hit.id %}">
                 <div class="grid-book-cont">
                   <div class="img-cont">
 
@@ -346,7 +346,9 @@
 
 
                   </div>
-                  <p class="book-label"> <a href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}">{{ hit.title|truncatewords:11 }}</a></p>
+                  <p class="book-label"> <a href="{% url hit.type|add:':detail_without_slug'  hit.id %}">{{ hit.title|truncatewords:11 }}</a></p>
+
+
                   <p class="book-type">
                       {% if hit.type == "document"%}
                         <i class="fa fa-book"></i> {% trans "Document" %}
@@ -366,11 +368,11 @@
 
 
                     {% if hit.type == "document"%}
-                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Read" %}</a>
+                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail_without_slug'  hit.id %}" style="cursor:pointer;">{% trans "Read" %}</a>
                       {% elif hit.type == "audio"%}
-                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Listen" %}</a>
+                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail_without_slug'  hit.id %}" style="cursor:pointer;">{% trans "Listen" %}</a>
                        {% else %}
-                        <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Watch" %}</a>
+                        <a class="list-btn ole-btn" href="{% url hit.type|add:':detail_without_slug'  hit.id %}" style="cursor:pointer;">{% trans "Watch" %}</a>
                       {% endif %}
                 </div>
                 </a>
@@ -573,9 +575,36 @@
 
           }else if(key == "education_levels"){
           // education_levels
+          //for(var i =0;i<dictionary[key].length;i++){
+          //  RenderSelectedItem(key,dictionary[key][i]);
+           //}
+
+
+            // collections
           for(var i =0;i<dictionary[key].length;i++){
-            RenderSelectedItem(key,dictionary[key][i]);
+
+            if($(".lang-swi").attr("data-lang")=="ne"){
+                var str = dictionary[key][i];
+                var trimmed =str.split("[[");
+                var trimmed_english = trimmed[0] ;
+
+                //RenderSelectedItem(key,dictionary[key][i]);
+                SpecialRenderForColAndELevel(key,dictionary[key][i],trimmed_english);
+            }else{
+                var str = dictionary[key][i];
+                var trimmed =str.substring(str.lastIndexOf('[')+1,str.lastIndexOf(']]'));
+                if(!trimmed){
+                    trimmed=dictionary[key][i];
+                }
+                //console.log("nepali text"+trimmed);
+                var trimmed_nepali = trimmed;
+                SpecialRenderForColAndELevel(key,dictionary[key][i],trimmed_nepali);
+            }
            }
+
+
+
+
           }
           else if(key == "collections"){
           // collections
@@ -587,7 +616,7 @@
                 var trimmed_english = trimmed[0] ;
 
                 //RenderSelectedItem(key,dictionary[key][i]);
-                SpecialRenderForCollections(key,dictionary[key][i],trimmed_english);
+                SpecialRenderForColAndELevel(key,dictionary[key][i],trimmed_english);
             }else{
                 var str = dictionary[key][i];
                 var trimmed =str.substring(str.lastIndexOf('[')+1,str.lastIndexOf(']]'));
@@ -596,7 +625,7 @@
                 }
                 //console.log("nepali text"+trimmed);
                 var trimmed_nepali = trimmed;
-                SpecialRenderForCollections(key,dictionary[key][i],trimmed_nepali);
+                SpecialRenderForColAndELevel(key,dictionary[key][i],trimmed_nepali);
             }
            }
           }
@@ -629,23 +658,23 @@
 
          var string = "";
          if (type == "type"){
-         type_full_text="Media Type";
+         type_full_text= $('#type_head_label').text() ||"Media Type";
          string= "type-";
          }else if(type=="education_levels"){
             string= "education-";
-          type_full_text="Education Level";
+          type_full_text=$('#education_levels_head_label').text()||"Education Level";
 
          }else if(type=="license_type"){
             string= "license-";
-          type_full_text="License Type";
+          type_full_text=$('#license_type_head_label').text() || "License Type";
          }else if(type=="collections"){
 
           type_full_text="Collections";
          }else if(type=="keywords"){
-          type_full_text="Keywords";
+          type_full_text=$('#keywords_head_label').text() ||"Keywords";
          }else if(type=="languages"){
             string= "lang-";
-          type_full_text="Language";
+          type_full_text=$('#languages_head_label').text() || "Language";
          }
 
 
@@ -664,7 +693,7 @@
       }
 
        /*This function actually renders the filter badges*/
-      function SpecialRenderForCollections(type,actual_value,trimmed_value){
+      function SpecialRenderForColAndELevel(type,actual_value,trimmed_value){
         var mainElement = document.getElementById('selected-badges');
 
          var type_full_text = type;
@@ -672,8 +701,11 @@
 
          var string = "";
          if(type=="collections"){
-            string= "collection-";
-          type_full_text="Collections";
+          string= "collection-";
+          type_full_text=$('#collections_head_label').text() || "Collections";
+         }else if(type =="education_levels"){
+          string= "education-";
+          type_full_text=$('#education_levels_head_label').text() || "Education Level";
          }
 
 

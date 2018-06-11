@@ -1,7 +1,7 @@
-
+{% load pustakalaya_filters %}
   <!--<ul style="list-style:none">-->
   {% for x in education_level %}
-   <a class="text-capitalize" href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["{{ x.level }}"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>{{ x.level }}</a>
+   <a class="text-capitalize" href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["{{ x.level }}"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>{{ x.level|transtolocal }}</a>
   {% endfor %}
   <!--</ul>-->
 

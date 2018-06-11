@@ -5,8 +5,7 @@ from django.db import transaction
 from django.db.models.signals import post_save, pre_delete, m2m_changed
 from .models import Document, DocumentFileUpload
 from .tasks import convert_pdf
-
-
+from pustakalaya_apps.core.utils import send_mail_on_user_submission
 
 
 @receiver(m2m_changed, sender=Document.keywords.through)
@@ -19,6 +18,14 @@ from .tasks import convert_pdf
 @receiver(post_save, sender=Document)
 @transaction.atomic
 def index_or_update_document(sender, instance, **kwargs):
+    # send an email to user when the document is published.
+
+    # By pass for unpublished items
+    if instance.published == "no":
+        return 
+
+    if instance.published == "yes":
+        send_mail_on_user_submission(item=instance)
 
     if instance.license is not None:
         if instance.license:
@@ -27,10 +34,15 @@ def index_or_update_document(sender, instance, **kwargs):
     # Save or update index
     instance.index()
 
-
+  
 @receiver(pre_delete, sender=Document)
 @transaction.atomic
 def delete_document(sender, instance, **kwargs):
+    
+     # By pass for unpublished items
+    if instance.published == "no":
+        return 
+        
     # Delete an index first before instance in db.
     instance.delete_index()
 

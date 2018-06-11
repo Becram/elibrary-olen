@@ -1,5 +1,7 @@
+from itertools import chain
 from django.shortcuts import render
 from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from pustakalaya_apps.pustakalaya_account.models import UserProfile
 from django.contrib.auth.decorators import login_required
 from pustakalaya_apps.document.models import Document
@@ -7,7 +9,13 @@ from pustakalaya_apps.favourite_collection.models import Favourite
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from django.shortcuts import HttpResponseRedirect
-
+from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
+from django.contrib.messages.views import SuccessMessageMixin
+from django.template import RequestContext
+from pustakalaya_apps.document.models import Document
+from pustakalaya_apps.audio.models import Audio
+from pustakalaya_apps.video.models import Video
 
 
 @login_required()
@@ -16,10 +24,13 @@ def dashboard(request):
         return HttpResponseRedirect("/")
 
 
-    popular_documents = Document.objects.order_by('-updated_date')[:5]
+    featured_items = chain(
+        Document.featured_objects.all(),
+        Audio.featured_objects.all(),
+        Video.featured_objects.all(),
+    )
 
     # Now lets get the users books first
-    #item_list = Favourite.objects.filter(favourite_item_type="document", user=request.user)
     item_list = Favourite.objects.filter(user=request.user)
 
     document_fav_list = []
@@ -34,17 +45,17 @@ def dashboard(request):
     paginator = Paginator(document_fav_list, 10)
     page = request.GET.get('page')
     try:
-        users = paginator.page(page)
+        fav_items = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        users = paginator.page(1)
+        fav_items = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 7777), deliver last page of results.
-        users = paginator.page(paginator.num_pages)
+        fav_items = paginator.page(paginator.num_pages)
 
-    return render(request, "dashboard/dashboard_base.html", {
-        'popular_documents': popular_documents,
-        'favourite_documents':users
+    return render(request, "dashboard/dashboard.html", {
+        'popular_documents': featured_items,
+        'favourite_documents':fav_items
     })
 
 @login_required()
@@ -63,14 +74,35 @@ def profile_edit(request):
     pass
 
 
-class ProfileEdit(UpdateView):
-    model = UserProfile
+class ProfileEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    def get(self, request, *args, **kwargs):
+        
+        if str(request.user.pk) != str(kwargs.get('pk')):
+            return HttpResponseForbidden("Permission denied")
+        
+        return super(ProfileEdit, self).get(request, *args, **kwargs)
+        
+
+        
+    model = User
     fields = (
-        "first_name",
-        "last_name",
-        "phone_no",
+        'first_name',
+        'last_name',
+        'email',
     )
+    
     template_name = 'dashboard/profile/profile.html'
+    success_url = '/dashboard/'
+    success_message = "Profile updated successfully"
+
+ 
+        
+
+   
+    
+
+   
+
 
 
 

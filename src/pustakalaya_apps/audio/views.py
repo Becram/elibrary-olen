@@ -3,6 +3,7 @@ from .models import Audio
 from django.views.generic import DetailView
 from pustakalaya_apps.review_system.models import Review
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
+from django.http import Http404
 
 
 def audios(request):
@@ -14,6 +15,10 @@ class AudioDetailView(DetailView):
     model = Audio
     def get(self, request, **kwargs):
         self.object = self.get_object()
+
+        if self.object.published == "no":
+            raise Http404
+
         context = self.get_context_data(object=self.object)
 
         # review system data extractions

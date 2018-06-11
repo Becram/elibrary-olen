@@ -1,35 +1,16 @@
-{%  extends 'dashboard/base.html' %}
-{%  load crispy_forms_tags %}
-{%  load i18n %}
-{%  block content %}
+{% extends 'dashboard/dashboard.html' %} {% load crispy_forms_tags %} {% load i18n %} {% block dashboard_content %}
 
-    {% comment %}
-    <div class="container">
-        <div class="col-md-8">
-            <form action="." method="post">
-             {% csrf_token %}
-            {{ form  | crispy }}
-             <!-- fileupload form -->
-                {{ document_file_upload_form | crispy }}
-              <input type="submit" value="Create Document" class="btn btn-primary">
-            </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <form action="." method="post" enctype="multipart/form-data">
+                {% csrf_token %} {{ form | crispy }}
+                <h3>{% trans "upload file" %}</h3>
+                {{ inlines | crispy }}
+                <input type="submit" value="Upload document" class="btn ole-btn">
+            </form><br>
+            {% include "license_agreement.html" %}
         </div>
     </div>
-    {% endcomment %}
-
-
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10">
-              <form action="." method="post" enctype="multipart/form-data">
-    {%  csrf_token %}
-    {{ form | crispy  }}
-     <h3>{%  trans "upload file" %}</h3>
-    {{ inlines | crispy }}
-    <input type="submit" value="Upload document" class="btn btn-primary">
-    </form>
-            </div>
-        </div>
-    </div>
-{%  endblock content %}
+</div>
+{% endblock dashboard_content %}

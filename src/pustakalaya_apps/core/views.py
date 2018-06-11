@@ -32,7 +32,11 @@ def home(request):
     if not featured_video:
         featured_video = Video.objects.filter(featured="yes", published="yes").order_by('-updated_date')[:2]
 
-    items = list(chain(featured_audio, featured_books, featured_video))
+
+    items = list(chain(featured_books,featured_audio,  featured_video))
+
+    # Sorting data according to updated date among audio video document
+    item_sorted = sorted(items,key=lambda x: x.updated_date,reverse=True)
 
     # Get the total audio, videos and author count
     total_document = Document.objects.filter(published="yes").count()
@@ -45,5 +49,5 @@ def home(request):
     context['total_audio'] = total_audio
     context['total_video'] = total_video
     context['total_authors'] = total_authors
-    context["featured_books"] = list(items)
+    context["featured_books"] = list(item_sorted)
     return render(request, "index.html", context)

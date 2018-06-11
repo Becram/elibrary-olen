@@ -18,8 +18,8 @@ django-analytical==2.3.0
 git+https://github.com/Pustakalaya/django-star-ratings@develop
 # Django hit count
 git+https://github.com/Pustakalaya/django-hitcount
-# Wand
-# Wand==0.4.4 # Cairo is used Not required
+
+
 # Celery
 celery==4.1.0
 kombu==4.1.0

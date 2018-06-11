@@ -210,7 +210,7 @@
         <h5 id="det-book-title" class="text-capitalize">{{object.title}}</h5>
 
 
-      <audio id="selectedAudio"
+      <audio id="selectedAudio"  autoplay="autoplay"
         style="width: 100%;" preload="auto" tabindex="0" controls=""
         type="audio/mpeg"
         title="{{ object.title }}"
@@ -293,6 +293,41 @@
                       </td>
                     </tr>
               {% endif %}
+
+
+
+
+
+                <!-- Education level -->
+                {% if  object.education_levels.all %}
+                  <tr>
+                      <th scope="col">{% trans "Education Level(s)" %}:</th>
+                      <td class="text-capitalize">
+                         {% for education_level in object.education_levels.all %}
+                     {{ education_level| transtolocal  }}
+                      {% endfor %}
+                      </td>
+                    </tr>
+              {% endif %}
+              <!--End  Education level-->
+
+
+              <!-- Add Languages-->
+               {% if object.languages.all %}
+                <tr>
+                  <th scope="col">{% trans "Language" %}:</th>
+                  <td class="text-capitalize">{% for language in object.languages.all %}
+                        {{ language }}
+                      {%  if not forloop.last %},{%  endif %}
+                    {% endfor %}</td>
+                </tr>
+               {% endif %}
+
+              <!--End Add Languages-->
+
+
+
+
 
 
               <!-- publisher -->
@@ -431,6 +466,36 @@
               {% endif %}
               </tbody>
             </table>
+
+
+            <!-- link_name and link description -->
+             {% if object.audiolinkinfo_set.all %}
+             <hr>
+            <h5>{% trans "Related Links" %}</h5>
+              <table class="table">
+                <tbody>
+
+
+               {% for link in  object.audiolinkinfo_set.all %}
+
+               <tr>
+                  <th scope="col">{% trans "Link:" %}</th>
+                  <td><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></td>
+                </tr>
+
+                {% if  link.link_description  %}
+               <tr>
+                  <th scope="col">{% trans "Link Description:" %}</th>
+                  <td class="text-capitalize">{{ link.link_description }}</td>
+                </tr>
+               {% endif %}
+
+               {% endfor %}
+
+                </tbody>
+              </table>
+            {% endif %}
+
           </div>
         </div>
 
@@ -557,11 +622,10 @@
   <div class="row">
     <div class="col-md-12">
       <hr>
-      <h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>
-      {% if object.get_similar_items.all %}
-        {% if object.get_similar_items.all|length != 1%}
-          <!--<hr>-->
-          <!--<h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>-->
+      {% if object.get_similar_items %}
+        {% if object.get_similar_items|length != 1%}
+          <hr>
+          <h5 >{% trans "Similar Audio Books You May Like" %}</h5>
         {% endif %}
       {% endif %}
     </div>
@@ -682,7 +746,7 @@
       e.preventDefault();
         var user_name = $("input[type='hidden'][name='user']").val().trim();
         if(user_name == "" || user_name == "AnonymousUser" ){
-          $("#information_message_p_tag").text('Login to post you message');
+          $("#information_message_p_tag").text('Login to post your message');
           $("#info_message_display").click();
           return;
         }else{
@@ -696,7 +760,7 @@
       e.preventDefault();
         var user_name = $("input[type='hidden'][name='user']").val().trim();
         if(user_name == "" || user_name == "AnonymousUser" ){
-          $("#information_message_p_tag").text('Login to post you message');
+          $("#information_message_p_tag").text('Login to post your message');
           $("#info_message_display").click();
           return;
         }else{
@@ -716,16 +780,14 @@
       //alert("detail="+ user_input);
       //return;
       if(user_name == "" || user_name == "AnonymousUser" ){
-        //alert("Login to post you message");
 
         //$("#close_model_box").click();
-        $("#information_message_p_tag").text('Login to post you message');
+        $("#information_message_p_tag").text('Login to post your message');
         $("#info_message_display").click();
 
 
         return;
       }else if(user_input == "" || user_title == "" ){
-        //alert("Please enter you title and message properly!");
 
         //$("#close_model_box").click();
         $("#information_message_p_tag").text('Please enter the title and message properly!');
