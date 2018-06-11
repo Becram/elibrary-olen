@@ -14,7 +14,7 @@
 
 {% block content %}
 
-
+{% if object.published == "yes" %}
 <!--REMOVE THIS LATER-->
  <input type="hidden" name="content_type" value="document"/>
  <input type="hidden" name="content_id" value="{{ object.pk }}">
@@ -785,6 +785,20 @@
 <!-- css scripts for book rating -->
 <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
 
+{% else  %}
+  <div class="container">
+  <div class="sad_container">
+
+        <div class="sadface">
+          <i class="fa fa-frown-o"></i>
+        </div>
+        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found"%}</h5>
+        <br>
+        <p>{% trans "The link is either broken or the item is not published yet" %}.</p>
+    </div>
+  </div>
+{% endif  %}
+
 
 {% endblock content %}
 
@@ -1202,3 +1216,6 @@
 
 
 {% endblock script %}
+
+
+

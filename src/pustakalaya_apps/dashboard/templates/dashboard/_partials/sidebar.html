@@ -1,36 +1,37 @@
 {% load i18n %}
+{% load static %}
 <nav class="col-md-3 bg-light sidebar">
     <div class="sidebar-sticky">
       <h5 class="text-uppercase">{% trans "WELCOME" %} {{request.user}}</h5>
       <hr>
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link active" href="/dashboard/">
+          <a class="nav-link das-home " href="/dashboard/">
 
             <i class="fa fa-home"></i>
             {% trans "Dashboard"%} <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'dashboard:document_add' %}">
+        <li class="nav-item ">
+          <a class="nav-link das-document" href="{% url 'dashboard:document_add' %}">
             <i class="fa fa-book"></i>
             {% trans "Add Document" %}
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'dashboard:audio_add' %}">
+        <li class="nav-item ">
+          <a class="nav-link das-audio" href="{% url 'dashboard:audio_add' %}">
             <i class="fa fa-headphones"></i>
             {% trans "Add Audio" %}
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'dashboard:video_add' %}">
+        <li class="nav-item ">
+          <a class="nav-link das-video" href="{% url 'dashboard:video_add' %}">
             <i class="fa fa-video-camera"></i>
             {% trans "Add Video" %}
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/dashboard/submission/list">
+        <li class="nav-item ">
+          <a class="nav-link das-submission" href="/dashboard/submission/list">
             <i class="fa fa-archive"></i>
             {% trans "My Submissions" %}
           </a>
@@ -39,3 +40,4 @@
 
     </div>
   </nav>
+

@@ -8,6 +8,9 @@
 <!--New div container -->
 
 <!--REMOVE THIS LATER-->
+{% if object.published == "yes" %}
+
+
  <input type="hidden" name="content_type" value="video"/>
  <input type="hidden" name="content_id" value="{{ object.pk }}">
   {% if user %}
@@ -783,6 +786,20 @@
   </div>
 
 </div>
+{% else  %}
+  <div class="container">
+  <div class="sad_container">
+
+        <div class="sadface">
+          <i class="fa fa-frown-o"></i>
+        </div>
+        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found"%}</h5>
+        <br>
+        <p>{% trans "The link is either broken or the item is not published yet" %}.</p>
+    </div>
+  </div>
+{% endif  %}
+
 
 <!--End New div container -->
 
