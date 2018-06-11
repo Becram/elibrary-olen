@@ -29,7 +29,7 @@ from pustakalaya_apps.core.models import (
     EducationLevel,
     Language,
     LicenseType
-)   
+)
 
 from pustakalaya_apps.audio.models import Audio
 from pustakalaya_apps.video.models import Video
@@ -47,7 +47,7 @@ def __file_upload_path(instance, filepath):
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes")[:6]
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes").order_by("-updated_date")[:6]
 
 
 class Document(AbstractItem, HitCountMixin):
@@ -364,7 +364,7 @@ class Document(AbstractItem, HitCountMixin):
 
     def get_dashboard_edit_url(self):
         return reverse("dashboard:document_update", kwargs={"pk": self.pk})
-    
+
     def get_dashboard_delete_url(self):
         return reverse("dashboard:document_delete", kwargs={"pk": self.pk})
 
