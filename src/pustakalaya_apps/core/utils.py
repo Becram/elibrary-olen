@@ -175,20 +175,20 @@ def list_search_from_elastic_work(request,author_name, query_type="match"):
     return context
 
 
-<<<<<<< HEAD
+
 def send_mail_on_user_submission(item=None):
     """
-    Send an email to a user when an item is published to pustakalaya archive. 
+    Send an email to a user when an item is published to pustakalaya archive.
     """
     domain_name  = Site.objects.get_current().domain or "http://pustakalaya.org"
 
     if not item or item.published == "no":
-        return 
+        return
     else:
         message = """{} has been Published in {}
         click http://{}{} to view the  {} details
          """.format(
-             item.title, 
+             item.title,
              domain_name,
              domain_name,
              item.get_absolute_url(),
@@ -197,14 +197,11 @@ def send_mail_on_user_submission(item=None):
 
         return send_email_to_item_owner.delay(
             "{} has been approved in {}".format(item.title, domain_name),
-            message=message, 
+            message=message,
             send_to_list=[item.submitted_by.email]
         )
 
-        
 
 
-=======
-def isAuthorAlreadyExist():
-    pass
->>>>>>> a4a4e74118b7d5fe847c3e844c1aaa5a6a4ffa5d
+
+
