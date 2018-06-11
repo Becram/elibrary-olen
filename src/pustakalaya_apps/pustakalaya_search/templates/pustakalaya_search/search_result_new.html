@@ -326,7 +326,7 @@
             {% for hit in hits %}
               <div class="col-md-3 col-sm-6 col-6">
 
-                <a href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}">
+                <a href="{% url hit.type|add:':detail_without_slug'  hit.id %}">
                 <div class="grid-book-cont">
                   <div class="img-cont">
 
