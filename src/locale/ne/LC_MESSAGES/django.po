@@ -275,7 +275,7 @@ msgstr "विवरण"
 #: pustakalaya_apps/document/templates/document/document_detail_new.html:285
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:281
 msgid "Reviews"
-msgstr "समीक्षाहरू"
+msgstr "समीक्षा"
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail.html:283
 msgid "Voice by"
