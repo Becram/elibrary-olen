@@ -73,7 +73,8 @@
 
         <div class="ratings-container">
         {% for document in object.documentfileupload_set.all %}
-          {% if  document.upload %}
+          <!--" " this double space is needed to handle empty file upload-->
+          {% if  document.upload != " " %}
           <p>{% trans "File size: " %} {{ document.upload.size | file_size_format }}</p>
           {% endif %}
         {% endfor %}
@@ -84,6 +85,7 @@
           {% endif %}
 
         </div>
+
 
 
         <!--Favourite button-->
@@ -259,16 +261,19 @@
 
 
         {% for document in object.documentfileupload_set.all %}
+        {% if document.upload != " "%}
           <a href="{{ MEDIA_URL }}{{ document.upload }}" target="_blank" title='{% trans "File size: " %}  {{ document.upload.size | file_size_format }}'>
             <button type="button" class="btn ole-btn">
           {% trans 'Read Book ' %}
           </button>
           </a>
+        {% endif %}
         {% endfor %}
 
 
       <br>
       <br>
+
 
       <p>
         {% if  object.abstract %}
