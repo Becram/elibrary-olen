@@ -4,7 +4,6 @@ set +x
 #HOST=$(ifconfig enp1s0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 LOCAL_BACKUP="/library/backup_pg_pustakalaya/backup/daily/pustakalaya"
 
-
 if [ $# -ne 1 ] ; then
  echo "Usage: $0 command" >&2 ; exit 1
 fi
@@ -110,8 +109,10 @@ process() {
                   notify "Indexing"
                 #  docker_index
 		  docker exec django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
-                  notify "Collecting statics"
+                  get_deploy_version
+		  notify "Collecting statics"
                   docker_collectstatic | grep "static files copied"
+
                   shift
                   ;;
               "--production")
@@ -132,6 +133,7 @@ process() {
 
                     notify "Indexing"
                     docker_index
+		    get_deploy_version
                     notify "collecting statics"
                     docker_collectstatic | grep "static files copied"
 
@@ -141,7 +143,7 @@ process() {
             esac
         done
 
-        echo -e "\n\nEpustakalya deployed and can be accessed from http://$HOST."
+       echo -e "\n\nEpustakalya deployed Successfully."
     fi
 }
 
@@ -170,6 +172,14 @@ get_release() {
 release_is_number() {
     get_release | grep -Eqx "[0-9]+"
 }
+
+get_deploy_version(){
+
+DATE= `date '+%Y%m%d%H%M%S'`
+sed -i 's/^v1.0.*/v1.0-$(DATE)/g' src/templates/static_pages/about.html
+
+}
+
 
 make_name() {
     prefix="EP"
