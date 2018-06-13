@@ -10,7 +10,7 @@
   <div class="container">
     <br>
     <div class="row">
-      <div class="col-md-3 auth-img-cont">
+      <div class="col-md-3 offset-md-0 col-sm-3 offset-sm-0 col-6 offset-3 auth-img-cont">
         {% if object.thumbnail  %}
         <img src="{{ MEDIA_URL }}{{ object.thumbnail }}"
              title="{{ object }}"
@@ -24,7 +24,7 @@
           <a href="{{ object.get_admin_url }}" class="btn-primary btn btn-sm">{%  trans "Edit" %}</a>
         {%  endif %}
       </div>
-      <div class="col-md-9">
+      <div class="col-md-9 col-sm-9 col-12">
         <h5 id="det-book-title">{{ object.getname }}<span>
 
            {% if  object.authors_name_in_other_language.all %}

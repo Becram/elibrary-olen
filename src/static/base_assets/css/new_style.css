@@ -303,6 +303,11 @@ a.text-primary:focus, a.text-primary:hover {
     background: #FFFFFF;
 }
 
+.slick-slide:active,
+.slick-slide:focus{
+  outline: 0;
+}
+
 .sbx-custom__input::-webkit-input-placeholder {
     color: #AAAAAA;
 }
@@ -751,6 +756,11 @@ a.text-primary:focus, a.text-primary:hover {
 /* media queries for phone*/
 
 @media only screen and (max-width: 680px) {
+
+  .ole-vdo-cont video{
+    width: 100%;
+    height: 260px !important;
+  }
     .ole-book-name{
       display: none;
     }
@@ -1188,7 +1198,10 @@ a.text-primary:focus, a.text-primary:hover {
   .slid-img-container {
     height: 157px !important;
   }
-
+  .ole-vdo-cont video{
+    width: 100%;
+    height: 260px !important;
+  }
   .grid-book-cont .img-cont {
     height: 175px !important;
   }
@@ -1322,6 +1335,11 @@ a.text-primary:focus, a.text-primary:hover {
 
 .ole-vdo-cont{
   padding-right: 0px !important;
+}
+
+.ole-vdo-cont video{
+width: 100%;
+height: 450px;
 }
 
 .ole-playlist-cont {
