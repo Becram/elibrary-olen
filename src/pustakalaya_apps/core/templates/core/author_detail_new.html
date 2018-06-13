@@ -60,14 +60,10 @@
           <td>
             {% if object.dob %}
                <p>{{ object.dob }}</p>
-            {% else %}
-                <p>-</p>
             {% endif %}
 
              {% if object.place_of_birth %}
                  <p>{{ object.place_of_birth }}</p>
-             {% else %}
-                  <p>-</p>
              {% endif %}
           </td>
         </tr>
@@ -99,14 +95,10 @@
 
             {% if object.date_of_death %}
            <p>{{ object.date_of_death }}</p>
-             {% else %}
-              <p>-</p>
              {% endif %}
 
            {% if object.place_of_death %}
            <p> {{ object.place_of_death }}</p>
-           {% else %}
-            <p>-</p>
            {% endif %}
           </td>
 
