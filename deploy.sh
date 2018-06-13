@@ -177,7 +177,7 @@ get_deploy_version(){
 
 DATE=`date '+%Y%m%d%H%M%S'`
 
-sed -i 's/^v1.0.*/v1.0-$DATE/g' src/templates/static_pages/about.html
+sed -i "s/^v1.0.*/v1.0-$DATE/g" src/templates/static_pages/about.html
 
 }
 
