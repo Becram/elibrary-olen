@@ -108,7 +108,8 @@ process() {
                   notify "Migrating django DB"
                   docker_migrate
                   notify "Indexing"
-                  docker_index
+                #  docker_index
+		  docker exec django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
                   notify "Collecting statics"
                   docker_collectstatic | grep "static files copied"
                   shift
