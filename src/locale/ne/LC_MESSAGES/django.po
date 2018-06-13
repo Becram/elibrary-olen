@@ -144,10 +144,8 @@ msgid "Link"
 msgstr ""
 
 #: pustakalaya_apps/audio/models.py:357
-#, fuzzy
-#| msgid "Audio Link:"
 msgid "Embed audio Link"
-msgstr "अडियो पुस्तक"
+msgstr ""
 
 #: pustakalaya_apps/audio/models.py:372
 msgid "Rhymes"
@@ -1372,10 +1370,8 @@ msgid "Popular items"
 msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/dashboard.html:112
-#, fuzzy
-#| msgid "Your Address"
 msgid "Your Favorites"
-msgstr "ठेगाना"
+msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/dashboard_base.html:47
 msgid "trending books"
@@ -1928,14 +1924,10 @@ msgid "Add your review"
 msgstr "समीक्षा थप्नुहोस्"
 
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:298
-#, fuzzy
-#| msgid "Publisher:"
 msgid "Publisher(s):"
 msgstr "प्रकाशक"
 
 #: pustakalaya_apps/video/templates/video/video_detail_new.html:364
-#, fuzzy
-#| msgid "keywords:"
 msgid "Keyword(s):"
 msgstr "मूख्य शब्दावलीहरू"
 
@@ -2725,8 +2717,6 @@ msgid "By uploading documents, audios and videos you agree to our"
 msgstr ""
 
 #: templates/license_agreement.html:11 templates/license_agreement.html:20
-#, fuzzy
-#| msgid "License Type"
 msgid "License agreement"
 msgstr "लाइसेन्स"
 
@@ -2752,8 +2742,6 @@ msgstr ""
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:8
-#, fuzzy
-#| msgid "Account Inactive"
 msgid "Account Connections"
 msgstr "खाता निस्क्रिय"
 
