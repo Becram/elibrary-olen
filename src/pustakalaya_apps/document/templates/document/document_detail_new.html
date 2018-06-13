@@ -470,10 +470,12 @@
 
                 <!-- total page -->
                 {% if  object.document_total_page %}
+                {% if object.document_total_page != "0"%}
                 <tr>
                   <th scope="col">{% trans "Total pages" %}:</th>
                   <td class="text-capitalize">{{ object.document_total_page }}</td>
                 </tr>
+                {% endif %}
                 {% endif %}
 
 
