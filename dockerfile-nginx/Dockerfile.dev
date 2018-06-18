@@ -1,4 +1,5 @@
-FROM becram/ubuntu:base
+#FROM becram/ubuntu:base
+FROM becram/debian:base
 
 EXPOSE 80
 EXPOSE 443
@@ -19,8 +20,10 @@ ENV HEADERS_MORE_VERSION 0.32
 # https://www.openssl.org/source
 ENV OPENSSL_VERSION 1.1.0g
 
-COPY dockerfile-nginx/bin/download_pagespeed.sh /app/bin/download_pagespeed.sh
+COPY bin/download_pagespeed.sh /app/bin/download_pagespeed.sh
 
+
+RUN apt-get update -y && apt-get install --reinstall ca-certificates -y
 RUN chmod 750 /app/bin/*.sh && \
 	useradd -r -s /usr/sbin/nologin nginx && mkdir -p /var/log/nginx /var/cache/nginx && \
 	apt-get update && \
@@ -28,9 +31,9 @@ RUN chmod 750 /app/bin/*.sh && \
 	echo "Downloading nginx ${NGINX_VERSION} from http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz ..." && \
 	wget -O - http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz --progress=bar --tries=3 | tar zxf - -C /tmp && \
 	echo "Downloading headers-more ${HEADERS_MORE_VERSION} from https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz ..." && \
-	wget -O - https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz --progress=bar  --tries=3 | tar zxf - -C /tmp && \
+	wget -O - https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz --no-check-certificate --progress=bar  --tries=3 | tar zxf - -C /tmp && \
 	/app/bin/download_pagespeed.sh && \
-	echo "Downloading openssl v${OPENSSL_VERSION} from https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz ..." && wget -O - https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz  --progress=bar --tries=3 | tar xzf  - -C /tmp && \
+	echo "Downloading openssl v${OPENSSL_VERSION} from https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz ..." && wget -O - https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz --no-check-certificate --progress=bar --tries=3 | tar xzf  - -C /tmp && \
 	cd /tmp/nginx-${NGINX_VERSION} && \
 	./configure \
 		--prefix=/etc/nginx  \
@@ -81,7 +84,7 @@ RUN chmod 750 /app/bin/*.sh && \
 	apt-get purge -yqq automake autoconf libtool git-core build-essential zlib1g-dev libpcre3-dev libxslt1-dev libxml2-dev libgd2-xpm-dev libgeoip-dev libgoogle-perftools-dev libperl-dev && \
 	apt-get autoremove -yqq && \
 	apt-get clean && \
-	rm -Rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
+	rm -Rf /tmp/* /var/tmp/* /var/lib/apt/lists/*  && apt-get update -y
 
 ENV DEFAULT_APP_USER app
 ENV DEFAULT_APP_GROUP app
@@ -95,9 +98,16 @@ ENV DEFAULT_PAGESPEED_REBEACON_KEY uwuudeL7iedoo7Meengi
 
 ENV SSL_ENABLED true
 
-COPY dockerfile-nginx/. /app
+COPY . /app
 
 RUN chmod 750 /app/bin/*.sh && sync && \
 	/app/bin/init_nginx.sh
 
-CMD ["/sbin/my_init"]
+COPY etc/nginx/conf.d/nginx.conf /etc/nginx/conf.d/nginx.conf
+
+COPY etc/nginx/nginx.conf /etc/nginx/nginx.conf
+#RUN mkdir /script.d 
+#COPY script.d/my_init /script.d/
+
+CMD ["nginx", "-g", "daemon off;"]
+#CMD ["/script.d/my_init"]

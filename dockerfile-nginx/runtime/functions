@@ -1,0 +1,108 @@
+#!/bin/bash
+
+set -e
+
+source ${NGINX_RUNTIME_DIR}/envs-default
+
+generate_config() {
+  local FILE=${1?missing argument}
+  shift
+
+  local DEST=${1?-1}
+  shift
+
+  [[ ! -f ${FILE} ]] && return 1
+  [[ ${DEST} == -1 ]] && return 1
+
+  # Direct copy if no environment need to replate
+  if [[ -z $1 ]]; then
+    cp -a "${FILE}" ${DEST}
+    return 0
+  fi
+
+  local TEMP=$(mktemp)
+
+  echo "Generate config ${DEST} use ${FILE} as template..."
+
+  local VARIABLES=($@)
+  cp -a "${FILE}" ${TEMP}
+
+  local variable
+  for variable in ${VARIABLES[@]}; do
+    sed -ri "s/[{]{2}$variable[}]{2}/\${$variable}/g" ${TEMP}
+  done
+
+  (
+    export ${VARIABLES[@]}
+    local IFS=":"; envsubst "${VARIABLES[*]/#/$}" < ${TEMP} > ${DEST}
+  )
+
+  rm -rf ${TEMP}
+}
+
+install_pagespeed() {
+  generate_config ${NGINX_TEMPLATE_DIR}/pagespeed ${CONF_DIR}/pagespeed \
+    PAGESPEED_ENABLE PAGESPEED_HEADER PAGESPEED_REWRITE_LEVEL
+}
+
+install_wordpress() {
+  generate_config ${NGINX_TEMPLATE_DIR}/wordpress.ext ${CONF_DIR}/wordpress.ext \
+    DOCUMENT_ROOT INDEX_FILES
+}
+
+setup_config() {
+  local MODE="default"
+  local CONF_DIR="/etc/nginx/conf.d"
+  local DEST="${CONF_DIR}/default.conf"
+  local SSL_DEST="${CONF_DIR}/ssl.conf"
+
+  if [[ ! -z ${FASTCGI_HOST} ]]; then
+    echo "FastCGI detected, enable FastCGI"
+    MODE="fastcgi"
+  fi
+
+  install_pagespeed
+
+  if [[ ${WORDPRESS_ADDON} == "yes" ]]; then
+    echo "WordPress Addon enabled"
+    MODE="wordpress"
+    install_wordpress
+  fi
+
+  case $MODE in
+    "default")
+      generate_config ${NGINX_TEMPLATE_DIR}/default ${DEST} \
+        SERVER_NAME \
+        DOCUMENT_ROOT \
+        INDEX_FILES \
+        UPLOAD_MAX_SIZE
+      ;;
+
+    "fastcgi")
+      generate_config ${NGINX_TEMPLATE_DIR}/fastcgi ${DEST} \
+        SERVER_NAME DOCUMENT_ROOT INDEX_FILES ALLOW_ORIGIN \
+        FASTCGI_HOST FASTCGI_PORT FASTCGI_ROOT FASTCGI_INDEX FASTCGI_CACHE_SUCCESS_TIME FASTCGI_CACHE_NOTFOUND_TIME\
+        CACHE_LEVEL CACHE_ZONE_SIZE CACHE_INACTIVE_TIME \
+        UPLOAD_MAX_SIZE
+      ;;
+    "wordpress")
+      # TODO: Should use extension to generate this
+      generate_config ${NGINX_TEMPLATE_DIR}/wordpress ${DEST} \
+        SERVER_NAME DOCUMENT_ROOT INDEX_FILES ALLOW_ORIGIN \
+        FASTCGI_HOST FASTCGI_PORT FASTCGI_ROOT FASTCGI_INDEX FASTCGI_CACHE_SUCCESS_TIME FASTCGI_CACHE_NOTFOUND_TIME\
+        CACHE_LEVEL CACHE_ZONE_SIZE CACHE_INACTIVE_TIME \
+        UPLOAD_MAX_SIZE
+
+      if [[ ${SSL_ENABLED} == "yes" ]]; then
+        generate_config ${NGINX_TEMPLATE_DIR}/wordpress_ssl ${SSL_DEST} \
+          SERVER_NAME DOCUMENT_ROOT INDEX_FILES ALLOW_ORIGIN \
+          FASTCGI_HOST FASTCGI_PORT FASTCGI_ROOT FASTCGI_INDEX FASTCGI_CACHE_SUCCESS_TIME FASTCGI_CACHE_NOTFOUND_TIME\
+          CACHE_LEVEL CACHE_ZONE_SIZE CACHE_INACTIVE_TIME \
+          UPLOAD_MAX_SIZE \
+          SSL_CIPHERS SSL_KEY_PATH SSL_DHPARAM_PATH SSL_VERIFY_CLIENT SSL_CERTIFICATE_PATH SSL_CA_CERTIFICATE_PATH \
+          NGINX_HSTS_MAXAGE NGINX_ACCEL_BUFFERING
+      fi
+
+      ;;
+  esac
+}
