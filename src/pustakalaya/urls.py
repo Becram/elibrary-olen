@@ -67,8 +67,8 @@ urlpatterns = [
 
 ]
 
-# API Version1 endpoint url. 
-# API V1 URL endpoint. 
+# API Version1 endpoint url.
+# API V1 URL endpoint.
 urlpatterns += [
     url('^api/v1/', include('pustakalaya.api_v1_urls', namespace="api_v1")),
     # API authentication
@@ -140,10 +140,10 @@ urlpatterns += i18n_patterns(
 
     # Help page
     # /help/
-    url(
-        r'^signup/$', TemplateView.as_view(template_name="static_pages/sign_up.html"),
-        name="signup"
-    ),
+    # url(
+    #     r'^signup/$', TemplateView.as_view(template_name="static_pages/sign_up.html"),
+    #     name="signup"
+    # ),
     # Help page
     # /help/
     url(
