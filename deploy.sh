@@ -104,6 +104,8 @@ process() {
                   docker_rebuild_images "dev"
                   notify "Lauching container"
                   docker_up "dev"
+                  notify "Dumping database"
+                  docker_dump_sql "prod"
                   notify "Migrating django DB"
                   docker_migrate "dev"
                   notify "Indexing"
