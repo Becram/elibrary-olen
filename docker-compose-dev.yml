@@ -43,7 +43,7 @@ services:
   db:
     build:
       context: .
-      dockerfile: ./dockerfile-postgres/Dockerfile
+      dockerfile: ./dockerfile-postgres/Dockerfile.dev
     restart: always
     environment:
       - POSTGRES_USER=pustakalaya_user
@@ -69,7 +69,7 @@ services:
   elastic:
     build:
       context: .
-      dockerfile: ./dockerfile-elastic/Dockerfile
+      dockerfile: ./dockerfile-elastic/Dockerfile.dev
     hostname: elastic
     restart: always
     container_name: dev_elasticsearch_01
