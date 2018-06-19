@@ -48,4 +48,4 @@ USER ${APP_USER}
 #CMD ["celery", "-A", "pustakalaya", "worker", "-l", "info"]
 
 
-#CMD ["/src/script.d/run_celery"]
+CMD ["/src/script.d/run_celery"]

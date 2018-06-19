@@ -103,7 +103,7 @@ services:
     hostname: celery
     restart: always
     container_name: dev_celery_01
-    command: ./script.d/run_celery.sh
+    # command: ./script.d/run_celery.sh
     networks:
       - pustakalaya-dev-network
     volumes:
