@@ -102,6 +102,8 @@ process() {
                   # docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
                   notify "Building containers"
                   docker_rebuild_images "dev"
+                  notify "Lauching container"
+                  docker_up "dev"
                   notify "Migrating django DB"
                   docker_migrate "dev"
                   notify "Indexing"
