@@ -42,21 +42,19 @@ services:
       - rabbitmq
   db:
     build:
-      context: .
-      dockerfile: ./dockerfile-postgres/Dockerfile.dev
+      context: ./dockerfile-postgres
+      dockerfile: Dockerfile.dev
     restart: always
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
       - POSTGRES_PASSWORD=pustakalaya123
       - POSTGRES_BACKUP_DIR=/pg_backups
-      # - BUILD_NUM=${BUILD_NUMBER}
 
     hostname: db
     container_name: dev_postgres_01
     networks:
       - pustakalaya-dev-network
-     # command: ./run_db.sh
     volumes:
       - /library/backup_pg_pustakalaya:/pg_backups
       - ./src:/src
