@@ -22,7 +22,7 @@ RUN useradd -r -s /usr/sbin/nologin ${NGINX_USR}
 
 # Install Build Tools & Dependence
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
-RUN sed -i -- "s/archive.ubuntu.com/np.archive.ubuntu.com/g" /etc/apt/sources.list 
+RUN sed -i -- "s/archive.ubuntu.com/np.archive.ubuntu.com/g" /etc/apt/sources.list
 RUN sed -i -- "s/# deb-src/deb-src/g" /etc/apt/sources.list
 
 RUN apt-get update -y && \
@@ -94,7 +94,7 @@ RUN apt-get update -y && \
     --with-mail_ssl_module  \
     --with-file-aio  \
     --with-http_v2_module \
-    --with-cc-opt='-g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2' \ 
+    --with-cc-opt='-g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2' \
     --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,--as-needed' \
     --with-ipv6 \
     --with-openssl="../openssl-${OPENSSL_VERSION}" \
@@ -136,4 +136,3 @@ EXPOSE 80 443
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
-

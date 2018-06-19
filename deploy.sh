@@ -60,7 +60,6 @@ process() {
         show_help
     else
         # launch_containers
-
         while true; do
             case $1 in
                 "-b" | "--build")
@@ -94,7 +93,7 @@ process() {
                     shift
                     ;;
               "--development")
-
+                  error_exit
                   notify "Backing up"
                   docker_backup_local
                   notify "Stopping conatiners"
@@ -108,34 +107,36 @@ process() {
                   docker_migrate
                   notify "Indexing"
                 #  docker_index
-		  docker exec django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
+		              docker exec django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
                   get_deploy_version
-		  notify "Collecting statics"
+		              notify "Collecting statics"
                   docker_collectstatic | grep "static files copied"
 
                   shift
                   ;;
               "--production")
-                    showLoading
-                    # echo "Backing up"
+                    # showLoading
+                    notify "Deploying in Production Mode"
                     # docker_backup_local
                     notify "Removing containers"
-                    docker_remove
-                    notify "Building containers"
-
-                    docker_rebuild_images
+                    docker_remove "prod"
+                    notify "Bringing up conatiners"
+                    docker_up "prod"
+                    # notify "Building containers"
+                    #
+                    # docker_rebuild_images
                     notify "Waiting...."
                     sleep  20
                     notify "Dumping database"
-                    docker_dump_sql
+                    docker_dump_sql "prod"
                     notify "Migrating django DB"
-                    docker_migrate
+                    docker_migrate "prod"
 
                     notify "Indexing"
-                    docker_index
-		    get_deploy_version
+                    docker_index "prod"
+		                get_deploy_version
                     notify "collecting statics"
-                    docker_collectstatic | grep "static files copied"
+                    docker_collectstatic "prod" | grep "static files copied"
 
                     shift
                         ;;
@@ -152,6 +153,21 @@ process() {
 #####################################################################
 #Logging from
 #####################################################################
+PROGNAME=$(basename $0)
+
+function error_exit
+{
+
+#   ----------------------------------------------------------------
+#   Function for exit due to fatal program error
+#       Accepts 1 argument:
+#           string containing descriptive error message
+#   ----------------------------------------------------------------
+
+    echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
+    exit 1
+}
+
 notify() { log "LOG: $1"; }
 log() {
         RED='\033[0;31m'
@@ -203,11 +219,11 @@ docker_rebuild_images() {
 }
 
 docker_stop(){
-   docker-compose stop
+         docker-compose -f docker-compose-$1.yml stop
 }
 
 docker_up() {
-    docker-compose up -d
+    docker-compose -f docker-compose-$1.yml up -d
 }
 
 docker_prune_system() {
@@ -215,31 +231,31 @@ docker_prune_system() {
 }
 
 docker_remove() {
-    docker-compose stop && docker-compose rm -f
+    docker-compose -f docker-compose-"$1".yml stop && docker-compose -f docker-compose-"$1".yml rm -f
 }
 
 docker_backup_local(){
 #     docker exec postgres_01 bash -c "/script/autopgsqlbackup "
-container="postgres_01"
+container="$1_postgres_01"
 if [ $(docker inspect -f '{{.State.Running}}' $container) = "true" ]; then
       echo "getBack up of postgres"
-      docker exec postgres_01 bash -c "/script/autopgsqlbackup";
+      docker exec $1_postgres_01 bash -c "/script/autopgsqlbackup";
       echo "Successfully backed up"
 else
       echo "Container $container is not running";
 fi
 }
 docker_index(){
-     docker exec django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
+     docker exec "$1"_django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
 
 }
 
 docker_collectstatic(){
-  docker exec django_web_01 bash -c "python manage.py collectstatic --settings=pustakalaya.settings.production --noinput"
+  docker exec "$1"_django_web_01 bash -c "python manage.py collectstatic --settings=pustakalaya.settings.production --noinput"
 
 }
 docker_migrate(){
-  docker exec django_web_01 bash -c "python manage.py migrate --settings=pustakalaya.settings.production"
+  docker exec "$1"_django_web_01 bash -c "python manage.py migrate --settings=pustakalaya.settings.production"
 
 }
 
@@ -253,7 +269,7 @@ docker_dump_sql(){
       # container="postgres_01"
       # CMD="psql --username pustakalaya_user -d pustakalaya -f /pg_backups/backup/daily/pustakalaya/$backup_file_sql"
       # run_in_conatiner $container $CMD
-      docker exec postgres_01 bash -c "psql --username pustakalaya_user -d pustakalaya -f /pg_backups/backup/daily/pustakalaya/$backup_file_sql"
+      docker exec "$1"_postgres_01 bash -c "psql --username pustakalaya_user -d pustakalaya -f /pg_backups/backup/daily/pustakalaya/$backup_file_sql"
       if [ $? -eq 0 ]; then
           echo "Dumpped  from $backup_file_sql"
           rm -rvf $LOCAL_BACKUP/*sql
