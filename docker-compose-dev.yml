@@ -39,7 +39,7 @@ services:
     expose:
       - "8001"
     links:
-      - redis
+      - rabbitmq
   db:
     build:
       context: .
@@ -112,7 +112,7 @@ services:
       - ./src:/src
     links:
       - db
-      - redis
+      - rabbitmq
 networks:
   pustakalaya-dev-network:
     driver: bridge
