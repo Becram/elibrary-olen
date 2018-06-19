@@ -237,7 +237,7 @@ docker_remove() {
 docker_backup_local(){
 #     docker exec postgres_01 bash -c "/script/autopgsqlbackup "
 container="dev_postgres_01"
-if [ $(docker inspect -f '{{.State.Running}}' $container) = "true" ]; then
+if [ $(docker inspect -f '{{.State.Running}}' $container) == "true" ]; then
       echo "getBack up of postgres"
       docker exec dev_postgres_01 bash -c "/script/autopgsqlbackup";
       backup_file_bz2=$(ls $LOCAL_BACKUP | tail -n 1 )
