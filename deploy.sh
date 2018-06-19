@@ -240,7 +240,8 @@ container="$1_postgres_01"
 if [ $(docker inspect -f '{{.State.Running}}' $container) = "true" ]; then
       echo "getBack up of postgres"
       docker exec $1_postgres_01 bash -c "/script/autopgsqlbackup";
-      echo "Successfully backed up"
+      backup_file_bz2=$(ls $LOCAL_BACKUP | tail -n 1 )
+      echo "Successfully backed up $backup_file_bz2"
 else
       echo "Container $container is not running";
 fi
