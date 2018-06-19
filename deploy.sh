@@ -243,7 +243,7 @@ if [ $(docker inspect -f '{{.State.Running}}' $container) = "true" ]; then
       backup_file_bz2=$(ls $LOCAL_BACKUP | tail -n 1 )
       echo "Successfully backed up $backup_file_bz2"
 else
-      echo "getBack up of postgres"
+      echo "getBack up of postgres from production container "
       docker exec prod_postgres_01 bash -c "/script/autopgsqlbackup";
       backup_file_bz2=$(ls $LOCAL_BACKUP | tail -n 1 )
       echo "Successfully backed up $backup_file_bz2"
