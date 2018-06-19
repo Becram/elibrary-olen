@@ -93,8 +93,8 @@ process() {
                     shift
                     ;;
               "--development")
-                  notify "Backing up"
-                  docker_backup_local "dev"
+                  # notify "Backing up"
+                  # docker_backup_local "dev"
                   notify "Removing containers"
                   docker_remove "prod"
 
