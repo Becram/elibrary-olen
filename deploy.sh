@@ -95,8 +95,8 @@ process() {
               "--development")
                   notify "Backing up"
                   docker_backup_local "dev"
-                  notify "Stopping conatiners"
-                  docker_stop "dev"
+                  notify "Removing containers"
+                  docker_remove "prod"
 
                   # notify "Deletelting UNTAGGED images"
                   # docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
