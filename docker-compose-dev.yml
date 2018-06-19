@@ -66,8 +66,8 @@ services:
 
   elastic:
     build:
-      context: .
-      dockerfile: ./dockerfile-elastic/Dockerfile.dev
+      context: ./dockerfile-elastic
+      dockerfile: Dockerfile.dev
     hostname: elastic
     restart: always
     container_name: dev_elasticsearch_01
