@@ -93,24 +93,23 @@ process() {
                     shift
                     ;;
               "--development")
-                  error_exit
                   notify "Backing up"
-                  docker_backup_local
+                  docker_backup_local "dev"
                   notify "Stopping conatiners"
-                  docker_stop
+                  docker_stop "dev"
 
                   # notify "Deletelting UNTAGGED images"
                   # docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
                   notify "Building containers"
-                  docker_rebuild_images
+                  docker_rebuild_images "dev"
                   notify "Migrating django DB"
-                  docker_migrate
+                  docker_migrate "dev"
                   notify "Indexing"
                 #  docker_index
-		              docker exec django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
+		              docker exec dev_django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
                   get_deploy_version
 		              notify "Collecting statics"
-                  docker_collectstatic | grep "static files copied"
+                  docker_collectstatic "dev" | grep "static files copied"
 
                   shift
                   ;;
@@ -210,12 +209,9 @@ make_name() {
 }
 
 
-launch_containers() {
-    docker-compose up -d
-}
 
 docker_rebuild_images() {
-     docker-compose build && launch_containers
+     docker-compose -f docker-compose-$1.yml build
 }
 
 docker_stop(){
