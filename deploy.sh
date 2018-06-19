@@ -95,13 +95,8 @@ process() {
               "--development")
                   # notify "Backing up"
                   # docker_backup_local "dev"
-<<<<<<< HEAD
                   # notify "Removing containers"
                   # docker_remove "prod"
-=======
-                  notify "Removing containers"
-                  docker_remove "dev"
->>>>>>> 10459a821319edba9f7532161c8bcd2c682a8c5d
 
                   # notify "Deletelting UNTAGGED images"
                   # docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
@@ -115,7 +110,7 @@ process() {
                   docker_migrate "dev"
                   notify "Indexing"
                 #  docker_index
-		  docker exec dev_django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
+		              docker exec dev_django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
                   get_deploy_version
 		              notify "Collecting statics"
                   docker_collectstatic "dev" | grep "static files copied"
