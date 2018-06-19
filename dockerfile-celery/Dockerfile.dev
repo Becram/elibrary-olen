@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.6.5
 ENV PYTHONUNBUFFERED 1
 
 #ENV C_FORCE_ROOT true
@@ -39,7 +39,7 @@ RUN apt-get update && apt-get install poppler-utils -y
 #RUN chown -R ${APP_USER}:${APP_USER} /src
 EXPOSE 8000
 ADD . ${APP_ROOT}
-#Set timezone 
+#Set timezone
 ENV TZ=Asia/Kathmandu
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
