@@ -9,21 +9,21 @@
   .help-ico{
     float: right;
   }
-  
+
   .exp-main{
     float: right;
     margin-bottom: 20px;
   }
-  
+
   .help-main-ques, .exp-main{
     color: #00838F;
     cursor: pointer;
   }
-  
+
   .help-main-ques:hover, .exp-main:hover{
     color: #00BBD3;
   }
-  
+
   .help-ques-cont hr{
     margin-top: 0.5em;
     margin-bottom: 0.5em;
@@ -33,21 +33,21 @@
   .help-ico{
     float: right;
   }
-  
+
   .exp-main{
     float: right;
     margin-bottom: 20px;
   }
-  
+
   .help-main-ques, .exp-main{
     color: #00838F;
     cursor: pointer;
   }
-  
+
   .help-main-ques:hover, .exp-main:hover{
     color: #00BBD3;
   }
-  
+
   .help-ques-cont hr{
     margin-top: 0.5em;
     margin-bottom: 0.5em;
@@ -60,12 +60,19 @@
 
 {% block content %}
 <!--pustakalaya help-->
-<div class="main-contain">
+<div class="main-contain" style="min-height:400px;">
     <div class="container">
+   <!--
+    @organization: OLE Nepal,Sanepa
+    @Developer : Manoj Gautam ,Bhoj Bahadur Karki,
+    @Designer  : Dilak Shakya
+    @Coordinator : Ganesh Ghimire,
+    @Intern,QA: Rahul Vishwakarma
+    -->
       <div class="row">
         <div class="col-md-12">
           <div class="exp-main">
-  
+
             {# <span class="exp-txt">{% trans "EXPAND ALL" %}+</span> #}
           </div>
         </div>
@@ -74,7 +81,7 @@
         <div class="col-md-6">
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help1">
-  
+
               <span class="help-ques">{% trans "WHAT IS E-PUSTAKALAYA?" %}</span>
               <span class="help-ico">+</span>
             </div>
@@ -88,7 +95,7 @@
         </div>
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help3">
-  
+
               <span class="help-ques">{% trans "WHAT FEATURES DOES E-PUSTAKALAYA HAVE?" %}</span>
               <span class="help-ico">+</span>
             </div>
@@ -111,7 +118,7 @@
         </div>
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help5">
-  
+
               <span class="help-ques">{% trans "HOW DO I USE THE BROWSE, LINK AND SEARCH FEATURE OF THE LIBRARY?" %}</span>
               <span class="help-ico">+</span>
             </div>
@@ -151,7 +158,7 @@
                 <li>In order to actually open the book and read it, you will need to click on the link
                   to
                   the pdf file displayed under “ Click here to Read/Download”.
-    
+
                   Depending on your browser configuration, the link will ask you to either
                   save/open the file
                   or automatically open the file in a new browser window.In case you choose to save
@@ -174,8 +181,8 @@
               clicking on
               the links under “Read more” in the home page.
               <br><br>
-              
-    
+
+
               <b><i>Using the link feature:</i><br></b>
               <br>
               Once you have gotten to step a (ii) described above, and want to browse through all the
@@ -184,10 +191,10 @@
               will take you to a new page with a list of books written, illustrated or edited by Srijana
               Sharma.
               <br>
-    
+
               <b><i>Using the search feature:</i><br></b>
               <br><br>
-    
+
               If you want to look for a specific item rather than just browse through the library
               sections,.say you want to search for a book entitled “putaliko bihe”, enter the title of the
               book
@@ -212,7 +219,7 @@
         </div>
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help7">
-  
+
               <span class="help-ques">{% trans "WHY CAN'T I SET UP A COLLECTION MYSELF?" %}</span>
               <span class="help-ico">+</span>
             </div>
@@ -223,10 +230,10 @@
           </div>
           <hr>
         </div>
-  
+
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help9">
-  
+
               <span class="help-ques">{% trans "WHAT IS A FEEDBACK FORM? HOW DO I USE IT?" %}</span>
               <span class="help-ico">+</span>
             </div>
@@ -238,11 +245,11 @@
           <hr>
         </div>
         </div>
-  
+
         <div class="col-md-6">
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help2">
-  
+
               <span class="help-ques">{% trans "WHAT ARE THE MAJOR SECTIONS?" %}</span>
               <span class="help-ico">+</span>
             </div>
@@ -324,13 +331,13 @@
 
 
             {% endblocktrans %}
-           
+
           </div>
           <hr>
         </div>
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help4">
-  
+
               <span class="help-ques">{% trans "WHAT ARE THE DIFFERENT SECTIONS I SEE ON THE E-PUSTAKALAYA HOME PAGE?" %}</span>
               <span class="help-ico">+</span>
             </div>
@@ -384,13 +391,13 @@
                 </ol>
 
               {% endblocktrans %}
-            
+
           </div>
           <hr>
         </div>
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help6">
-  
+
               <span class="help-ques">{% trans "HOW DO I RETURN TO THE E-PUSTAKALAYA HOME PAGE FROM ANOTHER PAGE?" %}</span>
               <span class="help-ico">+</span>
             </div>
@@ -398,14 +405,14 @@
             {% blocktrans %}
 
             Whenever you are in another page, you can return to the home page by clicking on the “Home” icon that appears in the top right hand area of the navigation bar at the top of the page.
-        
+
             {% endblocktrans %}
           </div>
           <hr>
         </div>
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help8">
-  
+
               <span class="help-ques">{% trans "WHY SHOULD I BECOME A REGISTERED USER?" %}</span>
               <span class="help-ico">+</span>
             </div>
@@ -419,7 +426,7 @@
         </div>
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help10">
-  
+
               <span class="help-ques">{% trans "WHAT IS E-PAATH?" %}</span>
               <span class="help-ico">+</span>
             </div>
@@ -430,12 +437,12 @@
           </div>
           <hr>
         </div>
-  
+
         </div>
-  
-  
-  
-  
+
+
+
+
       </div>
     </div>
    </div>

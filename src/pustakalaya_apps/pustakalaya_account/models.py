@@ -20,7 +20,8 @@ class UserProfile(models.Model):
     )
     phone_no = models.CharField(
         _("Phone no"),
-        max_length=10
+        max_length=10,
+        null=True
 
     )
 
