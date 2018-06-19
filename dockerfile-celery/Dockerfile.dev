@@ -28,8 +28,10 @@ ADD . ${APP_ROOT}
 ENV TZ=Asia/Kathmandu
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-USER ${APP_USER}
 COPY dockerfile-celery/run_celery /run_celery
 RUN chmod 775 /run_celery
+
+USER ${APP_USER}
+
 
 CMD ["/run_celery"]
