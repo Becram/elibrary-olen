@@ -42,6 +42,9 @@ RUN chown -R ${APP_USER}:${APP_USER} /library/static_root
 RUN chown -R ${APP_USER}:${APP_USER} /src
 RUN chown -R ${APP_USER}:${APP_USER} /var/log
 
+# to fix the issue of docker host name web in confirm url
+COPY ./dockerfile-django-web/adapter.py /usr/local/lib/python3.6/site-packages/allauth/account/adapter.py
+
 EXPOSE 8000
 
 USER ${APP_USER}

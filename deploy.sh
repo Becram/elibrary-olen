@@ -104,6 +104,7 @@ process() {
                   docker_rebuild_images "dev"
                   notify "Lauching container"
                   docker_up "dev"
+                    sleep  30
                   notify "Dumping database"
                   docker_dump_sql "dev"
                   notify "Migrating django DB"
@@ -129,7 +130,7 @@ process() {
                     #
                     # docker_rebuild_images
                     notify "Waiting...."
-                    sleep  20
+                    sleep  30
                     notify "Dumping database"
                     docker_dump_sql "prod"
                     notify "Migrating django DB"
