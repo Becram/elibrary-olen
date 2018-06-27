@@ -1,6 +1,6 @@
 from .base import *  # NOQA
 
-DEBUG = True
+DEBUG = False
 
 #CELERY_BROKER_URL = 'amqp://rabbitmq'
 
