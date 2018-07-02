@@ -1,6 +1,7 @@
 {%  extends 'dashboard/dashboard.html' %}
 {%  load crispy_forms_tags %}
 {%  block dashboard_content %}
+<div class="container">
     <div class="row">
         <div class="col-md-10">
             <form action="." method="post" enctype="multipart/form-data">
@@ -14,5 +15,6 @@
             <br>
 
         </div>
+    </div>
     </div>
 {%  endblock dashboard_content %}

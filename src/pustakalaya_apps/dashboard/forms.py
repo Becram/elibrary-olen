@@ -139,6 +139,12 @@ class AudioForm(forms.ModelForm):
         self.fields["description"].widget.attrs={
             'height': '380px'
         }
+        self.fields['languages'].widget.attrs = {
+            'title': 'Multiple selection field: Press Ctrl + click for multiple selection',
+        }
+        self.fields['audio_read_by'].widget.attrs = {
+            'title': 'Multiple selection field: Press Ctrl + click for multiple selection',
+        }
 
 
 
@@ -225,6 +231,12 @@ class VideoForm(forms.ModelForm):
 
         self.fields['description'].widget.attrs={
             'height': '380px'
+        }
+        self.fields['languages'].widget.attrs = {
+            'title': 'Multiple selection field: Press Ctrl + click for multiple selection',
+        }
+        self.fields['video_director'].widget.attrs = {
+            'title': 'Multiple selection field: Press Ctrl + click for multiple selection',
         }
 
 class VideoFileUploadForm(forms.ModelForm):
