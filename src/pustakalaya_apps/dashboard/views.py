@@ -23,7 +23,6 @@ def dashboard(request):
     if request.user.is_superuser:
         return HttpResponseRedirect("/")
 
-
     featured_items = chain(
         Document.featured_objects.all(),
         Audio.featured_objects.all(),
@@ -41,7 +40,7 @@ def dashboard(request):
             var = Document.objects.get(pk=item.favourite_item_id)
             document_fav_list.append(var)
 
-    #for pagination we have following code
+    # for pagination we have following code
     paginator = Paginator(document_fav_list, 10)
     page = request.GET.get('page')
     try:
@@ -76,32 +75,25 @@ def profile_edit(request):
 
 class ProfileEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get(self, request, *args, **kwargs):
-        
+
         if str(request.user.pk) != str(kwargs.get('pk')):
             return HttpResponseForbidden("Permission denied")
-        
-        return super(ProfileEdit, self).get(request, *args, **kwargs)
-        
 
-        
+        return super(ProfileEdit, self).get(request, *args, **kwargs)
+
+
+
     model = User
     fields = (
         'first_name',
         'last_name',
         'email',
     )
-    
+
     template_name = 'dashboard/profile/profile.html'
     success_url = '/dashboard/'
     success_message = "Profile updated successfully"
 
- 
-        
-
-   
-    
-
-   
 
 
 

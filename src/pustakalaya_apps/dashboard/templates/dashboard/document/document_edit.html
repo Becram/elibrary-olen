@@ -1,6 +1,14 @@
 {% extends 'dashboard/dashboard.html' %}
 {% load %}
 {% load crispy_forms_tags %}
+{% block style %}
+ {{ block.super }}
+<style>
+  textarea{
+  height:250px !important;
+  }
+</style>
+{% endblock %}
 {% block dashboard_content %}
     <div class="container">
         <div class="col-md-8">
@@ -12,3 +20,4 @@
         </div>
     </div>
 {% endblock dashboard_content %}
+

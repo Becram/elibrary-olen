@@ -74,34 +74,39 @@ class UpdateVideoView(LoginRequiredMixin, UpdateView):
 
     fields = [
                 'title',
-                'collections',
-                'education_levels',
+                # 'collections',
+                'description',
+                # 'education_levels',
                 'languages',
-                'publisher',
+                # 'publisher',
                 'video_director',
-                'video_genre',
+                # 'video_genre',
                 'keywords',
-                'video_series',
-                'license_type'
+                # 'video_series',
+                # 'license_type'
     ]
 
     template_name = "dashboard/video/video_edit.html/"
-    success_url = "/dashboard/"
+    success_url = "/dashboard/submission/list/"
 
     def clean(self, UpdateVideo):
         cleaned_data = super(UpdateVideo, self).clean()
         title = cleaned_data.get('title')
-        collections = cleaned_data.get('collections')
-        education_levels = cleaned_data.get('education_levels')
+        # collections = cleaned_data.get('collections')
+        description = cleaned_data.get('description')
+        # education_levels = cleaned_data.get('education_levels')
         languages = cleaned_data.get('languages')
-        publisher = cleaned_data.get('publisher')
+        # publisher = cleaned_data.get('publisher')
         video_director = cleaned_data.get('video_director')
-        video_genre = cleaned_data.get('video_genre')
+        # video_genre = cleaned_data.get('video_genre')
         keywords = cleaned_data.get('keywords')
-        video_series = cleaned_data.get('video_series')
-        license_type = cleaned_data.get('license_type')
+        # video_series = cleaned_data.get('video_series')
+        # license_type = cleaned_data.get('license_type')
 
-        if not title and not collections and not education_levels and not languages and not video_director and not video_genre and not publisher and not keywords and not video_series and not license_type:
+        # if not title and not collections and not education_levels and not languages and not video_director and not video_genre and not publisher and not keywords and not video_series and not license_type:
+        #     raise cleaned_data.ValidationError('You have to write something!')
+
+        if not title:
             raise cleaned_data.ValidationError('You have to write something!')
 
 
@@ -122,7 +127,7 @@ class DeleteVideoView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     ]
 
     template_name = "dashboard/video/video_delete.html/"
-    success_url = '/dashboard/'
+    success_url = '/dashboard/submission/list/'
     success_message = "Video was deleted successfully"
 
     def delete(self, request, *args, **kwargs):

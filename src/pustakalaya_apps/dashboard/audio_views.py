@@ -37,7 +37,7 @@ class AddAudioView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         # form = context["form"]
         status = form.is_valid()
         statusset = inlines.is_valid()
-       
+
         if form.is_valid() and inlines.is_valid():
             # Save the object. and its children.
             self.object = form.save(commit=False)
@@ -51,11 +51,11 @@ class AddAudioView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             inlines.save()
 
 
-       
+
             # Clear all other message and add message
             storage = messages.get_messages(self.request)
             storage.used = True
-             
+
             messages.add_message(
                self.request,
                 messages.SUCCESS,
@@ -76,16 +76,17 @@ class UpdateAudioView(LoginRequiredMixin, UpdateView):
     model = Audio
     fields = [
                 'title',
-                'collections',
-                'education_levels',
+                # 'collections',
+                # 'education_levels',
+                'description',
                 'languages',
-                'publisher',
-                'audio_types',
+                # 'publisher',
+                # 'audio_types',
                 'audio_read_by',
-                'audio_genre',
+                # 'audio_genre',
                 'keywords',
-                'audio_series',
-                'license_type'
+                # 'audio_series',
+                # 'license_type'
     ]
 
     template_name = "dashboard/audio/audio_edit.html/"
@@ -94,21 +95,24 @@ class UpdateAudioView(LoginRequiredMixin, UpdateView):
     def clean(self, UpdateAudioView):
         cleaned_data = super(UpdateAudioView, self).clean()
         title = cleaned_data.get('title')
-        collections = cleaned_data.get('collections')
-        education_levels = cleaned_data.get('education_levels')
+        # collections = cleaned_data.get('collections')
+        description = cleaned_data.get('description')
+        # education_levels = cleaned_data.get('education_levels')
         languages = cleaned_data.get('languages')
-        audio_types = cleaned_data.get('audio_types')
-        publisher = cleaned_data.get('publisher')
-        audio_types = cleaned_data.get('audio_types')
+        # audio_types = cleaned_data.get('audio_types')
+        # publisher = cleaned_data.get('publisher')
+        # audio_types = cleaned_data.get('audio_types')
         audio_read_by = cleaned_data.get('audio_read_by')
-        audio_genre = cleaned_data.get('audio_genre')
+        # audio_genre = cleaned_data.get('audio_genre')
         keywords = cleaned_data.get('keywords')
-        audio_series = cleaned_data.get('audio_series')
-        license_type = cleaned_data.get('license_type')
+        # audio_series = cleaned_data.get('audio_series')
+        # license_type = cleaned_data.get('license_type')
 
-        if not title and not collections and not education_levels and not languages and not \
-            audio_types and not publisher and not audio_types and not keywords and not audio_read_by \
-            and not audio_genre and not audio_series and not license_type:
+        # if not title and not collections and not education_levels and not languages and not \
+        #     audio_types and not publisher and not audio_types and not keywords and not audio_read_by \
+        #     and not audio_genre and not audio_series and not license_type:
+        #     raise cleaned_data.ValidationError('You have to write something!')
+        if not title:
             raise cleaned_data.ValidationError('You have to write something!')
 
 

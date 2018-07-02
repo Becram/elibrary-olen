@@ -8,10 +8,11 @@
             {{ video_form  | crispy }}
                 <!-- fileupload form -->
                 {{ video_file_upload_form | crispy }}
+              {% include "license_agreement.html" %}
               <input type="submit" value="Create Video" class="btn ole-btn">
             </form>
             <br>
-            {% include "license_agreement.html" %}
+
         </div>
     </div>
 {%  endblock dashboard_content %}

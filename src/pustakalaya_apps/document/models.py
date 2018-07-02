@@ -90,11 +90,11 @@ class Document(AbstractItem, HitCountMixin):
     document_type = models.CharField(
         _("Document type"),
         max_length=40,  # TODO: Change to match the exact value.
-        choices=DOCUMENT_TYPE
+        choices=DOCUMENT_TYPE,
     )
 
     document_file_type = models.CharField(
-        _("Document file type"),
+        _("Document file format"),
         choices=DOCUMENT_FILE_TYPE,
         max_length=23,
         default="pdf"
@@ -117,7 +117,9 @@ class Document(AbstractItem, HitCountMixin):
 
     languages = models.ManyToManyField(
         Language,
-        verbose_name=_("Language(s)")
+        verbose_name=_("Language(s)"),
+        # null=True,
+        blank=True
     )
 
     document_interactivity = models.CharField(

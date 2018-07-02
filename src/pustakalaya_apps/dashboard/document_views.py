@@ -65,8 +65,8 @@ class AddDocumentView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
             #Clear all other message and add message
             storage = messages.get_messages(self.request)
-            storage.used = True 
-           
+            storage.used = True
+
             messages.add_message(
                self.request,
                 messages.SUCCESS,
@@ -76,7 +76,7 @@ class AddDocumentView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         else:
             return self.render_to_response(self.get_context_data(form=form))
 
-        
+
 
     # Handle the form in case all the invalid form.
     def form_invalid(self, form):
@@ -86,9 +86,9 @@ class AddDocumentView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 def user_submission(request):
     # Grab all the list in pagination format.
     user = request.user
-    # User submitted documents. 
+    # User submitted documents.
     user_documents = Document.objects.filter(submitted_by=user)
-    # User submitted audio 
+    # User submitted audio
     user_audios = Audio.objects.filter(submitted_by=user)
     # User submitted video
     user_videos = Video.objects.filter(submitted_by=user)
@@ -105,37 +105,42 @@ class UpdateDocumentView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Document
     fields = [
         'title',
-        'collections',
+        # 'collections',
+        'description',
         'document_file_type',
         'languages',
-        'document_interactivity',
-        'publisher',
-        'keywords',
-        'document_series',
+        # 'document_interactivity',
+        # 'publisher',
+        # 'keywords',
+        # 'document_series',
         'document_type',
-        'license_type'
+        # 'license_type'
     ]
 
     template_name = "dashboard/document/document_edit.html/"
-    success_url = '/dashboard/'
+    success_url = '/dashboard/submission/list/'
     success_message = "Document updated  successfully"
-    
+
 
     def clean(self, UpdateDocument):
         cleaned_data = super(UpdateDocument, self).clean()
         title = cleaned_data.get('title')
-        collections = cleaned_data.get('collections')
+        # collections = cleaned_data.get('collections')
+        description = cleaned_data.get('description')
         document_file_type = cleaned_data.get('document_file_type')
         languages = cleaned_data.get('languages')
-        document_interactivity = cleaned_data.get('document_interactivity')
-        publisher = cleaned_data.get('publisher')
+        # document_interactivity = cleaned_data.get('document_interactivity')
+        # publisher = cleaned_data.get('publisher')
         keywords = cleaned_data.get('keywords')
-        document_series = cleaned_data.get('document_series')
+        # document_series = cleaned_data.get('document_series')
         document_type = cleaned_data.get('document_type')
-        license_type = cleaned_data.get('license_type')
+        # license_type = cleaned_data.get('license_type')
 
-        if not title and not collections and not document_file_type and not languages and not document_interactivity and not publisher and not keywords and not document_series and not document_type and not license_type:
+        # if not title and not collections and not document_file_type and not languages and not document_interactivity and not publisher and not keywords and not document_series and not document_type and not license_type:
+        #     raise cleaned_data.ValidationError('You have to write something!')
+        if not title:
             raise cleaned_data.ValidationError('You have to write something!')
+
 
 
 class DeleteDocumentView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -155,7 +160,7 @@ class DeleteDocumentView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     ]
 
     template_name = "dashboard/document/document_delete.html/"
-    success_url = '/'
+    success_url = '/dashboard/submission/list/'
     success_message = "Document deleted successfully"
 
 
