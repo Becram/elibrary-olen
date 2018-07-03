@@ -41,7 +41,7 @@ def dashboard(request):
             document_fav_list.append(var)
 
     # for pagination we have following code
-    paginator = Paginator(document_fav_list, 10)
+    paginator = Paginator(document_fav_list, 16)
     page = request.GET.get('page')
     try:
         fav_items = paginator.page(page)
