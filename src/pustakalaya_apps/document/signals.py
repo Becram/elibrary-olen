@@ -6,6 +6,7 @@ from django.db.models.signals import post_save, pre_delete, m2m_changed
 from .models import Document, DocumentFileUpload
 from .tasks import convert_pdf
 from pustakalaya_apps.core.utils import send_mail_on_user_submission
+from django.contrib.auth.models import  User
 
 
 @receiver(m2m_changed, sender=Document.keywords.through)
@@ -22,10 +23,13 @@ def index_or_update_document(sender, instance, **kwargs):
 
     # By pass for unpublished items
     if instance.published == "no":
-        return 
+        return
 
     if instance.published == "yes":
+        # added to restrict the if user is super user
+        # if not sender is User.is_superuser:
         send_mail_on_user_submission(item=instance)
+
 
     if instance.license is not None:
         if instance.license:
@@ -34,15 +38,15 @@ def index_or_update_document(sender, instance, **kwargs):
     # Save or update index
     instance.index()
 
-  
+
 @receiver(pre_delete, sender=Document)
 @transaction.atomic
 def delete_document(sender, instance, **kwargs):
-    
+
      # By pass for unpublished items
     if instance.published == "no":
-        return 
-        
+        return
+
     # Delete an index first before instance in db.
     instance.delete_index()
 
@@ -52,6 +56,8 @@ def pdfto_image(sender, instance, **kwargs):
     """
     Convert pdf to images
     """
+    # dissable this feature no use now
+    return
 
     # grab the file path
     file_full_path = instance.upload.path
