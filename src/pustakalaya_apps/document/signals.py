@@ -28,6 +28,7 @@ def index_or_update_document(sender, instance, **kwargs):
     if instance.published == "yes":
         # added to restrict the if user is super user
         # if not sender is User.is_superuser:
+        print("whois sender=",sender,"is suerp =",User.is_superuser)
         send_mail_on_user_submission(item=instance)
 
 
