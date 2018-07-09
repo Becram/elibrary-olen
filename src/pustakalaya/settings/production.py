@@ -2,6 +2,9 @@ from .base import *  # NOQA
 
 DEBUG = False
 
+#100MB 
+FILE_UPLOAD_MAX_MEMORY_SIZE=104857600
+
 #CELERY_BROKER_URL = 'amqp://rabbitmq'
 
 try:
