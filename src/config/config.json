@@ -25,12 +25,12 @@
     "EMAIL_HOST_PASSWORD": "013Nep@!",
     "EMAIL_USE_TLS": "True",
     "FEEDBACK_MESSAGE_TO": [
-      "bikram.dhoju@olenepal.org"
+      "pustakalaya@olenepal.org"
     ],
     "ADMIN_EMAILS": [
       [
         "Sys admin 1",
-        "admins@olenepal.org"
+        "pustakalaya@olenepal.org"
       ],
       [
         "system admin 2",
