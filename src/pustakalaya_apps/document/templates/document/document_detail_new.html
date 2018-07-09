@@ -236,7 +236,7 @@
 
       </div>
       <div class="col-md-9">
-        <h5 id="det-book-title" class="text-capitalize">{{ object.title }}</h5>
+        <h5 id="det-book-title" class="">{{ object.title }}</h5>
         {% if object.document_authors.all %}
         <p>By:
           <span>
@@ -799,7 +799,7 @@
         <div class="sadface">
           <i class="fa fa-frown-o"></i>
         </div>
-        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found"%}</h5>
+        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No results found"%}</h5>
         <br>
         <p>{% trans "The link is either broken or the item is not published yet" %}.</p>
     </div>

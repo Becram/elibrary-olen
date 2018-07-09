@@ -12,7 +12,7 @@
         {% get_providers as socialaccount_providers %}
         {% if socialaccount_providers %}
             <p>{% blocktrans with site.name as site_name %}Please sign in with one
-                of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+                of your existing third party accounts. Or, <a class="btn btn-primary" href="{{ signup_url }}">sign up</a>
                 for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
             <div class="socialaccount_ballot">
@@ -29,8 +29,8 @@
 
 
         {% else %}
-        <p class="description text-dark text-capitalize">{% blocktrans %}If you have not created an account yet, then please
-          <a href="/accounts/signup/">sign up</a> first.{% endblocktrans %}</p>
+        <p class="description text-dark ">{% blocktrans %}If you have not created an account yet, then please
+          <a  href="/accounts/signup/" style="font-size:140%;text-decoration:underline;">sign up</a> first.{% endblocktrans %}</p>
         {% endif %}
 
         <div class="row">

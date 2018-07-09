@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load static %} {% load i18n %}
  {% block style %} {{block.super}}
-<link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}"> 
+<link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
 
 {% endblock style %} {% block content %}
 <div class="container">
@@ -19,7 +19,7 @@
               <li>
                 <a class="text-capitalize" href="/dashboard/profile/edit/{{request.user.id}}">{% trans "edit profile" %}</a>
               </li>
-              
+
               <li>
                 <a class="text-capitalize" href="/accounts/password/change/">{% trans "change password" %}</a>
               </li>
@@ -34,32 +34,33 @@
 
         </div>
       </div>
-      <hr> 
- 
-           
+      <hr>
+
+
       {% if messages %}
 
       <div class="alert alert-info alert-dismissible">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 
           {% for message in messages %}
-         
+
           <p style="margin:none;" class="text-{% if message.tags %} {{ message.tags }} {% endif %}">{{ message }}</p>
         {% endfor %}
 
         </div>
 
       {% endif %}
-      
+
       {% block dashboard_content %}
 
 
       <h5 id="det-book-title">{% trans "Popular items" %}</h5>
       <div class="row">
-     
+
             {% for doc in popular_documents %}
                 <div class="col-md-3 col-sm-6 col-6">
                     <div class="grid-book-cont">
+                      <a href="{{doc.get_absolute_url}}">
                       <div class="img-cont">
                         {% if doc.thumbnail  %}
                         <img  src="{{ MEDIA_URL }}{{ doc.thumbnail }}"
@@ -75,8 +76,9 @@
                        {% endif %}
                       </div>
                       <p class="book-label">
-                        <a href="{{doc.get_absolute_url}}">{{doc.title}}</a>
+                        {{doc.title}}
                       </p>
+                      </a>
                       <p class="book-type">
                           {% if doc.type == "document" %}
                           <i class="fa fa-book "></i>
@@ -87,23 +89,23 @@
                            {% endif %}
                            {{doc.type}}
                            </p>
-          
+
                       <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely
                         {{doc.abstract}}
                         <br>
                         <strong class="text-black">Views:</strong>
                         &nbsp;1
                       </div>
-          
+
                       <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-          
+
                     </div>
                   </div>
-          
+
             {% endfor %}
 
 
-      
+
 
       </div>
 
@@ -111,7 +113,7 @@
 
       <h5 id="det-book-title">{% trans "Your Favorites" %}</h5>
       <div class="row">
-     
+
           {% for doc in favourite_documents %}
               <div class="col-md-3 col-sm-6 col-6">
                   <div class="grid-book-cont">
@@ -144,9 +146,30 @@
                          </p>
                   </div>
                 </div>
-        
+
           {% endfor %}
+
     </div>
+      <div class="row pull-left mt-4">
+         <hr >
+              <div class="pagination">
+                <span class="step-links">
+
+                  {% if favourite_documents.has_previous %}
+                  <a href="?page={{ favourite_documents.previous_page_number }}" >previous</a>
+                  {% endif %}
+
+                  <!-- Showing the page numbers in Html Page -->
+                  <span class="current">
+                  Page {{ favourite_documents.number }} of {{ favourite_documents.paginator.num_pages }}.
+                </span>
+
+                {% if favourite_documents.has_next %}
+                <a href="?page={{ favourite_documents.next_page_number }}">next</a>
+                {% endif %}
+                </span>
+                </div>
+      </div>
 
   </div>
 

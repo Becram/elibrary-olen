@@ -71,7 +71,6 @@
             <div id="videoList" class="col-md-4 col-sm-12 col-xs-12 ole-playlist-cont" style="max-height: 450px; width:426px; overflow-y: scroll; ">
 
                {% for video in object.videofileupload_set.all %}
-
                         <div class="indv-play" style="width:100%;max-height:100px;margin-bottom:5px;">
                            <span style="cursor: pointer;"
                                   data-src="{{ MEDIA_URL }}{{ video.upload }}"
@@ -793,7 +792,7 @@
         <div class="sadface">
           <i class="fa fa-frown-o"></i>
         </div>
-        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found"%}</h5>
+        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No results found"%}</h5>
         <br>
         <p>{% trans "The link is either broken or the item is not published yet" %}.</p>
     </div>

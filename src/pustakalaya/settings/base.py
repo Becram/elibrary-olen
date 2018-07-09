@@ -121,9 +121,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
-                # Context processor. 
+                # Context processor.
                 'pustakalaya_apps.core.context_processor.getlang',
-                
+
             ],
         },
     },
@@ -188,6 +188,18 @@ except KeyError:
 STATICFILES_DIRS = (
     ('static'),
 )
+
+# file upload max size
+# 2.5MB - 2621440 (default)
+# 5MB - 5242880
+# 10MB - 10485760
+# 20MB - 20971520
+# 50MB - 5242880
+# 100MB - 104857600
+# 250MB - 214958080
+# 500MB - 429916160
+
+# FILE_UPLOAD_MAX_MEMORY_SIZE="214958080"
 
 # Media Configuration
 MEDIA_URL = '/media/'

@@ -7,10 +7,17 @@
                 {% csrf_token %} {{ form | crispy }}
                 <h3>{% trans "upload file" %}</h3>
                 {{ inlines | crispy }}
+               {% include "license_agreement.html" %}
                 <input type="submit" value="Upload document" class="btn ole-btn">
             </form><br>
-            {% include "license_agreement.html" %}
+
         </div>
     </div>
 </div>
 {% endblock dashboard_content %}
+{% block script %}
+{{ block.super }}
+<script>
+
+</script>
+{% endblock %}

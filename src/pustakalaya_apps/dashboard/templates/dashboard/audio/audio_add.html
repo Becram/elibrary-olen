@@ -1,17 +1,20 @@
 {%  extends 'dashboard/dashboard.html' %}
 {%  load crispy_forms_tags %}
 {%  block dashboard_content %}
-    <div class="container">
-        <div class="col-md-8">
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
             <form action="." method="post" enctype="multipart/form-data">
              {% csrf_token %}
             {{ audio_form  | crispy }}
                 <!-- fileupload form -->
                 {{ audio_file_upload_form | crispy }}
+               {% include "license_agreement.html" %}
               <input type="submit" value="Create Audio" class="btn ole-btn">
             </form>
             <br>
-            {% include "license_agreement.html" %}
+
         </div>
+    </div>
     </div>
 {%  endblock dashboard_content %}
