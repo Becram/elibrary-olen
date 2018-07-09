@@ -1,5 +1,7 @@
 FROM postgres:9.6
 
+RUN apt-get update && apt-get -y install cron
+
 ENV APP_ROOT /src
 ENV BACKUP_DIR /library/backup_pg_pustakalaya/backup/daily/pustakalaya/
 
@@ -7,8 +9,11 @@ WORKDIR ${APP_ROOT}
 
 RUN mkdir -p $BACKUP_DIR
 ADD autopgsqlbackup /script/
+ADD cron  /script/
 ADD *.bz2 $BACKUP_DIR
 RUN chmod +x /script/autopgsqlbackup
+RUN chmod +x /script/cron
+RUN /script/cron 
 
 #Set timezone
 ENV TZ=Asia/Kathmandu

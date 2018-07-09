@@ -16,7 +16,7 @@ services:
     depends_on:
      - web
   web:
-    image: becram/olen-elib-code:v1.2
+    image: becram/olen-elib-code:v1.3
     restart: always
     hostname: web
     container_name: prod_django_web_01
@@ -24,7 +24,7 @@ services:
       - db
       - elastic
     volumes:
-      - ./src:/src
+#      - ./src:/src
       - /library/media_root:/library/media_root
       - /library/static_root:/library/static_root
     networks:
@@ -32,7 +32,8 @@ services:
     expose:
       - "8001"
   db:
-    image: becram/olen-elib-db:v1.2
+    image: pustakalaya_db:latest
+    #image: becram/olen-elib-db:v1.2
     restart: always
     environment:
       - POSTGRES_USER=pustakalaya_user
@@ -46,6 +47,10 @@ services:
     volumes:
       - /library/backup_pg_pustakalaya:/pg_backups
       - ./src:/src
+      - ./pg_backup:/dump
+#    command: dump-cron
+    ports:
+      - '5432:5432'
 
   elastic:
     image: becram/olen-elib-elastic:v1.2
