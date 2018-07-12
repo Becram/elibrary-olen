@@ -148,6 +148,19 @@
 
 
 
+        <!--Featured unfeatured button-->
+        {% if request.user.is_superuser %}
+         <p id="featured_item">
+        {% if object.featured == "yes"%}
+          <button type="button" class="btn ole-btn-trans det-fav-added" value="{{object.pk }}" id="featured_set"><i class="fa fa-check-circle"></i>{% trans "Added to featured" %}</button>
+        {% else %}
+          <button type="button" class="btn ole-btn-trans " value="{{object.pk }}" id="featured_not_set">{% trans "Add to featured" %}</button>
+        {% endif %}
+        {% endif %}
+         </p>
+
+        <!--End: Featured unfeatured button-->
+
         <!--Review btn for model button-->
         <button type="button" class="btn ole-btn-trans" id="review_btn_real" style="margin-bottom: 1rem;"><i class="fa fa-comment det-rev-active"></i> {% trans "Leave a Review" %}</button>
         <button type="button" class="btn ole-btn-trans" id="review_btn_trigger" data-toggle="modal" data-target="#myModal" hidden >review</button>
@@ -1088,7 +1101,95 @@
 
 
 /***************************Close of review code****************************/
+/***************************Featured item code ****************************/
 
+//for favourite likes #favourite_hanging_place
+  $("#featured_item").delegate("button#featured_not_set","click",function (e){
+      e.preventDefault();
+      var user_input = "yes";
+
+      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
+      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
+      var user_name = $("input[type='hidden'][name='user']").val().trim();
+      //alert("some value="+content_type+"id="+content_id+"username="+user_name);
+      //return;
+      if(user_name == "" || user_name == "AnonymousUser" ){
+        alert("Login to add to your favourite");
+        return;
+      }
+       $.ajax({
+        type:'post',
+        url: '/set_featured/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input": user_input,
+          "content_type" : content_type,
+          "content_id" : content_id,
+        },
+        success: function (data) {
+        //alert("success to add to feature");
+          $('#featured_not_set').remove();
+           //This reading is done for multi language support
+           var featured_added_text = "Added to featured";//$('#added_to_fav').text();
+
+           $("#featured_item").append(''+
+                           '<button type="button" class="btn ole-btn-trans det-fav-added" value="'+ content_id +'" id="featured_set"><i class="fa fa-check-circle"></i> '+featured_added_text+'</button>'
+                      +'');
+
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+    });
+
+
+  //Added_featured , remove form feature now
+   $("#featured_item").delegate(" #featured_set","click",function (e){
+      e.preventDefault();
+      var user_input = "no";
+
+      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
+      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
+      var user_name = $("input[type='hidden'][name='user']").val().trim();
+      if(user_name == "" || user_name == "AnonymousUser" ){
+        alert("Login to add to your favourite");
+        return;
+      }
+       $.ajax({
+        type:'post',
+        url: '/set_featured/featured_unset/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input": user_input,
+          "content_type" : content_type,
+          "content_id" : content_id,
+        },
+        success: function (data) {
+        //alert("success to remove");
+          $("#featured_set").remove();
+
+          //This reading is done for multi language support
+           var featured_add_text = "Add to featured";//$('#add_to_fav').text();
+
+           $("#featured_item").append(''+
+                           '<button type="button" value="'+ content_id +'" class="btn ole-btn-trans " id="featured_not_set" > '+featured_add_text+'</button>'
+               +'');
+
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+    });
+
+/***************************End: Featured item code ****************************/
     </script>
 
 

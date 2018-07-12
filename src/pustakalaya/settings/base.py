@@ -87,6 +87,7 @@ PUSTAKALAYA_APPS = [
     'pustakalaya_apps.review_system',
     'pustakalaya_apps.favourite_collection',
     'pustakalaya_apps.show_featured',
+    'pustakalaya_apps.set_featured',
 
 
 ]
