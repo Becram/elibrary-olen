@@ -188,10 +188,13 @@ except KeyError:
     ImproperlyConfigured("{} improperly configured".format("MEDIA_ROOT"))
 # Per application basic
 # static_dist files are dispatched automatically by webpack by reading static_src directory.
-STATICFILES_DIRS = (
-    ('static'),
-)
 
+# STATICFILES_DIRS = (
+#     ('static'),
+# )
+STATICFILES_DIRS = [
+    ('static'),
+]
 # file upload max size
 # 2.5MB - 2621440 (default)
 # 5MB - 5242880
