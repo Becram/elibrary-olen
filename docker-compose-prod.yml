@@ -24,7 +24,7 @@ services:
       - db
       - elastic
     volumes:
-#      - ./src:/src
+      - ./src:/src
       - /library/media_root:/library/media_root
       - /library/static_root:/library/static_root
     networks:
@@ -32,8 +32,8 @@ services:
     expose:
       - "8001"
   db:
-    image: pustakalaya_db:latest
-    #image: becram/olen-elib-db:v1.2
+    #image: pustakalaya_db:latest
+    image: becram/olen-elib-db:v1.2
     restart: always
     environment:
       - POSTGRES_USER=pustakalaya_user

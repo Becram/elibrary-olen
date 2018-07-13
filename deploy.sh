@@ -76,6 +76,12 @@ process() {
 
                     shift
                         ;;
+                "--static" )
+                    notify "collect static"
+                    docker_collectstatic prod                
+
+                    shift
+                        ;;
                 "--dump" )
                     docker_dump_sql
                     shift
@@ -111,9 +117,9 @@ process() {
                   docker_migrate "dev"
                   notify "Indexing"
                 #  docker_index
-		              docker exec dev_django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
+		  docker exec dev_django_web_01 bash -c "python manage.py index_pustakalaya --settings=pustakalaya.settings.production"
                   get_deploy_version
-		              notify "Collecting statics"
+		  notify "Collecting statics"
                   docker_collectstatic "dev" | grep "static files copied"
 
                   shift
@@ -256,7 +262,7 @@ docker_index(){
 }
 
 docker_collectstatic(){
-  docker exec "$1"_django_web_01 bash -c "python manage.py collectstatic --settings=pustakalaya.settings.production --noinput"
+  docker exec "$1"_django_web_01 bash -c "python manage.py collectstatic --settings=pustakalaya.settings.production --clear --noinput"
 
 }
 docker_migrate(){
