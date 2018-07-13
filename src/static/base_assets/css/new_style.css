@@ -9,6 +9,20 @@
     src: url(./../fonts/mangal/mangal.ttf);
 }
 
+
+::-moz-selection { /* Code for Firefox */
+    color: white;
+    background: #00838f;
+    border-color:#00838f;
+}
+
+::selection {
+    color: white;
+    background: #00838f;
+    border-color:#00838f;
+
+}
+
 body{
   background-color: #FAFAFA;
   font-size: 14px;

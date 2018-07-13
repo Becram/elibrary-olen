@@ -195,6 +195,11 @@ except KeyError:
 STATICFILES_DIRS = [
     ('static'),
 ]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 # file upload max size
 # 2.5MB - 2621440 (default)
 # 5MB - 5242880
