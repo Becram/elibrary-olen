@@ -57,9 +57,11 @@ THIRDPARTY_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
     # 'allauth.socialaccount.providers.facebook',
-    # 'allauth.socialaccount.providers.twitter',
-    # 'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.google',
+
     'crispy_forms',
     'hitcount',
     'star_ratings',
@@ -85,6 +87,7 @@ PUSTAKALAYA_APPS = [
     'pustakalaya_apps.review_system',
     'pustakalaya_apps.favourite_collection',
     'pustakalaya_apps.show_featured',
+    'pustakalaya_apps.set_featured',
 
 
 ]
@@ -185,9 +188,6 @@ except KeyError:
     ImproperlyConfigured("{} improperly configured".format("MEDIA_ROOT"))
 # Per application basic
 # static_dist files are dispatched automatically by webpack by reading static_src directory.
-STATICFILES_DIRS = (
-    ('static'),
-)
 
    
 # looks for static files in each app
@@ -196,6 +196,12 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
+# STATICFILES_DIRS = (
+#     ('static'),
+# )
+STATICFILES_DIRS = [
+    ('static'),
+]
 # file upload max size
 # 2.5MB - 2621440 (default)
 # 5MB - 5242880
@@ -206,7 +212,7 @@ STATICFILES_FINDERS = (
 # 250MB - 214958080
 # 500MB - 429916160
 
-# FILE_UPLOAD_MAX_MEMORY_SIZE="214958080"
+# FILE_UPLOAD_MAX_MEMORY_SIZE = 214958080
 
 # Media Configuration
 MEDIA_URL = '/media/'

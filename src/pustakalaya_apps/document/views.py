@@ -57,7 +57,7 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
         #************Review pagination add************#
 
         length = len(data_review)
-        print("len=",length)
+        # print("len=",length)
         number_per_page =15
         if length > number_per_page:
             #print("inside pagination")

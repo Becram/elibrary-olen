@@ -50,8 +50,11 @@ urlpatterns = [
     # /review_input
     url(r'^favourite_collection/favourite_remove/',include('pustakalaya_apps.favourite_collection.urls', namespace="favourite_collection_remove")),
 
-    # /review_input
+    # /show featured
     url(r'^show_featured/',include('pustakalaya_apps.show_featured.urls', namespace="show_featured")),
+
+    # /set_featured
+    url(r'^set_featured/', include('pustakalaya_apps.set_featured.urls', namespace="set_featured")),
 
     # Document App
     # /documents/

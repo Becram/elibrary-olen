@@ -362,7 +362,8 @@ class Document(AbstractItem, HitCountMixin):
 
 
     def get_absolute_url(self):
-        return reverse("document:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
+        return reverse("document:detail_without_slug", kwargs={ "pk": self.pk})
+        # return reverse("document:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
 
     def get_dashboard_edit_url(self):
         return reverse("dashboard:document_update", kwargs={"pk": self.pk})

@@ -67,12 +67,12 @@
       <!--last page-->
           {% if page_obj.has_next or  page_obj.has_previous%}
             {% if page_obj.number != paginator.num_pages %}
-       {% if page_obj.number < paginator.num_pages|add:-5 %}
-            <li>...</li>
-            <li class="page-item active" >
-                <a href="?page={{ paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="page-link1">{{ paginator.num_pages }}</a>
-              </li>
-      {% endif %}
+              {% if page_obj.number < paginator.num_pages|add:-5 %}
+                    <li>...</li>
+                    <li class="page-item active" >
+                        <a href="?page={{ paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="page-link1">{{ paginator.num_pages }}</a>
+                      </li>
+              {% endif %}
             {% endif %}
       {% endif %}
 
