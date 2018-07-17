@@ -21,7 +21,8 @@ class AddAudioView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context = super(AddAudioView, self).get_context_data(**kwargs)
         if self.request.POST:
             context["audio_form"] = AudioForm(self.request.POST)
-            context['audio_file_upload_form'] = AudioFileUploadFormSet(self.request.POST, self.request.FILES, instance=self.object)
+            context['audio_file_upload_form'] = AudioFileUploadFormSet(self.request.POST, self.request.FILES,
+                                                                       instance=self.object)
 
         else:
             context["audio_form"] = AudioForm()

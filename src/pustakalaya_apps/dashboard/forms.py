@@ -62,11 +62,19 @@ class DocumentFileUploadForm(forms.ModelForm):
         try:
             if upload_file:
 
-                # supported format pdf, msword,mobi,txt ,ott,epub
-                supported_types=['application/pdf', 'text/plain', 'application/msword',  'application/vnd.oasis.opendocument.text-template']
+                # supported format pdf, msword(.doc,.docx),mobi,.txt ,ott, .otd, .epub,.ppt,.xls
+                supported_types=['application/pdf', 'text/plain', 'application/msword',
+                                 'application/vnd.oasis.opendocument.text-template',
+                                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                 'application/vnd.oasis.opendocument.text',
+                                 'application/epub+zip',
+                                 'application/vnd.ms-powerpoint','application/rtf',
+                                 'application/vnd.ms-excel',
+                                 'application/x-mobipocket-ebook']
 
                 # mimetype_of_file_uploaded = magic.from_buffer(upload_file.file.getvalue(), mime=True)
                 mimetype_of_file_uploaded = upload_file.content_type
+                print("mime type=",mimetype_of_file_uploaded)
 
                 val = 0
 
@@ -77,10 +85,12 @@ class DocumentFileUploadForm(forms.ModelForm):
                         break
 
                 if val == 0:
-                    raise ValidationError(u'Error! File can only be .pdf,.txt,word and .ott')
+                    raise ValidationError(u'Error! File can only be .pdf,.txt,.doc,.docx,.xls,.epub,'
+                                          u'.ppt,.ott,.otd,.rtf and .mobi')
         except (RuntimeError, TypeError, NameError, AttributeError) as e:
             print(e)
-            raise ValidationError("Error! Something is wrong.File should be .pdf,.txt,word and .ott format ")
+            raise ValidationError("Error! Something is wrong.File should be .pdf,.txt,.doc,.docx,.xls,.epub,.ppt,.ott,"
+                                  ".otd,.rtf and .mobi format ")
 
 
 
