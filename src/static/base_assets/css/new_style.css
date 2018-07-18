@@ -1413,9 +1413,12 @@ height: 450px;
 .now-playing p{
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 50%;
+  top: 80%;
   left: 50%;
   text-align: center;
+  width: 80%;
+  background: #00848F;
+  border-radius: 3px;
 }
 
 

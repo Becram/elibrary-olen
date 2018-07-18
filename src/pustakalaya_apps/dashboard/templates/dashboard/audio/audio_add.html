@@ -6,9 +6,58 @@
         <div class="col-md-10">
             <form action="." method="post" enctype="multipart/form-data">
              {% csrf_token %}
-            {{ audio_form  | crispy }}
-                <!-- fileupload form -->
+
+              {{ audio_form  | crispy }}
+
                 {{ audio_file_upload_form | crispy }}
+
+
+              <!--
+              <tr>
+                <th>{{ audio_form.title.label }}</th>
+                <td>
+                  {{ audio_form.title.errors }}
+                  {{ audio_form.title }}
+                </td>
+              </tr>
+
+              <tr>
+                <th>{{ audio_form.description.label }}</th>
+                <td>
+                  {{ audio_form.description.errors }}
+                  {{ audio_form.description }}
+                </td>
+              </tr>
+
+
+              <tr>
+                <th>{{ audio_form.languages.label }}</th>
+                <td>
+                  {{ audio_form.languages.errors }}
+                  {{ audio_form.languages }}
+                </td>
+              </tr>
+
+
+              <tr>
+                <th>{{ audio_form.audio_read_by.label }}</th>
+                <td>
+                  {{ audio_form.audio_read_by.errors }}
+                  {{ audio_form.audio_read_by }}
+                </td>
+              </tr>
+
+              <tr>
+                <th></th>
+                <td>
+                  {{ audio_file_upload_form | crispy }}
+
+                </td>
+              </tr>
+              <button class="btn-xs ole-btn">Add another file(+)</button>
+
+              -->
+
                {% include "license_agreement.html" %}
               <input type="submit" value="Create Audio" class="btn ole-btn">
             </form>

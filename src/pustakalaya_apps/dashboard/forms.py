@@ -152,9 +152,10 @@ class AudioForm(forms.ModelForm):
         self.fields['languages'].widget.attrs = {
             'title': 'Multiple selection field: Press Ctrl + click for multiple selection',
         }
-        self.fields['audio_read_by'].widget.attrs = {
-            'title': 'Multiple selection field: Press Ctrl + click for multiple selection',
-        }
+
+        # self.fields['audio_read_by'].widget.attrs = {
+        #     'title': 'Multiple selection field: Press Ctrl + click for multiple selection',
+        # }
 
 
 
@@ -212,7 +213,7 @@ AudioFileUploadFormSet = inlineformset_factory(
     Audio,
     AudioFileUpload,
     form=AudioFileUploadForm,
-    extra=1,
+    extra=1,    # if you put 2 then two browse box will appear and so on
     can_delete=False,
     can_order=False
 )

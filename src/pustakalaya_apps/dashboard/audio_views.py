@@ -83,7 +83,7 @@ class UpdateAudioView(LoginRequiredMixin, UpdateView):
                 'languages',
                 # 'publisher',
                 # 'audio_types',
-                'audio_read_by',
+                # 'audio_read_by',
                 # 'audio_genre',
                 'keywords',
                 # 'audio_series',
@@ -103,7 +103,7 @@ class UpdateAudioView(LoginRequiredMixin, UpdateView):
         # audio_types = cleaned_data.get('audio_types')
         # publisher = cleaned_data.get('publisher')
         # audio_types = cleaned_data.get('audio_types')
-        audio_read_by = cleaned_data.get('audio_read_by')
+        # audio_read_by = cleaned_data.get('audio_read_by')
         # audio_genre = cleaned_data.get('audio_genre')
         keywords = cleaned_data.get('keywords')
         # audio_series = cleaned_data.get('audio_series')
