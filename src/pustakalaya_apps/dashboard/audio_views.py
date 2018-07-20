@@ -4,7 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from pustakalaya_apps.audio.models import Audio
-from .forms import AudioFileUploadForm,AudioForm, AudioFileUploadFormSet
+from .forms import AudioFileUploadForm,AudioForm, AudioFileUploadFormSet,AudioReadBy
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -21,11 +21,13 @@ class AddAudioView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context = super(AddAudioView, self).get_context_data(**kwargs)
         if self.request.POST:
             context["audio_form"] = AudioForm(self.request.POST)
+            # context["audio_read_by"] = AudioReadBy(self.request.POST)
             context['audio_file_upload_form'] = AudioFileUploadFormSet(self.request.POST, self.request.FILES,
                                                                        instance=self.object)
 
         else:
             context["audio_form"] = AudioForm()
+            # context["audio_read_by"] = AudioReadBy()
             context['audio_file_upload_form'] = AudioFileUploadFormSet()
 
         return context
@@ -80,12 +82,12 @@ class UpdateAudioView(LoginRequiredMixin, UpdateView):
                 # 'collections',
                 # 'education_levels',
                 'description',
-                'languages',
+                # 'languages',
                 # 'publisher',
                 # 'audio_types',
                 # 'audio_read_by',
                 # 'audio_genre',
-                'keywords',
+                # 'keywords',
                 # 'audio_series',
                 # 'license_type'
     ]
@@ -99,13 +101,13 @@ class UpdateAudioView(LoginRequiredMixin, UpdateView):
         # collections = cleaned_data.get('collections')
         description = cleaned_data.get('description')
         # education_levels = cleaned_data.get('education_levels')
-        languages = cleaned_data.get('languages')
+        # languages = cleaned_data.get('languages')
         # audio_types = cleaned_data.get('audio_types')
         # publisher = cleaned_data.get('publisher')
         # audio_types = cleaned_data.get('audio_types')
         # audio_read_by = cleaned_data.get('audio_read_by')
         # audio_genre = cleaned_data.get('audio_genre')
-        keywords = cleaned_data.get('keywords')
+        # keywords = cleaned_data.get('keywords')
         # audio_series = cleaned_data.get('audio_series')
         # license_type = cleaned_data.get('license_type')
 

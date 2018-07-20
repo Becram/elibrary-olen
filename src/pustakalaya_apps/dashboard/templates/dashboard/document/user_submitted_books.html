@@ -4,81 +4,89 @@
 {
 {% load crispy_forms_tags %}
 {% block dashboard_content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="header">
-                    </div>
-                    <div class="content">
-                        {%  if items %}
-                        <h5 id="det-book-title">{% trans "Item submitted by you" %}</h5>
-                        <div class="row">
-                       
-                            {% for doc in items %}
-                                <a href="{{doc.get_absolute_url}}">
-                                <div class="col-md-3 col-sm-6 col-6">
-                                    <div class="grid-book-cont">
-                                      <div class="img-cont">
-                                        {% if doc.thumbnail  %}
-                                        <img  src="{{ MEDIA_URL }}{{ doc.thumbnail }}"
-                                            alt="{{ doc.title }}" title="{{ doc.title }}">
-                                       {% else %}
-                                        {% if doc.type == "document"%}
-                                        <img  src="{% static 'images_new/book_thumnail.png' %}"/>
-                                       {% elif doc.type == "audio"%}
-                                        <img  src="{% static 'images_new/audio_thumnail.png' %}"/>
-                                       {% else %}
-                                        <img  src="{% static 'images_new/video_thumnail.png' %}"/>
-                                        {% endif %}
-                                       {% endif %}
-                                      </div>
-                                      <p class="book-label">
-                                        <a href="{{doc.get_absolute_url}}">{{doc.title}}</a>
-                                      </p>
-                                      <p class="book-type">
-                                          {% if doc.type == "document" %}
-                                          <i class="fa fa-book "></i>
-                                            {% elif doc.type == "audio" %}
-                                            <i class="fa fa-headphones"></i>
-                                           {% else %}
-                                              <i class="fa fa-video-camera"></i>
-                                           {% endif %}
-                                           {{doc.type}} 
-                                           </p>
-                                           <p class="text-center p1">
+<div class="container">
+  <div class="row">
+      <div class="col-md-12">
+      <div class="card">
+          <div class="header">
+          </div>
+          <div class="content">
+              {%  if items %}
+              <h5 id="det-book-title">{% trans "Item submitted by you" %}</h5>
+              <div class="row">
 
-                                                {% if doc.published == "no" %} 
-                                            <p class="text-muted text-small">Not published &nbsp;</p>
-                                             <span class="p-3">
-                                                    <a href="{{doc.get_dashboard_edit_url}}{{doc.pk}}">{% trans "Edit" %}</a>
-                                                    &nbsp;&nbsp;
+              {% for doc in items %}
+                  <a href="{{doc.get_absolute_url}}">
+                  <div class="col-md-3 col-sm-6 col-6">
+                      <div class="grid-book-cont">
+                        <div class="img-cont">
+                          {% if doc.thumbnail  %}
+                          <img  src="{{ MEDIA_URL }}{{ doc.thumbnail }}"
+                              alt="{{ doc.title }}" title="{{ doc.title }}">
+                         {% else %}
+                          {% if doc.type == "document"%}
+                          <img  src="{% static 'images_new/book_thumnail.png' %}"/>
+                         {% elif doc.type == "audio"%}
+                          <img  src="{% static 'images_new/audio_thumnail.png' %}"/>
+                         {% else %}
+                          <img  src="{% static 'images_new/video_thumnail.png' %}"/>
+                          {% endif %}
+                         {% endif %}
+                        </div>
+                        <p class="book-label">
+                          <a href="{{doc.get_absolute_url}}">{{doc.title}}</a>
+                        </p>
+                        <p class="book-type">
+                            {% if doc.type == "document" %}
+                            <i class="fa fa-book "></i>
+                              {% elif doc.type == "audio" %}
+                              <i class="fa fa-headphones"></i>
+                             {% else %}
+                                <i class="fa fa-video-camera"></i>
+                             {% endif %}
+                             {{doc.type}}
+                             </p>
+                             <p class="text-center p1">
 
-                                                    <a class="text-danger" href="{{doc.get_dashboard_delete_url}}{{doc.pk}}">{% trans "Delete" %}</a>
-                                                    
-                                             </span>
-                                            {% else %}
-                                                <p class="text-muted">Published</p>
-                                           {% endif %}
+                                  {% if doc.published == "no" %}
+                              <p class="text-muted text-small">Not published &nbsp;</p>
+                               <span class="p-3">
+                                <a href="{{doc.get_dashboard_edit_url}}{{doc.pk}}">{% trans "Edit" %}</a>
+                                &nbsp;&nbsp;
+                                <a class="text-danger" href="{{doc.get_dashboard_delete_url}}{{doc.pk}}">{% trans "Delete" %}</a>
 
-                                            </p>
-                                           
-                                    </div>
-                                  </div>
-                          
-                            {% endfor %}
-                        </a>
+                               </span>
+                              {% else %}
+                                  <p class="text-muted">Published</p>
+                             {% endif %}
+
+                              </p>
+
                       </div>
-                  
-                    </div>
-                            {%  else %}
-                            <p class="text-primary">{%  trans "You haven't submitted any item" %}</p>
-                        {%  endif %}
-                    </div>
-                </div>
+                        </div>
+
+                  {% endfor %}
+              </a>
             </div>
 
 
-        </div>
+
+              <!--add pagination link here-->
+            <div class="row">
+            <div class="col-md-12 col-md-offset-2">
+                {% include '_partials/new_pagination.html' %}
+            </div>
+            </div>
+
+              </div>
+                      {%  else %}
+                      <p class="text-primary">{%  trans "You haven't submitted any item" %}</p>
+                  {%  endif %}
+              </div>
+          </div>
+      </div>
+
+
+  </div>
     </div>
 {% endblock dashboard_content %}

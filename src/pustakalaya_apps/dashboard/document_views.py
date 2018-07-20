@@ -8,9 +8,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
-
-
-
 from django.shortcuts import redirect
 from pustakalaya_apps.document.models import (
     DocumentFileUpload,
@@ -19,6 +16,8 @@ from pustakalaya_apps.document.models import (
 
 from pustakalaya_apps.audio.models import Audio
 from pustakalaya_apps.video.models import Video
+
+from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 
 from .forms import (
     DocumentForm,
@@ -93,12 +92,24 @@ def user_submission(request):
     # User submitted video
     user_videos = Video.objects.filter(submitted_by=user)
 
-    user_submitted_items = chain(user_documents, user_audios, user_videos)
+    user_submitted_items = list(chain(user_documents, user_audios, user_videos))
 
+    paginator = Paginator(user_submitted_items, 12)
+
+    page_no = request.GET.get('page')
+    try:
+        page = paginator.page(page_no)
+    except PageNotAnInteger:
+        page = paginator.page(1)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)
 
     return render(request, 'dashboard/document/user_submitted_books.html', {
-        'items': user_submitted_items
+        'items': page,
+        'page_obj': page,
+        "paginator": paginator
     })
+
 
 
 class UpdateDocumentView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -107,8 +118,8 @@ class UpdateDocumentView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         'title',
         # 'collections',
         'description',
-        'document_file_type',
-        'languages',
+        # 'document_file_type',
+        # 'languages',
         # 'document_interactivity',
         # 'publisher',
         # 'keywords',
@@ -127,11 +138,11 @@ class UpdateDocumentView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         title = cleaned_data.get('title')
         # collections = cleaned_data.get('collections')
         description = cleaned_data.get('description')
-        document_file_type = cleaned_data.get('document_file_type')
-        languages = cleaned_data.get('languages')
+        # document_file_type = cleaned_data.get('document_file_type')
+        # languages = cleaned_data.get('languages')
         # document_interactivity = cleaned_data.get('document_interactivity')
         # publisher = cleaned_data.get('publisher')
-        keywords = cleaned_data.get('keywords')
+        # keywords = cleaned_data.get('keywords')
         # document_series = cleaned_data.get('document_series')
         document_type = cleaned_data.get('document_type')
         # license_type = cleaned_data.get('license_type')

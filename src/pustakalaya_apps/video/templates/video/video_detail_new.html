@@ -152,9 +152,9 @@
         {% if request.user.is_superuser %}
          <p id="featured_item">
         {% if object.featured == "yes"%}
-          <button type="button" class="btn ole-btn-trans det-fav-added" value="{{object.pk }}" id="featured_set"><i class="fa fa-check-circle"></i>{% trans "Added to featured" %}</button>
+          <button type="button" class="btn ole-btn-trans det-fav-added" value="{{object.pk }}" id="featured_set"><i class="fa fa-check-circle"></i>{% trans "Unfeature" %}</button>
         {% else %}
-          <button type="button" class="btn ole-btn-trans " value="{{object.pk }}" id="featured_not_set">{% trans "Add to featured" %}</button>
+          <button type="button" class="btn ole-btn-trans " value="{{object.pk }}" id="featured_not_set">{% trans "Feature" %}</button>
         {% endif %}
          </p>
         {% endif %}
@@ -1133,7 +1133,7 @@
         //alert("success to add to feature");
           $('#featured_not_set').remove();
            //This reading is done for multi language support
-           var featured_added_text = "Added to featured";//$('#added_to_fav').text();
+           var featured_added_text = "Unfeature";//$('#added_to_fav').text();
 
            $("#featured_item").append(''+
                            '<button type="button" class="btn ole-btn-trans det-fav-added" value="'+ content_id +'" id="featured_set"><i class="fa fa-check-circle"></i> '+featured_added_text+'</button>'
@@ -1176,7 +1176,7 @@
           $("#featured_set").remove();
 
           //This reading is done for multi language support
-           var featured_add_text = "Add to featured";//$('#add_to_fav').text();
+           var featured_add_text = "Feature";//$('#add_to_fav').text();
 
            $("#featured_item").append(''+
                            '<button type="button" value="'+ content_id +'" class="btn ole-btn-trans " id="featured_not_set" > '+featured_add_text+'</button>'
