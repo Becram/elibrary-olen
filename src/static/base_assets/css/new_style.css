@@ -1667,3 +1667,11 @@ height: 450px;
     margin-bottom: 0;
     transition-duration: 0.4s;
 }
+
+
+/* Login account for different social account */
+@media only screen and (min-width: 770px) {
+.verticalLine {
+  border-right: dashed #00BCD4;
+}
+}
