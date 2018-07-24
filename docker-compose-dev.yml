@@ -49,7 +49,7 @@ services:
       - POSTGRES_DB=pustakalaya
       - POSTGRES_PASSWORD=pustakalaya123
       - POSTGRES_BACKUP_DIR=/pg_backups
-      - CRON_SCHEDULE= "* 1 * * *"
+#      - CRON_SCHEDULE= "* 1 * * *"
 
     hostname: db
     container_name: dev_postgres_01
