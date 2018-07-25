@@ -4,31 +4,7 @@
 {% block style %}
 {{block.super}}
 
-  <style>
-    /*
-  .help-ico{
-    float: right;
-  }
-
-  .exp-main{
-    float: right;
-    margin-bottom: 20px;
-  }
-
-  .help-main-ques, .exp-main{
-    color: #00838F;
-    cursor: pointer;
-  }
-
-  .help-main-ques:hover, .exp-main:hover{
-    color: #00BBD3;
-  }
-
-  .help-ques-cont hr{
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-  }
-  */
+<style>
 
   .help-ico{
     float: right;
@@ -53,7 +29,7 @@
     margin-bottom: 0.5em;
   }
 
-  </style>
+</style>
 
 {%  endblock style %}
 
@@ -104,7 +80,7 @@
              {% blocktrans %}
 
              E-Pustakalaya has four powerful features that make it easy for the user to access books, documents, videos, audio files, and images:<br/><br/>
-            <b>Browsing capability:</b> The user can browse through the seven major sections looking for items she likes, or she can also browse by author, subject, date and keyword. </br><br>
+            <b>Browsing capability:</b> The user can browse through the six major sections looking for items she likes, or she can also browse by author, subject, date and keyword. </br><br>
 
           <b>Searching capability:</b> If the user knows the specifics about the item she is looking for (e.g., exact title or author), she can look for that item using the library search facility.<br/><br>
 
@@ -127,7 +103,7 @@
 
            <ol type="a" class="paragraph-font">
              <br>
-              <b><i>Browsing through the seven main sections:</i></b>
+              <b><i>Browsing through the six main sections:</i></b>
               <ol type="text-justify">
                 <li>When you click on any of the main sections, you will see a page with the
                   sub-sections for
@@ -173,7 +149,7 @@
                 </li>
                 <br>
                 <li>At any point while the user is browsing through E-Pustakalaya, if she wants to go to
-                  any of the seven main sections, she can do so directly by simply clicking on the
+                  any of the six main sections, she can do so directly by simply clicking on the
                   links for these
                   sections on the categories bar right above the content area.
               </li></ol>
@@ -255,18 +231,16 @@
             </div>
           <div id="help2" class="collapse">
             {% blocktrans %}
-            There are seven major sections in E-Pustakalaya: <br>
+            There are six major sections in E-Pustakalaya: <br>
             <ol>
                 <li>
-                  <b>Literature</b> – This section includes Nepali and English literature
+                  <b>Literature and Art</b> – This section includes Nepali and English literature
                   categorized by language and
                   age group. In the future, we also intend to add literature in other Nepali languages and
                   to add
                   filtering by genre
                   and other characteristics.
-                </li>
-                <li>
-                  <b>Art</b> – This section includes books and materials on different art forms,
+                  This section also includes books and materials on different art forms,
                   movements and artists,
                   along with a diverse array of hands on material that will be very useful for children
                   wishing to
@@ -335,66 +309,7 @@
           </div>
           <hr>
         </div>
-        <div class="help-ques-cont">
-            <div class="help-main-ques" data-toggle="collapse" data-target="#help4">
 
-              <span class="help-ques">{% trans "WHAT ARE THE DIFFERENT SECTIONS I SEE ON THE E-PUSTAKALAYA HOME PAGE?" %}</span>
-              <span class="help-ico">+</span>
-            </div>
-          <div id="help4" class="collapse">
-              {% blocktrans %}
-              The E-Pustakaalya home page is divided into four quadrants:
-              <br>
-              <ol>
-                  The E-Pustakaalya home page is divided into four quadrants:
-                  <li>On the left lie links for the seven main sections of the library listed earlier. Each of
-                    the seven main sections has a number of sub-sections that can be viewed after entering
-                    that
-                    section. Users can browse through the collections (i.e., see a listing of the materials)
-                    in each
-                    of these sections and subsections to look for materials they want.
-                  </li>
-                  <br>
-                  <li>
-                    The box on the right— read more — includes a link that allows users to browse
-                    through the library collections according to the latest additions. In addition to this,
-                    there
-                    are direct links to the Maps, Video, School Wikipedia and
-                    Nepali Dictionary pages; as well as to the latest version of E-Paath, OLE Nepal’s
-                    educational
-                    activities package.
-                  </li>
-                  <br>
-                  <li>
-                    At the top of the home page is the search bar, which contains the search and
-                    advanced search options. If users know the specifics of the item they are
-                    looking for (e.g., part of the title or author name), they can search for that item
-                    directly by
-                    entering a word or a string of words in the rectangular search field and hitting the
-                    enter key.
-                    (or alternatively, they can click on the magnifying glass icon). If There is a button
-                    right next
-                    to the search bar that enables users to conduct an advanced search..
-                  </li>
-                  <br>
-                  <li>
-                    The fourth section is the navigation bar right below the search bar. This bar
-                    contains a
-                    link on the far left that allows users to log on to E-Pustakalaya with their registered
-                    usernames. On the right, there is a link called “home page” that redirects users to the
-                    home
-                    page. Next to this is a link titled 'feedback' which takes users to the feedback form.
-                    On the
-                    far
-                    right is the help button that directs users to this users’ guide.
-                  </li>
-                </ol>
-
-              {% endblocktrans %}
-
-          </div>
-          <hr>
-        </div>
         <div class="help-ques-cont">
             <div class="help-main-ques" data-toggle="collapse" data-target="#help6">
 

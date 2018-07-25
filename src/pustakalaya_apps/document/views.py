@@ -16,9 +16,11 @@ from django.core.exceptions import ObjectDoesNotExist
 
 # from .forms import BaseDocumentFormSet
 
+
 def documents(request):
     documents = 1 or Document.objects.all()
     return render(request, 'document/documents.html', {'documents': documents})
+
 
 def flipBook(request, pk):
 
@@ -83,12 +85,10 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
             favourite_data = Favourite.objects.filter(favourite_item_id=self.object.pk, favourite_item_type='document', user=request.user);
 
         if length > 0 and length <= number_per_page:
-            context["data_review"]= data_review
+            context["data_review"] = data_review
 
-
-
-        context["favourite_data"]= favourite_data
-        context["total_review_count"]=length
+        context["favourite_data"] = favourite_data
+        context["total_review_count"] = length
 
         # Rating average,total,and user_rating
         # Get the rating of current object
@@ -104,8 +104,6 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
             context["rating_total"]=rating_obj.total
         except ObjectDoesNotExist:
             pass
-
-
 
         return self.render_to_response(context)
 
@@ -126,6 +124,6 @@ def document_page_view(request, pk):
             pass
 
     # Create json response
-    #print(json_response)
+
     json_response = json.dumps(json_response)
     return HttpResponse(json_response, content_type="application/json")

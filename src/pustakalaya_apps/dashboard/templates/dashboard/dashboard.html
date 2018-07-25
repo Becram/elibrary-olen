@@ -1,4 +1,5 @@
 {% extends "base.html" %} {% load static %} {% load i18n %}
+{% load pustakalaya_filters %}
  {% block style %} {{block.super}}
 <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
 
@@ -12,26 +13,8 @@
     <main role="main" class="col-md-9 px-4">
       <div class="row">
         <div class="col-md-12 das-intro">
-          <div class="das-sett">
-            <i class="fa fa-cog"></i>
-            {% trans "Settings" %} &#9662;
-            <ul class="dropdown-menu dd-dash" id="dashboard-setting">
-              <li>
-                <a class="text-capitalize" href="/dashboard/profile/edit/{{request.user.id}}">{% trans "edit profile" %}</a>
-              </li>
 
-              <li>
-                <a class="text-capitalize" href="/accounts/password/change/">{% trans "change password" %}</a>
-              </li>
-              <li>
-                <a class="text-capitalize" href="/accounts/email/">{% trans "manage email" %}</a>
-              </li>
-              <li>
-                <a class="text-capitalize" href="/accounts/social/connections/">{% trans "Social accounts" %}</a>
-              </li>
-            </ul>
-          </div>
-
+          {% include  'dashboard/settings.html' %}
         </div>
       </div>
       <hr>
@@ -54,7 +37,8 @@
       {% block dashboard_content %}
 
 
-      <h5 id="det-book-title">{% trans "Popular items" %}</h5>
+      <!--popular or featured item -->
+      <h5 id="det-book-title">{% trans "Featured items" %}</h5>
       <div class="row">
 
             {% for doc in popular_documents %}
@@ -104,19 +88,24 @@
 
             {% endfor %}
 
-
-
-
       </div>
+      <br>
+        <a href="/show_featured/" class="pull-right">See all</a>
+      <br>
+       <hr>
 
-      <hr>
 
-      <h5 id="det-book-title">{% trans "Your Favorites" %}</h5>
+
+
+    {% if  favourite_documents %}
+      <h5>{% trans "My favorites items" %}</h5>
       <div class="row">
 
           {% for doc in favourite_documents %}
               <div class="col-md-3 col-sm-6 col-6">
+                <a href="{{doc.get_absolute_url}}">
                   <div class="grid-book-cont">
+
                     <div class="img-cont">
                       {% if doc.thumbnail  %}
                       <img  src="{{ MEDIA_URL }}{{ doc.thumbnail }}"
@@ -131,8 +120,9 @@
                       {% endif %}
                      {% endif %}
                     </div>
+
                     <p class="book-label">
-                      <a href="{{doc.get_absolute_url}}">{{doc.title}}</a>
+                      {{doc.title}}
                     </p>
                     <p class="book-type">
                         {% if doc.type == "document" %}
@@ -145,11 +135,15 @@
                          {{doc.type}}
                          </p>
                   </div>
+                  </a>
                 </div>
 
           {% endfor %}
+      </div>
+      <br>
+      <a href="{% url 'dashboard:show_all_favourite' %}" class="pull-right">See all</a>
 
-    </div>
+      {% comment %}
       <div class="row pull-left mt-4">
          <hr >
               <div class="pagination">
@@ -170,8 +164,113 @@
                 </span>
                 </div>
       </div>
+      {% endcomment %}
 
-  </div>
+      <br>
+      <hr>
+      {% endif %}
+
+
+      <!--for rated  item -->
+      {% if  rated_item %}
+      <h5>{% trans "My rated items" %}</h5>
+      <div class="row">
+
+          {% for doc in rated_item %}
+              <div class="col-md-3 col-sm-6 col-6">
+                <a href="{{doc.get_absolute_url}}">
+                  <div class="grid-book-cont">
+
+                    <div class="img-cont">
+                      {% if doc.thumbnail  %}
+                      <img  src="{{ MEDIA_URL }}{{ doc.thumbnail }}"
+                          alt="{{ doc.title }}" title="{{ doc.title }}">
+                     {% else %}
+                      {% if doc.type == "document"%}
+                      <img  src="{% static 'images_new/book_thumnail.png' %}"/>
+                     {% elif doc.type == "audio"%}
+                      <img  src="{% static 'images_new/audio_thumnail.png' %}"/>
+                     {% else %}
+                      <img  src="{% static 'images_new/video_thumnail.png' %}"/>
+                      {% endif %}
+                     {% endif %}
+                    </div>
+
+                    <p class="book-label">
+                      {{doc.title}}
+                    </p>
+                    <p class="book-type">
+                        {% if doc.type == "document" %}
+                        <i class="fa fa-book "></i>
+                          {% elif doc.type == "audio" %}
+                          <i class="fa fa-headphones"></i>
+                         {% else %}
+                            <i class="fa fa-video-camera"></i>
+                         {% endif %}
+                         {{doc.type}}
+                         </p>
+                  </div>
+                  </a>
+                </div>
+          {% endfor %}
+
+      </div>
+      <br>
+
+        <a href="{% url 'dashboard:show_all_rated' %}" class="pull-right">See all</a>
+
+      <br>
+      <hr>
+      {% endif %}
+
+      <!--your reviewed item-->
+       {% if  rated_item %}
+      <h5>{% trans "My reviewed items" %}</h5>
+      <div class="row">
+
+      {% for doc in reviewed_item %}
+          <div class="col-md-3 col-sm-6 col-6">
+            <a href="{{doc.get_absolute_url}}">
+              <div class="grid-book-cont">
+
+                <div class="img-cont">
+                  {% if doc.thumbnail  %}
+                  <img  src="{{ MEDIA_URL }}{{ doc.thumbnail }}"
+                      alt="{{ doc.title }}" title="{{ doc.title }}">
+                 {% else %}
+                  {% if doc.type == "document"%}
+                  <img  src="{% static 'images_new/book_thumnail.png' %}"/>
+                 {% elif doc.type == "audio"%}
+                  <img  src="{% static 'images_new/audio_thumnail.png' %}"/>
+                 {% else %}
+                  <img  src="{% static 'images_new/video_thumnail.png' %}"/>
+                  {% endif %}
+                 {% endif %}
+                </div>
+
+                <p class="book-label">
+                  {{doc.title}}
+                </p>
+                <p class="book-type">
+                    {% if doc.type == "document" %}
+                    <i class="fa fa-book "></i>
+                      {% elif doc.type == "audio" %}
+                      <i class="fa fa-headphones"></i>
+                     {% else %}
+                        <i class="fa fa-video-camera"></i>
+                     {% endif %}
+                     {{doc.type}}
+                     </p>
+              </div>
+              </a>
+            </div>
+      {% endfor %}
+      </div>
+      <br>
+        <a href="{% url 'dashboard:show_all_reviewed' %}" class="pull-right">See all</a>
+      <br>
+      <hr>
+      {% endif %}
 
 
   {% endblock dashboard_content %}

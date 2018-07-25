@@ -210,7 +210,7 @@ class Video(AbstractItem):
     def get_dashboard_delete_url(self):
         return reverse("dashboard:video_delete", kwargs={"pk": self.pk})
 
-        
+
 
 
 
@@ -346,6 +346,15 @@ class VideoFileUpload(AbstractTimeStampModel):
         blank=True,
         null=True,
         help_text=_("maximum size of thumbnail should be 165px by 93px")
+    )
+
+    # This is added to ignore the delay caused while playing video
+    video_running_length = models.CharField(
+        _("Video running length"),
+        editable=False,
+        max_length=255,
+        blank=True,
+        null=True
     )
 
     def __str__(self):

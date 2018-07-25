@@ -1,0 +1,109 @@
+{% extends "base.html" %} {% load static %} {% load i18n %}
+{% load pustakalaya_filters %}
+ {% block style %} {{block.super}}
+<link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
+
+{% endblock style %} {% block content %}
+<div class="container">
+  <div class="row">
+    <!-- sidebar -->
+    {% include 'dashboard/_partials/sidebar.html' %}
+
+    <!-- main content area -->
+    <main role="main" class="col-md-9 px-4">
+      <div class="row">
+        <div class="col-md-12 das-intro">
+         {% include 'dashboard/settings.html' %}
+        </div>
+      </div>
+      <hr>
+
+
+      {% if messages %}
+
+      <div class="alert alert-info alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+          {% for message in messages %}
+
+          <p style="margin:none;" class="text-{% if message.tags %} {{ message.tags }} {% endif %}">{{ message }}</p>
+        {% endfor %}
+
+        </div>
+
+      {% endif %}
+
+      {% block dashboard_content %}
+
+      <!--popular or featured item -->
+      <h5 id="det-book-title">{% trans "All my rated items" %}</h5>
+     <small> <div class="text-secondary mb-2">Total: {{ total_count }}</div></small>
+      <div class="row">
+
+            {% for doc in rated_item %}
+                <div class="col-md-3 col-sm-6 col-6">
+                    <div class="grid-book-cont">
+                      <a href="{{doc.get_absolute_url}}">
+                      <div class="img-cont">
+                        {% if doc.thumbnail  %}
+                        <img  src="{{ MEDIA_URL }}{{ doc.thumbnail }}"
+                            alt="{{ doc.title }}" title="{{ doc.title }}">
+                       {% else %}
+                        {% if doc.type == "document"%}
+                        <img  src="{% static 'images_new/book_thumnail.png' %}"/>
+                       {% elif doc.type == "audio"%}
+                        <img  src="{% static 'images_new/audio_thumnail.png' %}"/>
+                       {% else %}
+                        <img  src="{% static 'images_new/video_thumnail.png' %}"/>
+                        {% endif %}
+                       {% endif %}
+                      </div>
+                      <p class="book-label">
+                        {{doc.title}}
+                      </p>
+                      </a>
+                      <p class="book-type">
+                          {% if doc.type == "document" %}
+                          <i class="fa fa-book "></i>
+                            {% elif doc.type == "audio" %}
+                            <i class="fa fa-headphones"></i>
+                           {% else %}
+                              <i class="fa fa-video-camera"></i>
+                           {% endif %}
+                           {{doc.type}}
+                           </p>
+
+                      <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely
+                        {{doc.abstract}}
+                        <br>
+                        <strong class="text-black">Views:</strong>
+                        &nbsp;1
+                      </div>
+
+                      <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
+
+                    </div>
+                  </div>
+
+            {% endfor %}
+
+
+
+
+      </div>
+       <div class="row">
+            <div class="col-md-12 col-md-offset-2">
+                {% include '_partials/new_pagination.html' %}
+            </div>
+        </div>
+
+
+
+  {% endblock dashboard_content %}
+
+
+  </main>
+</div>
+</div>
+
+<script src="{% static '/dashboard/js/dashboard.js' %}" defer></script> {% endblock content %}

@@ -77,11 +77,11 @@ class UpdateVideoView(LoginRequiredMixin, UpdateView):
                 # 'collections',
                 'description',
                 # 'education_levels',
-                'languages',
+                # 'languages',
                 # 'publisher',
-                'video_director',
+                # 'video_director',
                 # 'video_genre',
-                'keywords',
+                # 'keywords',
                 # 'video_series',
                 # 'license_type'
     ]
@@ -95,11 +95,11 @@ class UpdateVideoView(LoginRequiredMixin, UpdateView):
         # collections = cleaned_data.get('collections')
         description = cleaned_data.get('description')
         # education_levels = cleaned_data.get('education_levels')
-        languages = cleaned_data.get('languages')
+        # languages = cleaned_data.get('languages')
         # publisher = cleaned_data.get('publisher')
-        video_director = cleaned_data.get('video_director')
+        # video_director = cleaned_data.get('video_director')
         # video_genre = cleaned_data.get('video_genre')
-        keywords = cleaned_data.get('keywords')
+        # keywords = cleaned_data.get('keywords')
         # video_series = cleaned_data.get('video_series')
         # license_type = cleaned_data.get('license_type')
 

@@ -8,6 +8,20 @@
     src: url(./../fonts/mangal/mangal.ttf);
 }
 
+
+::-moz-selection { /* Code for Firefox */
+    color: white;
+    background: #00838f;
+    border-color:#00838f;
+}
+
+::selection {
+    color: white;
+    background: #00838f;
+    border-color:#00838f;
+
+}
+
 body{
   background-color: #FAFAFA;
   font-size: 14px;
@@ -1398,9 +1412,12 @@ height: 450px;
 .now-playing p{
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 50%;
+  top: 80%;
   left: 50%;
   text-align: center;
+  width: 80%;
+  background: #00848F;
+  border-radius: 3px;
 }
 
 
@@ -1648,4 +1665,12 @@ height: 450px;
     overflow: hidden;
     margin-bottom: 0;
     transition-duration: 0.4s;
+}
+
+
+/* Login account for different social account */
+@media only screen and (min-width: 770px) {
+.verticalLine {
+  border-right: dashed #00BCD4;
+}
 }

@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load static %}
+<div class="das-sett">
+<i class="fa fa-cog"></i>
+{% trans "Settings" %} &#9662;
+<ul class="dropdown-menu dd-dash" id="dashboard-setting">
+  <li>
+    <a class="text-capitalize" href="/dashboard/profile/edit/{{request.user.id}}">{% trans "edit profile" %}</a>
+  </li>
+
+  <li>
+    <a class="text-capitalize" href="/accounts/password/change/">{% trans "change password" %}</a>
+  </li>
+  <li>
+   <a class="text-capitalize" href="/accounts/email/">{% trans "manage email" %}</a>
+  </li>
+  <li>
+  <!--<a class="text-capitalize" href="/accounts/social/connections/">{% trans "Social accounts" %}</a>-->
+  </li>
+</ul>
+</div>
