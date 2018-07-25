@@ -426,7 +426,7 @@
                   <th scope="col">{% trans "Keywords:" %}</th>
                   <td class="text-capitalize">
                     {% for keyword in object.keywords.all %}
-                    <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":["{{keyword.keyword}}"],"license_type":[]}&searchIn={{selected_doc_type}}' >
+                    <a href='/search/?q=&form-filter={"keywords":["{{keyword.keyword}}"]}' >
                         {{ keyword.keyword| transtolocal }}&nbsp;{%  if not forloop.last %}
                           ,
                       {%  endif %}
