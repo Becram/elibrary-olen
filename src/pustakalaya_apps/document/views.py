@@ -35,12 +35,12 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
 
     def get(self, request, **kwargs):
         self.object = self.get_object()
-        if self.object.published == "no":
-            # return HttpResponseRedirect("/")
-            # return Http404()
-            # msg = "Page not found"
-            # return HttpResponse(msg, status=404)
-            raise Http404
+        # if self.object.published == "no":
+        #     # return HttpResponseRedirect("/")
+        #     # return Http404()
+        #     # msg = "Page not found"
+        #     # return HttpResponse(msg, status=404)
+        #     raise Http404
 
         hit_count = HitCount.objects.get_for_object(self.object)
 
