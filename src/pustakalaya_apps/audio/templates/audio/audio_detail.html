@@ -5,6 +5,8 @@
 
 {% block content %}
 
+
+{% if object.published == "yes" %}
 <!--REMOVE THIS LATER-->
  <input type="hidden" name="content_type" value="audio"/>
  <input type="hidden" name="content_id" value="{{ object.pk }}">
@@ -691,6 +693,20 @@
 </div>
 
 
+
+{% else  %}
+  <div class="container">
+  <div class="sad_container">
+
+        <div class="sadface">
+          <i class="fa fa-frown-o"></i>
+        </div>
+        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No results found"%}</h5>
+        <br>
+        <p>{% trans "The link is either broken or the item is not published yet" %}.</p>
+    </div>
+  </div>
+{% endif  %}
 <!-- script to play audio -->
 <script>
     (function (window) {

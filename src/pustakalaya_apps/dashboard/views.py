@@ -2,21 +2,20 @@ from itertools import chain
 from django.shortcuts import render
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from pustakalaya_apps.pustakalaya_account.models import UserProfile
+# from pustakalaya_apps.pustakalaya_account.models import UserProfile
 from django.contrib.auth.decorators import login_required
-from pustakalaya_apps.document.models import Document
+# from pustakalaya_apps.document.models import Document
 from pustakalaya_apps.favourite_collection.models import Favourite
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
+# from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 from django.contrib.messages.views import SuccessMessageMixin
-from django.template import RequestContext
+# from django.template import RequestContext
 from pustakalaya_apps.document.models import Document
 from pustakalaya_apps.audio.models import Audio
 from pustakalaya_apps.video.models import Video
-
 
 from star_ratings.models import UserRating
 from pustakalaya_apps.review_system.models import Review
@@ -253,12 +252,4 @@ def show_all_reviewed_item(request):
         'page_obj': page,
         "paginator": paginator
     })
-
-
-
-
-
-
-
-
 

@@ -16,8 +16,8 @@ class AudioDetailView(DetailView):
     def get(self, request, **kwargs):
         self.object = self.get_object()
 
-        if self.object.published == "no":
-            raise Http404
+        # if self.object.published == "no":
+        #     raise Http404
 
         context = self.get_context_data(object=self.object)
 

@@ -414,6 +414,13 @@
 <div class="sidenav">
         <a href="/search/?form-filter=&q=">{% trans "Titles" %}</a>
         <a href="/authors">{% trans "Author" %}</a>
+
+        <a href="{% url 'about' %}">{% trans "About" %}</a>
+
+        <a href="{% url 'feedback' %}">{% trans "Feedback" %}</a>
+
+        <a href="{% url 'help' %}">{% trans "Help" %}</a>
+
         <button class="dropdown-btn">{% trans "Categories" %}
           ▾
         </button>
@@ -435,7 +442,11 @@
           ▾
         </button>
         <div class="dropdown-container">
-                <li>
+
+
+
+
+            <li>
 
 
 

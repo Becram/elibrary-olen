@@ -1357,15 +1357,15 @@ msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/sidebar.html:18
 msgid "Add Document"
-msgstr "पुस्तक"
+msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/sidebar.html:24
 msgid "Add Audio"
-msgstr "अडियो"
+msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/sidebar.html:30
 msgid "Add Video"
-msgstr "भिडियो"
+msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/sidebar.html:36
 msgid "My Submissions"
