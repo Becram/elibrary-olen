@@ -56,7 +56,7 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
         else:
             data_review = Review.objects.filter(content_id=self.object.pk, content_type='document',published=True)
 
-        #************Review pagination add************#
+        # ************Review pagination add************#
 
         length = len(data_review)
         # print("len=",length)
@@ -77,7 +77,7 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
 
             context["paginated_data"] = users
 
-        ########################Review Pagination end########################
+        # ####################### Review Pagination end ########################
 
         favourite_data=""
         # favourite item data extractions

@@ -17,7 +17,7 @@ from pustakalaya_apps.document.models import (
 from pustakalaya_apps.audio.models import Audio
 from pustakalaya_apps.video.models import Video
 
-from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import (
     DocumentForm,
@@ -57,25 +57,23 @@ class AddDocumentView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             self.object.published = "no"
             self.object.submitted_by = self.request.user
             self.object.save()
-            form.save_m2m() # Save other m2m fields.
+            form.save_m2m()  # Save other m2m fields.
             # Here instance is Document.
             inlines.instance = self.object
             inlines.save()
 
-            #Clear all other message and add message
+            # Clear all other message and add message
             storage = messages.get_messages(self.request)
             storage.used = True
 
             messages.add_message(
-               self.request,
+                self.request,
                 messages.SUCCESS,
-                 'Document added successfully, we will notify you after reviewing it'
+                'Document added successfully, we will notify you after reviewing it'
                 )
             return redirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data(form=form))
-
-
 
     # Handle the form in case all the invalid form.
     def form_invalid(self, form):

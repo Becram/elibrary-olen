@@ -34,7 +34,7 @@
           {% endif %}
 
           <a class="text-capitalize"
-          href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
+          href=' /search/?q=&form-filter={"collections":["{{collection.collection_name}}"]}'>
           {{ collection.collection_name | transtolocal }}
          </a>
 
@@ -91,12 +91,12 @@
                             </div>
 
 
-                             <p class="vid-duration">
+                             <!-- <p class="vid-duration">
                                <video class="calculateVideoLength"
                                     hidden
                                   src="{{ MEDIA_URL }}{{ video.upload }}">
                                 </video>
-                               <span class="videoduration"></span>
+                               <span class="videoduration"></span> -->
 
                              </p>
                             <img src="
@@ -838,7 +838,7 @@
                 $("#videoList").children("div").children("span").removeClass('show-playing-msg');
 
                 // Add class to this video
-                console.log("event = "+$(event))
+                //console.log("event = "+$(event))
                 $(event).addClass('ole-color');
                 $(event).addClass('show-playing-msg');
                 $(event).removeClass('hide-playing-msg');

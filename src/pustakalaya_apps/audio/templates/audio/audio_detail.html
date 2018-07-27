@@ -30,7 +30,7 @@
             {% endif %}
 
             <a class="text-capitalize"
-            href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
+            href=' /search/?q=&form-filter={"collections":["{{collection.collection_name}}"]}'>
             {{ collection.collection_name | transtolocal }}
            </a>
             {%  if not forloop.last %} ,{%  endif %}
@@ -257,8 +257,12 @@
 
 
                     <span style="float: right;">
-                        <audio class="calculateAudioLength"
+                    <!--    {#  <audio class="calculateAudioLength"
 
+                        src="{{ MEDIA_URL }}{{ audio.upload }}">
+                      </audio>
+                      #} -->
+                       <audio
                         src="{{ MEDIA_URL }}{{ audio.upload }}">
                       </audio>
 
