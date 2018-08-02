@@ -4,9 +4,10 @@
 }
 
 @font-face {
-    font-family: Mangal;
-    src: url(./../fonts/hind.woff2);
-    /*src: url(./../fonts/mangal/mangal.ttf);*/
+    font-family: Karma;
+    /*src: url(./../fonts/hind.woff2);*/
+    src: url(./../fonts/karma/Karma-Regular.ttf);
+
 }
 
 
@@ -1667,7 +1668,7 @@ height: 450px;
 /* this code should always be in the last of css. */
 
 body:lang(ne){
-  font-family: Mangal !important;
+  font-family: Karma !important;
   font-size: 16px;
  }
 
@@ -1677,7 +1678,7 @@ body:lang(en){
 
 
 h6:lang(ne), h5:lang(ne) {
-  font-family: Mangal !important;
+  font-family: Karma !important;
     font-size: 18px;
 
 }
