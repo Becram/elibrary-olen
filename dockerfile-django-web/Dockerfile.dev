@@ -28,14 +28,15 @@ RUN pip install -r /config/requirements_prod.txt
 #Sass installation
 RUN apt-get update -y && apt-get install curl -y
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash
-RUN apt-get install nodejs gettext vim -y 
+RUN apt-get install nodejs gettext vim -y
 RUN npm install gulp -g
-#RUN gulp sass
-#RUN gulp sass
 
 #Set timezone
 ENV TZ=Asia/Kathmandu
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+COPY ./src /src
+
 
 RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
 RUN chown -R ${APP_USER}:${APP_USER} /library/static_root
@@ -55,4 +56,3 @@ USER ${APP_USER}
 COPY ./dockerfile-django-web/run_web /script.d/
 
 CMD [ "/script.d/run_web"]
-

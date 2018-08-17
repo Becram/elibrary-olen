@@ -20,6 +20,7 @@ ADD src/requirements/requirements_prod.txt /config/
 RUN pip install -r /config/requirements_prod.txt
 RUN apt-get update && apt-get install poppler-utils -y
 
+COPY ./src /src
 
 EXPOSE 8000
 ADD . ${APP_ROOT}

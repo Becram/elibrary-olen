@@ -1,0 +1,147 @@
+version: '2'
+services:
+  nginx:
+    image: becram/olen-elib-nginx:s1.0
+    build:
+      context: ./dockerfile-nginx/
+      dockerfile: Dockerfile.dev
+    restart: always
+    hostname: nginx
+    container_name: dev_nginx_01
+    networks:
+      - pustakalaya-dev-network
+    ports:
+     - "81:8000"
+    volumes:
+     - /library/media_root:/library/media_root
+     - /library/static_root:/library/static_root
+    depends_on:
+     - web
+  web:
+    build:
+      context: .
+      dockerfile: ./dockerfile-django-web/Dockerfile.dev
+    image: becram/olen-elib-code:s1.0
+    restart: always
+    hostname: web
+    container_name: dev_django_web_01
+    depends_on:
+      - pgmaster
+      - elastic
+    volumes:
+      - /library/media_root:/library/media_root
+      - /library/static_root:/library/static_root
+    networks:
+      - pustakalaya-dev-network
+#    ports:
+#      - "8001:8001"
+    expose:
+      - "8001"
+    links:
+      - rabbitmq
+
+
+  pgmaster:
+    image: becram/olen-elib-db:s1.0
+    build:
+      context: ./dockerfile-postgres
+      dockerfile: postgres-9.6-repmagr.Dockerfile
+    restart: 'always'
+    hostname: pgmaster
+    container_name: tt_postgres_master
+    environment:
+      - POSTGRES_USER=pustakalaya_user
+      - POSTGRES_DB=pustakalaya
+      - POSTGRES_PASSWORD=pustakalaya123
+      - POSTGRES_BACKUP_DIR=/pg_backups
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+     - postgres_data_master:/var/lib/postgresql/data
+     - postgres_dump:/pg_backups
+    expose:
+     - '5432'
+    networks:
+      - pustakalaya-dev-network
+
+  pgslave:
+    image: becram/olen-elib-db:s1.0
+    build:
+      context: ./dockerfile-postgres
+      dockerfile: postgres-9.6-repmagr.Dockerfile
+    restart: 'always'
+    hostname: db-slave
+    container_name: tt_postgres_slave
+    environment:
+      - POSTGRES_USER=pustakalaya_user
+      - POSTGRES_DB=pustakalaya
+      - POSTGRES_PASSWORD=pustakalaya123
+      - POSTGRES_BACKUP_DIR=/pg_backups
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - REPLICATE_FROM=pgmaster
+    volumes:
+      - postgres_data_slave:/var/lib/postgresql/data
+    expose:
+      - '5432'
+    depends_on:
+      - pgmaster
+    networks:
+      - pustakalaya-dev-network
+
+
+  elastic:
+    image: becram/olen-elib-elastic:s1.0
+    build:
+      context: ./dockerfile-elastic
+      dockerfile: Dockerfile.dev
+    hostname: elastic
+    restart: always
+    container_name: dev_elasticsearch_01
+    volumes:
+      - ./conf:/conf
+    networks:
+      - pustakalaya-dev-network
+    # command: ./run_db.sh
+    depends_on:
+      - pgmaster
+    expose:
+      -  "9200"
+      -  "9300"
+    #ports:
+    #  -  '9200:9200'
+
+
+  rabbitmq:
+    image: rabbitmq:3.7
+    hostname: rabbitmq
+    restart: always
+    container_name: dev_rabbitmq_01
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    networks:
+      - pustakalaya-dev-network
+
+  celery:
+    image: becram/olen-elib-celery:s1.0
+    build:
+      context: .
+      dockerfile: ./dockerfile-celery/Dockerfile.dev
+    hostname: celery
+    restart: always
+    container_name: dev_celery_01
+    networks:
+      - pustakalaya-dev-network
+    depends_on:
+      - pgmaster
+      - rabbitmq
+
+volumes:
+  postgres_data_slave:
+  postgres_data_master:
+  postgres_dump:
+
+
+
+networks:
+  pustakalaya-dev-network:
+    driver: bridge

@@ -2,7 +2,7 @@ from .base import *  # NOQA
 
 DEBUG = False
 
-#100MB 
+#100MB
 FILE_UPLOAD_MAX_MEMORY_SIZE=104857600
 
 #CELERY_BROKER_URL = 'amqp://rabbitmq'
@@ -23,7 +23,7 @@ DATABASES = {
         'NAME': 'pustakalaya',
         'USER': 'pustakalaya_user',
         'PASSWORD': 'pustakalaya123',
-        'HOST': 'db',
+        'HOST': 'pgmaster',
         'PORT': '5432',
     }
 }

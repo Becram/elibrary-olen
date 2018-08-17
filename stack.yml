@@ -1,0 +1,104 @@
+version: '3'
+services:
+  nginx:
+    image: becram/olen-elib-nginx:s1.0
+    hostname: nginx
+    networks:
+      - pustakalaya-stack-network
+    ports:
+     - "80:8000"
+    volumes:
+     - /projects/library/media_root:/library/media_root
+     - /projects/library/static_root:/library/static_root
+    depends_on:
+     - web
+  web:
+    image: becram/olen-elib-code:s1.0
+    hostname: web
+    depends_on:
+      - pgmaster
+      - elastic
+      - rabbitmq
+    volumes:
+      - /projects/library/media_root:/library/media_root
+      - /projects/library/static_root:/library/static_root
+    networks:
+      - pustakalaya-stack-network
+
+
+
+  pgmaster:
+    image: becram/olen-elib-db:s1.0
+    hostname: pgmaster
+    environment:
+      - POSTGRES_USER=pustakalaya_user
+      - POSTGRES_DB=pustakalaya
+      - POSTGRES_PASSWORD=pustakalaya123
+      - POSTGRES_BACKUP_DIR=/pg_backups
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+     - postgres_data_master:/var/lib/postgresql/data
+     - postgres_dump:/pg_backups
+    networks:
+      - pustakalaya-stack-network
+
+  pgslave:
+    image: becram/olen-elib-db:s1.0
+    hostname: db-slave
+    environment:
+      - POSTGRES_USER=pustakalaya_user
+      - POSTGRES_DB=pustakalaya
+      - POSTGRES_PASSWORD=pustakalaya123
+      - POSTGRES_BACKUP_DIR=/pg_backups
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - REPLICATE_FROM=pgmaster
+    volumes:
+      - postgres_data_slave:/var/lib/postgresql/data
+    depends_on:
+      - pgmaster
+    networks:
+      - pustakalaya-stack-network
+
+
+  elastic:
+    image: becram/olen-elib-elastic:s1.0
+    hostname: elastic
+    networks:
+      - pustakalaya-stack-network
+    volumes:
+      - pusta_elastic:/usr/share/elasticsearch/data
+    depends_on:
+      - pgmaster
+
+
+
+
+  rabbitmq:
+    image: rabbitmq:3.7
+    hostname: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    networks:
+      - pustakalaya-stack-network
+
+  celery:
+    image: becram/olen-elib-celery:s1.0
+    hostname: celery
+    networks:
+      - pustakalaya-stack-network
+    depends_on:
+      - pgmaster
+      - rabbitmq
+
+volumes:
+  postgres_data_slave:
+  postgres_data_master:
+  postgres_dump:
+  pusta_elastic:
+
+
+
+networks:
+  pustakalaya-stack-network:
+    driver: overlay

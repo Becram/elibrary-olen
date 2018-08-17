@@ -62,8 +62,6 @@ services:
       - "5432"
     ports:
       -  '5432:5432'
-
-
   elastic:
     build:
       context: ./dockerfile-elastic
