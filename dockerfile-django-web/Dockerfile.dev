@@ -19,14 +19,14 @@ WORKDIR ${APP_ROOT}
 
 RUN mkdir -p /library/media_root
 RUN mkdir -p  /library/static_root
-RUN mkdir /config
+RUN mkdir /config./dockerfile-django-web/Dockerfile.dev
 ADD src/requirements/requirements_dev.txt /config/
 ADD src/requirements/base.txt /config/
 ADD src/requirements/requirements_prod.txt /config/
 RUN pip install -r /config/requirements_prod.txt
 
 #Sass installation
-RUN apt-get update -y && apt-get install curl -y
+RUN apt-get update -y && apt-get install curl supervisor -y
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash
 RUN apt-get install nodejs gettext vim -y
 RUN npm install gulp -g
@@ -49,10 +49,9 @@ COPY ./dockerfile-django-web/adapter.py /usr/local/lib/python3.6/site-packages/a
 EXPOSE 8000
 
 USER ${APP_USER}
+COPY ./dockerfile-django-web/docker-entrypoint.sh /src/docker-entrypoint.sh
+COPY ./dockerfile-django-web/entrypoint-post.sh /src/entrypoint-post.sh
 
-#ADD . ${APP_ROOT}
 
-#ADD . ${APP_ROOT}
-COPY ./dockerfile-django-web/run_web /script.d/
-
-CMD [ "/script.d/run_web"]
+ENTRYPOINT ["/src/docker-entrypoint.sh"]
+CMD ["run"]

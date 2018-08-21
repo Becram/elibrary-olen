@@ -28,22 +28,31 @@ RUN pip install -r /config/requirements_prod.txt
 #Sass installation
 RUN apt-get update -y && apt-get install curl -y
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash
-RUN apt-get install nodejs -y
+RUN apt-get install nodejs gettext vim -y
 RUN npm install gulp -g
-#RUN gulp sass
-#RUN gulp sass
 
 #Set timezone
 ENV TZ=Asia/Kathmandu
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+COPY ./src /src
+
 
 RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
 RUN chown -R ${APP_USER}:${APP_USER} /library/static_root
 RUN chown -R ${APP_USER}:${APP_USER} /src
 RUN chown -R ${APP_USER}:${APP_USER} /var/log
 
+# sign up docker hostname conflict issue resolved
+COPY ./dockerfile-django-web/adapter.py /usr/local/lib/python3.6/site-packages/allauth/account/adapter.py
+
 EXPOSE 8000
 
 USER ${APP_USER}
 
 #ADD . ${APP_ROOT}
+
+#ADD . ${APP_ROOT}
+COPY ./dockerfile-django-web/run_web /src/
+
+CMD ["/src/run_web"]

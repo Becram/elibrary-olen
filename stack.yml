@@ -12,16 +12,24 @@ services:
      - /projects/library/static_root:/library/static_root
     depends_on:
      - web
+
   web:
     image: becram/olen-elib-code:s1.0
     hostname: web
     depends_on:
       - pgmaster
       - elastic
+      - pgslave
+      - celery
       - rabbitmq
     volumes:
       - /projects/library/media_root:/library/media_root
       - /projects/library/static_root:/library/static_root
+    environment:
+      - GUNICORN_NAME=pustakalaya
+      - GUNICORN_NUM_WORKERS=4
+      - DJANGO_WSGI_MODULE=pustakalaya.wsgi
+
     networks:
       - pustakalaya-stack-network
 
@@ -37,8 +45,10 @@ services:
       - POSTGRES_BACKUP_DIR=/pg_backups
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-     - postgres_data_master:/var/lib/postgresql/data
-     - postgres_dump:/pg_backups
+      - postgres_data_master:/var/lib/postgresql/data
+      - postgres_dump:/pg_backups
+    depends_on:
+      - pgslave
     networks:
       - pustakalaya-stack-network
 
@@ -54,8 +64,6 @@ services:
       - REPLICATE_FROM=pgmaster
     volumes:
       - postgres_data_slave:/var/lib/postgresql/data
-    depends_on:
-      - pgmaster
     networks:
       - pustakalaya-stack-network
 
@@ -69,9 +77,6 @@ services:
       - pusta_elastic:/usr/share/elasticsearch/data
     depends_on:
       - pgmaster
-
-
-
 
   rabbitmq:
     image: rabbitmq:3.7

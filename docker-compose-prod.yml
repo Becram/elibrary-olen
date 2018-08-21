@@ -12,7 +12,7 @@ services:
     volumes:
      - ./src:/src
      - /library/media_root:/library/media_root
-     - /library/static_root:/library/static_root
+     - /library/static_root:/library/stdocker_dump_sql atic_root
     depends_on:
      - web
   web:
