@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+STACK=$1
+SERVICE=$2
+
+
+#docker exec -ti $STACK_$SERVICE.1.$(docker service ps -f 'name=$1_$SERVICE.1' $STACK_$SERVICE -q --no-trunc | head -n1) /bin/bash
+
+docker exec -ti ${STACK}_${SERVICE}.1.$(docker service ps -f "name=${STACK}_${SERVICE}.1" ${STACK}_${SERVICE} -q --no-trunc | head -n1) \
+bash -c "bash initialize.sh"

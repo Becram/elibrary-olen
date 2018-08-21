@@ -19,7 +19,7 @@ WORKDIR ${APP_ROOT}
 
 RUN mkdir -p /library/media_root
 RUN mkdir -p  /library/static_root
-RUN mkdir /config./dockerfile-django-web/Dockerfile.dev
+RUN mkdir /config
 ADD src/requirements/requirements_dev.txt /config/
 ADD src/requirements/base.txt /config/
 ADD src/requirements/requirements_prod.txt /config/
@@ -50,7 +50,7 @@ EXPOSE 8000
 
 USER ${APP_USER}
 COPY ./dockerfile-django-web/docker-entrypoint.sh /src/docker-entrypoint.sh
-COPY ./dockerfile-django-web/entrypoint-post.sh /src/entrypoint-post.sh
+COPY ./dockerfile-django-web/initialize.sh /src/initialize.sh
 
 
 ENTRYPOINT ["/src/docker-entrypoint.sh"]
