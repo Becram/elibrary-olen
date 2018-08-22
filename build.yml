@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.dev
     restart: always
     hostname: nginx
-    container_name: dev_nginx_01
+    container_name: pusta_nginx_01
     networks:
       - pustakalaya-dev-network
     ports:
@@ -24,7 +24,11 @@ services:
     image: becram/olen-elib-code:s1.0
     restart: always
     hostname: web
-    container_name: dev_django_web_01
+    container_name: pusta_web_01
+    environment:
+      - GUNICORN_NAME=pustakalaya
+      - GUNICORN_NUM_WORKERS=4
+      - DJANGO_WSGI_MODULE=pustakalaya.wsgi
     depends_on:
       - pgmaster
       - elastic
@@ -51,7 +55,7 @@ services:
       dockerfile: postgres-9.6-repmagr.Dockerfile
     restart: 'always'
     hostname: pgmaster
-    container_name: tt_postgres_master
+    container_name: pusta_pgmaster_01
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
@@ -73,7 +77,7 @@ services:
       dockerfile: postgres-9.6-repmagr.Dockerfile
     restart: 'always'
     hostname: db-slave
-    container_name: tt_postgres_slave
+    container_name: pusta_pgslave_01
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
@@ -98,7 +102,7 @@ services:
       dockerfile: Dockerfile.dev
     hostname: elastic
     restart: always
-    container_name: dev_elasticsearch_01
+    container_name: pusta_elasticsearch_01
     volumes:
       - ./conf:/conf
     networks:
@@ -117,7 +121,7 @@ services:
     image: rabbitmq:3.7
     hostname: rabbitmq
     restart: always
-    container_name: dev_rabbitmq_01
+    container_name: pusta_rabbitmq_01
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
@@ -131,12 +135,28 @@ services:
       dockerfile: ./dockerfile-celery/Dockerfile.dev
     hostname: celery
     restart: always
-    container_name: dev_celery_01
+    container_name: pusta_celery_01
     networks:
       - pustakalaya-dev-network
     depends_on:
       - pgmaster
       - rabbitmq
+
+
+  kibana:
+    image: becram/olen-elib-kibana:s1.0
+    build:
+      context: ./dockerfile-kibana
+      dockerfile: Dockerfile.dev
+    restart: 'always'
+    hostname: kibana
+    container_name: pusta_kibana_01
+    ports:
+      - "8056:5601"
+    depends_on:
+      - pgmaster
+    networks:
+      - pustakalaya-dev-network
 
 volumes:
   postgres_data_slave:
