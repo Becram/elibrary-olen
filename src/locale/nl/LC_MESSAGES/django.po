@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pustakalaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-02 10:39+0545\n"
+"POT-Creation-Date: 2018-08-28 15:12+0545\n"
 "PO-Revision-Date: 2017-10-02 23:42-0400\n"
 "Last-Translator: nix1947 <openpy.manoj@gmail.com>\n"
 "Language-Team: Dutch\n"
@@ -2089,7 +2089,7 @@ msgid "DEVELOPED AND MAINTAINED BY"
 msgstr ""
 
 #: templates/_partials/footer.html:111
-msgid "MAJOR PARTNERS"
+msgid "PAST PARTNERS"
 msgstr ""
 
 #: templates/_partials/footer.html:128

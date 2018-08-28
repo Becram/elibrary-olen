@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pustakalaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-02 10:39+0545\n"
+"POT-Creation-Date: 2018-08-28 15:12+0545\n"
 "PO-Revision-Date: 2017-10-03 00:01-0400\n"
 "Last-Translator: nix1947 <openpy.manoj@gmail.com>\n"
 "Language-Team: Nepali\n"
@@ -2108,8 +2108,8 @@ msgid "DEVELOPED AND MAINTAINED BY"
 msgstr "विकास तथा सम्भारकर्ता "
 
 #: templates/_partials/footer.html:111
-msgid "MAJOR PARTNERS"
-msgstr "प्रमुख साझेदार"
+msgid "PAST PARTNERS"
+msgstr "विगतका साझेदार"
 
 #: templates/_partials/footer.html:128
 msgid "CONTENT CONTRIBUTION"
@@ -3941,6 +3941,9 @@ msgid ""
 "target='_blank'>terms</a> , Data Policy and Cookie Policy."
 msgstr ""
 
+#~ msgid "MAJOR PARTNERS"
+#~ msgstr "प्रमुख साझेदार"
+
 #, fuzzy
 #~| msgid "Added to favourite"
 #~ msgid "Added to featured"
@@ -3950,9 +3953,6 @@ msgstr ""
 #~| msgid "Add to favourite"
 #~ msgid "Add to featured"
 #~ msgstr "मन पर्नेमा थप्नुहोस्"
-
-#~ msgid "PAST PARTNERS"
-#~ msgstr "विगतका साझेदार"
 
 #~ msgid "E-Paath"
 #~ msgstr "ई-पाठ"
