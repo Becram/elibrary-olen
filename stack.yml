@@ -8,8 +8,8 @@ services:
     ports:
      - "80:8000"
     volumes:
-     - /projects/library/media_root:/library/media_root
-     - /projects/library/static_root:/library/static_root
+            - /projects/library/media_root:/library/media_root:rw
+            - /projects/library/static_root:/library/static_root:rw
     depends_on:
      - web
 
@@ -23,8 +23,8 @@ services:
       - celery
       - rabbitmq
     volumes:
-      - /projects/library/media_root:/library/media_root
-      - /projects/library/static_root:/library/static_root
+            - /projects/library/media_root:/library/media_root:rw
+            - /projects/library/static_root:/library/static_root:rw
     environment:
       - GUNICORN_NAME=pustakalaya
       - GUNICORN_NUM_WORKERS=4

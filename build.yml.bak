@@ -10,12 +10,6 @@ services:
     container_name: pusta_nginx_01
     networks:
       - pustakalaya-dev-network
-
-    logging:
-      driver: gelf
-      options:
-        gelf-address: udp://127.0.0.1:8012
-        tag: nginx
     ports:
      - "81:8000"
     volumes:
