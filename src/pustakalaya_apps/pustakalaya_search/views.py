@@ -22,7 +22,6 @@ def search(request):
         # Grab query from form.
         query_string = request.GET.get('q')
 
-
         # Grab the default search index.
         item_type_to_search = request.GET.get('searchIn', 'all')
 
@@ -38,7 +37,6 @@ def search(request):
         else:
             # Default is search
             search_in = item_types
-
 
         # Get Form filters.
         try:
