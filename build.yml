@@ -17,7 +17,7 @@ services:
         gelf-address: udp://127.0.0.1:8012
         tag: nginx
     ports:
-     - "81:8000"
+     - "80:8000"
     volumes:
             - /library/media_root:/library/media_root:rw
             - /library/static_root:/library/static_root:rw
