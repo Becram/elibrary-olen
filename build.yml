@@ -9,7 +9,7 @@ services:
     hostname: nginx
     container_name: pusta_nginx_01
     networks:
-      - pustakalaya-dev-network
+      - elk
 
     logging:
       driver: gelf
@@ -46,12 +46,11 @@ services:
             - /library/media_root:/library/media_root:rw
             - /library/static_root:/library/static_root:rw
     networks:
-      - pustakalaya-dev-network
+      - elk
 #    ports:
 #      - "8001:8001"
     expose:
       - "8001"
-
 
 
   pgmaster:
@@ -74,7 +73,7 @@ services:
     expose:
      - '5432'
     networks:
-      - pustakalaya-dev-network
+      - elk
 
   pgslave:
     image: becram/olen-elib-db:s1.0
@@ -98,7 +97,7 @@ services:
     depends_on:
       - pgmaster
     networks:
-      - pustakalaya-dev-network
+      - elk
 
 
   elastic:
@@ -112,7 +111,7 @@ services:
     volumes:
       - ./conf:/conf
     networks:
-      - pustakalaya-dev-network
+      - elk
     # command: ./run_db.sh
     depends_on:
       - pgmaster
@@ -132,7 +131,7 @@ services:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
     networks:
-      - pustakalaya-dev-network
+      - elk
 
   celery:
     image: becram/olen-elib-celery:s1.0
@@ -143,43 +142,40 @@ services:
     restart: always
     container_name: pusta_celery_01
     networks:
-      - pustakalaya-dev-network
+      - elk
     depends_on:
       - pgmaster
       - rabbitmq
 
-
-  kibana:
-    image: becram/olen-elib-kibana:s1.0
-    build:
-      context: ./dockerfile-kibana
-      dockerfile: Dockerfile.dev
-    restart: 'always'
-    hostname: kibana
-    container_name: pusta_kibana_01
-    ports:
-      - "8056:5601"
-    depends_on:
-      - pgmaster
-    networks:
-      - pustakalaya-dev-network
-
-  logstash:
-    image: becram/olen-elib-logstash:s1.0
-    build:
-      context: ./dockerfile-logstash
-      dockerfile: Dockerfile.dev
-    restart: 'always'
-    hostname: logstash
-    container_name: pusta_logstash_01
-    ports:
-      - "8050:5000"
-      - "8012:12201/udp"
-    depends_on:
-      - pgmaster
-    networks:
-      - pustakalaya-dev-network
-
+        #  kibana:
+        #    image: becram/olen-elib-kibana:s1.0
+        #    build:
+        #      context: ./dockerfile-kibana
+        #      dockerfile: Dockerfile.dev
+        #    container_name: pusta_kibana_01
+        #    ports:
+        #      - "5601:5601"
+        #    environment:
+        #      ELASTICSEARCH_URL: http://elastic:9200
+        #    networks:
+        #      - elk
+        #
+        #    
+        #  logstash:
+        #    image: becram/olen-elib-logstash:s1.0
+        #    build:
+        #      context: ./dockerfile-logstash
+        #      dockerfile: Dockerfile.dev
+        #    hostname: logstash
+        #    container_name: pusta_logstash_01
+        #    command: sh -c "logstash -e 'input { syslog  { type => syslog port => 10514   } gelf { } } output { stdout { codec => rubydebug } elasticsearch { hosts => [ \"elastic\" ] } }'"
+        #    ports:
+        #      - "10514:10514/tcp"
+        #      - "10514:10514/udp"
+        #      - "12201:12201/udp"
+        #    networks:
+        #      - elk
+        #
 
 volumes:
   postgres_data_slave:
@@ -189,5 +185,5 @@ volumes:
 
 
 networks:
-  pustakalaya-dev-network:
+  elk:
     driver: bridge
