@@ -326,7 +326,7 @@
                 <!-- Illustrator section -->
                {% if  object.document_illustrators.all %}
                 <tr>
-                  <th scope="col">{% trans "Illustrators:" %}</th>
+                  <th scope="col">{% trans "Illustrator:" %}</th>
                   <td class="text-capitalize">
                     {% for illustrator in object.document_illustrators.all %}
                       {{ illustrator }}
@@ -501,7 +501,7 @@
               <!-- Education level -->
                 {% if  object.education_levels.all %}
                <tr>
-                  <th scope="col">{% trans "Education Levels" %}:</th>
+                  <th scope="col">{% trans "Education Level" %}:</th>
                   <td class="text-capitalize">
                     {% for education_level in object.education_levels.all %}
                         {{ education_level| transtolocal }}

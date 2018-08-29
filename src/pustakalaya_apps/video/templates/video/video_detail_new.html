@@ -520,7 +520,7 @@
                   <!-- Education level -->
                 {% if  object.education_levels.all %}
                   <tr>
-                    <th scope="col">{% trans "Education levels" %}:</th>
+                    <th scope="col">{% trans "Education level" %}:</th>
                     <td>
                        {% for education_level in object.education_levels.all %}
                            {{ education_level| transtolocal }}

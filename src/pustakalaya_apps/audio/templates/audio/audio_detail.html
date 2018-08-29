@@ -319,7 +319,7 @@
                 <!-- Education level -->
                 {% if  object.education_levels.all %}
                   <tr>
-                      <th scope="col">{% trans "Education Level(s)" %}:</th>
+                      <th scope="col">{% trans "Education Level" %}:</th>
                       <td class="text-capitalize">
                          {% for education_level in object.education_levels.all %}
                      {{ education_level| transtolocal  }}
