@@ -37,7 +37,7 @@ class VideoAdmin(admin.ModelAdmin):
         VideoFileUploadAdmin
     ]
 
-    list_per_page = 10
+    list_per_page = 25
 
     search_fields = (
         'title',

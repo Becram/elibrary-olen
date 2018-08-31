@@ -1,3 +1,8 @@
+/*
+This file is suppose to be used in place of audio_detail script but csrf_token does
+not run, therefor it has no use at this moment
+*/
+
 
 /***************Audio trigger div******************/
 

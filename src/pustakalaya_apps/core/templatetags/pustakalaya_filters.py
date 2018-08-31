@@ -39,7 +39,7 @@ def transtolocal(value):
 
     try:
         second = value.rstrip("]]").split("[[")[1] or None
-        print(second)
+        # print(second)
     except IndexError:
         second = None
 
@@ -99,7 +99,7 @@ def file_size_format(value):
 
 @register.filter
 def get(obj,attr):
-    
+
     """ Try to get an attribute from an object.
 
     Example: {% if block|getattr:"editable,True" %}
