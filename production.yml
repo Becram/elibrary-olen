@@ -9,7 +9,7 @@ services:
     hostname: nginx
     container_name: pusta_nginx_01
     networks:
-      - elk
+      - net-pusta
     ports:
       - "80:8000"
     volumes:
@@ -54,7 +54,7 @@ services:
             - /library/media_root:/library/media_root:rw
             - /library/static_root:/library/static_root:rw
     networks:
-      - elk
+      - net-pusta
     ports:
       - '8001:8001'
     expose:
@@ -82,7 +82,7 @@ services:
     expose:
      - '5432'
     networks:
-      - elk
+      - net-pusta
 
   # pgslave:
   #   image: becram/olen-elib-db:s1.0
@@ -106,7 +106,7 @@ services:
   #   depends_on:
   #     - pgmaster
   #   networks:
-  #     - elk
+  #     - net-pusta
 
 
   elastic:
@@ -125,7 +125,7 @@ services:
     volumes:
       - pusta_elastic:/usr/share/elasticsearch/data
     networks:
-      - elk
+      - net-pusta
     depends_on:
       - pgmaster
 
@@ -138,7 +138,7 @@ services:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
     networks:
-      - elk
+      - net-pusta
 
   celery:
     image: becram/olen-elib-celery:s1.0
@@ -149,7 +149,7 @@ services:
     restart: always
     container_name: pusta_celery_01
     networks:
-      - elk
+      - net-pusta
     depends_on:
       - pgmaster
       - rabbitmq
