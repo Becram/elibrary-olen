@@ -8,19 +8,30 @@ from pustakalaya_apps.video.models import Video
 from django.shortcuts import (
     render,
 )
+
+import logging
+
+import datetime
 from django.conf import settings
 
 
 def home(request):
     """view that serve homepage"""
+
+    #BIKRAM log testing
+    logger = logging.getLogger('app.logger')
+
     try:
         # Based on hit count so, need to capture Field error exception
         featured_books = Document.featured_objects.all() # Return top 4 views item.
-        # print("total book is", len(featured_books))
+        no_of_featured= len(featured_books)
+        logger.info('Number of featured Book %s' % no_of_featured)
+
     except Exception as e:  # Catch all error don't know what kind exist.
         pass
 
     featured_audio = Audio.featured_objects.all()  # Provide only top 2 items
+
     featured_video = Video.featured_objects.all()  # Provide only top 2 items
 
     if not featured_books:

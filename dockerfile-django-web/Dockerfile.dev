@@ -1,20 +1,12 @@
 FROM python:3.6.5
+
 ENV PYTHONUNBUFFERED 1
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
+    python-dev python-setuptools python-pip
+RUN apt-get autoremove -y
 
-#ENV C_FORCE_ROOT true
-
-ENV APP_USER myapp
-ENV APP_ROOT /src
-RUN mkdir /src
-#RUN groupadd -r ${APP_USER} \
-#    && useradd -r -m \
-#    --home-dir ${APP_ROOT} \
-#    -s /usr/sbin/nologin \
-#    -g ${APP_USER} ${APP_USER}
-#
-RUN adduser --disabled-password --gecos '' ${APP_USER}
-WORKDIR ${APP_ROOT}
-
+# upgrade pip
+RUN pip install --upgrade pip
 
 
 RUN mkdir -p /library/media_root
@@ -25,17 +17,18 @@ ADD src/requirements/base.txt /config/
 ADD src/requirements/requirements_prod.txt /config/
 RUN pip install -r /config/requirements_prod.txt
 
-#Sass installation
-RUN apt-get update -y && apt-get install curl supervisor -y
-RUN curl -sL https://deb.nodesource.com/setup_9.x | bash
-RUN apt-get install nodejs gettext vim -y
-RUN npm install gulp -g
+# Prepare initial
+COPY ./dockerfile-django-web/entrypoint.sh /bin/entrypoint.sh
+RUN chmod 700 /bin/entrypoint.sh
 
-#Set timezone
-ENV TZ=Asia/Kathmandu
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-COPY ./src /src
+# Prepare user
+RUN useradd -u 33 www-data | true
+ENV APP_USER www-data
+
+
+ENV APP_ROOT /src
+RUN mkdir /src
 
 
 RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
@@ -43,15 +36,22 @@ RUN chown -R ${APP_USER}:${APP_USER} /library/static_root
 RUN chown -R ${APP_USER}:${APP_USER} /src
 RUN chown -R ${APP_USER}:${APP_USER} /var/log
 
-# sign up docker hostname conflict issue resolved
-COPY ./dockerfile-django-web/adapter.py /usr/local/lib/python3.6/site-packages/allauth/account/adapter.py
 
+
+
+COPY ./src /src
+ENV PYTHONPATH="${PYTHONPATH}:/src"
+WORKDIR ${APP_ROOT}
+
+
+
+#Set timezone
+ENV TZ=Asia/Kathmandu
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+
+# Prepare ports
+# django
 EXPOSE 8000
 
-USER ${APP_USER}
-COPY ./dockerfile-django-web/docker-entrypoint.sh /src/docker-entrypoint.sh
-COPY ./dockerfile-django-web/initialize.sh /src/initialize.sh
-
-
-ENTRYPOINT ["/src/docker-entrypoint.sh"]
-CMD ["run"]
+ENTRYPOINT ["/bin/entrypoint.sh"]
