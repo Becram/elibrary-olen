@@ -65,7 +65,7 @@ services:
     image: becram/olen-elib-db:s1.0
     build:
       context: ./dockerfile-postgres
-      dockerfile: postgres-9.6-repmagr.Dockerfile
+      dockerfile: Dockerfile.dev
     restart: 'always'
     hostname: pgmaster
     container_name: pusta_pgmaster_01

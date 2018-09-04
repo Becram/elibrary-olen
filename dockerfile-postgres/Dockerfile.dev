@@ -1,32 +1,21 @@
 FROM postgres:9.6
+MAINTAINER Bikram Dhoju <bikram.dhoju@olenepal.org>
 
-RUN apt-get update && apt-get -y install cron
+ENV PG_MAX_WAL_SENDERS 8
+ENV PG_WAL_KEEP_SEGMENTS 8
 
-ENV APP_ROOT /src
-ENV BACKUP_DIR /library/backup_pg_pustakalaya/backup/daily/pustakalaya/
+RUN apt-get update --fix-missing -y && apt-get install -y iputils-ping postgresql-client
 
-WORKDIR ${APP_ROOT}
 
-RUN mkdir -p $BACKUP_DIR
-ADD autopgsqlbackup /script/
-ADD *.bz2 $BACKUP_DIR
-RUN chmod +x /script/autopgsqlbackup
-
-# Add crontab file in the cron directory
-ADD crontab /etc/cron.d/simple-cron
-
-# Give execution rights on the cron job
-RUN chmod 0644 /etc/cron.d/simple-cron
-
-# Create the log file to be able to run tail
+ADD backups-cron /etc/cron.d/backups-cron
 RUN touch /var/log/cron.log
+ADD backups.sh /backups.sh
+ADD start.sh /start.sh
 
+COPY setup-replication.sh /docker-entrypoint-initdb.d/
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 
-#Set timezone
-ENV TZ=Asia/Kathmandu
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+COPY *sql  /docker-entrypoint-initdb.d/
+RUN chmod +x /docker-entrypoint-initdb.d/setup-replication.sh /docker-entrypoint.sh
 
-# Run the command on container startup
-#CMD cron && tail -f /var/log/cron.log
-# start crond with log level 8 in foreground, output to stderr
-#CMD ["crond", "-f", "-d", "8"]
+EXPOSE 5432
