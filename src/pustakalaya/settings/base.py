@@ -189,7 +189,7 @@ except KeyError:
 # Per application basic
 # static_dist files are dispatched automatically by webpack by reading static_src directory.
 
-   
+
 # looks for static files in each app
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -421,6 +421,53 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     )
 }
+
+LOGGING = {
+
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'console': {
+            'format': '[%(module)s].%(levelname)s %(message)s'
+        }
+    },
+
+    'handlers': {
+        'logstash': {
+            'level': 'INFO',
+            'class': 'logstash.TCPLogstashHandler',
+            'host': os.environ.get('DJANGO_LOGSTASH_HOST'),
+            'port': os.environ.get('DJANGO_LOGSTASH_PORT'),
+            'version': 1,
+            'message_type': 'logstash',
+            'fqdn': True,
+            'tags': ['django'],
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+    },
+
+    'loggers': {
+        'app.logger': {
+            'handlers': ['logstash', 'console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        }
+    },
+}
+
+
 
 # LOGGING = {
 #     'version': 1,
