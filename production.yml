@@ -26,7 +26,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./dockerfile-django-web/Dockerfile.dev
+      dockerfile: ./dockerfile-code/Dockerfile.dev
     image: becram/olen-elib-code:s1.0
     restart: always
     hostname: pustakalaya.org

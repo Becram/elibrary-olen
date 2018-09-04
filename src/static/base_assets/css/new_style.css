@@ -4,15 +4,10 @@
 }
 
 @font-face {
-<<<<<<< HEAD
-    font-family: Nirmala;
-    src: url(./../fonts/mangal/mangal.ttf);
-=======
     font-family: Karma;
     /*src: url(./../fonts/hind.woff2);*/
     src: url(./../fonts/karma/Karma-Regular.ttf);
 
->>>>>>> bhoj
 }
 
 

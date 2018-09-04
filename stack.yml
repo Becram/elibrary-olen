@@ -1,19 +1,19 @@
 version: '3'
 services:
   nginx:
-    image: becram/olen-elib-nginx:s1.0
+    image: becram/olen-elib-nginx:s1.1
     networks:
       - pustakalaya-stack-network
     ports:
      - "80:8000"
     volumes:
-            - /projects/library/media_root:/library/media_root:rw
-            - /projects/library/static_root:/library/static_root:rw
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
     depends_on:
      - web
 
   web:
-    image: becram/olen-elib-code:s1.0
+    image: becram/olen-elib-code:s1.1
     depends_on:
       - pgmaster
       - elastic
@@ -21,8 +21,8 @@ services:
       - celery
       - rabbitmq
     volumes:
-            - /projects/library/media_root:/library/media_root:rw
-            - /projects/library/static_root:/library/static_root:rw
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
     environment:
       - DJANGO_SETTINGS_MODULE=project.settings
       - DJANGO_DATABASE_ENGINE=django.db.backends.postgresql_psycopg2
@@ -42,12 +42,11 @@ services:
 
 
   pgmaster:
-    image: becram/olen-elib-db:s1.0
+    image: becram/olen-elib-db-master:s1.1
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
       - POSTGRES_PASSWORD=pustakalaya123
-      - POSTGRES_BACKUP_DIR=/pg_backups
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - stack_pgdata_master:/var/lib/postgresql/data
@@ -56,12 +55,11 @@ services:
       - pustakalaya-stack-network
 
   pgslave:
-    image: becram/olen-elib-db:s1.0
+    image: becram/olen-elib-db-slave:s1.1
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
       - POSTGRES_PASSWORD=pustakalaya123
-      - POSTGRES_BACKUP_DIR=/pg_backups
       - PGDATA=/var/lib/postgresql/data/pgdata
       - REPLICATE_FROM=pgmaster
     volumes:
@@ -73,7 +71,7 @@ services:
 
 
   elastic:
-    image: becram/olen-elib-elastic:s1.0
+    image: becram/olen-elib-elastic:s1.1
     networks:
       - pustakalaya-stack-network
     volumes:
@@ -91,7 +89,7 @@ services:
       - pustakalaya-stack-network
 
   celery:
-    image: becram/olen-elib-celery:s1.0
+    image: becram/olen-elib-celery:s1.1
     networks:
       - pustakalaya-stack-network
     depends_on:

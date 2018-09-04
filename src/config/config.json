@@ -30,7 +30,8 @@
     "ADMIN_EMAILS": [
       [
         "Sys admin 1",
-        "pustakalaya@olenepal.org"
+        "pustakalaya@olenepal.org",
+	 "admins@olenepal.org"
       ],
       [
         "system admin 2",
