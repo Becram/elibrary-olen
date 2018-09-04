@@ -10,7 +10,24 @@ from .models import (
     genre_audio_video,
 
 )
-from  django.utils.html import format_html
+
+from django.contrib.auth.models import User
+from django.utils.html import format_html
+
+# For re-arranging user section in admin panel
+
+
+class UserAdmin(admin.ModelAdmin):
+    search_fields = (
+        'username',
+        'first_name',
+        'last_name',
+    )
+    list_display = ['username', 'first_name','last_name','email','date_joined' ]
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 
 
 @admin.register(Sponsor)

@@ -39,7 +39,6 @@ def transtolocal(value):
 
     try:
         second = value.rstrip("]]").split("[[")[1] or None
-
     except IndexError:
         second = None
 
