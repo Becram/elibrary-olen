@@ -93,7 +93,7 @@ class DocumentAdmin(admin.ModelAdmin):
 
     list_filter = ['published', 'featured']
 
-    list_per_page = 10
+    list_per_page = 25
 
     def save_model(self, request, obj, form, change):
         """Override the submitted_by field to admin user

@@ -42,7 +42,7 @@ class DocumentAdmin(admin.ModelAdmin):
         'title',
     )
 
-    list_per_page = 10
+    list_per_page = 25
 
     fields = (
         "title",

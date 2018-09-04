@@ -41,7 +41,7 @@ def search(request):
         # Get Form filters.
         try:
             filters = json.loads(request.GET.get("form-filter", {}))
-            print(filters)
+            # print(filters)
 
         except (TypeError, JSONDecodeError):
             # Query all the published data only

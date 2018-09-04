@@ -1,3 +1,7 @@
+/*
+This file is suppose to be used in place of video_detail_new.html script but csrf_token does
+not run, therefor it has no use at this moment
+*/
 
 /***************************Review code****************************/
 

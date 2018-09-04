@@ -1,4 +1,9 @@
 
+/*
+This file is suppose to be used in place of document_detail_new.html script but csrf_token does
+not run, therefor it has no use at this moment
+*/
+
 /***************************Review code****************************/
 
     // review trigger for a tag
