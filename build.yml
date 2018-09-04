@@ -75,7 +75,7 @@ services:
       - POSTGRES_DB=pustakalaya
       - POSTGRES_PASSWORD=pustakalaya123
       - POSTGRES_BACKUP_DIR=/pg_backups
-      # - PGDATA=/var/lib/postgresql/data/pgdata
+      - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
      - postgres_data_master:/var/lib/postgresql/data
      - postgres_dump:/pg_backups
@@ -84,29 +84,29 @@ services:
     networks:
       - elk
 
-  # pgslave:
-  #   image: becram/olen-elib-db:s1.0
-  #   build:
-  #     context: ./dockerfile-postgres
-  #     dockerfile: postgres-9.6-repmagr.Dockerfile
-  #   restart: 'always'
-  #   hostname: db-slave
-  #   container_name: pusta_pgslave_01
-  #   environment:
-  #     - POSTGRES_USER=pustakalaya_user
-  #     - POSTGRES_DB=pustakalaya
-  #     - POSTGRES_PASSWORD=pustakalaya123
-  #     - POSTGRES_BACKUP_DIR=/pg_backups
-  #     - PGDATA=/var/lib/postgresql/data/pgdata
-  #     - REPLICATE_FROM=pgmaster
-  #   volumes:
-  #     - postgres_data_slave:/var/lib/postgresql/data
-  #   expose:
-  #     - '5432'
-  #   depends_on:
-  #     - pgmaster
-  #   networks:
-  #     - elk
+  pgslave:
+    image: becram/olen-elib-db:s1.0
+    build:
+      context: ./dockerfile-postgres
+      dockerfile: postgres-9.6-repmagr.Dockerfile
+    restart: 'always'
+    hostname: db-slave
+    container_name: pusta_pgslave_01
+    environment:
+      - POSTGRES_USER=pustakalaya_user
+      - POSTGRES_DB=pustakalaya
+      - POSTGRES_PASSWORD=pustakalaya123
+      - POSTGRES_BACKUP_DIR=/pg_backups
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - REPLICATE_FROM=pgmaster
+    volumes:
+      - postgres_data_slave:/var/lib/postgresql/data
+    expose:
+      - '5432'
+    depends_on:
+      - pgmaster
+    networks:
+      - elk
 
 
   elastic:
