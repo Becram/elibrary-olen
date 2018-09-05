@@ -52,5 +52,5 @@ else
         --user=$APP_USER  \
          -b 0.0.0.0:8001 \
          --timeout=90 \
-         --log-file=/var/log/gunicorn-error.log &&
+         --log-file=/var/log/gunicorn-error.log 
 fi
