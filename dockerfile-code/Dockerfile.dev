@@ -11,6 +11,9 @@ RUN pip install --upgrade pip
 
 RUN mkdir -p /library/media_root
 RUN mkdir -p  /library/static_root
+RUN chmod -R 760 /library/media_root
+RUN chmod -R 760 /library/static_root
+
 RUN mkdir /config
 ADD src/requirements/requirements_dev.txt /config/
 ADD src/requirements/base.txt /config/
@@ -23,17 +26,16 @@ RUN chmod 700 /bin/entrypoint.sh
 
 
 # Prepare user
-RUN useradd -u 33 www-data | true
-ENV APP_USER www-data
+ENV APP_USER myapp
+RUN adduser --disabled-password --gecos '' ${APP_USER}
 
 
 ENV APP_ROOT /src
 RUN mkdir /src
 
 
-#RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
-#RUN chown -R ${APP_USER}:${APP_USER} /library/static_root
-
+RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
+RUN chown -R ${APP_USER}:${APP_USER} /library/static_root
 COPY ./src /src
 RUN chown -R ${APP_USER}:${APP_USER} /src
 RUN chown -R ${APP_USER}:${APP_USER} /var/log
@@ -55,5 +57,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Prepare ports
 # django
 EXPOSE 8000
+USER ${APP_USER}
 
 ENTRYPOINT ["/bin/entrypoint.sh"]

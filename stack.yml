@@ -38,8 +38,15 @@ services:
 
     networks:
       - pustakalaya-stack-network
-
-
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
 
   pgmaster:
     image: becram/olen-elib-db-master:s1.1
@@ -53,6 +60,9 @@ services:
       - stack_dump:/pg_backups
     networks:
       - pustakalaya-stack-network
+    deploy:
+      placement:
+        constraints: [node.role == manager]
 
   pgslave:
     image: becram/olen-elib-db-slave:s1.1
@@ -68,7 +78,9 @@ services:
       - pustakalaya-stack-network
     depends_on:
       - pgmaster
-
+    deploy:
+      placement:
+        constraints: [node.role == manager]
 
   elastic:
     image: becram/olen-elib-elastic:s1.1
@@ -94,7 +106,23 @@ services:
       - pustakalaya-stack-network
     depends_on:
       - pgmaster
-      - rabbitmq
+      - rabbitmiq
+    volumes:
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
+
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - pustakalaya-stack-network
 
 volumes:
   stack_pgdata_slave:
