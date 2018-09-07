@@ -11,8 +11,8 @@ RUN pip install --upgrade pip
 
 RUN mkdir -p /library/media_root
 RUN mkdir -p  /library/static_root
-RUN chmod -R 760 /library/media_root
-RUN chmod -R 760 /library/static_root
+#RUN chmod -R 760 /library/media_root
+#RUN chmod -R 760 /library/static_root
 
 RUN mkdir /config
 ADD src/requirements/requirements_dev.txt /config/
@@ -25,31 +25,18 @@ ENV APP_USER myapp
 RUN adduser --disabled-password --gecos '' ${APP_USER}
 
 
-
-# Prepare initial
-COPY ./dockerfile-code/entrypoint.sh /bin/entrypoint.sh
-RUN chown -R ${APP_USER}:${APP_USER} /bin/entrypoint.sh
-RUN chmod 700 /bin/entrypoint.sh
-
-
-
 ENV APP_ROOT /src
 RUN mkdir /src
+COPY ./src /src
 
 
 RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
 RUN chown -R ${APP_USER}:${APP_USER} /library/static_root
-COPY ./src /src
 RUN chown -R ${APP_USER}:${APP_USER} /src
 RUN chown -R ${APP_USER}:${APP_USER} /var/log
 
 
-
-
-
-ENV PYTHONPATH="${PYTHONPATH}:/src"
 WORKDIR ${APP_ROOT}
-
 
 
 #Set timezone
@@ -60,6 +47,13 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Prepare ports
 # django
 EXPOSE 8000
+
 USER ${APP_USER}
 
-ENTRYPOINT ["/bin/entrypoint.sh"]
+# Prepare initial
+
+COPY ./dockerfile-code/entrypoint.sh /src/entrypoint.sh
+
+
+
+ENTRYPOINT ["/src/entrypoint.sh"]

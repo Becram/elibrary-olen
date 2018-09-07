@@ -1,7 +1,7 @@
 version: '2'
 services:
   nginx:
-    image: becram/olen-elib-nginx:s1.0
+    image: becram/olen-elib-nginx:s1.1
     build:
       context: ./dockerfile-nginx/
       dockerfile: Dockerfile.dev
@@ -13,8 +13,8 @@ services:
     ports:
       - "80:8000"
     volumes:
-            - /library/media_root:/library/media_root:rw
-            - /library/static_root:/library/static_root:rw
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
     logging:
       driver: gelf
       options:
@@ -27,9 +27,9 @@ services:
     build:
       context: .
       dockerfile: ./dockerfile-code/Dockerfile.dev
-    image: becram/olen-elib-code:s1.0
+    image: becram/olen-elib-code:s1.2
     restart: always
-    hostname: pustakalaya.org
+    hostname: web
     container_name: pusta_web_01
     environment:
       - DJANGO_SETTINGS_MODULE=project.settings
@@ -51,31 +51,30 @@ services:
       - rabbitmq
 
     volumes:
-            - /library/media_root:/library/media_root:rw
-            - /library/static_root:/library/static_root:rw
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
     networks:
       - net-pusta
     ports:
       - '8001:8001'
     expose:
       - "8001"
+    tty: true
 
 
   pgmaster:
-    image: becram/olen-elib-db:s1.0
+    image: becram/olen-elib-db-master:s1.1
     build:
       context: ./dockerfile-postgres
-      dockerfile: postgres-9.6-repmagr.Dockerfile
+      dockerfile: Dockerfile-dev
     restart: 'always'
     hostname: pgmaster
     container_name: pusta_pgmaster_01
     environment:
-      - DUMPPREFIX=watchkeeper
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
       - POSTGRES_PASSWORD=pustakalaya123
-      - POSTGRES_BACKUP_DIR=/pg_backups
-      # - PGDATA=/var/lib/postgresql/data/pgdata
+      - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
      - postgres_data_master:/var/lib/postgresql/data
      - postgres_dump:/pg_backups
@@ -84,33 +83,32 @@ services:
     networks:
       - net-pusta
 
-  # pgslave:
-  #   image: becram/olen-elib-db:s1.0
-  #   build:
-  #     context: ./dockerfile-postgres
-  #     dockerfile: postgres-9.6-repmagr.Dockerfile
-  #   restart: 'always'
-  #   hostname: db-slave
-  #   container_name: pusta_pgslave_01
-  #   environment:
-  #     - POSTGRES_USER=pustakalaya_user
-  #     - POSTGRES_DB=pustakalaya
-  #     - POSTGRES_PASSWORD=pustakalaya123
-  #     - POSTGRES_BACKUP_DIR=/pg_backups
-  #     - PGDATA=/var/lib/postgresql/data/pgdata
-  #     - REPLICATE_FROM=pgmaster
-  #   volumes:
-  #     - postgres_data_slave:/var/lib/postgresql/data
-  #   expose:
-  #     - '5432'
-  #   depends_on:
-  #     - pgmaster
-  #   networks:
-  #     - net-pusta
+  pgslave:
+    image: becram/olen-elib-db-slave:s1.1
+    build:
+      context: ./dockerfile-postgres
+      dockerfile: Dockerfile
+    restart: 'always'
+    hostname: db-slave
+    container_name: pusta_pgslave_01
+    environment:
+      - POSTGRES_USER=pustakalaya_user
+      - POSTGRES_DB=pustakalaya
+      - POSTGRES_PASSWORD=pustakalaya123
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - REPLICATE_FROM=pgmaster
+    volumes:
+      - postgres_data_slave:/var/lib/postgresql/data
+    expose:
+      - '5432'
+    depends_on:
+      - pgmaster
+    networks:
+      - net-pusta
 
 
   elastic:
-    image: becram/olen-elib-elastic:s1.0
+    image: becram/olen-elib-elastic:s1.1
     build:
       context: ./dockerfile-elastic
       dockerfile: Dockerfile.dev
@@ -141,7 +139,7 @@ services:
       - net-pusta
 
   celery:
-    image: becram/olen-elib-celery:s1.0
+    image: becram/olen-elib-celery:s1.1
     build:
       context: .
       dockerfile: ./dockerfile-celery/Dockerfile.dev
