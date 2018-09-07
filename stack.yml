@@ -112,17 +112,17 @@ services:
       - /library/static_root:/library/static_root:rw
 
 
-  visualizer:
-    image: dockersamples/visualizer:stable
-    ports:
-      - "8080:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-    networks:
-      - pustakalaya-stack-network
+#  visualizer:
+#    image: dockersamples/visualizer:stable
+#    ports:
+#      - "8080:8080"
+#    volumes:
+#      - "/var/run/docker.sock:/var/run/docker.sock"
+#    deploy:
+#      placement:
+#        constraints: [node.role == manager]
+#    networks:
+#      - pustakalaya-stack-network
 
 volumes:
   stack_pgdata_slave:
