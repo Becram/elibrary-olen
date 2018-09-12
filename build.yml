@@ -6,7 +6,6 @@ services:
       context: ./dockerfile-nginx/
       dockerfile: Dockerfile.dev
 
-
   web:
     build:
       context: .

@@ -46,7 +46,7 @@ services:
     depends_on:
       - pgmaster
       - elastic
-      # - pgslave
+      - pgslave
       - celery
       - rabbitmq
 
