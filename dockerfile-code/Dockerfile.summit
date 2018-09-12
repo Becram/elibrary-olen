@@ -18,7 +18,7 @@ RUN mkdir /config
 ADD src/requirements/requirements_dev.txt /config/
 ADD src/requirements/base.txt /config/
 ADD src/requirements/requirements_prod.txt /config/
-RUN pip install -r /config/requirements_prod.txt
+RUN pip install -r /config/requirements_dev.txt
 
 # Prepare user
 ENV APP_USER myapp
