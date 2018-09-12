@@ -1,12 +1,13 @@
 version: '2'
 services:
   nginx:
+    image: becram/olen-elib-nginx:s1.1
     build:
       context: ./dockerfile-nginx/
       dockerfile: Dockerfile.dev
     restart: always
     hostname: nginx
-    container_name: dev_nginx_01
+    container_name: pusta_nginx_01
     networks:
       - net-pusta
     ports:
@@ -25,10 +26,11 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./dockerfile-code/Dockerfile.summit
+      dockerfile: ./dockerfile-code/Dockerfile.dev
+    image: becram/olen-elib-code:s1.2
     restart: always
     hostname: web
-    container_name: dev_web_01
+    container_name: pusta_web_01
     environment:
       - DJANGO_SETTINGS_MODULE=project.settings
       - DJANGO_DATABASE_ENGINE=django.db.backends.postgresql_psycopg2
@@ -44,14 +46,13 @@ services:
     depends_on:
       - pgmaster
       - elastic
-      - pgslave
+      # - pgslave
       - celery
       - rabbitmq
 
     volumes:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
-      - ./src:/src
     networks:
       - net-pusta
     ports:
@@ -62,12 +63,13 @@ services:
 
 
   pgmaster:
+    image: becram/olen-elib-db-master:s1.1
     build:
       context: ./dockerfile-postgres
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile-dev
     restart: 'always'
     hostname: pgmaster
-    container_name: dev_pgmaster_01
+    container_name: pusta_pgmaster_01
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
@@ -82,12 +84,13 @@ services:
       - net-pusta
 
   pgslave:
+    image: becram/olen-elib-db-slave:s1.1
     build:
       context: ./dockerfile-postgres
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     restart: 'always'
     hostname: db-slave
-    container_name: dev_pgslave_01
+    container_name: pusta_pgslave_01
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
@@ -105,6 +108,7 @@ services:
 
 
   elastic:
+    image: becram/olen-elib-elastic:s1.1
     build:
       context: ./dockerfile-elastic
       dockerfile: Dockerfile.dev
@@ -113,7 +117,7 @@ services:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     restart: always
-    container_name: dev_elasticsearch_01
+    container_name: pusta_elasticsearch_01
     volumes:
       - ./conf:/conf
     volumes:
@@ -127,7 +131,7 @@ services:
     image: rabbitmq:3.7
     hostname: rabbitmq
     restart: always
-    container_name: dev_rabbitmq_01
+    container_name: pusta_rabbitmq_01
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
@@ -135,14 +139,13 @@ services:
       - net-pusta
 
   celery:
+    image: becram/olen-elib-celery:s1.1
     build:
       context: .
-      dockerfile: ./dockerfile-celery/Dockerfile.summit
+      dockerfile: ./dockerfile-celery/Dockerfile.dev
     hostname: celery
     restart: always
-    container_name: dev_celery_01
-    volumes:
-      - ./src:/src
+    container_name: pusta_celery_01
     networks:
       - net-pusta
     depends_on:
