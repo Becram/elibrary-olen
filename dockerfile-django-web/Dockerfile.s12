@@ -1,0 +1,59 @@
+FROM python:3.6.5
+
+ENV PYTHONUNBUFFERED 1
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
+    python-dev python-setuptools python-pip
+RUN apt-get autoremove -y
+
+# upgrade pip
+RUN pip install --upgrade pip
+
+
+RUN mkdir -p /library/media_root
+RUN mkdir -p  /library/static_root
+RUN mkdir /config
+ADD src/requirements/requirements_dev.txt /config/
+ADD src/requirements/base.txt /config/
+ADD src/requirements/requirements_prod.txt /config/
+RUN pip install -r /config/requirements_prod.txt
+
+# Prepare initial
+COPY ./dockerfile-django-web/entrypoint.sh /bin/entrypoint.sh
+RUN chmod 700 /bin/entrypoint.sh
+
+
+# Prepare user
+RUN useradd -u 33 www-data | true
+ENV APP_USER www-data
+
+
+ENV APP_ROOT /src
+RUN mkdir /src
+
+
+#RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
+#RUN chown -R ${APP_USER}:${APP_USER} /library/static_root
+
+COPY ./src /src
+RUN chown -R ${APP_USER}:${APP_USER} /src
+RUN chown -R ${APP_USER}:${APP_USER} /var/log
+
+
+
+
+
+ENV PYTHONPATH="${PYTHONPATH}:/src"
+WORKDIR ${APP_ROOT}
+
+
+
+#Set timezone
+ENV TZ=Asia/Kathmandu
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+
+# Prepare ports
+# django
+EXPOSE 8000
+
+ENTRYPOINT ["/bin/entrypoint.sh"]

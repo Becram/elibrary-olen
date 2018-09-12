@@ -1,0 +1,38 @@
+FROM python:3.6.5
+ENV PYTHONUNBUFFERED 1
+
+ENV APP_USER myapp
+ENV APP_ROOT /src
+ENV PROJECTDIR /src
+
+
+RUN mkdir /src
+
+
+RUN adduser --disabled-password --gecos '' ${APP_USER}
+
+WORKDIR ${APP_ROOT}
+
+RUN mkdir /config
+ADD src/requirements/requirements_dev.txt /config/
+ADD src/requirements/base.txt /config/
+ADD src/requirements/requirements_prod.txt /config/
+RUN pip install -r /config/requirements_prod.txt
+RUN apt-get update && apt-get install poppler-utils -y
+
+COPY ./src /src
+
+EXPOSE 8000
+ADD . ${APP_ROOT}
+
+#Set timezone
+ENV TZ=Asia/Kathmandu
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+COPY dockerfile-celery/run_celery /run_celery
+RUN chmod 775 /run_celery
+
+USER ${APP_USER}
+
+
+CMD ["/run_celery"]

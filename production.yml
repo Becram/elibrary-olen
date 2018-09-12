@@ -1,7 +1,7 @@
 version: '2'
 services:
   nginx:
-    image: becram/olen-elib-nginx:s1.1
+    image: becram/olen-elib-nginx:s1.2
     build:
       context: ./dockerfile-nginx/
       dockerfile: Dockerfile.dev
