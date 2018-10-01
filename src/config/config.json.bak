@@ -26,6 +26,17 @@
     "EMAIL_USE_TLS": "True",
     "FEEDBACK_MESSAGE_TO": [
       "info@olenepal.org"
+    ],
+    "ADMIN_EMAILS": [
+      [
+        "Sys admin 1",
+        "pustakalaya@olenepal.org",
+	 "admins@olenepal.org"
+      ],
+      [
+        "system admin 2",
+        "bhoj.karki@olenepal.org"
+      ]
     ]
   },
   "REDIS": {

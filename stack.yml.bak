@@ -1,7 +1,7 @@
 version: '3'
 services:
   nginx:
-    image: becram/olen-elib-nginx:s1.0
+    image: becram/olen-elib-nginx:s1.2
     networks:
       - pustakalaya-stack-network
     ports:
@@ -13,7 +13,7 @@ services:
      - web
 
   web:
-    image: becram/olen-elib-code:s1.0
+    image: becram/olen-elib-code:s1.2
     depends_on:
       - pgmaster
       - elastic
@@ -38,30 +38,38 @@ services:
 
     networks:
       - pustakalaya-stack-network
-
-
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
 
   pgmaster:
-    image: becram/olen-elib-db:s1.0
+    image: becram/olen-elib-db-master:s1.2
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
       - POSTGRES_PASSWORD=pustakalaya123
-      - POSTGRES_BACKUP_DIR=/pg_backups
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - stack_pgdata_master:/var/lib/postgresql/data
       - stack_dump:/pg_backups
     networks:
       - pustakalaya-stack-network
+    deploy:
+      placement:
+        constraints: [node.role == manager]
 
   pgslave:
-    image: becram/olen-elib-db:s1.0
+    image: becram/olen-elib-db-slave:s1.2
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
       - POSTGRES_PASSWORD=pustakalaya123
-      - POSTGRES_BACKUP_DIR=/pg_backups
       - PGDATA=/var/lib/postgresql/data/pgdata
       - REPLICATE_FROM=pgmaster
     volumes:
@@ -70,10 +78,12 @@ services:
       - pustakalaya-stack-network
     depends_on:
       - pgmaster
-
+    deploy:
+      placement:
+        constraints: [node.role == manager]
 
   elastic:
-    image: becram/olen-elib-elastic:s1.0
+    image: becram/olen-elib-elastic:s1.2
     networks:
       - pustakalaya-stack-network
     volumes:
@@ -91,12 +101,28 @@ services:
       - pustakalaya-stack-network
 
   celery:
-    image: becram/olen-elib-celery:s1.0
+    image: becram/olen-elib-celery:s1.2
     networks:
       - pustakalaya-stack-network
     depends_on:
       - pgmaster
-      - rabbitmq
+      - rabbitmiq
+    volumes:
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
+
+
+#  visualizer:
+#    image: dockersamples/visualizer:stable
+#    ports:
+#      - "8080:8080"
+#    volumes:
+#      - "/var/run/docker.sock:/var/run/docker.sock"
+#    deploy:
+#      placement:
+#        constraints: [node.role == manager]
+#    networks:
+#      - pustakalaya-stack-network
 
 volumes:
   stack_pgdata_slave:
