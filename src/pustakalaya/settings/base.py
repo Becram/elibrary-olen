@@ -353,7 +353,7 @@ try:
     EMAIL_HOST_PASSWORD = config["EMAIL"]["EMAIL_HOST_PASSWORD"]
     EMAIL_USE_TLS = bool(config["EMAIL"]["EMAIL_USE_TLS"])
     FEEDBACK_MESSAGE_TO = config["EMAIL"]["FEEDBACK_MESSAGE_TO"]
-    ADMINS = config["EMAIL"]["ADMIN_EMAILS"]
+    # ADMINS = config["EMAIL"]["ADMIN_EMAILS"]
 except KeyError:
     raise ImproperlyConfigured("{}".format("Email settings"))
 

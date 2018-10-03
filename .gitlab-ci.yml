@@ -6,7 +6,7 @@ build_image:
   only:
     - bikram-stack
   script:
-    - echo "Build pustakalaya"     
+    - echo "Build pustakalaya"
     - docker-compose -f development.yml down
+    - sleep 10 && docker volume prune -f
     - docker-compose -f development.yml up  --build  -d
-    
