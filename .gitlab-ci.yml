@@ -1,8 +1,5 @@
 before_script:
-  only:
-    - bikram-stack
-  script:
-    - docker info
+  - docker info
 
 build_image:
   only:
