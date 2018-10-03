@@ -14,21 +14,16 @@ services:
     volumes:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
-    logging:
-      driver: gelf
-      options:
-        gelf-address: udp://127.0.0.1:8012
-        tag: nginx
-    tty: true
+
     depends_on:
      - web
-  web:
+  code:
     build:
       context: .
-      dockerfile: ./dockerfile-code/Dockerfile.summit
+      dockerfile: ./dockerfile-code/Dockerfile.dev
     restart: always
-    hostname: web
-    container_name: dev_web_01
+    hostname: code
+    container_name: dev_code_01
     environment:
       - DJANGO_SETTINGS_MODULE=project.settings
       - DJANGO_DATABASE_ENGINE=django.db.backends.postgresql_psycopg2
