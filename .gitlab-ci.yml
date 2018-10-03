@@ -1,6 +1,24 @@
 before_script:
   - docker info
   - echo ${date}
+  
+dast:
+  image: registry.gitlab.com/gitlab-org/security-products/zaproxy
+  variables:
+    website: "http://pustakalaya.org"
+    login_url: "http://pustakalaya.org/en/admin"
+    username: "admin"
+    password: "qwerty0987"
+  allow_failure: true
+  script:
+    - mkdir /zap/wrk/
+    - /zap/zap-baseline.py -J gl-dast-report.json -t $website
+        --auth-url $login_url
+        --auth-username $username
+        --auth-password $password || true
+    - cp /zap/wrk/gl-dast-report.json .
+  artifacts:
+    paths: [gl-dast-report.json]
 
 build_image:
   only:
