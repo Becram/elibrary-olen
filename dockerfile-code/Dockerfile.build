@@ -27,7 +27,7 @@ RUN adduser --disabled-password --gecos '' ${APP_USER}
 
 ENV APP_ROOT /src
 RUN mkdir /src
-
+COPY ./src /src
 
 
 RUN chown -R ${APP_USER}:${APP_USER} /library/media_root
