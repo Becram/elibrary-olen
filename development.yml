@@ -16,7 +16,7 @@ services:
       - /library/static_root:/library/static_root:rw
 
     depends_on:
-     - web
+     - code
   code:
     build:
       context: .
@@ -49,8 +49,6 @@ services:
       - ./src:/src
     networks:
       - net-pusta
-    expose:
-      - "8001"
     tty: true
 
 
