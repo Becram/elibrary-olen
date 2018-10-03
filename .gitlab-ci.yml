@@ -6,6 +6,8 @@ build_image:
     - bikram-stack
   script:
     - echo "Build pustakalaya"     
+    - docker-compose -f development.yml down
+    - docker rm $(docker ps -a -f status=exited -q)
     - docker-compose -f development.yml build
     - docker-compose -f development.yml up -d
     
