@@ -8,6 +8,5 @@ build_image:
   script:
     - echo "Build pustakalaya"     
     - docker-compose -f development.yml down
-    - docker-compose -f development.yml build
-    - docker-compose -f development.yml up -d
+    - docker-compose -f development.yml up  --build  -d
     
