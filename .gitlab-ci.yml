@@ -11,7 +11,7 @@ dast:
     password: "qwerty0987"
   allow_failure: true
   script:
-    - mkdir /zap/wrk/
+    - mkdir -p /zap/wrk/
     - /zap/zap-baseline.py -J gl-dast-report.json -t $website
         --auth-url $login_url
         --auth-username $username
