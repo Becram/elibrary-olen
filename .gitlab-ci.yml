@@ -1,7 +1,12 @@
 before_script:
-  - docker info
+  only:
+    - bikram-stack
+  script:
+    - docker info
 
 build_image:
+  only:
+    - bikram-stack
   script:
     - echo "Build pustakalaya"     
     - docker-compose -f build.yml build
