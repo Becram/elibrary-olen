@@ -10,7 +10,7 @@ services:
     networks:
       - net-pusta
     ports:
-      - "80:8000"
+      - "81:8000"
     volumes:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
@@ -49,8 +49,6 @@ services:
       - ./src:/src
     networks:
       - net-pusta
-    ports:
-      - '8001:8001'
     expose:
       - "8001"
     tty: true
@@ -58,7 +56,7 @@ services:
 
   pgmaster:
     build:
-      context: ./dockerfile-postgres
+      context: ./dockerfile-postgres-master
       dockerfile: Dockerfile.dev
     restart: 'always'
     hostname: pgmaster
@@ -71,14 +69,12 @@ services:
     volumes:
      - postgres_data_master:/var/lib/postgresql/data
      - postgres_dump:/pg_backups
-    expose:
-     - '5432'
     networks:
       - net-pusta
 
   pgslave:
     build:
-      context: ./dockerfile-postgres
+      context: ./dockerfile-postgres-slave
       dockerfile: Dockerfile.dev
     restart: 'always'
     hostname: db-slave
@@ -91,8 +87,6 @@ services:
       - REPLICATE_FROM=pgmaster
     volumes:
       - postgres_data_slave:/var/lib/postgresql/data
-    expose:
-      - '5432'
     depends_on:
       - pgmaster
     networks:
