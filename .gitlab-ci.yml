@@ -1,0 +1,8 @@
+before_script:
+  - docker info
+
+build_image:
+  script:
+    - echo "Build pustakalaya"     
+    - docker-compose -f build.yml build
+    
