@@ -46,7 +46,7 @@ services:
     volumes:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
-      - ./src:/src
+      - ./src:/src:rw
     networks:
       - net-pusta
     tty: true
@@ -102,8 +102,6 @@ services:
     restart: always
     container_name: dev_elasticsearch_01
     volumes:
-      - ./conf:/conf
-    volumes:
       - pusta_elastic:/usr/share/elasticsearch/data
     networks:
       - net-pusta
@@ -129,7 +127,7 @@ services:
     restart: always
     container_name: dev_celery_01
     volumes:
-      - ./src:/src
+      - ./src:/src:rw
     networks:
       - net-pusta
     depends_on:
