@@ -5,7 +5,7 @@ stages:
 
 before_script:
   - docker info
-#  - "curl -X POST -F token=b7cebd5946e7c83a3048950a733e0b -F ref=bikram-stack http://git.olenepal.org/api/v4/projects/74/trigger/pipeline"
+
 
 
 
@@ -14,6 +14,7 @@ destroy_docker:
   only:
     - bikram-stack
   script:
+    - "curl -X POST -F token=b7cebd5946e7c83a3048950a733e0b -F ref=bikram-stack http://git.olenepal.org/api/v4/projects/74/trigger/pipeline"
     - docker-compose -f development.yml down
 
 
@@ -22,11 +23,13 @@ build_docker:
   only:
     - bikram-stack
   script:
+    - "curl -X POST -F token=b7cebd5946e7c83a3048950a733e0b -F ref=bikram-stack http://git.olenepal.org/api/v4/projects/74/trigger/pipeline"
     - docker-compose -f development.yml build
 
-build_docker:
-  stage: build
+run_docker:
+  stage: run
   only:
     - bikram-stack
   script:
+    - "curl -X POST -F token=b7cebd5946e7c83a3048950a733e0b -F ref=bikram-stack http://git.olenepal.org/api/v4/projects/74/trigger/pipeline"
     - docker-compose -f development.yml up -d
