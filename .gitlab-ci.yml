@@ -1,69 +1,21 @@
-# Stages are run in sequence, jobs in the same stage are run in parallel
-# See https://docs.gitlab.com/ce/ci/yaml/
-# TODO: Correct the tags to fit your gitlab
-stages:
-  - prepare
-  - install
-  # - push
-  - deploy
+# Specify the docker image to use (only used if using docker runners)
+# See: http://doc.gitlab.com/ee/ci/docker/using_docker_images.html
+image: ubuntu:16.04
 
-# Specify custom variables
-# variables:
-#   # Enables multibranch build
-#   COMPOSE_PROJECT_NAME: $CI_PROJECT_NAME-$CI_BUILD_REF_NAME
-#   # How to store the image
-#   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
+# Define commands that run before each job's script
+before_script:
+  - apt-get update
+  - apt-get install -y gcc g++
 
-# Prepare
-# -------
-# Removes old images and containers, if they exist
-prepare:clean:
-  stage: prepare
+# Try to compile our sample hello world app
+compile:
   script:
-    # Stop all containers
-    - docker-compose -f development.yml stop
-    # Remove all containers and volumes
-    - docker-compose -f development.yml rm -fv
-    - docker-compose -f development.yml ps
-  tags:
-    - dev
+  # Compile our app
+  - g++ helloworld.cpp -o helloworld
+  # Verify that our compiled app works properly with a custom "test" script
+  - ./verify.sh
+  # Save the compiled output from the above for downloading via GitLab and in Gitlab 8.6 to use in future build steps
+  artifacts:
+    paths:
+    - helloworld
 
-# Install
-# -------
-# Build all images
-install:containers:
-  stage: install
-  script:
-    # Build the Containers without caching and newest source image
-    - docker-compose -f development.yml  build --pull
-  tags:
-    - dev
-
-# Push
-# ----
-# Pushes the Docker image to th registry for selected tags
-# push:image:
-#   stage: push
-#   script:
-#     # Login to the registry
-#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-#     # Push images to the gitlab remote
-#     - docker-compose push
-#   # Only these branches are getting pushed
-#   only:
-#     - develop
-#     - master
-#     - tags
-#   tags:
-#     - meetup
-
-# Deploy
-# ------
-# Starts the containers
-deploy:http:
-  stage: deploy
-  script:
-    # Bring up the app
-    - docker-compose -f development.yml up -d
-  tags:
-    - dev
