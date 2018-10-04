@@ -1,7 +1,7 @@
 before_script:
   - docker info
   - echo ${date}
-  
+
 
 build_image:
   only:

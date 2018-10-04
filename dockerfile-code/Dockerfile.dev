@@ -56,4 +56,4 @@ USER ${APP_USER}
 
 
 
-ENTRYPOINT ["/src/entrypoint.sh"]
+# ENTRYPOINT ["/src/entrypoint.sh"]
