@@ -28,7 +28,7 @@ DATABASES = {
         'NAME': 'pustakalaya',
         'USER': 'pustakalaya_user',
         'PASSWORD': 'pustakalaya123',
-        'HOST': 'localhost',
+        'HOST': 'pgmaster',
         'PORT': '5432',
     }
 }
