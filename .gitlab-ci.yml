@@ -24,6 +24,7 @@ prepare:clean:
     - docker-compose -f development.yml stop
     # Remove all containers and volumes
     - docker-compose -f development.yml rm -fv
+    - docker-compose -f development.yml ps
   tags:
     - dev
 
