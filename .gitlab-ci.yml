@@ -1,0 +1,11 @@
+before_script:
+  - date
+
+rspec:
+  script:
+    - date
+
+rubocop:
+  script:
+    - date
+
