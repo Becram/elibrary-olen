@@ -26,8 +26,8 @@ prepare:clean:
     - docker-compose -f development.yml stop
     # Remove all containers and volumes
     - docker-compose -f development.yml rm -v
-  tags:
-    - meetup
+  # tags:
+  #   - meetup
 
 # Install
 # -------
@@ -39,8 +39,8 @@ install:containers:
   script:
     # Build the Containers without caching and newest source image
     - docker-compose -f development.yml  build --pull
-  tags:
-    - meetup
+  # tags:
+  #   - meetup
 
 # Push
 # ----
@@ -69,6 +69,6 @@ deploy:http:
     - bikram-stack
   script:
     # Bring up the app
-    - docker-compose up -d app
-  tags:
-    - meetup
+    - docker-compose -f development.yml up -d
+  # tags:
+  #   - meetup
