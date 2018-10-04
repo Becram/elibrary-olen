@@ -1,6 +1,6 @@
 from .base import *  # NOQA
 
-DEBUG = False
+DEBUG = True
 
 #100MB
 FILE_UPLOAD_MAX_MEMORY_SIZE=104857600
