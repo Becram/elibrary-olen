@@ -2,7 +2,7 @@ FROM python:3.6.5
 
 ENV PYTHONUNBUFFERED 1
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
-    python-dev python-setuptools python-pip 
+    python-dev python-setuptools python-pip
 RUN apt-get autoremove -y
 
 # upgrade pip
@@ -17,8 +17,8 @@ RUN mkdir -p  /library/static_root
 RUN mkdir /config
 ADD src/requirements/requirements_dev.txt /config/
 ADD src/requirements/base.txt /config/
-ADD src/requirements/requirements_prod.txt /config/
-RUN pip install -r /config/requirements_prod.txt
+ADD src/requirements/requirements_dev.txt /config/
+RUN pip  --quiet  install -r /config/requirements_dev.txt
 
 # Prepare user
 ENV APP_USER myapp
