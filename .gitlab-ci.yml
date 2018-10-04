@@ -1,5 +1,6 @@
 before_script:
   - date
+  - echo "new:"  
 
 rspec:
   script:
