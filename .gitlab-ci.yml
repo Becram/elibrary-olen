@@ -25,7 +25,7 @@ prepare:clean:
     # Stop all containers
     - docker-compose -f development.yml stop
     # Remove all containers and volumes
-    - docker-compose -f development.yml rm -v
+    - docker-compose -f development.yml rm -fv
   # tags:
   #   - meetup
 
