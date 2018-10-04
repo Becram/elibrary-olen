@@ -1,15 +1,32 @@
+stages:
+  - destory
+  - build
+  - run
+
 before_script:
   - docker info
-  - echo ${date}
+#  - "curl -X POST -F token=b7cebd5946e7c83a3048950a733e0b -F ref=bikram-stack http://git.olenepal.org/api/v4/projects/74/trigger/pipeline"
 
 
 
-build_run_pustakalaya:
-  stage: deploy
+destroy_docker:
+  stage: destroy
   only:
     - bikram-stack
   script:
-    - "curl -X POST -F token=b7cebd5946e7c83a3048950a733e0b -F ref=bikram-stack http://git.olenepal.org/api/v4/projects/74/trigger/pipeline"
-    - echo "Build pustakalaya"
     - docker-compose -f development.yml down
-    - docker-compose -f development.yml up  --build  -d
+
+
+build_docker:
+  stage: build
+  only:
+    - bikram-stack
+  script:
+    - docker-compose -f development.yml build
+
+build_docker:
+  stage: build
+  only:
+    - bikram-stack
+  script:
+    - docker-compose -f development.yml up -d
