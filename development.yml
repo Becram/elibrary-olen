@@ -24,7 +24,7 @@ services:
     hostname: code
     container_name: dev_code_01
     environment:
-      - DJANGO_SETTINGS_MODULE=project.settings.development
+      - DJANGO_SETTINGS_MODULE=pustakalaya.settings.development
       - DJANGO_DATABASE_ENGINE=django.db.backends.postgresql_psycopg2
       - DJANGO_DATABASE_HOST=pgmaster
       - DJANGO_DATABASE_NAME=pustakalaya
