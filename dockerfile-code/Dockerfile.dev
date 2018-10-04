@@ -2,7 +2,7 @@ FROM python:3.6.5
 
 ENV PYTHONUNBUFFERED 1
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
-    python-dev python-setuptools python-pip
+    python-dev python-setuptools python-pip 
 RUN apt-get autoremove -y
 
 # upgrade pip
