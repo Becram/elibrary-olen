@@ -19,28 +19,24 @@ stages:
 # Removes old images and containers, if they exist
 prepare:clean:
   stage: prepare
-  only:
-    - bikram-stack
   script:
     # Stop all containers
     - docker-compose -f development.yml stop
     # Remove all containers and volumes
     - docker-compose -f development.yml rm -fv
-  tags:
-    - dev
+  # tags:
+  #   - meetup
 
 # Install
 # -------
 # Build all images
 install:containers:
   stage: install
-  only:
-    - bikram-stack
   script:
     # Build the Containers without caching and newest source image
     - docker-compose -f development.yml  build --pull
-  tags:
-     - dev
+  # tags:
+  #   - meetup
 
 # Push
 # ----
@@ -65,10 +61,8 @@ install:containers:
 # Starts the containers
 deploy:http:
   stage: deploy
-  only:
-    - bikram-stack
   script:
     # Bring up the app
     - docker-compose -f development.yml up -d
-  tags:
-    - dev
+  # tags:
+  #   - meetup
