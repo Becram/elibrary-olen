@@ -45,7 +45,6 @@ echo "$(date) - connected successfully"
 if ! [ -z "${DJANGO_DEBUG}" ]; then
     django-admin runserver 0.0.0.0:8001
 else
-    export DJANGO_SETTINGS_MODULE=pustakalaya.settings.production
     gunicorn ${DJANGO_WSGI_MODULE}:application \
     --name $GUNICORN_NAME \
     --workers $GUNICORN_NUM_WORKERS \

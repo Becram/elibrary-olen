@@ -1,13 +1,9 @@
 version: '2'
 services:
   nginx:
-    image: becram/olen-elib-nginx:s1.2
-    build:
-      context: ./dockerfile-nginx/
-      dockerfile: Dockerfile.dev
+    image: becram/olen-elib-nginx:{{RELEASE}}
     restart: always
-    hostname: nginx
-    container_name: pusta_nginx_01
+    container_name: prod_nginx_{{RELEASE}}
     networks:
       - net-pusta
     ports:
@@ -15,22 +11,14 @@ services:
     volumes:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
-    logging:
-      driver: gelf
-      options:
-        gelf-address: udp://127.0.0.1:8012
-        tag: nginx
-    tty: true
     depends_on:
      - web
-  web:
-    build:
-      context: .
-      dockerfile: ./dockerfile-code/Dockerfile.dev
-    image: becram/olen-elib-code:s1.2
+
+
+  code:
+    image: becram/olen-elib-code:{{RELEASE}}
     restart: always
-    hostname: web
-    container_name: pusta_web_01
+    container_name: pusta_code_{{RELEASE}}
     environment:
       - DJANGO_SETTINGS_MODULE=project.settings
       - DJANGO_DATABASE_ENGINE=django.db.backends.postgresql_psycopg2
@@ -55,21 +43,13 @@ services:
       - /library/static_root:/library/static_root:rw
     networks:
       - net-pusta
-    ports:
-      - '8001:8001'
-    expose:
-      - "8001"
-    tty: true
+
 
 
   pgmaster:
-    image: becram/olen-elib-db-master:s1.1
-    build:
-      context: ./dockerfile-postgres
-      dockerfile: Dockerfile-dev
+    image: becram/olen-elib-db-master:{{RELEASE}}
     restart: 'always'
-    hostname: pgmaster
-    container_name: pusta_pgmaster_01
+    container_name: pusta_pgmaster_{{RELEASE}}
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
@@ -78,19 +58,14 @@ services:
     volumes:
      - postgres_data_master:/var/lib/postgresql/data
      - postgres_dump:/pg_backups
-    expose:
-     - '5432'
     networks:
       - net-pusta
 
   pgslave:
-    image: becram/olen-elib-db-slave:s1.1
-    build:
-      context: ./dockerfile-postgres
-      dockerfile: Dockerfile
+    image: becram/olen-elib-db-slave:{{RELEASE}}
     restart: 'always'
     hostname: db-slave
-    container_name: pusta_pgslave_01
+    container_name: pusta_pgslave_{{RELEASE}}
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
@@ -99,8 +74,6 @@ services:
       - REPLICATE_FROM=pgmaster
     volumes:
       - postgres_data_slave:/var/lib/postgresql/data
-    expose:
-      - '5432'
     depends_on:
       - pgmaster
     networks:
@@ -108,16 +81,13 @@ services:
 
 
   elastic:
-    image: becram/olen-elib-elastic:s1.1
-    build:
-      context: ./dockerfile-elastic
-      dockerfile: Dockerfile.dev
+    image: becram/olen-elib-elastic:{{RELEASE}}
     hostname: elastic
     environment:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     restart: always
-    container_name: pusta_elasticsearch_01
+    container_name: pusta_elasticsearch_{{RELEASE}}
     volumes:
       - ./conf:/conf
     volumes:
@@ -139,13 +109,10 @@ services:
       - net-pusta
 
   celery:
-    image: becram/olen-elib-celery:s1.1
-    build:
-      context: .
-      dockerfile: ./dockerfile-celery/Dockerfile.dev
+    image: becram/olen-elib-celery:{{RELEASE}}
     hostname: celery
     restart: always
-    container_name: pusta_celery_01
+    container_name: pusta_celery_{{RELEASE}}
     networks:
       - net-pusta
     depends_on:
