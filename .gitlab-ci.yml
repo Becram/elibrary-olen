@@ -3,11 +3,10 @@ before_script:
   - echo ${date}
 
 
-build_image:
+build_run_pustakalaya:
   only:
     - bikram-stack
   script:
     - echo "Build pustakalaya"
     - docker-compose -f development.yml down
-    - sleep 10 && docker volume prune -f
     - docker-compose -f development.yml up  --build  -d
