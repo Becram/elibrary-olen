@@ -30,8 +30,6 @@ python manage.py migrate --settings=pustakalaya.settings.production >> /dev/stdo
 
 python manage.py index_pustakalaya --settings=pustakalaya.settings.production >> /dev/stdout 2>&1  &&
 
-
-
 python manage.py collectstatic --settings=pustakalaya.settings.production   --noinput >> /dev/stdout 2>&1
 
 # django-admin migrate --noinput
@@ -47,10 +45,10 @@ if ! [ -z "${DJANGO_DEBUG}" ]; then
 else
     export DJANGO_SETTINGS_MODULE=pustakalaya.settings.production
     gunicorn ${DJANGO_WSGI_MODULE}:application \
-    --name $GUNICORN_NAME \
-    --workers $GUNICORN_NUM_WORKERS \
+    --name $GUNICORN_NAME  \
+    --workers $GUNICORN_NUM_WORKERS  \
     --user=$APP_USER  \
     -b 0.0.0.0:8001 \
     --timeout=90 \
-    --log-file=/var/log/gunicorn-error.log 
+    --log-file=/var/log/gunicorn-error.log
 fi
