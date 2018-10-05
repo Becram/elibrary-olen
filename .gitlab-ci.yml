@@ -3,9 +3,14 @@
 # TODO: Correct the tags to fit your gitlab
 stages:
   - prepare
-  - install
+  - build
   # - push
   - deploy
+
+before-scritp:
+  - TAG=git tag --points-at HEAD | tail -n1 2>/dev/null | sed -e 's/^release-//'
+  - echo "$TAG"
+
 
 # Specify custom variables
 # variables:
@@ -31,8 +36,8 @@ prepare:clean:
 # Install
 # -------
 # Build all images
-install:containers:
-  stage: install
+build:containers:
+  stage: build
   script:
     # Build the Containers without caching and newest source image
     - docker-compose -f development.yml  build --pull
@@ -42,20 +47,20 @@ install:containers:
 # Push
 # ----
 # Pushes the Docker image to th registry for selected tags
-# push:image:
-#   stage: push
-#   script:
-#     # Login to the registry
-#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-#     # Push images to the gitlab remote
-#     - docker-compose push
-#   # Only these branches are getting pushed
-#   only:
-#     - develop
-#     - master
-#     - tags
-#   tags:
-#     - meetup
+push:image:
+  stage: push
+  script:
+    # Login to the registry
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    # Push images to the gitlab remote
+    - docker-compose push
+  # Only these branches are getting pushed
+  only:
+    - develop
+    - master
+    - tags
+  tags:
+    - meetup
 
 # Deploy
 # ------
@@ -67,4 +72,3 @@ deploy:http:
     - docker-compose -f development.yml up -d
   tags:
     - dev
-
