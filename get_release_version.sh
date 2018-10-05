@@ -5,7 +5,7 @@ die() {
     exit 1
 }
 
-RELEASE_TAG=$(git describe --abbrev=0 --tags | sed -e 's/^release-//')
+RELEASE_TAG=$(git describe --abbrev=0 --tags)
 
 if [ -z "$RELEASE_TAG" ]; then
        die "No release tag found; quitting"

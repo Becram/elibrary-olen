@@ -1,9 +1,9 @@
 version: '2'
 services:
   nginx:
-    image: "becram/olen-elib-nginx:${RELEASE_TAG}"
+    image: becram/olen-elib-nginx:stable-s1.4
     restart: always
-    container_name: "prod_nginx_${RELEASE_TAG}"
+    container_name: prod_nginx_stable-s1.4
     networks:
       - net-pusta
     ports:
@@ -16,9 +16,9 @@ services:
 
 
   code:
-    image: "becram/olen-elib-code:${RELEASE_TAG}"
+    image: becram/olen-elib-code:stable-s1.4
     restart: always
-    container_name: "pusta_code_${RELEASE_TAG}"
+    container_name: pusta_code_stable-s1.4
     env_file:
       - ./dockerfile-code/code.env
     depends_on:
@@ -37,9 +37,9 @@ services:
 
 
   pgmaster:
-    image: "becram/olen-elib-db-master:${RELEASE_TAG}"
+    image: becram/olen-elib-db-master:stable-s1.4
     restart: 'always'
-    container_name: "pusta_pgmaster_${RELEASE_TAG}"
+    container_name: pusta_pgmaster_stable-s1.4
     env_file:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
@@ -49,10 +49,10 @@ services:
       - net-pusta
 
   pgslave:
-    image: "becram/olen-elib-db-slave:${RELEASE_TAG}"
+    image: becram/olen-elib-db-slave:stable-s1.4
     restart: 'always'
     hostname: db-slave
-    container_name: "pusta_pgslave_${RELEASE_TAG}"
+    container_name: pusta_pgslave_stable-s1.4
     env_file:
       - ./dockerfile-postgres-slave/pgslave.env
     volumes:
@@ -64,13 +64,13 @@ services:
 
 
   elastic:
-    image: "becram/olen-elib-elastic:${RELEASE_TAG}"
+    image: becram/olen-elib-elastic:stable-s1.4
     hostname: elastic
     environment:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     restart: always
-    container_name: "pusta_elasticsearch_${RELEASE_TAG}"
+    container_name: pusta_elasticsearch_stable-s1.4
     volumes:
       - ./conf:/conf
     volumes:
@@ -92,10 +92,10 @@ services:
       - net-pusta
 
   celery:
-    image: "becram/olen-elib-celery:${RELEASE_TAG}"
+    image: becram/olen-elib-celery:stable-s1.4
     hostname: celery
     restart: always
-    container_name: "pusta_celery_${RELEASE_TAG}"
+    container_name: pusta_celery_stable-s1.4
     networks:
       - net-pusta
     depends_on:
