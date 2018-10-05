@@ -55,7 +55,7 @@ push:image:
     # Push images to the gitlab remote
     - ./get_release_version.sh
     - docker-compose -f build.yml build
-    - - docker-compose -f build.yml push
+    - docker-compose -f build.yml push
     # - echo "Released ${RELEASE_TAG} at $(date)"> /library/media_root/release_version.log
   # Only these branches are getting pushed
   only:
