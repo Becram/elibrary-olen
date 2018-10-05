@@ -11,7 +11,7 @@ before_script:
 stages:
   - prepare
   - build
-  # - push
+  - push
   - deploy
 
 
