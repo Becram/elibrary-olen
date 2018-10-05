@@ -57,7 +57,7 @@ push:image:
     # Login to the registry
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     # Push images to the gitlab remote
-    - docker-compose -f build.yml
+    - docker-compose -f build.yml build
     - echo "done building at $(date) "touch /tmp/deploy
   # Only these branches are getting pushed
   only:
