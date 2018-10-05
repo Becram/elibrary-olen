@@ -5,7 +5,6 @@
 
 before_script:
   - RELEASE_TAG=$(git describe --abbrev=0 --tags | sed -e 's/^release-//')
-  -
 
 
 stages:
