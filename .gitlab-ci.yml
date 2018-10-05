@@ -4,7 +4,7 @@
 
 
 before_script:
-  - TAG=$ { git tag --points-at HEAD | tail -n1 2>/dev/null | sed -e 's/^release-//'}
+  - TAG=$(git describe --abbrev=0 --tags | sed -e 's/^release-//')
   - echo "$TAG"
 
 
