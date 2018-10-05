@@ -1,7 +1,7 @@
 version: '2'
 services:
   nginx:
-    image: becram/olen-elib-nginx:{{RELEASE}}
+    image: becram/olen-elib-nginx:${RELEASE_TAG}
     build:
       context: ./dockerfile-nginx/
       dockerfile: Dockerfile.build
@@ -10,23 +10,23 @@ services:
     build:
       context: .
       dockerfile: ./dockerfile-code/Dockerfile.build
-    image: becram/olen-elib-code:{{RELEASE}}
+    image: becram/olen-elib-code:${RELEASE_TAG}
 
   pgmaster:
-    image: becram/olen-elib-db-master:{{RELEASE}}
+    image: becram/olen-elib-db-master:${RELEASE_TAG}
     build:
       context: ./dockerfile-postgres-master
       dockerfile: Dockerfile.build
 
   pgslave:
-    image: becram/olen-elib-db-slave:{{RELEASE}}
+    image: becram/olen-elib-db-slave:${RELEASE_TAG}
     build:
       context: ./dockerfile-postgres-slave
       dockerfile: Dockerfile.build
 
 
   elastic:
-    image: becram/olen-elib-elastic:{{RELEASE}}
+    image: becram/olen-elib-elastic:${RELEASE_TAG}
     build:
       context: ./dockerfile-elastic
       dockerfile: Dockerfile.build
@@ -37,7 +37,7 @@ services:
 
 
   celery:
-    image: becram/olen-elib-celery:{{RELEASE}}
+    image: becram/olen-elib-celery:${RELEASE_TAG}
     build:
       context: .
       dockerfile: ./dockerfile-celery/Dockerfile.build
