@@ -3,10 +3,6 @@
 # TODO: Correct the tags to fit your gitlab
 
 
-before_script:
-  - RELEASE_TAG=$(git describe --abbrev=0 --tags | sed -e 's/^release-//')
-
-
 stages:
   - prepare
   - build
@@ -57,6 +53,7 @@ push:image:
     # Login to the registry
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     # Push images to the gitlab remote
+    - RELEASE_TAG=$(git describe --abbrev=0 --tags | sed -e 's/^release-//')
     - docker-compose -f build.yml build
     - echo "done building at $(date) "touch /tmp/deploy
   # Only these branches are getting pushed
