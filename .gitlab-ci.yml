@@ -26,7 +26,7 @@ prepare:clean:
     - docker-compose -f development.yml rm -fv
     - docker-compose -f development.yml ps
   tags:
-    - dev
+    - production
 
 # Install
 # -------
@@ -37,7 +37,7 @@ install:containers:
     # Build the Containers without caching and newest source image
     - docker-compose -f development.yml  build --pull
   tags:
-    - dev
+    - production
 
 # Push
 # ----
@@ -66,5 +66,5 @@ deploy:http:
     # Bring up the app
     - docker-compose -f development.yml up -d
   tags:
-    - dev
+    - production
 
