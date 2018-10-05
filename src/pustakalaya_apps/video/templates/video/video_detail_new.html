@@ -34,7 +34,7 @@
           {% endif %}
 
           <a class="text-capitalize"
-          href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
+          href=' /search/?q=&form-filter={"collections":["{{collection.collection_name}}"]}'>
           {{ collection.collection_name | transtolocal }}
          </a>
 
@@ -91,12 +91,12 @@
                             </div>
 
 
-                             <p class="vid-duration">
+                             <!-- <p class="vid-duration">
                                <video class="calculateVideoLength"
                                     hidden
                                   src="{{ MEDIA_URL }}{{ video.upload }}">
                                 </video>
-                               <span class="videoduration"></span>
+                               <span class="videoduration"></span> -->
 
                              </p>
                             <img src="
@@ -380,10 +380,8 @@
                   <th scope="col">{% trans "Keyword(s):" %}</th>
                   <td>
                     {% for keyword in object.keywords.all %}
-                            <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":["{{keyword.keyword}}"],"license_type":[]}'>{{ keyword.keyword }}</a>
-                      {%  if not forloop.last %},
-                      {%  endif %}
-                    {% endfor %}
+                    <a href='/search/?q=&form-filter={"keywords":["{{keyword.keyword}}"]}'>{{ keyword.keyword }}</a>
+                      {%  if not forloop.last %},{%  endif %}{% endfor %}
                   </td>
                 </tr>
               {% endif %}
@@ -522,7 +520,7 @@
                   <!-- Education level -->
                 {% if  object.education_levels.all %}
                   <tr>
-                    <th scope="col">{% trans "Education levels" %}:</th>
+                    <th scope="col">{% trans "Education level" %}:</th>
                     <td>
                        {% for education_level in object.education_levels.all %}
                            {{ education_level| transtolocal }}
@@ -840,7 +838,7 @@
                 $("#videoList").children("div").children("span").removeClass('show-playing-msg');
 
                 // Add class to this video
-                console.log("event = "+$(event))
+                //console.log("event = "+$(event))
                 $(event).addClass('ole-color');
                 $(event).addClass('show-playing-msg');
                 $(event).removeClass('hide-playing-msg');
@@ -857,7 +855,10 @@
         })(window);
     </script>
 
-    <script>
+
+<!--<script type="text/javascript" src="{% static 'base_assets/js_new/video_detail.js' %}"></script>-->
+<!--Video detail script-->
+<script>
 
 /***************************Review code****************************/
 
@@ -1191,9 +1192,8 @@
     });
 
 /***************************End: Featured item code ****************************/
-    </script>
-
-
+</script>
+<!--End: Video detail script-->
 {% endblock script %}
 {% block style %}
     <!-- inherit all the base styles -->

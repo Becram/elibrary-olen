@@ -42,7 +42,7 @@
           {% endif %}
 
           <a class="text-capitalize"
-          href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
+          href=' /search/?q=&form-filter={"collections":["{{collection.collection_name}}"]}'>
           {{ collection.collection_name | transtolocal }}
         </a>
           {%  if not forloop.last %} ,{%  endif %}
@@ -86,6 +86,18 @@
 
         </div>
 
+       <!--Featured unfeatured button-->
+        {% if request.user.is_superuser %}
+         <p id="featured_item">
+        {% if object.featured == "yes"%}
+          <button type="button" class="btn ole-btn-trans det-fav-added" value="{{object.pk }}" id="featured_set"><i class="fa fa-check-circle"></i>{% trans "Unfeature" %}</button>
+        {% else %}
+          <button type="button" class="btn ole-btn-trans " value="{{object.pk }}" id="featured_not_set">{% trans "Feature" %}</button>
+        {% endif %}
+         </p>
+        {% endif %}
+
+        <!--End: Featured unfeatured button-->
 
 
         <!--Favourite button-->
@@ -112,23 +124,6 @@
         </p>
 
         <!--End Favourite button-->
-
-
-
-
-          <!--Featured unfeatured button-->
-        {% if request.user.is_superuser %}
-         <p id="featured_item">
-        {% if object.featured == "yes"%}
-          <button type="button" class="btn ole-btn-trans det-fav-added" value="{{object.pk }}" id="featured_set"><i class="fa fa-check-circle"></i>{% trans "Unfeature" %}</button>
-        {% else %}
-          <button type="button" class="btn ole-btn-trans " value="{{object.pk }}" id="featured_not_set">{% trans "Feature" %}</button>
-        {% endif %}
-         </p>
-        {% endif %}
-
-
-        <!--End: Featured unfeatured button-->
 
 
         <!--Review code starts here-->
@@ -283,6 +278,25 @@
         {% endif %}
         {% endfor %}
 
+        <!--This one is for read online link-->
+        {% if not object.documentfileupload_set.all %}
+        <!-- link_name and link description -->
+         {% if object.documentlinkinfo_set.all %}
+
+           {% for link in  object.documentlinkinfo_set.all %}
+            <a href="{{ link.link_name}}" target="_blank" title="{{ link.link_name}}">
+              <button type="button" class="btn ole-btn">
+              {% trans 'Read online ' %}
+              </button>
+            </a>
+           {% endfor %}
+
+        {% endif %}
+
+        {% endif %}
+
+        <!--End: This one is for read online link-->
+
 
       <br>
       <br>
@@ -331,7 +345,7 @@
                 <!-- Illustrator section -->
                {% if  object.document_illustrators.all %}
                 <tr>
-                  <th scope="col">{% trans "Illustrators:" %}</th>
+                  <th scope="col">{% trans "Illustrator:" %}</th>
                   <td class="text-capitalize">
                     {% for illustrator in object.document_illustrators.all %}
                       {{ illustrator }}
@@ -426,7 +440,7 @@
                   <th scope="col">{% trans "Keywords:" %}</th>
                   <td class="text-capitalize">
                     {% for keyword in object.keywords.all %}
-                    <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":["{{keyword.keyword}}"],"license_type":[]}&searchIn={{selected_doc_type}}' >
+                    <a href='/search/?q=&form-filter={"keywords":["{{keyword.keyword}}"]}' >
                         {{ keyword.keyword| transtolocal }}&nbsp;{%  if not forloop.last %}
                           ,
                       {%  endif %}
@@ -506,7 +520,7 @@
               <!-- Education level -->
                 {% if  object.education_levels.all %}
                <tr>
-                  <th scope="col">{% trans "Education Levels" %}:</th>
+                  <th scope="col">{% trans "Education Level" %}:</th>
                   <td class="text-capitalize">
                     {% for education_level in object.education_levels.all %}
                         {{ education_level| transtolocal }}
@@ -828,6 +842,12 @@
 {% block script %}
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
 {{ block.super }}
+<script>
+//script code here
+
+</script>
+<!--<script type="text/javascript" src="{% static 'base_assets/js_new/document_detail.js' %}"></script>-->
+<!--Script for document detail-->
 <script>
 
 /***************************Review code****************************/
@@ -1300,12 +1320,13 @@
 
 
 
-
 /***************************End of Star rating change detection****************************/
 
+  </script>
+<!--End: Script for document detail-->
 
-</script>
-<!-- script for seo -->
+
+  <!-- script for seo -->
 <script type='application/ld+json'>
   {
     "@context": "http://www.schema.org",

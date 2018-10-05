@@ -22,7 +22,6 @@ def search(request):
         # Grab query from form.
         query_string = request.GET.get('q')
 
-
         # Grab the default search index.
         item_type_to_search = request.GET.get('searchIn', 'all')
 
@@ -39,11 +38,10 @@ def search(request):
             # Default is search
             search_in = item_types
 
-
         # Get Form filters.
         try:
             filters = json.loads(request.GET.get("form-filter", {}))
-            print(filters)
+            # print(filters)
 
         except (TypeError, JSONDecodeError):
             # Query all the published data only

@@ -41,7 +41,7 @@ class DocumentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DocumentForm, self).__init__(*args, **kwargs)
         self.fields['thumbnail'].label = "Document thumbnail"
-        self.fields['thumbnail'].help_text = "" # Remove help_text
+        self.fields['thumbnail'].help_text = ""  # Remove help_text
         self.fields['thumbnail'].widget.attrs = {
             'name': 'myCustomName',
             'placeholder': 'Item thumbnail'
@@ -118,7 +118,7 @@ DocumentFileUploadFormSet = inlineformset_factory(
     Document,
     DocumentFileUpload,
     form=DocumentFileUploadForm,
-    extra=1 ,
+    extra=1,
     can_delete=False,
     can_order=False,
 

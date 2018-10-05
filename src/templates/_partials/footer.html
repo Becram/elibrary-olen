@@ -2,22 +2,22 @@
 {% load i18n %}
 {% block style %}
 <style>
- .paragraph-font{
- font-weight:normal!important;
- font-size:inherit!important;
- }
+.paragraph-font{
+  font-weight:normal!important;
+  font-size:inherit!important;
+}
 
 #submitButton{
-margin-top:1em;
+  margin-top:1em;
 }
 label{
-font-weight:normal!important;
+  font-weight:normal!important;
 }
 textarea{
-line-height: 3.25!important;
+  line-height: 3.25!important;
 }
 input{
-line-height: 1.5!important;
+  line-height: 1.5!important;
 }
 
 #olefooter a{
@@ -28,6 +28,12 @@ line-height: 1.5!important;
 #olefooter a:link,
 #olefooter a:visited {
     display: inline!important;
+}
+
+.display-left{
+  display:block;
+  float:left;
+  margin-right:20px;
 }
 </style>
 
@@ -92,31 +98,30 @@ line-height: 1.5!important;
 
           </div>
           <div class="row">
-            <div class="col-md-2 col-sm-6 col-6">
+            <div class="col-md-2 col-sm-6 col-12">
               <h6>{% trans "DEVELOPED AND MAINTAINED BY" %}</h6>
               <a href="http://www.olenepal.org/" target="_blank">
                 <img class="footer-logo" src="{%  static 'images/footer/ole_logo.png' %}" alt="OLE Nepal" />
               </a>
             </div>
-            <div class="col-md-2 col-sm-6 col-6">
-              <h6>{% trans "MAJOR PARTNER" %}</h6>
-              <a href="http://www.idrf.org/" target="_blank" title="IDRF">
-                <p>(2017 - present)</p>
+            <div class="col-md-4 col-sm-6 col-12">
+              <h6>{% trans "PAST PARTNERS" %}</h6>
+
+              <a href="http://www.idrf.org/" target="_blank" title="IDRF" class="display-left ">
+                <p>(2017)</p>
                 <img class="footer-logo" src="{%  static 'images/footer/idrf_new_logo.png' %}" alt="OLE Nepal" />
               </a>
-            </div>
-            <div class="col-md-2 col-sm-6 col-12">
-              <h6>{% trans "PAST PARTNERS" %}</h6>
-             <a  href="https://www.maitritrust.org.uk/" target="_blank" title="Maitri Trust">
+              <a  href="https://www.maitritrust.org.uk/" target="_blank" title="Maitri Trust" class="display-left">
                <p>(2013-2015)</p>
                <img class="footer-logo" src="{%  static 'images/footer/maitri-trust.png' %}" alt="OLE Nepal" />
              </a>
-             <a href="http://www.nepallibrary.org/" target="_blank" title="Nepal Library Foundation">
+             <a href="http://www.nepallibrary.org/" target="_blank" title="Nepal Library Foundation" class="display-left">
                <p>(2009-2012)</p>
                <img class="footer-logo" src="{%  static 'images/footer/nepal-library-foundation.png' %}" alt="OLE Nepal" />
              </a>
+
             </div>
-            <div class="col-md-6 col-sm-6 col-12">
+            <div class="col-md-6 col-sm-12 col-12">
               <h6>{% trans "CONTENT CONTRIBUTION"%}</h6>
               <a href="https://www.britishcouncil.org.np/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/bc.png' %}" alt="OLE Nepal" /></a>
               <a href="http://www.digitalhimalaya.com/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/DH_logo_small.png' %}" alt="Digital Himalaya" /></a>
@@ -148,5 +153,3 @@ line-height: 1.5!important;
 <!--These tow div close is navbar.html page, closing of class="content" and "content-inside"-->
  </div>
 </div>
-
-

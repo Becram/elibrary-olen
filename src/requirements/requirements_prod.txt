@@ -1,3 +1,6 @@
 -r base.txt
 # Install wsgi server.
 gunicorn
+python-logstash
+gevent
+numpy==1.8.0

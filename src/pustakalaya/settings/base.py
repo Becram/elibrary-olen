@@ -189,7 +189,7 @@ except KeyError:
 # Per application basic
 # static_dist files are dispatched automatically by webpack by reading static_src directory.
 
-   
+
 # looks for static files in each app
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -218,6 +218,7 @@ STATICFILES_FINDERS = [
 # 500MB - 429916160
 
 # FILE_UPLOAD_MAX_MEMORY_SIZE = 214958080
+FILE_UPLOAD_PERMISSIONS = 0o644
 
 # Media Configuration
 MEDIA_URL = '/media/'
@@ -352,7 +353,7 @@ try:
     EMAIL_HOST_PASSWORD = config["EMAIL"]["EMAIL_HOST_PASSWORD"]
     EMAIL_USE_TLS = bool(config["EMAIL"]["EMAIL_USE_TLS"])
     FEEDBACK_MESSAGE_TO = config["EMAIL"]["FEEDBACK_MESSAGE_TO"]
-    ADMINS = config["EMAIL"]["ADMIN_EMAILS"]
+    # ADMINS = config["EMAIL"]["ADMIN_EMAILS"]
 except KeyError:
     raise ImproperlyConfigured("{}".format("Email settings"))
 
@@ -421,6 +422,53 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     )
 }
+
+LOGGING = {
+
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'console': {
+            'format': '[%(module)s].%(levelname)s %(message)s'
+        }
+    },
+
+    'handlers': {
+        'logstash': {
+            'level': 'INFO',
+            'class': 'logstash.TCPLogstashHandler',
+            'host': os.environ.get('DJANGO_LOGSTASH_HOST'),
+            'port': os.environ.get('DJANGO_LOGSTASH_PORT'),
+            'version': 1,
+            'message_type': 'logstash',
+            'fqdn': True,
+            'tags': ['django'],
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+    },
+
+    'loggers': {
+        'app.logger': {
+            'handlers': ['logstash', 'console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        }
+    },
+}
+
+
 
 # LOGGING = {
 #     'version': 1,

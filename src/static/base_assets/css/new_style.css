@@ -4,8 +4,10 @@
 }
 
 @font-face {
-    font-family: Nirmala;
-    src: url(./../fonts/mangal/mangal.ttf);
+    font-family: Karma;
+    /*src: url(./../fonts/hind.woff2);*/
+    src: url(./../fonts/karma/Karma-Regular.ttf);
+
 }
 
 
@@ -26,14 +28,6 @@ body{
   background-color: #FAFAFA;
   font-size: 14px;
 }
-
-body:lang(ne){
-  font-family: Nirmala !important;
- }
-
-body:lang(en){
-  font-family: Roboto, sans-serif !important;
- }
 
 a:hover {
   color: #00BCD4;
@@ -532,10 +526,6 @@ a.text-primary:focus, a.text-primary:hover {
   margin-top: 30px;
 }
 
-#olefooter h6 {
-  font-family: 'Roboto Slab', serif;
-}
-
 #olefooter ul {
     width: 200px;
     padding: 0;
@@ -621,7 +611,7 @@ a.text-primary:focus, a.text-primary:hover {
 .text-btn-lines span {
   background:#FAFAFA;
   padding:0 10px;
-  font-family: 'Roboto Slab', serif;
+ /* font-family: 'Roboto Slab', serif; */
 }
 
 .row.make-columns {
@@ -1673,4 +1663,31 @@ height: 450px;
 .verticalLine {
   border-right: dashed #00BCD4;
 }
+}
+
+/* this code should always be in the last of css. */
+
+body:lang(ne){
+  font-family: Karma !important;
+  font-size: 16px;
+ }
+
+body:lang(en){
+  font-family: Roboto, sans-serif !important;
+ }
+
+
+h6:lang(ne), h5:lang(ne) {
+  font-family: Karma !important;
+    font-size: 18px;
+
+}
+
+
+h6:lang(en), h5:lang(en) {
+  font-family: 'Roboto Slab', serif;
+}
+
+.format-dd li[data-v-03b85949] a:lang(ne) {
+    padding: 4px 0px 4px 10px;
 }
