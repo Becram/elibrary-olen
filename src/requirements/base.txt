@@ -2,6 +2,12 @@ Django==1.11.4
 django-redis==4.8.0
 Pillow==4.2.1
 djangorestframework==3.6.4
+
+#core api for REST
+coreapi==2.3.3
+
+
+
 pytz==2017.2
 elasticsearch-dsl==5.3.0
 django-jet==1.0.6
@@ -12,10 +18,11 @@ django-analytical==2.3.0
 git+https://github.com/Pustakalaya/django-star-ratings@develop
 # Django hit count
 git+https://github.com/Pustakalaya/django-hitcount
-# Wand
-Wand==0.4.4
+
+
 # Celery
 celery==4.1.0
+kombu==4.1.0
 # Postgresql db python client.
 psycopg2==2.7.3.2
 # Django debug toolbar
@@ -25,6 +32,15 @@ django-modeladmin-reorder==0.3
 
 #bootstrap_pagination
 django-bootstrap-pagination==1.6.4
+
+#django-cleanup
+django-cleanup==2.1.0
+
+# coreapi
+coreapi==2.3.3
+
+# JWT
+djangorestframework-jwt==1.11.0
 
 
 

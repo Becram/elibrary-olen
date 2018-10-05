@@ -23,6 +23,7 @@ from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 
+
 from . import views
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -49,8 +50,11 @@ urlpatterns = [
     # /review_input
     url(r'^favourite_collection/favourite_remove/',include('pustakalaya_apps.favourite_collection.urls', namespace="favourite_collection_remove")),
 
-    # /review_input
+    # /show featured
     url(r'^show_featured/',include('pustakalaya_apps.show_featured.urls', namespace="show_featured")),
+
+    # /set_featured
+    url(r'^set_featured/', include('pustakalaya_apps.set_featured.urls', namespace="set_featured")),
 
     # Document App
     # /documents/
@@ -64,6 +68,14 @@ urlpatterns = [
     # /audios/
     url(r'^audios/', include('pustakalaya_apps.audio.urls', namespace="audio")),
 
+]
+
+# API Version1 endpoint url.
+# API V1 URL endpoint.
+urlpatterns += [
+    url('^api/v1/', include('pustakalaya.api_v1_urls', namespace="api_v1")),
+    # API authentication
+    url(r'^api-auth/', include('rest_framework.urls'))
 ]
 
 # Enable i18n based urls
@@ -94,13 +106,6 @@ urlpatterns += i18n_patterns(
     # Ratings.
     url(r'^ratings/', include('star_ratings.urls', namespace='ratings')),
 
-
-    # Wikipedia app
-    # TODO:
-
-    # Maps app
-    # TODO:
-
     # Dashboard app
     # /dashboard/
     url(r'^dashboard/', include('pustakalaya_apps.dashboard.urls', namespace="dashboard")),
@@ -118,8 +123,14 @@ urlpatterns += i18n_patterns(
     # /about/
     url(
         r'^about/$',
-        cache_page(CACHE_TTL)(TemplateView.as_view(template_name="static_pages/about.html")),
+        TemplateView.as_view(template_name="static_pages/about.html"),
         name="about"
+    ),
+
+    # /terms-and-conditions/
+    url(
+        r'^terms-and-conditions/$', TemplateView.as_view(template_name="static_pages/terms_and_conditions.html"),
+        name="terms-and-conditions/"
     ),
 
     # Feedback page
@@ -132,10 +143,10 @@ urlpatterns += i18n_patterns(
 
     # Help page
     # /help/
-    url(
-        r'^signup/$', TemplateView.as_view(template_name="static_pages/sign_up.html"),
-        name="signup"
-    ),
+    # url(
+    #     r'^signup/$', TemplateView.as_view(template_name="static_pages/sign_up.html"),
+    #     name="signup"
+    # ),
     # Help page
     # /help/
     url(
@@ -150,6 +161,8 @@ urlpatterns += i18n_patterns(
     ),
     prefix_default_language=True   ,
 )
+
+
 
 if settings.DEBUG:
     # Serve media in development mode

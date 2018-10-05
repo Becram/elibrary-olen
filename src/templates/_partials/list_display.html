@@ -1,12 +1,25 @@
 {% load static %}
+{% load pustakalaya_filters %}
 {% load i18n %}
+{% block style %}
+<style>
+  .btn-color{
+  background-color:#00838f;
+  display:block;
+  border :1px solid #00838f;
+  border-radius: 2px;
+  padding:0px 5
+  }
+</style>
+{% endblock %}
 <div class="col-md-12" style="font-family:sans-serif,arial;">
     {% for hit in response %}
         <ul class="list-unstyled">
         <li class="media mb-3"
             onclick="window.location.href='{% url hit.type|add:":detail" hit.title|slugify hit.id %}'"
              style="cursor:pointer;">
-            <span class="mr-2">{{ forloop.counter }}.</span>
+
+            <span class="mr-2">{{ page_number_count|add:forloop.counter  }}.</span>
 
           {% if hit.thumbnail  %}
 
@@ -46,19 +59,34 @@
 
 
             <div class="media-body">
-                <p class="text-capitalize mt-0 mb-1">
+                <div class="text-capitalize mt-0 mb-1">
                     <a class="text-capitalize text-dark bold-content"
                        href="{% url hit.type|add:":detail" hit.title|slugify hit.id %}">{{ hit.title }}</a>
-                </p>
-                <div class="text-dark text-capitalize">
+
+                   {%  if request.user.is_superuser %}
+
+                     <p class=" text-white pull-right">
+
+                       <a href='{% url "admin:"|add:hit.type|add:"_"|add:hit.type|add:"_change"  hit.id %}' class="text-white btn-color ">
+                                    {% trans 'Edit' %}
+                       </a>
+
+                      </a>
+                     </p>
+
+                    {%  endif %}
+
+                </div>
+
+                <div class="text-dark">
                     <div>
                         {% for author in hit.author_list %}
                             {% if author == "null" %}
                                 <!-- do nothing -->
                             {% else %}
                                 <!-- hard link are used as so as, wrong urls can break the page -->
-                                <a style="text-decoration: none" class="text-capitalize text-description text-info"
-                                   href="/authors/{{ author.0|slugify }}/{{ author.1 }}">
+                                <a style="text-decoration: none" class="text-description text-info"
+                                   href="/authors/{{ author.0|slugify_unicode }}/{{ author.1 }}">
                                     {{ author.0 }}
                                 </a>
                                 <span class="text-dark">{% if not forloop.last %},{% endif %}</span>
@@ -67,26 +95,17 @@
                         {% endfor %}
 
                     </div>
-                    {{ hit.abstract | truncatechars:"30" }}
-                      {%  if request.user.is_superuser %}
+                    {{ hit.abstract | truncatewords:"40" }}
 
-                     <p class=" text-white pull-right">
-
-                       <a href='{% url "admin:"|add:hit.type|add:"_"|add:hit.type|add:"_change"  hit.id %}' class="text-white   btn btn-sm btn-primary">
-                                    {% trans 'Edit' %}
-                       </a>
-
-                      </a>
-                     </p>
-
-                    {%  endif %}
                 </div>
+
                 <div class="rating">
                     <!--<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>-->
                 </div>
 
             </div>
         </li>
+
         <hr/>
     {% endfor %}
     </ul>

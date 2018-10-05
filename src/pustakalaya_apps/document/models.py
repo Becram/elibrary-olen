@@ -2,7 +2,9 @@
 import uuid
 import time
 import os
+from itertools import chain
 from django.contrib.contenttypes.fields import GenericRelation
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -28,8 +30,13 @@ from pustakalaya_apps.core.models import (
     Language,
     LicenseType
 )
+
+from pustakalaya_apps.audio.models import Audio
+from pustakalaya_apps.video.models import Video
 from .search import DocumentDoc
 
+from django.contrib.contenttypes.models import ContentType
+from star_ratings.models import Rating
 
 def __file_upload_path(instance, filepath):
     # Should return itemtype/year/month/filename
@@ -40,7 +47,7 @@ def __file_upload_path(instance, filepath):
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(featured="yes").order_by("-updated_date")[:5]
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes").order_by("-updated_date")[:6]
 
 
 class Document(AbstractItem, HitCountMixin):
@@ -83,11 +90,11 @@ class Document(AbstractItem, HitCountMixin):
     document_type = models.CharField(
         _("Document type"),
         max_length=40,  # TODO: Change to match the exact value.
-        choices=DOCUMENT_TYPE
+        choices=DOCUMENT_TYPE,
     )
 
     document_file_type = models.CharField(
-        _("Document file type"),
+        _("Document file format"),
         choices=DOCUMENT_FILE_TYPE,
         max_length=23,
         default="pdf"
@@ -96,7 +103,8 @@ class Document(AbstractItem, HitCountMixin):
     document_series = models.ForeignKey(
         "DocumentSeries",
         verbose_name=_("Series"),
-        on_delete=models.CASCADE,
+        #on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True
     )
@@ -109,7 +117,9 @@ class Document(AbstractItem, HitCountMixin):
 
     languages = models.ManyToManyField(
         Language,
-        verbose_name=_("Language(s)")
+        verbose_name=_("Language(s)"),
+        # null=True,
+        blank=True
     )
 
     document_interactivity = models.CharField(
@@ -134,9 +144,8 @@ class Document(AbstractItem, HitCountMixin):
     document_total_page = models.CharField(
         verbose_name=_("Total Pages"),
         blank=True,
-        default=0,
         validators=[validate_number],
-        max_length=4
+        max_length=7
     )
 
     document_authors = models.ManyToManyField(
@@ -146,10 +155,24 @@ class Document(AbstractItem, HitCountMixin):
         blank=True,
     )
 
+    # document_authors_name_in_other_language = models.ManyToManyField(
+    #     Biography,
+    #     verbose_name=_("Author(s) Name in other language"),
+    #     related_name="authors_in_other_language",
+    #     blank=True,
+    # )
+
     document_editors = models.ManyToManyField(
         Biography,
         verbose_name=_("Editor(s)"),
         related_name="editors",
+        blank=True,
+    )
+
+    document_translator = models.ManyToManyField(
+        Biography,
+        verbose_name=_("Translator(s)"),
+        related_name="translators",
         blank=True,
     )
 
@@ -187,9 +210,11 @@ class Document(AbstractItem, HitCountMixin):
 
     license = models.ForeignKey(
         LicenseType,
+        on_delete=models.SET_NULL,
         verbose_name=_("license"),
         blank=True,
         null=True,
+
     )
 
     thumbnail = models.ImageField(
@@ -208,6 +233,7 @@ class Document(AbstractItem, HitCountMixin):
 
     submitted_by = models.ForeignKey(
         User,
+        on_delete=models.SET_NULL,
         editable=False,
         null=True
     )
@@ -227,12 +253,21 @@ class Document(AbstractItem, HitCountMixin):
     @property
     def getauthors(self):
         author_list = [(author.getname, author.pk) for author in self.document_authors.all()]
-        return author_list or [
-            None]  # If emtpy, return something otherwise it will break elastic index while searching.
+        return author_list or [None]  # If emtpy, return something otherwise it will break elastic index while searching.
 
     @property
     def get_view_count(self):
         return self.hit_count_generic.count() or 0
+
+
+    def get_similar_items(self):
+        from pustakalaya_apps.video.models import Video
+        from pustakalaya_apps.audio.models import Audio
+        documents = Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        audios =   Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+        videos = Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:4]
+
+        return chain(documents, audios, videos)
 
     def __str__(self):
         return self.title
@@ -247,10 +282,13 @@ class Document(AbstractItem, HitCountMixin):
             education_levels=[education_level.level for education_level in self.education_levels.all()],
             communities=[collection.community_name for collection in self.collections.all()],
             collections=[collection.collection_name for collection in self.collections.all()],
+            collections_ids=[collection.pk for collection in self.collections.all()],
             languages=[language.language.lower() for language in self.languages.all()],
             publisher=[publisher.publisher_name for publisher in self.publisher.all()],
             sponsors=[sponsor.name for sponsor in self.sponsors.all()],  # Multi value # TODO some generators
             keywords=[keyword.keyword for keyword in self.keywords.all()],
+            # License type
+            license_type=self.license.license if self.license else None,
             # Document type specific
             thumbnail=self.thumbnail.name,
             # document_identifier_type=self.document_identifier_type,
@@ -265,6 +303,9 @@ class Document(AbstractItem, HitCountMixin):
             document_editors=[
                 editor.getname for editor in self.document_editors.all()
                 ],  # Multi value
+            document_translator=[
+                translator.getname for translator in self.document_translator.all()
+            ],
             document_total_page=self.document_total_page,
             # Document interactivity
             document_interactivity=self.document_interactivity,
@@ -294,10 +335,22 @@ class Document(AbstractItem, HitCountMixin):
 
         return self.publisher.publisher_name
 
+
+    def delete_index(self):
+        try:
+            self.doc().delete()
+        except NotFoundError:
+            # TODO:
+            pass
+
     def index(self):
         """index or update a document instance to elastic search index server"""
         # Index to index server if any doc is not empty and published status is "yes"
-        if self.published == "yes":
+        if self.published == "no":
+            # delete this if the published is set to no form
+            self.delete_index()
+        else:
+            #save only when published is yes
             self.doc().save()
 
         # Print all the collections.
@@ -307,16 +360,16 @@ class Document(AbstractItem, HitCountMixin):
         # Do bulk index if doc item is not empty.
         return self.doc().to_dict(include_meta=True)
 
-    def delete_index(self):
-        try:
-            self.doc().delete()
-        except NotFoundError:
-            # TODO:
-            pass
 
     def get_absolute_url(self):
-        from django.urls import reverse
-        return reverse("document:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
+        return reverse("document:detail_without_slug", kwargs={ "pk": self.pk})
+        # return reverse("document:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
+
+    def get_dashboard_edit_url(self):
+        return reverse("dashboard:document_update", kwargs={"pk": self.pk})
+
+    def get_dashboard_delete_url(self):
+        return reverse("dashboard:document_delete", kwargs={"pk": self.pk})
 
     def get_admin_url(self):
         return urlresolvers.reverse("admin:%s_%s_change" %(self._meta.app_label, self._meta.model_name), args=(self.pk,))
@@ -335,6 +388,9 @@ class Document(AbstractItem, HitCountMixin):
 
     def submited_by(self):
         return self.submitted_by
+
+    def document_link_name(self):
+        return self.link_name;
 
 class UnpublishedDocument(Document):
     """
@@ -397,17 +453,23 @@ class DocumentFileUpload(AbstractTimeStampModel):
     def __str__(self):
         return self.file_name
 
+    class Meta:
+        ordering=['created_date']
+
 
 class DocumentLinkInfo(LinkInfo):
     document = models.ForeignKey(
         Document,
         verbose_name=_("Link"),
-        on_delete=models.CASCADE,
+        #on_delete=models.CASCADE,
 
     )
 
     def __str__(self):
-        return self.document.title
+        return self.link_name
+
+    class Meta:
+        ordering=['created_date']
 
 
 class DocumentIdentifier(AbstractTimeStampModel):
@@ -426,7 +488,7 @@ class DocumentIdentifier(AbstractTimeStampModel):
     identifier_id = models.CharField(
         _("Identifier ID"),
         blank=True,
-        max_length=10
+        max_length=30
     )
 
     document = models.OneToOneField(

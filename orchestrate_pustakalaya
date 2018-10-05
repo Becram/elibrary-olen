@@ -2,21 +2,19 @@
 
 #Author Bikram Dhoju <bikram.dhoju@olenepal.org>
 
-set -o errexit
+#set -o errexit
 esc=""
 redf="${esc}[31m"
 whitef="${esc}[37m"
 reset="${esc}[0m"
-
+remote_backup="/share/Deployment/backup-pustakalaya-django"
+container_name="postgres_01"
 croncmd_backup="docker exec -it postgres_01 bash -c '/script/autopgsqlbackup'"
 cronjob_backup="*/5 * * * * $croncmd_backup"
+local_backup="/library/backup_pg_pustakalaya/backup/daily/pustakalaya"
 
 # print a pretty header
-echo
-echo " +---------------------------------------------------+"
-echo " |            Orchestrating Pustakalaya           |"
-echo " +---------------------------------------------------+"
-echo
+echo "++++++++++++ORCHEASTRATE PUSTAKALAYA+++++++++++++++++++++++++++++"
 
 
 
@@ -93,7 +91,10 @@ if [[ "$1" == "build" ]] ; then
 
 fi
 
-
+if [[ "$1" == "stop" ]] ; then
+        echo "stopping docker conatiners"
+        docker-compose stop
+fi
 
 
 if [[ "$1" == "rund" ]] ; then
@@ -113,9 +114,31 @@ fi
 
 
 if [[ "$1" == "dump_sql" ]] ; then
-        if [[ -f ./src/db_dump/pustakalaya.sql ]] ; then
-                  docker exec postgres_01 bash -c "psql --username pustakalaya_user -d pustakalaya -f /src/db_dump/pustakalaya01.sql"
-        fi
+        backup_file_bz2=$(ls $local_backup | tail -n 1 )
+        echo "backup file is $backup_file_bz2"
+        pushd $local_backup
+        if [[ -f $backup_file_bz2 ]] ; then
+             
+             bzip2 -dk $backup_file_bz2 
+             backup_file_sql=${backup_file_bz2%.*}
+             docker exec postgres_01 bash -c "psql --username pustakalaya_user -d pustakalaya -f /pg_backups/backup/daily/pustakalaya/$backup_file_sql"
+             if [ $? -eq 0 ]; then
+                   echo "Dumpped  from $backup_file_sql"
+                   rm -rvf $local_backup/*sql
+
+             else
+                   echo "Failed Dumping file"
+             fi
+
+             
+        else
+             echo "No backup file found. Please backup first"
+       fi
+       popd
+#        tar -jxf $backup_file -C /tmp
+        # if [[ -f ./src/db_dump/pustakalaya01.sql ]] ; then
+        #           docker exec postgres_01 bash -c "psql --username pustakalaya_user -d pustakalaya -f /src/db_dump/pustakalaya01.sql"
+        # fi
 fi
 
 
@@ -127,8 +150,17 @@ if [[ "$1" == "mkmigration" ]] ; then
 fi
 
 if [[ "$1" == "getBackup" ]] ; then
-        echo "getBack up of postgres"
-        docker exec postgres_01 bash -c "/script/autopgsqlbackup "
+        if [ $(docker inspect -f '{{.State.Running}}' $container_name) = "true" ]; then
+              echo "getBack up of postgres"
+              docker exec postgres_01 bash -c "/script/autopgsqlbackup";
+              echo "backing up the database to file server at location $remote_backup"
+              rsync -a -e "ssh -i /var/lib/jenkins/.ssh/id_rsa" --delete /library/backup_pg_pustakalaya/backup root@192.168.5.20:$remote_backup
+              echo "backing up the media and static  to fileserver at location $remote_backup"
+              rsync -a -e "ssh -i /var/lib/jenkins/.ssh/id_rsa"  --delete /library/{media_root,static_root} root@192.168.5.20:$remote_backup
+              echo "Successfully backed up to fileserver"
+        else
+              echo "Container $container_name is not running";
+        fi
 
 fi
 

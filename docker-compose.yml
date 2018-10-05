@@ -1,17 +1,21 @@
 version: '2'
 services:
   nginx:
-    image: nginx:latest
+    # image: nginx:latest
+#    image: funkygibbon/nginx-pagespeed:latest
+    build:
+      context: ./dockerfile-nginx/
+      dockerfile: Dockerfile
     restart: always
     hostname: nginx
     container_name: nginx_01
     networks:
       - pustakalaya-network
     ports:
-     - "8000:8000"
+     - "80:8000"
     volumes:
      - ./src:/src
-     - ./conf/nginx:/etc/nginx/conf.d
+#     - ./conf/nginx:/etc/nginx/conf.d
      - /library/media_root:/library/media_root
      - /library/static_root:/library/static_root
     depends_on:
@@ -23,7 +27,7 @@ services:
     restart: always
     hostname: web
     container_name: django_web_01
-    command: ./script.d/run_web.sh
+    command: ./script.d/run_web
     depends_on:
       - db
       - elastic
@@ -33,16 +37,16 @@ services:
       - /library/static_root:/library/static_root
     networks:
       - pustakalaya-network
-    ports:
-      - "8001:8001"
-    # expose:
-    #   - "8001"
-    links:
-      - redis
+#    ports:
+#      - "8001:8001"
+    expose:
+      - "8001"
+#    links:
+#      - redis
   db:
     build:
-      context: .
-      dockerfile: ./dockerfile-postgres/Dockerfile
+      context: ./dockerfile-postgres
+      dockerfile: Dockerfile
     restart: always
     environment:
       - POSTGRES_USER=pustakalaya_user
@@ -65,8 +69,8 @@ services:
 
   elastic:
     build:
-      context: .
-      dockerfile: ./dockerfile-elastic/Dockerfile
+      context: ./dockerfile-elastic
+      dockerfile: Dockerfile
     hostname: elastic
     restart: always
     container_name: elasticsearch_01
@@ -80,19 +84,21 @@ services:
     expose:
       -  "9200"
       -  "9300"
-    ports:
-      -  '9200:9200'
+    #ports:
+    #  -  '9200:9200'
 
-
-  redis:
-    image: redis:latest
+  rabbitmq:
+    image: rabbitmq:latest
+    hostname: rabbitmq
     restart: always
-    hostname: redis
-    container_name: redis_01
+    container_name: rabbitmq_01
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    expose:
+      - "5672"
     networks:
       - pustakalaya-network
-    ports:
-     - '6379:6379'
 
   celery:
     build:
@@ -101,14 +107,20 @@ services:
     hostname: celery
     restart: always
     container_name: celery_01
-    command: ./script.d/run_celery.sh
+    command: celery -A pustakalaya  worker -l info
     networks:
       - pustakalaya-network
     volumes:
       - ./src:/src
+      - /library/media_root:/library/media_root
+      - /library/static_root:/library/static_root
+
     links:
       - db
-      - redis
+      - rabbitmq
+   
+
+
 networks:
   pustakalaya-network:
     driver: bridge

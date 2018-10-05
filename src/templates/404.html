@@ -1,9 +1,22 @@
 {%  extends 'base.html' %}
 {% load  i18n %}
 {%  block content %}
-    <div class="container" style="min-height: 1200px;">
-        <p>{% trans "Oops broken page  404 Not found" %}
-        </p>
-        {%  include '_partials/search_form.html' %}
-    </div>
+<div class="main-contain">
+        <div class="container">
+          <div class="sad_container">
+      
+            <div class="sadface">
+              <i class="fas fa-exclamation-triangle" style="color: #D65A49;"></i>
+            </div>
+            <h1 style="font-family: 'Roboto Slab', serif;">404</h1>
+            <h5 style="font-family: 'Roboto Slab', serif;">{% trans "Page not Found" %}</h5>
+            <br>
+            <p>{% trans "Sorry but the page you are looking for cannot be found." %}</p>
+      
+            <button type="button" class="btn btn-default ole-btn"><a href="/">{% trans "Go home" %}</a></button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-default ole-btn"><a href="/about">{% trans "Contact Us" %}</a></button>
+          </div>
+      
+        </div>
+      </div>
 {%  endblock content %}

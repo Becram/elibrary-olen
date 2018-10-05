@@ -12,7 +12,15 @@ from elasticsearch_dsl import (
 
 
 class PustakalayaSearch(FacetedSearch):
-    doc_types = [DocumentDoc, VideoDoc, AudioDoc]
+
+
+    def __init__(self, search_types, sort_values, *args, **kwargs):
+        # Doc types to search
+        self.doc_types = search_types
+        self.sort_values = sort_values
+        self.filter_values = kwargs.get('filters')
+        super(PustakalayaSearch, self).__init__(*args, **kwargs)
+
     index = settings.ES_INDEX
     # Boost values
     fields = [
@@ -31,15 +39,27 @@ class PustakalayaSearch(FacetedSearch):
 
     ]
 
+    # Note: size =1000 means we are showing maximum 1000 items
+    # this can cause problem if the value exceeds 1000 items
     facets = {
-        'type': TermsFacet(field='type.keyword', size=10),
-        'languages': TermsFacet(field='languages.keyword', size=10),
-        'education_levels': TermsFacet(field='education_levels.keyword', size=10),
-        'communities': TermsFacet(field='communities.keyword', size=10),
-        'collections': TermsFacet(field='collections.keyword', size=10),
-        'keywords': TermsFacet(field='keywords.keyword', size=30),
+        'type': TermsFacet(field='type.keyword', size=1000),
+        'languages': TermsFacet(field='languages.keyword', size=1000),
+        'education_levels': TermsFacet(field='education_levels.keyword', size=1000),
+        'communities': TermsFacet(field='communities.keyword', size=1000),
+        'collections': TermsFacet(field='collections.keyword', size=10000),
+        'keywords': TermsFacet(field='keywords.keyword', size=10000),
         'year_of_available': DateHistogramFacet(field='year_of_available', interval='month', min_doc_count=0),
-        'license_type': TermsFacet(field='license_type.keyword', size=10),
+        'license_type': TermsFacet(field='license_type.keyword', size=1000),
         'publication_year': DateHistogramFacet(field='year_of_available', interval='month', min_doc_count=0),
-
     }
+
+    def search(self):
+        # override methods to add custom pieces
+        s = super(PustakalayaSearch,self).search().query("match", published="yes")
+        s.filter(**self.filter_values)
+        # s.sort({'title.keyword': {"order": "asc"}})
+        return s
+
+
+    # def sort(self, search):
+    #     return self.search().sort(*self.sort_values)

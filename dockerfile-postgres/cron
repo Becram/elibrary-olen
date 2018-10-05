@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+CRON_SCHEDULE="*/15 * * * *"
+#if [ -z "$CRON_SCHEDULE" ]; then
+#    echo "WARNING: \$CRON_SCHEDULE not set!"
+#fi
+
+# Write cron schedule
+echo "#!/bin/bash
+
+$CRON_SCHEDULE root . /script/autopgsqlbackup >> /backup.log 2>&1
+" > /etc/cron.d/postgresql-backup
+
+

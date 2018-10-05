@@ -62,6 +62,12 @@
 
     <!-- css for grid view and list view-->
     <style type="text/css">
+
+        .search_sidebar_style{
+        background-color: #00838f;
+        color: #fff;
+        }
+
         #container ul {
             list-style: none;
             margin: 0px;
@@ -88,15 +94,16 @@
             margin-right: 19px;
         }
 
-        li img {
+       /* li img {
             width: 100%;
         }
+        */
 
 
         div > ul.list > li {
             height: 130px;
             margin-bottom: 5px !important;
-            background: #fafafa; !important;
+            background: #fafafa !important;
             border: 1px dotted #999999;
 
         }
@@ -342,14 +349,8 @@
                                 <p class="text-capitalize text-dark font-weight-bold mb-1 mt-3">{% trans "language" %}</p>
                                 {% for language, count, selected in languages %}
                                     <div class="checkbox">
-                                        <input id="{{ language }}" value="{{ language }}"
-                                                {% if selected %} checked {% endif %}
-                                               type="checkbox"
-                                               onclick="queryAndFilter()">
-                                        <label class="text-capitalize facet-element text-center" for="{{ language }}" l>
-                                            {{ language | get_language }} <span
-                                                class="text-muted">&nbsp;({{ count }})</span>
-                                        </label>
+                                        <input id="{{ language }}" value="{{ language }}" {% if selected %} checked {% endif %} type="checkbox" onclick="queryAndFilter()">
+                                        <label class="text-capitalize facet-element text-center" for="{{ language }}" l>{{ language }}<span class="text-muted">&nbsp;({{ count }})</span></label>
                                     </div>
                                 {% endfor %}
                             </div><!-- end col-sm-12 -->
@@ -519,8 +520,8 @@
                         </div>
                         <ul class="list clearfix">
                             {% for hit in hits %}
-
-                           <li style="position: relative; cursor: pointer" onclick='window.location.href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}"'>
+                          {% if hit.published == "yes" %}
+                           <li style="position: relative; cursor: pointer;overflow:hidden;" onclick='window.location.href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}"'>
 
                           {% if hit.thumbnail  %}
 
@@ -539,12 +540,13 @@
                                             <!--<a href="#">-->
 
                                   <p class="text-primary description lead bold" id="_itemTitle">
-                                    <a href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}">
-                                      {{ hit.title|truncatechars:17}}
+                                    <a href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" >
+                                      {{ hit.title|truncatewords:11 }}
                                     </a>
+
                                     </p>
 
-                                    <div class="list-abstract text-secondary small-device-small-font ">{{ hit.abstract|truncatechars:150 }}
+                                    <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">{{ hit.abstract|truncatewords:40 }}
                                         <br>
                                         <strong class="text-black">{% trans "Views" %}:</strong>
                                         &nbsp;{{ hit.view_count }}
@@ -552,6 +554,7 @@
 
 
                                 </li>
+                              {% endif %}
 
                             {% endfor %}
                         </ul>
@@ -611,18 +614,32 @@
                 </div>
 
             {% else %}
-                <div>
-                    <div class="row min_height">
-                        <div class="col-md-2"></div>
-                        <div class=" col-md-8 search">
-                            <p class="text-capitalize text-danger text-center">{% trans "result not found for" %}&nbsp; <span class="text-primary">{{q}}<span></span></p>
-                            <!--{% include "_partials/search_form.html" %}-->
+            <style>
+                    .sad_container{
+                        text-align: center;
+                      }
 
+                      .sad_container > .sadface{
+                        font-size: 100px;
+                      }
+            </style>
+            <div class="main-contain">
+                <div class="container">
+                    <div class="sad_container">
+
+                        <div class="sadface">
+                            <i class="fa fa-frown"></i>
                         </div>
-                        <div class="col-md-2"></div>
+                        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found" %}</h5>
+                        <br>
+                        {% blocktrans %}
+                        <p>Your search - <b>{{q}}</b> did not match any documents.</p>
+                        <p>Make sure you spelled the words correctly or try a different keyword.</p>
+                        {% endblocktrans %}
                     </div>
 
                 </div>
+            </div>
 
             {% endif %}
             </div>
@@ -698,7 +715,7 @@
                 "communities": communities,
                 "collections": collections,
                 "keywords": keywords,
-                "license_type": license_type
+                "license_type": license_type,
 
             }
 
@@ -822,11 +839,11 @@
         $('button').on('click', function (e) {
             if ($(this).hasClass('grid')) {
                 // In case of grid view. Trim the title
-                $('#container ul').removeClass('list').addClass('grid');
+                $('#container ul.list').removeClass('list').addClass('grid');
 
 
             } else if ($(this).hasClass('list')) {
-                $('#container ul').removeClass('grid').addClass('list');
+                $('#container ul.grid').removeClass('grid').addClass('list');
                 // In case of list view restore the title text.
                 $("#_itemTitle").text(itemTitle)
 
@@ -837,11 +854,11 @@
 
 <script>
 
-
 $('.sbx-google__wrapper ').children('input.sbx-google__input-placeholder').attr("placeholder","");
-$('.sbx-google__wrapper ').children('input[name="qar"]').val("{{q}}");
-
+$('.sbx-google__wrapper ').children('input[name="qar"]').val("{{q|safe}}");
 </script>
 
 
 {% endblock script %}
+
+

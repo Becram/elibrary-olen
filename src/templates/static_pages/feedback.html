@@ -5,8 +5,8 @@
 
 
 {% block content %}
-    <div class="pt-4 ">
-        <div class="  jumbotron pt-3 pb-3 mb-0 large-device-padding"  >
+    <div class="container">
+        <div class="jumbotron  pb-3 mb-0 large-device-padding"  >
             <h6 class=" text-uppercase title-font">{% trans "Feedback" %}</h6>
             <p class="paragraph-font" text-justify>{% blocktrans %}
                 Please use the form below to give details about what you liked in our website or about what can be
@@ -19,7 +19,7 @@
             <hr/>
 
             <!-- some test -->
-            <div class="container bg-white p-3">
+            <div class="container p-3">
                 <!-- Feedback form -->
                 <div class="row" style="font-family:sans-serif">
                     <div class="col-md-5 col-sm-12 col-xs-12">
@@ -28,7 +28,7 @@
                             {% csrf_token %}
                                 {{ form | crispy }}
 
-                            <input class="btn btn-primary paragraph-font" type="submit" value="{% trans 'Send Feedback' %}">
+                            <input class="btn btn-primary ole-btn paragraph-font" type="submit" value="{% trans 'Send Feedback' %}">
                         </form>
 
                     </div>

@@ -1,0 +1,40 @@
+{% load i18n %}
+
+
+
+
+    <!-- Button trigger modal -->
+
+<p class="text-muted form-text">
+        {% trans "By uploading documents, audios and videos you agree to our" %}
+        <a class="text-primary" style="cursor:pointer; color:#00838F !important" data-toggle="modal" data-target="#exampleModal">
+              {% trans "License agreement" %}
+        </a>
+</p>    
+              
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">{% trans "License agreement" %}</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                    {% blocktrans %}
+                    The use of publications included in the electronic library will be governed by 
+                    Creative Commons 3.0 Attribution-Non Commercial-Share Alike copyright licenses. 
+                    This means that <br><br>(i) credit to the original authors/creators of the documents will be maintained and  <br>(ii) while these materials can be copied, distributed,
+                    and displayed, they cannot be used for commercial purposes.
+
+                    {% endblocktrans %}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>

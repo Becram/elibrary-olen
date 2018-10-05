@@ -6,7 +6,8 @@ from .models import (
     AudioGenre,
     AudioSeries,
     AudioLinkInfo,
-    AudioType
+    AudioType,
+    AudioEmbedLink
 )
 
 
@@ -16,16 +17,23 @@ class AudioFileUploadInline(admin.StackedInline):
     fields = ["file_name","upload"]
 
 
-
 class AudioLinkInfoAdminInline(admin.StackedInline):
     model = AudioLinkInfo
     extra = 1
+    verbose_name_plural = "Related Link"
+
+
+class AudioEmbedLinkAdminInline(admin.StackedInline):
+    model = AudioEmbedLink
+    extra = 1
+    verbose_name_plural = "Youtube Embed Link"
 
 
 @admin.register(Audio)
 class DocumentAdmin(admin.ModelAdmin):
     inlines = [
         AudioLinkInfoAdminInline,
+        AudioEmbedLinkAdminInline,
         AudioFileUploadInline,
     ]
 
@@ -44,6 +52,9 @@ class DocumentAdmin(admin.ModelAdmin):
         "languages",
         "place_of_publication",
         "publisher",
+        "featured",
+        "audio_original_document_authors",
+        "audio_release_date",
         "year_of_available_on_text",
         "publication_year_on_text",
         "audio_types",
@@ -63,7 +74,7 @@ class DocumentAdmin(admin.ModelAdmin):
         "thumbnail"
     )
 
-    list_display = ['title_link', 'published_',  'edit_link', 'updated_date_']
+    list_display = ['title_link', 'published_', "featured_", 'edit_link', 'updated_date_']
 
     def edit_link(self, obj):
         return format_html("<a href='{url}'>Edit</a>", url=obj.get_admin_url())
@@ -74,6 +85,8 @@ class DocumentAdmin(admin.ModelAdmin):
     def published_(self,obj):
         return format_html('%s' % (obj.published_yes_no()))
 
+    def featured_(self,obj):
+        return format_html('%s' % (obj.featured_yes_no()))
 
 
     def updated_date_(self,obj):

@@ -1,0 +1,95 @@
+version: '3'
+services:
+  nginx:
+    image: becram/olen-elib-nginx:v1.2
+    ports:
+     - "80:8000"
+    volumes:
+     - ./src:/src
+     - /library/media_root:/library/media_root
+     - /library/static_root:/library/static_root
+    depends_on:
+     - web
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  web:
+    image: becram/olen-elib-code:v1.2
+    depends_on:
+      - db
+      - elastic
+    volumes:
+      - ./src:/src
+      - /library/media_root:/library/media_root
+      - /library/static_root:/library/static_root
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+  db:
+    image: becram/olen-elib-db:v1.3
+    environment:
+      - POSTGRES_USER=pustakalaya_user
+      - POSTGRES_DB=pustakalaya
+      - POSTGRES_PASSWORD=pustakalaya123
+      - POSTGRES_BACKUP_DIR=/pg_backups
+    volumes:
+      - /library/backup_pg_pustakalaya:/pg_backups
+      - ./src:/src
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+
+
+  elastic:
+    image: becram/olen-elib-elastic:v1.2
+    volumes:
+      - ./conf:/conf
+    depends_on:
+      - db
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  rabbitmq:
+    image: rabbitmq:3.7
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  celery:
+    image: becram/olen-elib-celery:v1.2
+    volumes:
+      - ./src:/src
+      - /library/media_root:/library/media_root
+      - /library/static_root:/library/static_root
+
+    depends_on:
+      - db
+      - rabbitmq
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+

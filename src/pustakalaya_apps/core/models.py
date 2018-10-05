@@ -68,21 +68,61 @@ class Keyword(AbstractTimeStampModel):
 
     class Meta:
         db_table = "keyword"
+        ordering = ['created_date']
+
+
+class genre_audio_video(AbstractTimeStampModel):
+    custom_genre = models.CharField(
+        max_length=255,
+        verbose_name=_("genre name"),
+        unique=True
+    )
+
+    genre_description = models.TextField(
+        verbose_name=_("genre description"),
+        blank=True,
+        default=""
+    )
+
+    def __str__(self):
+        return self.custom_genre
+
+    class Meta:
+        db_table = "custom_genre"
 
 
 class Biography(AbstractBaseAuthor):
     """Biography class to create an instance of document author, editor, illustrator,
     video director, video producer and audio recorder"""
+
     keywords = models.ManyToManyField(
         Keyword,
         verbose_name=_("Search Keywords"),
         blank=True
     )
 
+    authors_name_in_other_language = models.ManyToManyField(
+        "self",
+        verbose_name=_("Author(s) name in other language"),
+        # related_name="authors_in_other_language",
+        blank=True,
+    )
+
+    genre = models.ManyToManyField(
+        genre_audio_video,
+        verbose_name=_("Genre"),
+        blank=True,
+
+    )
+
+    @property
     def getName(self):
-        return self.name
+        return self.name or "_"
 
     def __str__(self):
+        return self.name
+    @property
+    def getname(self):
         return self.name
 
     class Meta:
@@ -99,7 +139,8 @@ class Sponsor(AbstractTimeStampModel):
     )
 
     description = models.TextField(
-        verbose_name=_("Description")
+        verbose_name=_("Description"),
+        blank=True
     )
 
     def __str__(self):
@@ -129,7 +170,7 @@ class EducationLevel(models.Model):
     level = models.CharField(
         _("Education Level"),
         max_length=255,
-        choices=EDUCATION_LEVEL,
+        # choices=EDUCATION_LEVEL,
         unique=True
 
     )
@@ -144,7 +185,6 @@ class EducationLevel(models.Model):
 
     class Meta:
         db_table = "education_level"
-
 
 class Language(models.Model):
     language = models.CharField(
@@ -166,6 +206,8 @@ class LicenseType(models.Model):
     license = models.CharField(
         max_length=50,
         verbose_name=_("License"),
+        null=True,
+
     )
 
     class Meta:

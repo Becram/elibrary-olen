@@ -12,32 +12,78 @@ from django.http import JsonResponse, HttpResponseRedirect
 def search(request):
     # Store search result in dict obj
     search_result = {}
-
     # Query string from user input
     query_string = " "
 
+    # default item types
+    item_types = ["document", "audio", "video"]
+
     if request.method == "GET":
         # Grab query from form.
-
         query_string = request.GET.get('q')
 
-        # To prevent empty search using url only
-        if query_string == "":
-            return HttpResponseRedirect("/")
+
+        # Grab the default search index.
+        item_type_to_search = request.GET.get('searchIn', 'all')
+
+        if item_type_to_search == "document":
+            search_in = ["document"]
+
+        elif item_type_to_search == "audio":
+            search_in = ["audio"]
+
+        elif item_type_to_search == "video":
+            search_in = ["video"]
+
+        else:
+            # Default is search
+            search_in = item_types
 
 
-
-        # Get data ajax request
+        # Get Form filters.
         try:
             filters = json.loads(request.GET.get("form-filter", {}))
+            print(filters)
+
         except (TypeError, JSONDecodeError):
-            filters = {}
+            # Query all the published data only
+            filters = {
+
+            }
+
+        order_by = request.GET.get('sort_order') or 'asc'
+        # print(order_by)
+        sort_by = request.GET.get('sort_by') or 'title.keyword'
+        # print(sort_by)
+
+        # this if not is added to remove error for default value with keyword sortby and asc orderby
+        # if default is keyword and asc make sort_values=[]
+        if not sort_by is 'title.keyword' and not order_by is 'asc':
+            sort_values = [
+                {sort_by: {"order": order_by}},
+                {"updated_date": {"order": order_by}},
+                {"view_count": {"order": order_by}},
+                'updated_date',
+                'view_count',
+            ]
+        else:
+            sort_values = []
 
         # Search in elastic search
-        search_obj = PustakalayaSearch(query=query_string, filters=filters)
+        search_obj = PustakalayaSearch(search_in, sort_values,
+
+                                       query=query_string, filters=filters,
+                                       sort=sort_values
+                                       )
+
+        data = search_obj
+        results = data.execute()
+        # print(results.hits)
+
+        # print(search_obj)
 
         # Pagination configuration before executing a query.
-        paginator = Paginator(search_obj, 12)
+        paginator = Paginator(search_obj, 16)
 
         page_no = request.GET.get('page')
         try:
@@ -48,7 +94,7 @@ def search(request):
             page = paginator.page(paginator.num_pages)
 
         response = page.object_list.execute()
-
+        # print(response)
         search_result["response"] = response
         search_result["hits"] = response.hits
         search_result["type"] = response.facets.type
@@ -61,9 +107,12 @@ def search(request):
         search_result["year_of_available"] = response.facets.year_of_available
         search_result["license_type"] = response.facets.license_type
         search_result["q"] = query_string or ""
+        search_result["selected_doc_type"] = request.GET.get('searchIn') or "all"
         search_result["time"] = response.took / float(1000)  # Convert time in msec
         search_result["page_obj"] = page
         search_result["paginator"] = paginator
+        search_result["sort_by"] = sort_by
+        search_result["sort_order"] = order_by
 
         # Implement keywords filter.
         keyword_list = []
@@ -117,12 +166,12 @@ def search(request):
         #     print(month.strftime('%B %Y'), ' (SELECTED):' if selected else ':', count)
         #
         # for (license_type, count, selected) in response.facets.license_type:
-        #     print(license_type, ' (SELECTED):' if selected else ':', count)
-        #
+        #     print(len(license_type), ' (SELECTED):' if selected else ':', count)
+
         # for (month, count, selected) in response.facets.publication_year:
         #     print(month.strftime('%B %Y'), ' (SELECTED):' if selected else ':', count)
 
-        return render(request, "pustakalaya_search/search_result.html", search_result)
+        return render(request, "pustakalaya_search/search_result_new.html", search_result)
 
 
 def completion(request):
@@ -132,21 +181,23 @@ def completion(request):
     :return:
     """
 
-    client = connections.get_connection()
-
     if request.method == "GET":
         text = request.GET.get('suggest_text') or " "
+        # Get the item type to search
+        search_type = request.GET.get('search_type') or "all"
+        client = connections.get_connection()
         response = client.search(
             index=settings.ES_INDEX,
-            body={"_source": "suggest",
+            body={
+                "_source":  "suggest",
                   "suggest": {
                       "title_suggest": {
                           "prefix": text,
                           "completion": {
-                              "field": "title_suggest"
-                          }
-                      }
-                  }
+                              "field": "title_suggest",
+                          },
+                      },
+                  },
                   })
 
         suggested_items = []
