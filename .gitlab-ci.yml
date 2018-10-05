@@ -3,7 +3,7 @@
 # TODO: Correct the tags to fit your gitlab
 
 
-before_script::
+before_script:
   - TAG=git tag --points-at HEAD | tail -n1 2>/dev/null | sed -e 's/^release-//'
   - echo "$TAG"
 
