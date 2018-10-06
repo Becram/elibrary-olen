@@ -3,7 +3,6 @@ services:
   nginx:
     image: becram/olen-elib-nginx:stable-s1.4
     restart: always
-    container_name: prod_nginx_stable-s1.4
     networks:
       - net-pusta
     ports:
@@ -12,13 +11,12 @@ services:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
     depends_on:
-     - web
+     - code
 
 
   code:
     image: becram/olen-elib-code:stable-s1.4
     restart: always
-    container_name: pusta_code_stable-s1.4
     env_file:
       - ./dockerfile-code/code.env
     depends_on:
@@ -39,7 +37,6 @@ services:
   pgmaster:
     image: becram/olen-elib-db-master:stable-s1.4
     restart: 'always'
-    container_name: pusta_pgmaster_stable-s1.4
     env_file:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
@@ -52,7 +49,6 @@ services:
     image: becram/olen-elib-db-slave:stable-s1.4
     restart: 'always'
     hostname: db-slave
-    container_name: pusta_pgslave_stable-s1.4
     env_file:
       - ./dockerfile-postgres-slave/pgslave.env
     volumes:
@@ -70,7 +66,6 @@ services:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     restart: always
-    container_name: pusta_elasticsearch_stable-s1.4
     volumes:
       - ./conf:/conf
     volumes:
@@ -95,7 +90,6 @@ services:
     image: becram/olen-elib-celery:stable-s1.4
     hostname: celery
     restart: always
-    container_name: pusta_celery_stable-s1.4
     networks:
       - net-pusta
     depends_on:
