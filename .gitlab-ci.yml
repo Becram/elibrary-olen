@@ -4,10 +4,10 @@
 
 
 stages:
-  - prepare
-  - build
+  # - prepare
+  # - build
   - push
-  - deploy
+  # - deploy
 
 # Specify custom variables
 # variables:
@@ -19,27 +19,28 @@ stages:
 # Prepare
 # -------
 # Removes old images and containers, if they exist
-prepare:clean:
-  stage: prepare
-  script:
-    # Stop all containers
-    - docker-compose -f development.yml stop
-    # Remove all containers and volumes
-    - docker-compose -f development.yml rm -fv
-    - docker-compose -f development.yml ps
-  tags:
-    - dev
-
+################################################
+# prepare:clean:
+#   stage: prepare
+#   script:
+#     # Stop all containers
+#     - docker-compose -f development.yml stop
+#     # Remove all containers and volumes
+#     - docker-compose -f development.yml rm -fv
+#     - docker-compose -f development.yml ps
+#   tags:
+#     - dev
+##################################################
 # Install
 # -------
 # Build all images
-build:containers:
-  stage: build
-  script:
-    # Build the Containers without caching and newest source image
-    - docker-compose -f development.yml  build --pull
-  tags:
-    - dev
+# build:containers:
+#   stage: build
+#   script:
+#     # Build the Containers without caching and newest source image
+#     - docker-compose -f development.yml  build --pull
+#   tags:
+#     - dev
 
 # Push
 # ----
@@ -53,6 +54,7 @@ push:image:
     - ./get_release_version.sh
     - docker-compose -f build.yml build
     - docker-compose -f build.yml push
+    - docker-compose -f production.yml up -d
     # - echo "Released ${RELEASE_TAG} at $(date)"> /library/media_root/release_version.log
   # Only these branches are getting pushed
   only:
@@ -62,10 +64,10 @@ push:image:
 # Deploy
 # ------
 # Starts the containers
-deploy:http:
-  stage: deploy
-  script:
-    # Bring up the app
-    - docker-compose -f development.yml up -d
-  tags:
-    - dev
+# deploy:http:
+#   stage: deploy
+#   script:
+#     # Bring up the app
+#     - docker-compose -f development.yml up -d
+#   tags:
+#     - dev
