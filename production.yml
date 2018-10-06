@@ -12,7 +12,7 @@ services:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
     depends_on:
-     - web
+     - code
 
 
   code:
