@@ -9,9 +9,6 @@ stages:
   - push
   - deploy
 
-
-
-
 # Specify custom variables
 # variables:
 #   # Enables multibranch build
