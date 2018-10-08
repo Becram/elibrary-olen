@@ -56,7 +56,7 @@ push:image:
     - docker-compose -f build.yml build
     # - docker-compose -f production.yml push
     - docker-compose -f production.yml up -d
-    # - echo "Released ${RELEASE_TAG} at $(date)"> /library/media_root/release_version.log
+    - echo "Released ${RELEASE_TAG} at $(date)"> /library/media_root/release_version.log
   # Only these branches are getting pushed
   only:
     - bikram-stack
