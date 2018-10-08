@@ -51,17 +51,18 @@ push:image:
     # Login to the registry
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     # Push images to the gitlab remote
-    - ./get_release_version.sh
-    - docker-compose -f production.yml down
-    - docker-compose -f build.yml build
-    # - docker-compose -f production.yml push
-    - docker-compose -f production.yml up -d
-    - echo "Released ${RELEASE_TAG} at $(date)"> /library/media_root/release_version.log
+    # - ./get_release_version.sh
+    # - docker-compose -f production.yml down
+    # - docker-compose -f build.yml build
+    # # - docker-compose -f production.yml push
+    # - docker-compose -f production.yml up -d
+    - echo "deploy sucess at $(date)" > /tmp/deploy
+    # - echo "Released ${RELEASE_TAG} at $(date)"> /library/media_root/release_version.log
   # Only these branches are getting pushed
   only:
     - bikram-stack
   tags:
-    - dev
+    - production
 # Deploy
 # ------
 # Starts the containers
