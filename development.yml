@@ -54,7 +54,7 @@ services:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
      - postgres_data_master:/var/lib/postgresql/data
-     - postgres_dump:/pg_backups
+     - /library/backup/postgres_backup:/backup/postgres_backup
     networks:
       - net-pusta
 
