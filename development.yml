@@ -25,6 +25,8 @@ services:
     container_name: dev_code_01
     env_file:
       - ./dockerfile-code/code.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=pustakalaya.settings.development
     depends_on:
       - pgmaster
       - elastic
