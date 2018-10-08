@@ -61,7 +61,7 @@ push:image:
   only:
     - bikram-stack
   tags:
-    - prod
+    - dev
 # Deploy
 # ------
 # Starts the containers
