@@ -8,7 +8,7 @@ services:
     hostname: nginx
     container_name: dev_nginx_01
     networks:
-      - net-pusta
+      - dev-net-pusta
     ports:
       - "81:8000"
     volumes:
@@ -39,7 +39,7 @@ services:
       - /library/static_root:/library/static_root:rw
       - ./src:/src:rw
     networks:
-      - net-pusta
+      - dev-net-pusta
     tty: true
 
 
@@ -56,7 +56,7 @@ services:
      - development_postgres_data_master:/var/lib/postgresql/data
      - /library/backup/postgres_backup:/backup/postgres_backup
     networks:
-      - net-pusta
+      - dev-net-pusta
 
   pgslave:
     build:
@@ -72,7 +72,7 @@ services:
     depends_on:
       - pgmaster
     networks:
-      - net-pusta
+      - dev-net-pusta
 
 
   elastic:
@@ -88,7 +88,7 @@ services:
     volumes:
       - development_elastic_data:/usr/share/elasticsearch/data
     networks:
-      - net-pusta
+      - dev-net-pusta
     depends_on:
       - pgmaster
 
@@ -101,7 +101,7 @@ services:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
     networks:
-      - net-pusta
+      - dev-net-pusta
 
   celery:
     build:
@@ -113,7 +113,7 @@ services:
     volumes:
       - ./src:/src:rw
     networks:
-      - net-pusta
+      - dev-net-pusta
     depends_on:
       - pgmaster
       - rabbitmq
@@ -127,5 +127,5 @@ volumes:
 
 
 networks:
-  net-pusta:
+  dev-net-pusta:
     driver: bridge

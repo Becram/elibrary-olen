@@ -5,7 +5,7 @@ services:
     restart: always
     container_name: prod_nginx_01
     networks:
-      - net-pusta
+      - prod-net-pusta
     ports:
       - "80:8000"
     volumes:
@@ -34,7 +34,7 @@ services:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
     networks:
-      - net-pusta
+      - prod-net-pusta
 
 
 
@@ -48,7 +48,7 @@ services:
      - production_postgres_data_master:/var/lib/postgresql/data
      - /library/backup/postgres_backup:/backup/postgres_backup
     networks:
-      - net-pusta
+      - prod-net-pusta
 
   pgslave:
     image: becram/olen-elib-db-slave:stable-s1.4
@@ -61,7 +61,7 @@ services:
     depends_on:
       - pgmaster
     networks:
-      - net-pusta
+      - prod-net-pusta
 
 
   elastic:
@@ -77,26 +77,27 @@ services:
     volumes:
       - production_elastic_data:/usr/share/elasticsearch/data
     networks:
-      - net-pusta
+      - prod-net-pusta
     depends_on:
       - pgmaster
 
   rabbitmq:
     image: rabbitmq:3.7
     hostname: rabbitmq
+    container_name: prod_rabbitmq_01
     restart: always
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
     networks:
-      - net-pusta
+      - prod-net-pusta
 
   celery:
     image: becram/olen-elib-celery:stable-s1.4
-    hostname: celery
     restart: always
+    container_name: prod_celery_01
     networks:
-      - net-pusta
+      - prod-net-pusta
     depends_on:
       - pgmaster
       - rabbitmq
@@ -110,5 +111,5 @@ volumes:
 
 
 networks:
-  net-pusta:
+  prod-prod-net-pusta:
     driver: bridge
