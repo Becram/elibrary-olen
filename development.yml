@@ -86,7 +86,7 @@ services:
     restart: always
     container_name: dev_elasticsearch_01
     volumes:
-      - development_elastic_data::/usr/share/elasticsearch/data
+      - development_elastic_data:/usr/share/elasticsearch/data
     networks:
       - net-pusta
     depends_on:
