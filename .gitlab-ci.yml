@@ -16,7 +16,6 @@ stages:
 #   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
 before_script:
   - ./get_release_version.sh
-  - echo "${RELEASE_TAG} on $(date)" >> /library/media_root/release_version.txt
 # Prepare
 # -------
 # Removes old images and containers, if they exist
