@@ -16,6 +16,7 @@ stages:
 #   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
 before_script:
   - ./get_release_version.sh
+  - echo "${RELEASE_TAG} on $(date)" >> /library/media_root/release_version.txt
 # Prepare
 # -------
 # Removes old images and containers, if they exist
@@ -52,7 +53,7 @@ deploy:production:
     # Login to the registry
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     # Push images to the gitlab remote
-    - echo "${RELEASE_TAG} on $(date)" >> /library/media_root/release_version.txt
+
     # - docker-compose -f production.yml push
     - docker-compose -f production.yml up -d
 
