@@ -111,5 +111,5 @@ volumes:
 
 
 networks:
-  prod-prod-net-pusta:
+  prod-net-pusta:
     driver: bridge

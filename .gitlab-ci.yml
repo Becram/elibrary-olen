@@ -24,10 +24,10 @@ prepare:clean:
   stage: prepare
   script:
     # Stop all containers
-    - docker-compose -f development.yml down
+    # - docker-compose -f development.yml down
     - docker-compose -f production.yml down
     # Remove all containers and volumes
-    - docker-compose -f development.yml rm -fv
+    # - docker-compose -f development.yml rm -fv
     - docker-compose -f production.yml rm -fv
   tags:
     - development
@@ -65,12 +65,12 @@ deploy:production:
 # Deploy
 # ------
 # Starts the containers
-deploy:development:
-  stage: deploy
-  script:
-    # Bring up the app
-    - docker-compose -f development.yml up -d
-  only:
-    - bikram-stack
-  tags:
-    - development
+# deploy:development:
+#   stage: deploy
+#   script:
+#     # Bring up the app
+#     - docker-compose -f development.yml up -d
+#   only:
+#     - bikram-stack
+#   tags:
+#     - development
