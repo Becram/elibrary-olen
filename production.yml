@@ -3,6 +3,7 @@ services:
   nginx:
     image: becram/olen-elib-nginx:stable-s1.4
     restart: always
+    container_name: prod_nginx_01
     networks:
       - net-pusta
     ports:
@@ -17,8 +18,11 @@ services:
   code:
     image: becram/olen-elib-code:stable-s1.4
     restart: always
+    container_name: prod_code_01
     env_file:
       - ./dockerfile-code/code.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=pustakalaya.settings.production
     depends_on:
       - pgmaster
       - elastic
@@ -37,6 +41,7 @@ services:
   pgmaster:
     image: becram/olen-elib-db-master:stable-s1.4
     restart: 'always'
+    container_name: prod_pgmaster_01
     env_file:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
@@ -48,7 +53,7 @@ services:
   pgslave:
     image: becram/olen-elib-db-slave:stable-s1.4
     restart: 'always'
-    hostname: db-slave
+    container_name: prod_pgslave_01
     env_file:
       - ./dockerfile-postgres-slave/pgslave.env
     volumes:
@@ -62,6 +67,7 @@ services:
   elastic:
     image: becram/olen-elib-elastic:stable-s1.4
     hostname: elastic
+    container_name: prod_elastic_01
     environment:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
