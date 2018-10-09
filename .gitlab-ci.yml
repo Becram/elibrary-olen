@@ -25,12 +25,14 @@ prepare:clean:
   script:
     # Stop all containers
     # - docker-compose -f development.yml down
-    - docker-compose -f production.yml down
+    - docker-compose -f production.yml exec pgmaster /autopgsqlbackup
+
+    # - docker-compose -f production.yml down
     # Remove all containers and volumes
     # - docker-compose -f development.yml rm -fv
-    - docker-compose -f production.yml rm -fv
+    # - docker-compose -f production.yml rm -fv
   tags:
-    - development
+    - production
 ##################################################
 # Install
 # -------
@@ -38,10 +40,11 @@ prepare:clean:
 build:containers:
   stage: build
   script:
+    - ./get_latest_sql.sh
     # Build the Containers without caching and newest source image
     - docker-compose -f build.yml  build --pull
   tags:
-    - development
+    - production
 
 # Push
 # ----
@@ -52,16 +55,16 @@ deploy:production:
     # Login to the registry
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     # Push images to the gitlab remote
-
+    - echo "Deploying Pustakalaya"
     # - docker-compose -f production.yml push
-    - docker-compose -f production.yml up -d
+    # - docker-compose -f production.yml up -d
 
   # Only these branches are getting pushed
   # when: manual
   only:
     - bikram-stack
   tags:
-    - development
+    - production
 # Deploy
 # ------
 # Starts the containers
