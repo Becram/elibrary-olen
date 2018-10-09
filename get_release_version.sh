@@ -20,5 +20,7 @@ else
     echo "Failed to build because there is no version in build.yml file"
     exit 1
 fi
+
+echo "${RELEASE_TAG} on $(date)" >> /library/media_root/release_version.txt
 # docker-compose -f build.yml build
 # echo "done building at $(date) "touch /tmp/deploy
