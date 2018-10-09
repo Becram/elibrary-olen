@@ -1,7 +1,7 @@
 version: '3'
 services:
   nginx:
-    image: becram/olen-elib-nginx:s1.3
+    image: becram/olen-elib-nginx:stable-s1.3
     networks:
       - pustakalaya-stack-network
     ports:
@@ -13,7 +13,7 @@ services:
      - web
 
   web:
-    image: becram/olen-elib-code:s1.3
+    image: becram/olen-elib-code:stable-s1.3
     depends_on:
       - pgmaster
       - elastic
@@ -49,7 +49,7 @@ services:
         constraints: [node.role == manager]
 
   pgmaster:
-    image: becram/olen-elib-db-master:s1.3
+    image: becram/olen-elib-db-master:stable-s1.3
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
@@ -65,7 +65,7 @@ services:
         constraints: [node.role == manager]
 
   pgslave:
-    image: becram/olen-elib-db-slave:s1.3
+    image: becram/olen-elib-db-slave:stable-s1.3
     environment:
       - POSTGRES_USER=pustakalaya_user
       - POSTGRES_DB=pustakalaya
@@ -83,7 +83,7 @@ services:
         constraints: [node.role == manager]
 
   elastic:
-    image: becram/olen-elib-elastic:s1.3
+    image: becram/olen-elib-elastic:stable-s1.3
     networks:
       - pustakalaya-stack-network
     volumes:
@@ -101,7 +101,7 @@ services:
       - pustakalaya-stack-network
 
   celery:
-    image: becram/olen-elib-celery:s1.3
+    image: becram/olen-elib-celery:stable-s1.3
     networks:
       - pustakalaya-stack-network
     depends_on:
