@@ -6,6 +6,7 @@
 stages:
   - prepare
   - build
+  - push
   - deploy
 
 # Specify custom variables
@@ -23,13 +24,12 @@ prepare:clean:
   stage: prepare
   script:
     # Stop all containers
-    - docker-compose -f development.yml down
-    - docker-compose -f production.yml down
+    - docker-compose -f development.yml stop
     # Remove all containers and volumes
     - docker-compose -f development.yml rm -fv
-    - docker-compose -f production.yml rm -fv
+    - docker-compose -f development.yml ps
   tags:
-    - development
+    - dev
 ##################################################
 # Install
 # -------
@@ -38,39 +38,39 @@ build:containers:
   stage: build
   script:
     # Build the Containers without caching and newest source image
-    - docker-compose -f build.yml  build --pull
+    - docker-compose -f development.yml  build --pull
   tags:
-    - development
+    - dev
 
 # Push
 # ----
 # Pushes the Docker image to th registry for selected tags
-deploy:production:
+push:image:
   stage: deploy
   script:
     # Login to the registry
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     # Push images to the gitlab remote
     - ./get_release_version.sh
-    - echo "${RELEASE_TAG} on $(date)" >> /library/media_root/release_version.txt
+    - docker-compose -f production.yml down
+    - docker-compose -f build.yml build --pull
     # - docker-compose -f production.yml push
     - docker-compose -f production.yml up -d
-
+    - echo "${RELEASE_TAG} on $(date)" >> /library/media_root/release_version.txt
+    - docker-compose -f production.yml push
   # Only these branches are getting pushed
-  # when: manual
+  when: manual
   only:
     - bikram-stack
   tags:
-    - development
+    - production
 # Deploy
 # ------
 # Starts the containers
-deploy:development:
+deploy:http:
   stage: deploy
   script:
     # Bring up the app
     - docker-compose -f development.yml up -d
-  only:
-    - bikram-stack
   tags:
-    - development
+    - dev

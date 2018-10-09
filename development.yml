@@ -53,7 +53,7 @@ services:
     env_file:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
-     - postgres_data_master:/var/lib/postgresql/data
+     - development_postgres_data_master:/var/lib/postgresql/data
      - /library/backup/postgres_backup:/backup/postgres_backup
     networks:
       - net-pusta
@@ -68,7 +68,7 @@ services:
     env_file:
       - ./dockerfile-postgres-slave/pgslave.env
     volumes:
-      - postgres_data_slave:/var/lib/postgresql/data
+      - development_postgres_data_slave:/var/lib/postgresql/data
     depends_on:
       - pgmaster
     networks:
@@ -86,7 +86,7 @@ services:
     restart: always
     container_name: dev_elasticsearch_01
     volumes:
-      - pusta_elastic:/usr/share/elasticsearch/data
+      - development_elastic_data::/usr/share/elasticsearch/data
     networks:
       - net-pusta
     depends_on:
@@ -106,7 +106,7 @@ services:
   celery:
     build:
       context: .
-      dockerfile: ./dockerfile-celery/Dockerfile.summit
+      dockerfile: ./dockerfile-celery/Dockerfile.dev
     hostname: celery
     restart: always
     container_name: dev_celery_01
@@ -120,10 +120,9 @@ services:
 
 
 volumes:
-  postgres_data_slave:
-  postgres_data_master:
-  postgres_dump:
-  pusta_elastic:
+  development_postgres_data_slave:
+  development_postgres_data_master:
+  development_elastic_data:
 
 
 
