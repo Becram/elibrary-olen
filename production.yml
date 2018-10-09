@@ -69,7 +69,7 @@ services:
     volumes:
       - ./conf:/conf
     volumes:
-      - production_pusta_elastic:/usr/share/elasticsearch/data
+      - production_elastic_data:/usr/share/elasticsearch/data
     networks:
       - net-pusta
     depends_on:
