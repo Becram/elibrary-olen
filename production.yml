@@ -40,7 +40,7 @@ services:
     env_file:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
-     - postgres_data_master:/var/lib/postgresql/data
+     - production_postgres_data_master:/var/lib/postgresql/data
      - /library/backup/postgres_backup:/backup/postgres_backup
     networks:
       - net-pusta
@@ -52,7 +52,7 @@ services:
     env_file:
       - ./dockerfile-postgres-slave/pgslave.env
     volumes:
-      - postgres_data_slave:/var/lib/postgresql/data
+      - production_postgres_data_slave:/var/lib/postgresql/data
     depends_on:
       - pgmaster
     networks:
@@ -69,7 +69,7 @@ services:
     volumes:
       - ./conf:/conf
     volumes:
-      - pusta_elastic:/usr/share/elasticsearch/data
+      - production_pusta_elastic:/usr/share/elasticsearch/data
     networks:
       - net-pusta
     depends_on:
@@ -97,10 +97,9 @@ services:
 
 
 volumes:
-  postgres_data_slave:
-  postgres_data_master:
-  postgres_dump:
-  pusta_elastic:
+  production_postgres_data_slave:
+  production_postgres_data_master:
+  production_elastic_data:
 
 
 
