@@ -44,7 +44,7 @@ build:images:
     - ./get_latest_sql.sh
     # Build the Containers without caching and newest source image
     - docker-compose -f build.yml  build --pull
-    - docker-compose -f build.yml  push
+    - docker-compose -f production.yml  push
   tags:
     - development
 
