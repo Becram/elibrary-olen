@@ -14,8 +14,8 @@ stages:
 #   COMPOSE_PROJECT_NAME: $CI_PROJECT_NAME-$CI_BUILD_REF_NAME
 #   # How to store the image
 #   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
-# before_script:
-#   - ./get_release_version.sh
+before_script:
+  - docker-compose -f production.yml exec -T pgmaster /autopgsqlbackup
 # Prepare
 # -------
 # Removes old images and containers, if they exist
@@ -25,7 +25,6 @@ prepare:clean:
   script:
     # Stop all containers
     # - docker-compose -f development.yml down
-    - docker-compose -f production.yml exec -T pgmaster /autopgsqlbackup
     - docker-compose -f production.yml down
     # Remove all containers and volumes
     # - docker-compose -f development.yml rm -fv
