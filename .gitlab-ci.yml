@@ -14,8 +14,8 @@ stages:
 #   COMPOSE_PROJECT_NAME: $CI_PROJECT_NAME-$CI_BUILD_REF_NAME
 #   # How to store the image
 #   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
-before_script:
-  - ./get_release_version.sh
+# before_script:
+#   - ./get_release_version.sh
 # Prepare
 # -------
 # Removes old images and containers, if they exist
@@ -27,40 +27,59 @@ prepare:clean:
     # - docker-compose -f development.yml down
     - docker-compose -f production.yml exec pgmaster /autopgsqlbackup
 
-    # - docker-compose -f production.yml down
+    - docker-compose -f production.yml down
     # Remove all containers and volumes
     # - docker-compose -f development.yml rm -fv
-    # - docker-compose -f production.yml rm -fv
+    - docker-compose -f production.yml rm -fv
   tags:
-    - production
+    - development
 ##################################################
 # Install
 # -------
 # Build all images
-build:containers:
+build:images:
   stage: build
   script:
+    - ./get_release_version.sh
     - ./get_latest_sql.sh
     # Build the Containers without caching and newest source image
     - docker-compose -f build.yml  build --pull
+    - docker-compose -f build.yml  push
   tags:
-    - production
+    - development
 
 # Push
 # ----
 # Pushes the Docker image to th registry for selected tags
-deploy:production:
+deploy:production-test:
   stage: deploy
   script:
     # Login to the registry
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     # Push images to the gitlab remote
     - echo "Deploying Pustakalaya"
-    # - docker-compose -f production.yml push
-    # - docker-compose -f production.yml up -d
+    - docker-compose -f production.yml pull
+    - docker-compose -f production.yml up -d
 
   # Only these branches are getting pushed
   # when: manual
+  only:
+    - bikram-stack
+  tags:
+    - development
+
+deploy:production-live:
+  stage: deploy
+  script:
+    # Login to the registry
+    # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    # Push images to the gitlab remote
+    - echo "Deploying Pustakalaya"
+    - docker-compose -f production.yml pull
+    - docker-compose -f production.yml up -d
+
+  # Only these branches are getting pushed
+  when: manual
   only:
     - bikram-stack
   tags:
