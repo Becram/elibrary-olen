@@ -15,7 +15,7 @@ stages:
 #   # How to store the image
 #   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
 before_script:
-  - docker-compose -f production.yml exec -T pgmaster /autopgsqlbackup
+  - docker-compose -f production.yml exec pgmaster /autopgsqlbackup
 # Prepare
 # -------
 # Removes old images and containers, if they exist
