@@ -30,7 +30,7 @@ prepare:clean:
     - docker-compose -f production.yml down
     # Remove all containers and volumes
     # - docker-compose -f development.yml rm -fv
-    - docker-compose -f production.yml rm -fv
+    - docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
   tags:
     - development
 ##################################################
@@ -43,8 +43,8 @@ build:images:
     - ./get_release_version.sh
     - ./get_latest_sql.sh
     # Build the Containers without caching and newest source image
-    - docker-compose -f build.yml  build --pull
-    - docker-compose -f production.yml  push
+    - docker-compose -f build.yml  build --pull --force-rm
+    - docker-compose -f build.yml  push
   tags:
     - development
 
