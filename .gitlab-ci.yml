@@ -25,7 +25,7 @@ prepare:clean:
   script:
     # Stop all containers
     # - docker-compose -f development.yml down
-    # - docker-compose -f production.yml exec pgmaster /autopgsqlbackup
+    - docker-compose -f production.yml exec pgmaster /autopgsqlbackup
 
     - docker-compose -f production.yml down
     # Remove all containers and volumes
