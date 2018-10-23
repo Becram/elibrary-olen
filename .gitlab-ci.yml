@@ -58,7 +58,6 @@ deploy:production-test:
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     # Push images to the gitlab remote
     - echo "Deploying Pustakalaya"
-    - docker-compose -f production.yml pull
     - docker-compose -f production.yml up -d
 
   # Only these branches are getting pushed
