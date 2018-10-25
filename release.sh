@@ -112,8 +112,9 @@ else
   echo "Push the tag"
   # Push master
   git add .
-  git commit -m "Dockerfiles for version:$next_version"
-  git push --tags origin $prodBranch
+  git commit -m "Dockerfiles for version:v$next_version"
+  # git push --tags origin $prodBranch
+  git push --tags
   echo "v$next_version" >> versions
   echo -e "\e[32mRelease done: $next_version\e[0m"
 fi
