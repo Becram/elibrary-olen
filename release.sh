@@ -109,6 +109,22 @@ else
   echo "Add git tag v$next_version with message: $msg"
   git tag -a "v$next_version" -m "$msg"
 
+#  change build
+if [ -z "$next_version" ]; then
+       die "No release tag found; quitting"
+fi
+
+grep -q 'stable' build.yml
+if [ $? -eq 0 ]; then
+	echo "Releasing version is ${next_version}"
+    sed -i.bak "s/\bstable-[^ ]*/${next_version}/g" build.yml
+    sed -i.bak "s/\bstable-[^ ]*/${next_version}/g" production.yml
+else
+    echo "Failed to build because there is no version in build.yml file"
+    exit 1
+fi
+
+
   # 4) Push the new tag
 
   echo "Push the tag"
