@@ -114,7 +114,7 @@ else
 
   echo "Push the tag"
   git push --tags origin
-
+  echo "$next_version" >> versions
   echo -e "\e[32mRelease done: $next_version\e[0m"
 fi
 
