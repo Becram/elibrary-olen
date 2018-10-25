@@ -5,6 +5,7 @@ die() {
     exit 1
 }
 
+DATE=`date '+%Y-%m-%d %H:%M:%S'`
 RELEASE_TAG=$(git describe --abbrev=0 --tags)
 
 if [ -z "$RELEASE_TAG" ]; then
@@ -21,6 +22,6 @@ else
     exit 1
 fi
 
-echo "${RELEASE_TAG} on $(date)" >> /library/media_root/release_version.txt
+echo "${RELEASE_TAG} on $DATE" >> /library/media_root/release_version.txt
 # docker-compose -f build.yml build
 # echo "done building at $(date) "touch /tmp/deploy
