@@ -86,15 +86,3 @@ deploy:production-live:
     - bikram-stack
   tags:
     - production
-# Deploy
-# ------
-# Starts the containers
-# deploy:development:
-#   stage: deploy
-#   script:
-#     # Bring up the app
-#     - docker-compose -f development.yml up -d
-#   only:
-#     - bikram-stack
-#   tags:
-#     - development
