@@ -1,12 +1,12 @@
 from elasticsearch_dsl import DocType, Date, Text, Keyword, Completion, Integer
 
-
 class ItemDoc(DocType):
     """
     Common superclass for Document, Audio, Video, Wiki, Maps, and Newspaper.
     Don't get index in the index server."""
     id = Text()
     title = Text(fields={'keyword': Keyword()})
+    title_search = Text() # Field to search the keyword
     title_suggest = Completion()
     abstract = Text()
     type = Text(fields={'keyword': Keyword()})
@@ -20,6 +20,7 @@ class ItemDoc(DocType):
     publication_year = Date()
     created_date = Date()
     updated_date = Date()
-    author_list = Text(multi=True)
+    author_list = Keyword(fields={'keyword': Keyword()},multi=True)
     url = Text()
     view_count = Integer()
+    published = Text(fields={'keyword': Keyword()})

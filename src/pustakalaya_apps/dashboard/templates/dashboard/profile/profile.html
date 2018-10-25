@@ -1,17 +1,17 @@
-{% extends 'dashboard/base.html' %}
+{% extends 'dashboard/dashboard.html' %}
 {% load crispy_forms_tags %}
-{% block content %}
+{% block dashboard_content %}
     <div class="container">
         <div class="row">
             <div class="col-md-8">
                 <form action="" method="post">
                     {% csrf_token %}
                     {{ form | crispy }}
-                    <input type="submit" class="btn btn-primary" value="Update"/>
+                    <input type="submit" class="btn ole-btn" value="Update"/>
                 </form>
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock dashboard_content %}
 
 

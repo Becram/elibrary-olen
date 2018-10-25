@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pustakalaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-23 13:44+0545\n"
+"POT-Creation-Date: 2018-08-28 15:12+0545\n"
 "PO-Revision-Date: 2017-10-03 00:01-0400\n"
 "Last-Translator: nix1947 <openpy.manoj@gmail.com>\n"
 "Language-Team: Nepali\n"
@@ -16,260 +16,549 @@ msgstr ""
 "X-Crowdin-Language: ne-NP\n"
 "X-Crowdin-File: /master/src/locale/ne/LC_MESSAGES/django.po\n"
 
-#: pustakalaya/forms.py:8
+#: pustakalaya/forms.py:8 pustakalaya_apps/core/abstract_models.py:48
 msgid "Name"
-msgstr ""
+msgstr "नाम"
 
-#: pustakalaya/forms.py:12
+#: pustakalaya/forms.py:13
 msgid "Your name"
-msgstr ""
+msgstr " नाम"
 
-#: pustakalaya/forms.py:16 pustakalaya/forms.py:20
+#: pustakalaya/forms.py:17 pustakalaya/forms.py:21
 msgid "Email"
-msgstr ""
+msgstr "ईमेल"
 
-#: pustakalaya/forms.py:25
+#: pustakalaya/forms.py:26
 msgid "Country"
-msgstr ""
+msgstr "देश"
 
-#: pustakalaya/forms.py:31
+#: pustakalaya/forms.py:32
 msgid "Your country"
-msgstr ""
+msgstr "देश"
 
-#: pustakalaya/forms.py:37 pustakalaya_apps/core/abstract_models.py:48
-#: pustakalaya_apps/core/templates/core/author_detail.html:36
+#: pustakalaya/forms.py:38 pustakalaya_apps/core/abstract_models.py:76
+#: pustakalaya_apps/core/templates/core/author_detail.html:58
+#: pustakalaya_apps/core/templates/core/author_detail_new.html:84
 msgid "Address"
-msgstr ""
+msgstr "ठेगाना"
 
-#: pustakalaya/forms.py:43
+#: pustakalaya/forms.py:44
 msgid "Your Address"
-msgstr ""
+msgstr "ठेगाना"
 
-#: pustakalaya/forms.py:49
+#: pustakalaya/forms.py:50
 msgid "Suggestion"
-msgstr ""
+msgstr "सुझाव"
 
-#: pustakalaya/forms.py:54
+#: pustakalaya/forms.py:55
 msgid "Your Message"
-msgstr ""
+msgstr "तपाईँको सुझाव"
 
-#: pustakalaya/settings/base.py:239 pustakalaya_apps/core/constants.py:20
+#: pustakalaya/settings/base.py:328 pustakalaya_apps/core/constants.py:20
+#: templates/_partials/navbar_new.html:464
 msgid "English"
-msgstr "अंग्रेजी"
+msgstr "अङग्रेजी"
 
-#: pustakalaya/settings/base.py:240 pustakalaya_apps/core/constants.py:64
+#: pustakalaya/settings/base.py:329 pustakalaya_apps/core/constants.py:64
 msgid "Nepali"
 msgstr "नेपाली"
 
 #: pustakalaya_apps/audio/apps.py:9
-#: pustakalaya_apps/core/abstract_models.py:110
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:254
+#: pustakalaya_apps/core/abstract_models.py:168
+#: templates/_partials/navbar_new.html:64
 msgid "Audio"
 msgstr "अडियो"
 
-#: pustakalaya_apps/audio/models.py:29
-#, fuzzy
-#| msgid "Audio type"
+#: pustakalaya_apps/audio/models.py:41
 msgid "Audio types"
-msgstr "अडियो प्रकार"
+msgstr ""
 
-#: pustakalaya_apps/audio/models.py:34
+#: pustakalaya_apps/audio/models.py:48
 msgid "Add this audio to these collection"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:43 pustakalaya_apps/video/models.py:115
+#: pustakalaya_apps/audio/models.py:59 pustakalaya_apps/video/models.py:186
 msgid "Running time in minutes"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:53
+#: pustakalaya_apps/audio/models.py:69 pustakalaya_apps/video/models.py:52
+msgid "Original Author(s)"
+msgstr "लेखन"
+
+#: pustakalaya_apps/audio/models.py:76 pustakalaya_apps/video/models.py:59
+msgid "Release date"
+msgstr ""
+
+#: pustakalaya_apps/audio/models.py:83
 msgid "Read / Voice by"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:61
+#: pustakalaya_apps/audio/models.py:98
 msgid "Audio publisher"
-msgstr ""
+msgstr "प्रकाशक"
 
-#: pustakalaya_apps/audio/models.py:66 pustakalaya_apps/document/models.py:160
+#: pustakalaya_apps/audio/models.py:109 pustakalaya_apps/document/models.py:204
 msgid "Select list of keywords"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:71
+#: pustakalaya_apps/audio/models.py:116 pustakalaya_apps/document/models.py:214
+#: pustakalaya_apps/video/models.py:173
+msgid "license"
+msgstr ""
+
+#: pustakalaya_apps/audio/models.py:132
 msgid "Audio Genre"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:78 pustakalaya_apps/video/models.py:58
+#: pustakalaya_apps/audio/models.py:139 pustakalaya_apps/video/models.py:88
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:508
 msgid "Languages"
+msgstr "भाषा"
+
+#: pustakalaya_apps/audio/models.py:153 pustakalaya_apps/document/models.py:105
+msgid "Series"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:88
-msgid "Audio Series / Volume"
-msgstr ""
-
-#: pustakalaya_apps/audio/models.py:95 pustakalaya_apps/document/models.py:170
-#: pustakalaya_apps/video/models.py:87
+#: pustakalaya_apps/audio/models.py:167 pustakalaya_apps/document/models.py:229
+#: pustakalaya_apps/video/models.py:123
 msgid "Sponsor"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:166 pustakalaya_apps/video/models.py:226
+#: pustakalaya_apps/audio/models.py:287 pustakalaya_apps/video/models.py:401
 msgid "Genre name"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:171 pustakalaya_apps/video/models.py:231
+#: pustakalaya_apps/audio/models.py:292 pustakalaya_apps/video/models.py:406
 msgid "Genre description"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:193 pustakalaya_apps/document/models.py:283
-#: pustakalaya_apps/video/models.py:194
+#: pustakalaya_apps/audio/models.py:314 pustakalaya_apps/document/models.py:427
+#: pustakalaya_apps/video/models.py:327
 msgid "File name"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:217 pustakalaya_apps/document/models.py:315
-#: pustakalaya_apps/video/models.py:215
+#: pustakalaya_apps/audio/models.py:342 pustakalaya_apps/document/models.py:463
+#: pustakalaya_apps/video/models.py:370
 msgid "Link"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:229
+#: pustakalaya_apps/audio/models.py:357
+msgid "Embed audio Link"
+msgstr ""
+
+#: pustakalaya_apps/audio/models.py:372
 msgid "Rhymes"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:230
+#: pustakalaya_apps/audio/models.py:373
 msgid "Novel"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:231
+#: pustakalaya_apps/audio/models.py:374
 msgid "Short Story"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:232
+#: pustakalaya_apps/audio/models.py:375
 msgid "Children Song"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:236
+#: pustakalaya_apps/audio/models.py:379
 msgid "Audio type"
 msgstr "अडियो प्रकार"
 
-#: pustakalaya_apps/audio/models.py:241
+#: pustakalaya_apps/audio/models.py:384
 msgid "Audio description"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:87
-msgid "Read by/Voice:"
-msgstr ""
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:81
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:534
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:553
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:577
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:596
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:104
+#: pustakalaya_apps/core/templates/core/author_detail.html:37
+#: pustakalaya_apps/core/templates/core/author_detail_new.html:24
+#: pustakalaya_apps/dashboard/templates/dashboard/document/user_submitted_books.html:54
+#: pustakalaya_apps/document/templates/document/document_detail.html:119
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:70
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:633
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:652
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:676
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:695
+#: pustakalaya_apps/video/templates/video/video_detail.html:127
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:145
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:635
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:654
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:678
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:697
+#: templates/_partials/list_display.html:71
+msgid "Edit"
+msgstr "सम्पादन"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:106
-#: pustakalaya_apps/document/templates/document/document_detail.html:186
-#: pustakalaya_apps/video/templates/video/video_detail.html:103
-msgid "Publisher:"
-msgstr ""
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:93
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:93
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:155
+#, fuzzy
+#| msgid "Featured"
+msgid "Unfeature"
+msgstr "लोकप्रीय"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:115
-#: pustakalaya_apps/document/templates/document/document_detail.html:196
-#: pustakalaya_apps/video/templates/video/video_detail.html:112
-msgid "Place of publication:"
-msgstr ""
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:95
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:95
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:157
+#, fuzzy
+#| msgid "Featured"
+msgid "Feature"
+msgstr "लोकप्रीय"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:124
-#: pustakalaya_apps/document/templates/document/document_detail.html:207
-#: pustakalaya_apps/video/templates/video/video_detail.html:118
-msgid "publication year:"
-msgstr ""
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:108
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:131
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:166
+msgid "Leave a Review"
+msgstr "समीक्षा गर्नुहोस्"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:130
-msgid "read by:"
-msgstr ""
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:171
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:229
+msgid "Edit Review"
+msgstr "समीक्षा सम्पादन गर्नुहोस्"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:136
-msgid "type:"
-msgstr ""
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:177
+#: pustakalaya_apps/core/abstract_models.py:176
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:180
+#: templates/_partials/sorting_form.html:8
+#: templates/_partials/sorting_form_for_search_result.html:8
+msgid "Title"
+msgstr "शिर्षक"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:144
-#: pustakalaya_apps/video/templates/video/video_detail.html:190
-msgid "genre:"
-msgstr ""
-
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:150
-msgid "series name:"
-msgstr ""
-
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:159
-#: pustakalaya_apps/document/templates/document/document_detail.html:219
-#: pustakalaya_apps/video/templates/video/video_detail.html:125
-msgid "available year:"
-msgstr ""
-
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:166
-#: pustakalaya_apps/document/templates/document/document_detail.html:228
-#: pustakalaya_apps/video/templates/video/video_detail.html:136
-msgid "keywords:"
-msgstr ""
-
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:178
-#: pustakalaya_apps/document/templates/document/document_detail.html:247
-#: pustakalaya_apps/video/templates/video/video_detail.html:149
-msgid "description:"
-msgstr ""
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:179
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:182
+msgid "Message"
+msgstr "तपाईँको सुझाव"
 
 #: pustakalaya_apps/audio/templates/audio/audio_detail.html:185
-#: pustakalaya_apps/document/templates/document/document_detail.html:256
-#: pustakalaya_apps/video/templates/video/video_detail.html:156
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:208
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:243
+msgid "Cancel"
+msgstr "रद्द गर्नुहोस्"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:186
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:209
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:244
+msgid "Send"
+msgstr "पठाउनुहोस्"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:202
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:172
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:207
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:260
+msgid "Information"
+msgstr "सूचना"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:205
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:228
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:263
+msgid "Are you sure you want to delete this message?"
+msgstr "के तपाईँ निश्चित रूपमा यो मेटाउन चाहनुहुन्छ?"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:208
+#: pustakalaya_apps/core/abstract_models.py:265
+#: pustakalaya_apps/core/abstract_models.py:275
+#: pustakalaya_apps/document/models.py:59
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:231
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:266
+msgid "Yes"
+msgstr "हो"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:209
+#: pustakalaya_apps/core/abstract_models.py:266
+#: pustakalaya_apps/core/abstract_models.py:276
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:232
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:267
+msgid "No"
+msgstr "होइन"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:283
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:295
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:294
+msgid "Details"
+msgstr "विवरण"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:286
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:265
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:298
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:297
+msgid "Reviews"
+msgstr "समीक्षा"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:301
+msgid "Voice by"
+msgstr "आवाज"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:322
+msgid "Education Level(s)"
+msgstr "शैक्षिक तह"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:336
+#: pustakalaya_apps/core/models.py:192
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:493
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:171
+#: templates/_partials/navbar_new.html:442
+msgid "Language"
+msgstr "भाषा"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:354
+#: pustakalaya_apps/video/models.py:159
+msgid "Publisher"
+msgstr "प्रकाशक"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:371
+#: pustakalaya_apps/video/templates/video/video_detail.html:159
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:327
+msgid "Original author(s):"
+msgstr "लेखन"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:388
+#: pustakalaya_apps/video/templates/video/video_detail.html:178
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:344
+msgid "Release date:"
+msgstr "प्रकाशन मिति"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:396
+#: pustakalaya_apps/document/templates/document/document_detail.html:315
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:394
+#: pustakalaya_apps/video/templates/video/video_detail.html:186
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:353
+msgid "Place of Publication:"
+msgstr "प्रकाशन स्थान"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:405
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:166
+#: pustakalaya_apps/document/templates/document/document_detail.html:325
+#: pustakalaya_apps/video/templates/video/video_detail.html:194
+msgid "publication year:"
+msgstr "प्रकाशन मिति"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:413
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:186
+msgid "type:"
+msgstr "प्रकार"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:427
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:198
+#: pustakalaya_apps/video/templates/video/video_detail.html:329
+msgid "genre:"
+msgstr "विधा"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:439
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:208
+msgid "series name:"
+msgstr "श्रृङ्खला"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:448
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:464
+#: pustakalaya_apps/video/templates/video/video_detail.html:249
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:411
+msgid "Volume:"
+msgstr "भल्युम"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:457
+#: pustakalaya_apps/document/templates/document/document_detail.html:387
+msgid "edition:"
+msgstr "संस्करण"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:468
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:217
+#: pustakalaya_apps/document/templates/document/document_detail.html:335
+#: pustakalaya_apps/video/templates/video/video_detail.html:202
+msgid "available year:"
+msgstr "उपलब्ध मिति"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:475
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:228
+#: pustakalaya_apps/document/templates/document/document_detail.html:346
+#: pustakalaya_apps/video/templates/video/video_detail.html:211
+msgid "keywords:"
+msgstr "मूख्य शब्दावलीहरू"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:492
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:582
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:590
+msgid "Related Links"
+msgstr "सम्बन्धित लिङ्क"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:500
+#: pustakalaya_apps/document/templates/document/document_detail.html:522
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:589
+#: pustakalaya_apps/video/templates/video/video_detail.html:433
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:598
+msgid "Link:"
+msgstr "लिङ्क"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:506
+#: pustakalaya_apps/document/templates/document/document_detail.html:526
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:595
+#: pustakalaya_apps/video/templates/video/video_detail.html:437
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:604
+msgid "Link Description:"
+msgstr "लिङ्क विवरण"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:535
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:554
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:578
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:597
+#: pustakalaya_apps/dashboard/templates/dashboard/document/user_submitted_books.html:56
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:634
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:653
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:677
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:696
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:636
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:655
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:679
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:698
+msgid "Delete"
+msgstr "मेटाउनुहोस्"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:552
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:595
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:651
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:694
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:653
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:696
+msgid "review status is unpublished"
+msgstr "समीक्षा प्रकाशन हुन बाँकी छ।"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:606
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:705
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:707
+msgid "previous"
+msgstr "अगाडि"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:615
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:714
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:716
+msgid "next"
+msgstr "पछाड"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:627
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:725
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:727
+msgid "This item has not yet been reviewed. Be the first to"
+msgstr "यो पुस्तक/सामग्रीको हालसम्म समीक्षा गरिएको छैन। तपाईँ प्रथम "
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:627
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:725
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:727
+msgid "review this item"
+msgstr "समीक्षा गर्नुहोस्"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:645
+msgid "Similar Audio Books You May Like"
+msgstr "समान किसिमका सामग्रीहरू"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:708
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:810
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:807
+#, fuzzy
+#| msgid "No Results Found"
+msgid "No results found"
+msgstr "कुनै रेकर्ड भेट्टिएनन् ।"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:710
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:812
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:809
+msgid "The link is either broken or the item is not published yet"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:118
+msgid "Read by/Voice:"
+msgstr "आवाज"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:140
+#: pustakalaya_apps/document/templates/document/document_detail.html:298
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:378
+#: pustakalaya_apps/video/templates/video/video_detail.html:142
+msgid "Publisher:"
+msgstr "प्रकाशक"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:157
+msgid "Place of publication:"
+msgstr "प्रकाशन स्थान"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:176
+msgid "read by:"
+msgstr "आवाज"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:244
+#: pustakalaya_apps/document/templates/document/document_detail.html:506
+#: pustakalaya_apps/video/templates/video/video_detail.html:409
+msgid "description:"
+msgstr "विवरण"
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:255
+#: pustakalaya_apps/document/templates/document/document_detail.html:369
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:439
+#: pustakalaya_apps/video/templates/video/video_detail.html:231
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:393
 msgid "License type:"
-msgstr ""
+msgstr "लाइसेन्स"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:192
-#: pustakalaya_apps/document/templates/document/document_detail.html:310
-#: pustakalaya_apps/video/templates/video/video_detail.html:197
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:266
+#: pustakalaya_apps/video/templates/video/video_detail.html:347
 msgid "languages"
-msgstr ""
+msgstr "भाषा"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:201
-#: pustakalaya_apps/document/templates/document/document_detail.html:319
-#: pustakalaya_apps/video/templates/video/video_detail.html:206
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:284
+#: pustakalaya_apps/document/templates/document/document_detail.html:440
+#: pustakalaya_apps/video/templates/video/video_detail.html:363
 msgid "education levels"
-msgstr ""
+msgstr "शैक्षिक तह"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:212
-#: pustakalaya_apps/document/templates/document/document_detail.html:337
-#: pustakalaya_apps/video/templates/video/video_detail.html:220
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:295
+#: pustakalaya_apps/video/templates/video/video_detail.html:397
 msgid "right:"
-msgstr ""
+msgstr "अधिकार"
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:222
-#: pustakalaya_apps/document/templates/document/document_detail.html:348
-#: pustakalaya_apps/video/templates/video/video_detail.html:230
+#: pustakalaya_apps/audio/templates/audio/audio_detail_old.html:305
+#: pustakalaya_apps/document/templates/document/document_detail.html:471
+#: pustakalaya_apps/video/templates/video/video_detail.html:381
 msgid "sponsors:"
-msgstr ""
+msgstr "प्रायोजक"
 
 #: pustakalaya_apps/collection/apps.py:7
+#: templates/_partials/navbar_new.html:425
 msgid "Categories"
-msgstr ""
+msgstr "विषयगत् कक्षहरू"
 
 #: pustakalaya_apps/collection/models.py:18
 #: pustakalaya_apps/community/models.py:10
 msgid "Literature and arts"
-msgstr ""
+msgstr "साहित्य र कला"
 
 #: pustakalaya_apps/collection/models.py:19
 #: pustakalaya_apps/community/models.py:11
 msgid "Course materials"
-msgstr ""
+msgstr "विषयगत् सामग्री"
 
 #: pustakalaya_apps/collection/models.py:20
 #: pustakalaya_apps/community/models.py:12
 msgid "Teaching materials"
-msgstr ""
+msgstr "शिक्षण सामग्री"
 
 #: pustakalaya_apps/collection/models.py:21
 #: pustakalaya_apps/community/models.py:13
 msgid "Reference materials"
-msgstr ""
+msgstr "सन्दर्भ सामग्री"
 
 #: pustakalaya_apps/collection/models.py:22
-#: pustakalaya_apps/community/models.py:15
-msgid "Other educational materials"
-msgstr ""
+#: pustakalaya_apps/community/models.py:14
+msgid "Newpapers and magazines"
+msgstr "पत्र-पत्रिका"
 
 #: pustakalaya_apps/collection/models.py:23
-msgid "newspaper and magazines"
-msgstr ""
+#: pustakalaya_apps/community/models.py:15
+msgid "Other educational materials"
+msgstr "अन्य शिक्षाप्रद सामग्री"
 
 #: pustakalaya_apps/collection/models.py:29
 msgid "Community"
@@ -291,180 +580,237 @@ msgstr ""
 #: pustakalaya_apps/core/templates/core/author_books.html:18
 #: pustakalaya_apps/core/templates/core/keyword_detail.html:25
 msgid "total available"
-msgstr ""
+msgstr "जम्मा उपलब्ध"
 
 #: pustakalaya_apps/collection/templates/collection/collection_detail.html:34
 #: pustakalaya_apps/core/templates/core/author_books.html:20
 #: pustakalaya_apps/core/templates/core/keyword_detail.html:27
 msgid "Sort by"
-msgstr ""
+msgstr "क्रम मिलाउने आधार"
 
-#: pustakalaya_apps/community/models.py:14
-msgid "Newpapers and magazines"
-msgstr ""
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:32
+msgid "Literatures and Arts"
+msgstr "साहित्य र कला"
+
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:33
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:79
+#: templates/_partials/navbar_new.html:230
+#: templates/_partials/navbar_new.html:430 templates/index.html:39
+msgid "Course Materials"
+msgstr "विषयगत् सामग्री"
+
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:34
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:111
+#: templates/_partials/navbar_new.html:233
+#: templates/_partials/navbar_new.html:431 templates/index.html:41
+msgid "Teaching Materials"
+msgstr "शिक्षण सामग्री"
+
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:35
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:142
+#: templates/_partials/navbar_new.html:237
+#: templates/_partials/navbar_new.html:432
+msgid "Reference Materials"
+msgstr "सन्दर्भ सामग्री"
+
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:36
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:173
+#: templates/_partials/navbar_new.html:240
+#: templates/_partials/navbar_new.html:433
+msgid "Other Educational Materials"
+msgstr "अन्य शिक्षाप्रद सामग्री"
+
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:37
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:203
+msgid "Newspapers and Magazines"
+msgstr "पत्र-पत्रिका"
+
+#: pustakalaya_apps/collection/templates/collection/community_detail.html:47
+msgid "Literature and Arts"
+msgstr "साहित्य र कला"
 
 #: pustakalaya_apps/community/models.py:25
 msgid "Community description"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:14
+#: pustakalaya_apps/core/abstract_models.py:16
 msgid "Created date"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:15
+#: pustakalaya_apps/core/abstract_models.py:17
 msgid "Updated date"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:28
+#: pustakalaya_apps/core/abstract_models.py:30
 #: pustakalaya_apps/pustakalaya_account/models.py:12
 msgid "First name"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:31
+#: pustakalaya_apps/core/abstract_models.py:36
 msgid "Middle name"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:32
+#: pustakalaya_apps/core/abstract_models.py:41
 #: pustakalaya_apps/pustakalaya_account/models.py:18
 msgid "Last name"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:34
-#: pustakalaya_apps/core/abstract_models.py:88
-#: pustakalaya_apps/core/abstract_models.py:142
-#: pustakalaya_apps/core/models.py:91
+#: pustakalaya_apps/core/abstract_models.py:54
+#: pustakalaya_apps/core/abstract_models.py:145
+#: pustakalaya_apps/core/abstract_models.py:200
+#: pustakalaya_apps/core/models.py:142
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:566
 msgid "Description"
-msgstr ""
+msgstr "विवरण"
 
-#: pustakalaya_apps/core/abstract_models.py:38
-#: pustakalaya_apps/core/templates/core/author_detail.html:37
+#: pustakalaya_apps/core/abstract_models.py:58
+#: pustakalaya_apps/core/templates/core/author_detail.html:66
 msgid "Date of birth"
+msgstr "जन्म"
+
+#: pustakalaya_apps/core/abstract_models.py:64
+#: pustakalaya_apps/core/templates/core/author_detail.html:73
+msgid "Place of birth"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:43
-#: pustakalaya_apps/core/templates/core/author_detail.html:38
+#: pustakalaya_apps/core/abstract_models.py:71
+#: pustakalaya_apps/core/templates/core/author_detail.html:97
+#: pustakalaya_apps/core/templates/core/author_detail_new.html:76
 msgid "Pen name"
-msgstr ""
+msgstr "साहित्यिक नाम"
 
-#: pustakalaya_apps/core/abstract_models.py:53
-#: pustakalaya_apps/core/templates/core/author_detail.html:39
+#: pustakalaya_apps/core/abstract_models.py:82
+#: pustakalaya_apps/core/models.py:113
+#: pustakalaya_apps/core/templates/core/author_detail.html:105
+#: pustakalaya_apps/core/templates/core/author_detail_new.html:110
 msgid "Genre"
-msgstr ""
+msgstr "विधा"
 
-#: pustakalaya_apps/core/abstract_models.py:59
+#: pustakalaya_apps/core/abstract_models.py:89
 msgid "Creator image"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:83
-msgid "Series name"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:99
-#: pustakalaya_apps/core/abstract_models.py:102
-msgid "Creative commons"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:100
-msgid "Copyright retained"
+#: pustakalaya_apps/core/abstract_models.py:95
+#: pustakalaya_apps/core/templates/core/author_detail.html:89
+msgid "Place of death"
 msgstr ""
 
 #: pustakalaya_apps/core/abstract_models.py:101
-msgid "Apache license 2.0"
+#: pustakalaya_apps/core/templates/core/author_detail.html:81
+msgid "Date of death"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:103
-msgid "MIT License"
-msgstr "मानोज"
-
-#: pustakalaya_apps/core/abstract_models.py:104
-msgid "Custom License"
+#: pustakalaya_apps/core/abstract_models.py:140
+msgid "Series name"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:105
-msgid "Not available"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:109
-#: pustakalaya_apps/document/apps.py:7
-msgid "Document"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:111
-#: pustakalaya_apps/video/apps.py:7
-msgid "Video"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:112
-msgid "Image"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:113
-msgid "Wikipedia"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:114
-msgid "Map"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:118
-#: templates/_partials/sorting_form.html:8
-msgid "Title"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:123
-msgid "Abstract/Summary"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:135
-msgid "Additional Note"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:147
-msgid "License type"
-msgstr ""
-
-#: pustakalaya_apps/core/abstract_models.py:153
-msgid "Rights"
+#: pustakalaya_apps/core/abstract_models.py:157
+#: pustakalaya_apps/core/abstract_models.py:160
+msgid "Creative commons"
 msgstr ""
 
 #: pustakalaya_apps/core/abstract_models.py:158
-msgid "Year of available"
+msgid "Copyright retained"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:164
-msgid "Publication year"
+#: pustakalaya_apps/core/abstract_models.py:159
+msgid "Apache license 2.0"
 msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:161
+msgid "MIT License"
+msgstr "मानोज"
+
+#: pustakalaya_apps/core/abstract_models.py:162
+msgid "Custom License"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:163
+msgid "Not available"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:167
+#: pustakalaya_apps/core/templates/core/author_detail_new.html:159
+#: pustakalaya_apps/core/templates/core/author_detail_new.html:182
+#: pustakalaya_apps/document/apps.py:7
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:356
+#: templates/_partials/navbar_new.html:61
+msgid "Document"
+msgstr "पुस्तक"
+
+#: pustakalaya_apps/core/abstract_models.py:169
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:360
+#: pustakalaya_apps/video/apps.py:7 templates/_partials/navbar_new.html:67
+msgid "Video"
+msgstr "भिडियो"
 
 #: pustakalaya_apps/core/abstract_models.py:170
-msgid "Place of publication"
+msgid "Image"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:188
-msgid "Featured"
+#: pustakalaya_apps/core/abstract_models.py:171
+msgid "Wikipedia"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:192
-#: pustakalaya_apps/core/abstract_models.py:202
-#: pustakalaya_apps/document/models.py:48
-msgid "Yes"
+#: pustakalaya_apps/core/abstract_models.py:172
+msgid "Map"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:181
+msgid "Abstract/Summary"
 msgstr ""
 
 #: pustakalaya_apps/core/abstract_models.py:193
-#: pustakalaya_apps/core/abstract_models.py:203
-#: pustakalaya_apps/document/models.py:49
-msgid "No"
+msgid "Additional Note"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:198
+#: pustakalaya_apps/core/abstract_models.py:205
+msgid "License type"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:211
+msgid "Rights"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:216
+msgid "Year of available on text"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:223
+#: pustakalaya_apps/core/abstract_models.py:236
+msgid "Publication year"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:229
+msgid "Year of available"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:243
+msgid "Place of publication"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:261
+msgid "Featured"
+msgstr "लोकप्रीय"
+
+#: pustakalaya_apps/core/abstract_models.py:271
 msgid "published"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:242
+#: pustakalaya_apps/core/abstract_models.py:316
 msgid "Link URL"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:247
+#: pustakalaya_apps/core/abstract_models.py:322
 msgid "Link Description"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:334
+msgid "Embed Link URL(add only if you do not upload item)"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:340
+msgid "Embed Link Description"
 msgstr ""
 
 #: pustakalaya_apps/core/apps.py:7
@@ -540,8 +886,6 @@ msgid "Australian English"
 msgstr ""
 
 #: pustakalaya_apps/core/constants.py:22
-#, fuzzy
-#| msgid "English"
 msgid "British English"
 msgstr "अंग्रेजी"
 
@@ -730,8 +1074,6 @@ msgid "Punjabi"
 msgstr ""
 
 #: pustakalaya_apps/core/constants.py:70
-#, fuzzy
-#| msgid "English"
 msgid "Polish"
 msgstr "अंग्रेजी"
 
@@ -831,7 +1173,7 @@ msgstr ""
 msgid "Category description"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:30 pustakalaya_apps/document/models.py:155
+#: pustakalaya_apps/core/models.py:30 pustakalaya_apps/document/models.py:195
 msgid "Publisher name"
 msgstr ""
 
@@ -839,103 +1181,157 @@ msgstr ""
 msgid "Publisher description"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:51
+#: pustakalaya_apps/core/models.py:56
 msgid "Keyword"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:56
+#: pustakalaya_apps/core/models.py:61
 msgid "Keyword description"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:71
+#: pustakalaya_apps/core/models.py:77
+msgid "genre name"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:82
+msgid "genre description"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:100
 msgid "Search Keywords"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:79
+#: pustakalaya_apps/core/models.py:106
+msgid "Author(s) name in other language"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:130 templates/_partials/navbar_new.html:417
 msgid "Author"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:86
+#: pustakalaya_apps/core/models.py:137
 msgid "Sponsor Name"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:105
-msgid "Early primary level"
+#: pustakalaya_apps/core/models.py:161
+msgid "Basic school"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:106
-msgid "Primary level"
+#: pustakalaya_apps/core/models.py:162
+msgid "Early grade reading"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:107
-msgid "Middle school level"
-msgstr ""
-
-#: pustakalaya_apps/core/models.py:108
-msgid "Highschool level"
-msgstr ""
-
-#: pustakalaya_apps/core/models.py:109
+#: pustakalaya_apps/core/models.py:163
 msgid "Intermediate level"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:113 pustakalaya_apps/video/models.py:54
-msgid "Education Level"
+#: pustakalaya_apps/core/models.py:164
+msgid "Middle school"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:136
-msgid "Language"
+#: pustakalaya_apps/core/models.py:165
+msgid "Primary school"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:166
+msgid "Secondary school"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:167
+msgid "University level"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:171
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:190
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:340
+#: pustakalaya_apps/video/models.py:82
+msgid "Education Level"
+msgstr "शैक्षिक तह"
+
+#: pustakalaya_apps/core/models.py:208
+msgid "License"
 msgstr ""
 
 #: pustakalaya_apps/core/templates/core/author_books.html:13
 msgid "Books by"
 msgstr ""
 
-#: pustakalaya_apps/core/templates/core/author_detail.html:16
+#: pustakalaya_apps/core/templates/core/author_detail.html:33
 msgid "View author's book"
-msgstr ""
+msgstr "लेखकका सिर्जनाहरू"
 
-#: pustakalaya_apps/core/templates/core/author_detail.html:19
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:185
+#: pustakalaya_apps/core/templates/core/author_detail.html:41
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:257
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:245
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:257
 msgid "keywords"
+msgstr "मुख्य शब्दावलीहरू"
+
+#: pustakalaya_apps/core/templates/core/author_detail.html:120
+msgid "Author(s) in other language:"
 msgstr ""
 
-#: pustakalaya_apps/core/templates/core/author_detail.html:30
-#: templates/_partials/navbar.html:46 templates/_partials/navbar1.html:48
+#: pustakalaya_apps/core/templates/core/author_detail.html:147
+#: templates/_partials/footer.html:63 templates/_partials/navbar.html:158
+#: templates/_partials/navbar_new.html:266
+#: templates/_partials/navbar_new.html:419
 msgid "About"
-msgstr ""
+msgstr " हाम्रो बारेमा"
+
+#: pustakalaya_apps/core/templates/core/author_detail_new.html:59
+msgid "Born"
+msgstr "जन्म"
+
+#: pustakalaya_apps/core/templates/core/author_detail_new.html:93
+msgid "Demise"
+msgstr "मृत्यु"
+
+#: pustakalaya_apps/core/templates/core/author_detail_new.html:121
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:98
+#: pustakalaya_apps/video/models.py:166
+msgid "Keywords"
+msgstr "मुख्य शब्दावलीहरू"
+
+#: pustakalaya_apps/core/templates/core/author_detail_new.html:140
+msgid "Author's Publications"
+msgstr "लेखकका सिर्जनाहरू"
 
 #: pustakalaya_apps/core/templates/core/keyword_detail.html:13
 msgid "keyword"
-msgstr ""
+msgstr "मुख्य शब्दावली"
 
 #: pustakalaya_apps/core/templatetags/pustakalaya_filters.py:91
 msgid "KB"
-msgstr ""
+msgstr "केबी"
 
 #: pustakalaya_apps/core/templatetags/pustakalaya_filters.py:94
 msgid "MB"
-msgstr ""
+msgstr "एमबी"
 
 #: pustakalaya_apps/core/templatetags/pustakalaya_filters.py:97
 msgid "GB"
 msgstr ""
 
+#: pustakalaya_apps/core/validators.py:12
+#, python-format
+msgid "%(value)s is not a number"
+msgstr ""
+
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/footer.html:9
 msgid "HELP"
-msgstr ""
+msgstr "सहयोग"
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/footer.html:13
 msgid "BLOG"
-msgstr ""
+msgstr "ब्लग"
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/footer.html:18
 msgid "TERMS AND CONDITION"
-msgstr ""
+msgstr "टर्म्स एण्ड कन्डिसन"
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/footer.html:24
 msgid "ole nepal"
-msgstr ""
+msgstr "साझा शिक्षा ई-पाटी नेपाल"
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/navbar.html:11
 msgid "pustakalaya dashboard"
@@ -946,477 +1342,997 @@ msgid "stat"
 msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/navbar.html:40
-#: templates/_partials/navbar.html:117 templates/_partials/navbar1.html:119
+#: templates/_partials/navbar.html:231
 msgid "settings"
 msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/navbar.html:44
-#: templates/account/password_reset_from_key.html:18
+#: pustakalaya_apps/dashboard/templates/dashboard/settings.html:12
+#: templates/account/password_reset_from_key.html:19
 msgid "change password"
 msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/navbar.html:46
+#: pustakalaya_apps/dashboard/templates/dashboard/settings.html:15
 msgid "manage email"
 msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/navbar.html:47
+#: pustakalaya_apps/dashboard/templates/dashboard/settings.html:18
 msgid "Social accounts"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:50
+#: pustakalaya_apps/dashboard/templates/dashboard/_partials/sidebar.html:5
+msgid "WELCOME"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/_partials/sidebar.html:12
+msgid "Dashboard"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/_partials/sidebar.html:18
+msgid "Add Document"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/_partials/sidebar.html:24
+msgid "Add Audio"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/_partials/sidebar.html:30
+msgid "Add Video"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/_partials/sidebar.html:36
+msgid "My Submissions"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/dashboard.html:41
+#, fuzzy
+#| msgid "featured titles"
+msgid "Featured items"
+msgstr "विशेष आकर्षण"
+
+#: pustakalaya_apps/dashboard/templates/dashboard/dashboard.html:101
+msgid "My favorites items"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/dashboard.html:177
+msgid "My rated items"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/dashboard.html:229
+#, fuzzy
+#| msgid "review this item"
+msgid "My reviewed items"
+msgstr "समीक्षा गर्नुहोस्"
+
+#: pustakalaya_apps/dashboard/templates/dashboard/dashboard_base.html:47
+msgid "trending books"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/document/document_add.html:8
+msgid "upload file"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/document/user_submitted_books.html:15
+msgid "Item submitted by you"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/document/user_submitted_books.html:83
+msgid "You haven't submitted any item"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/settings.html:5
+msgid "Settings"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/settings.html:8
+msgid "edit profile"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/show_all_favourite.html:40
+msgid "All my favorites items"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/show_all_rated.html:39
+#, fuzzy
+#| msgid "Show all featured items"
+msgid "All my rated items"
+msgstr "सबै विशेष आकर्षण देखाउनुहोस्"
+
+#: pustakalaya_apps/dashboard/templates/dashboard/show_all_reviewed.html:39
+msgid "All my reviewed items"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:61
 msgid "Not applicable"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:54
+#: pustakalaya_apps/document/models.py:65
 msgid "Book"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:55
+#: pustakalaya_apps/document/models.py:66
 msgid "Working paper"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:56
+#: pustakalaya_apps/document/models.py:67
 msgid "Thesis"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:57
+#: pustakalaya_apps/document/models.py:68
 msgid "Journal paper"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:58
+#: pustakalaya_apps/document/models.py:69
 msgid "Technical report"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:59
+#: pustakalaya_apps/document/models.py:70
 msgid "Article"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:64
+#: pustakalaya_apps/document/models.py:75
 msgid "PPT"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:65
+#: pustakalaya_apps/document/models.py:76
 msgid "Doc"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:66
+#: pustakalaya_apps/document/models.py:77
 msgid "Docx"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:67
+#: pustakalaya_apps/document/models.py:78
 msgid "PDF"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:68
+#: pustakalaya_apps/document/models.py:79
 msgid "Excel"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:69
+#: pustakalaya_apps/document/models.py:80
 msgid "Epub"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:70
+#: pustakalaya_apps/document/models.py:81
 msgid "Rtf"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:71
+#: pustakalaya_apps/document/models.py:82
 msgid "Mobi"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:76
+#: pustakalaya_apps/document/models.py:87
 msgid "Add to these collections"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:80
+#: pustakalaya_apps/document/models.py:91
 msgid "Document type"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:86
-msgid "Document file type"
+#: pustakalaya_apps/document/models.py:97
+msgid "Document file format"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:94
-msgid "Series"
-msgstr ""
-
-#: pustakalaya_apps/document/models.py:100
+#: pustakalaya_apps/document/models.py:114
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:504
 msgid "Education Levels"
-msgstr ""
+msgstr "शैक्षिक तह"
 
-#: pustakalaya_apps/document/models.py:106
+#: pustakalaya_apps/document/models.py:120
 msgid "Language(s)"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:110
+#: pustakalaya_apps/document/models.py:126
 msgid "Interactive"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:127
+#: pustakalaya_apps/document/models.py:145
 msgid "Total Pages"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:134
+#: pustakalaya_apps/document/models.py:153
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:314
 msgid "Author(s)"
-msgstr ""
+msgstr "लेखक"
 
-#: pustakalaya_apps/document/models.py:141
+#: pustakalaya_apps/document/models.py:167
 msgid "Editor(s)"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:148
-msgid "Document Illustrator"
+#: pustakalaya_apps/document/models.py:174
+msgid "Translator(s)"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:326
+#: pustakalaya_apps/document/models.py:181
+msgid "Illustrator"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:224
+msgid "maximum size of thumbnail should be 255px by 300px"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:407
+msgid "Document series"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:477
 msgid "Identifier Type"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:329
+#: pustakalaya_apps/document/models.py:481
 msgid "ISSN"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:330
+#: pustakalaya_apps/document/models.py:482
 msgid "ISMN"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:331
+#: pustakalaya_apps/document/models.py:483
 msgid "Gov't Doc"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:332
+#: pustakalaya_apps/document/models.py:484
 msgid "URI"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:333
+#: pustakalaya_apps/document/models.py:485
 msgid "ISBN"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:337
+#: pustakalaya_apps/document/models.py:489
 msgid "Identifier ID"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:344
+#: pustakalaya_apps/document/models.py:496
 msgid "document"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:44
+#: pustakalaya_apps/document/templates/document/document_detail.html:96
 msgid "download "
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:48
+#: pustakalaya_apps/document/templates/document/document_detail.html:101
 msgid "read"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:54
+#: pustakalaya_apps/document/templates/document/document_detail.html:107
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:78
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:273
 msgid "File size: "
-msgstr ""
+msgstr "फाइल साइज"
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:98
-#: pustakalaya_apps/document/templates/document/document_detail.html:146
+#: pustakalaya_apps/document/templates/document/document_detail.html:186
 msgid "Authors:"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:114
-msgid "Illustrators:"
+#: pustakalaya_apps/document/templates/document/document_detail.html:223
+msgid "Author(s):"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:160
+#: pustakalaya_apps/document/templates/document/document_detail.html:243
 msgid "illustrators:"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:172
-msgid "Editors:"
-msgstr ""
+#: pustakalaya_apps/document/templates/document/document_detail.html:261
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:345
+msgid "Editor(s):"
+msgstr "सम्पादक"
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:263
-#: pustakalaya_apps/video/templates/video/video_detail.html:163
+#: pustakalaya_apps/document/templates/document/document_detail.html:280
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:361
+msgid "Translator(s):"
+msgstr "अनुवादक"
+
+#: pustakalaya_apps/document/templates/document/document_detail.html:378
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:448
+#: pustakalaya_apps/video/templates/video/video_detail.html:240
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:401
 msgid "Series:"
-msgstr ""
+msgstr "श्रृङ्खला"
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:272
-msgid "edition:"
-msgstr ""
-
-#: pustakalaya_apps/document/templates/document/document_detail.html:283
+#: pustakalaya_apps/document/templates/document/document_detail.html:397
 msgid "volume:"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:303
+#: pustakalaya_apps/document/templates/document/document_detail.html:415
 msgid "total pages"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:330
+#: pustakalaya_apps/document/templates/document/document_detail.html:424
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:350
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:323
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:350
+msgid "language"
+msgstr ""
+
+#: pustakalaya_apps/document/templates/document/document_detail.html:461
 msgid "interactivity"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_account/models.py:22
-msgid "Phone no"
+#: pustakalaya_apps/document/templates/document/document_detail.html:488
+msgid "rights:"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:161
-#, fuzzy
-#| msgid "Audio type"
-msgid "Media type"
-msgstr "अडियो प्रकार"
+#: pustakalaya_apps/document/templates/document/document_detail.html:497
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:560
+#: pustakalaya_apps/video/templates/video/video_detail.html:418
+msgid "Additional note:"
+msgstr "थप टिप्पणी"
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:170
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:279
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:345
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:111
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:123
+msgid "Added to favourite"
+msgstr "मन पर्नेमा थपिएको"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:114
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:118
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:122
+msgid "Add to favourite"
+msgstr "मन पर्नेमा थप्नुहोस्"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:175
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:210
+msgid "Info message"
+msgstr "तपाईँको सुझाव"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:178
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:213
+#: templates/license_agreement.html:35
+msgid "Close"
+msgstr "बन्द गर्नुहोस्"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:265
+msgid "Ratings"
+msgstr "मूल्याङ्कन"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:265
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:553
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:367
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:524
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:516
+msgid "Views"
+msgstr "हेरेको"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:275
+msgid "Read Book "
+msgstr "पढ्नुहोस्"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:329
+msgid "Illustrators:"
+msgstr "चित्र"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:403
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:363
+msgid "Publication year:"
+msgstr "प्रकाशन मिति"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:412
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:371
+msgid "Available year:"
+msgstr "उपलब्ध मिति"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:421
+msgid "Keywords:"
+msgstr "मुख्य शब्दावलीहरू"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:456
+#: pustakalaya_apps/video/templates/video/video_detail.html:258
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:419
+msgid "Edition:"
+msgstr "संस्करण"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:483
+msgid "Total pages"
+msgstr "जम्मा पृष्ठहरू"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:522
+msgid "Interactivity"
+msgstr "अन्तर्क्रियात्मक"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:533
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:539
+msgid "Sponsors:"
+msgstr "प्रायोजक"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:550
+msgid "Rights:"
+msgstr "अधिकार"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:569
+msgid "Description:"
+msgstr "संस्करण"
+
+#: pustakalaya_apps/document/templates/document/document_detail_new.html:748
+msgid "Similar Items You May Like"
+msgstr "समान किसिमका सामग्रीहरू"
+
+#: pustakalaya_apps/pustakalaya_account/models.py:22
+msgid "Phone no"
+msgstr "फोन नं."
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:234
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:221
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:234
+msgid "Media type"
+msgstr "मिडिया प्रकार"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:243
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:373
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:439
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:78
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:225
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:344
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:390
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:243
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:373
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:439
 #, python-format
 msgid " %(type)s "
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:238
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:311
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:308
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:311
 msgid "more"
-msgstr ""
+msgstr "थप"
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:240
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:313
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:309
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:313
 msgid "less"
-msgstr ""
+msgstr "कम"
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:250
-msgid "language"
-msgstr ""
-
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:271
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:365
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:365
 msgid "education level"
-msgstr ""
+msgstr "शैक्षिक तह"
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:292
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:386
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:386
 msgid "communities"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:314
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:408
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:408
 msgid "collections"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:336
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:430
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:430
 msgid "license type"
-msgstr ""
+msgstr "लाइसेन्स"
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:418
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:512
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:475
 msgid "results found in "
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:419
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:513
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:194
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:476
 msgid "sec"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:440
-msgid "Views"
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:636
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:415
+msgid "No Results Found"
+msgstr "कुनै रेकर्ड भेट्टिएनन् ।"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:638
+#, python-format
+msgid ""
+"\n"
+"                        <p>Your search - <b>%(q)s</b> did not match any "
+"documents.</p>\n"
+"                        <p>Make sure you spelled the words correctly or try "
+"a different keyword.</p>\n"
+"                        "
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:509
-msgid "result not found"
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:35
+msgid "Showing"
+msgstr "उपलब्ध"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:35
+msgid "results"
+msgstr "सामग्री"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:45
+msgid "Sort By"
+msgstr "क्रम मिलाउने आधार"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:63
+msgid "Filter"
+msgstr "फिल्टर"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:74
+msgid "Media Type"
+msgstr "मिडिया प्रकार"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:133
+msgid "More"
+msgstr "थप"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:134
+msgid "Less"
+msgstr "कम"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:217
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:362
+msgid "Collections"
+msgstr "कलेक्सन"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:323
+msgid "Add filter"
+msgstr "फिल्टर थप्नुहोस्"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:358
+msgid "Audiobook"
+msgstr "अडियो"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:373
+msgid "Read"
+msgstr "पढ्नुहोस्"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:375
+msgid "Listen"
+msgstr "सुन्नुहोस्"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:377
+msgid "Watch"
+msgstr "हेर्नुहोस्"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:417
+msgid "Your search"
+msgstr "तपाईँको खोजी"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:417
+msgid "did not match any title"
+msgstr "कुनै शिर्षकसँग मिलेन ।"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new.html:418
+msgid "Make sure you spelled the words correctly or try a different keyword"
+msgstr "शव्दको सही उच्चारण निश्चय गर्नुहोस् वा नयाँ शव्दावली प्रयास गर्नुहोस्।"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:193
+msgid "results  in "
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:33
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:386
+msgid "License Type"
+msgstr "लाइसेन्स"
+
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_new2.html:542
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:544
+msgid "result not found for"
+msgstr ""
+
+#: pustakalaya_apps/video/models.py:45
 msgid "Add this video to these collection"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:46
+#: pustakalaya_apps/video/models.py:74
 msgid "Producer"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:63
+#: pustakalaya_apps/video/models.py:99 pustakalaya_apps/video/models.py:316
 msgid "Video series"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:75
+#: pustakalaya_apps/video/models.py:111
 msgid "Certification"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:80
+#: pustakalaya_apps/video/models.py:116
 msgid "Age group"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:94
+#: pustakalaya_apps/video/models.py:146
 msgid "Video Genre"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:101
-msgid "Publisher"
+#: pustakalaya_apps/video/models.py:348
+msgid "maximum size of thumbnail should be 165px by 93px"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:106
-msgid "Keywords"
+#: pustakalaya_apps/video/models.py:353
+msgid "Video running length"
 msgstr ""
 
-#: pustakalaya_apps/video/templates/video/video_detail.html:173
+#: pustakalaya_apps/video/models.py:385
+msgid "Embed Link"
+msgstr ""
+
+#: pustakalaya_apps/video/templates/video/video_detail.html:267
 msgid "running time"
-msgstr ""
+msgstr "अवधि"
 
-#: pustakalaya_apps/video/templates/video/video_detail.html:183
+#: pustakalaya_apps/video/templates/video/video_detail.html:276
+msgid "video director"
+msgstr "निर्देशक"
+
+#: pustakalaya_apps/video/templates/video/video_detail.html:296
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:456
+msgid "Video producer"
+msgstr "निर्माता"
+
+#: pustakalaya_apps/video/templates/video/video_detail.html:312
 msgid "certificate license:"
-msgstr ""
+msgstr "लाइसेन्स"
 
-#: templates/404.html:5
-msgid "Oops broken page  404 Not found"
-msgstr ""
+#: pustakalaya_apps/video/templates/video/video_detail.html:321
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:482
+msgid "Age group:"
+msgstr "उमेर समूह"
 
-#: templates/500.html:5
-msgid "Some server error :("
-msgstr ""
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:90
+msgid "Now Playing"
+msgstr "हाल चलिरहेको"
 
-#: templates/_partials/footer.html:11 templates/_partials/navbar.html:55
-#: templates/_partials/navbar1.html:57
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:175
+msgid "Write a Review"
+msgstr "समीक्षा गर्नुहोस्"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:188
+msgid "Add your review"
+msgstr "समीक्षा थप्नुहोस्"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:314
+msgid "Publisher(s):"
+msgstr "प्रकाशक"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:380
+msgid "Keyword(s):"
+msgstr "मूख्य शब्दावलीहरू"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:430
+msgid "Running time"
+msgstr "अवधि"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:438
+msgid "Video director"
+msgstr "निर्देशक"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:473
+msgid "Certificate license"
+msgstr "लाइसेन्स"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:491
+msgid "genre"
+msgstr "विधा"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:523
+msgid "Education levels"
+msgstr "शैक्षिक तह"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:555
+msgid "Right:"
+msgstr "अधिकार"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:576
+msgid "Additional note"
+msgstr "थप टिप्पणी"
+
+#: pustakalaya_apps/video/templates/video/video_detail_new.html:746
+msgid "Similar Videos You May Like"
+msgstr "समान किसिमका सामग्रीहरू"
+
+#: templates/404.html:12
+msgid "Page not Found"
+msgstr "पृष्ठ फेला परेन"
+
+#: templates/404.html:14
+msgid "Sorry but the page you are looking for cannot be found."
+msgstr "माफ गर्नुहोला, तपाईँले खोज्नु भएको पृष्ठ फेला परेन।"
+
+#: templates/404.html:16
+msgid "Go home"
+msgstr "गृह पृष्ठमा जानुहोस्"
+
+#: templates/404.html:17
+msgid "Contact Us"
+msgstr "सम्पर्क"
+
+#: templates/500.html:11
+msgid "500"
+msgstr "५००"
+
+#: templates/500.html:12
+msgid "Internal Server Error"
+msgstr "आन्तरिक सर्भर त्रुटि"
+
+#: templates/500.html:14
+msgid ""
+"Something went wrong on our end. <br>Try refreshing the page, or going back "
+"and attempting the action again."
+msgstr "यहाँ केहि त्रुटि भए जस्तो छ । यो पेज फेरी लोड गर्नुहोला।"
+
+#: templates/_partials/footer.html:49
+msgid "E-PUSTAKALAYA"
+msgstr "ई-पुस्तकालय"
+
+#: templates/_partials/footer.html:50
+msgid ""
+"E-Pustakalaya is an education-focused digital library containing full-text "
+"documents, images, videos and audio files that can be accessed through an "
+"intranet or the internet. The user can either read documents, view videos, "
+"and listen to audio clips directly from the E-library server or she can "
+"download these materials to her personal computer and view them later."
+msgstr ""
+"ई-पुस्तकालय शिक्षाकेन्द्रित पुस्तकालय हो। यसमा दस्तावेज, किताब, पत्रपत्रिका, अडियो, "
+"भिडियो लगायत साझा शिक्षा ई-पाटीद्वारा निर्मित राष्ट्रिय पाठ्यक्रममा आधारित "
+"अन्तर्क्रियात्मक ई-पाठ क्रियाकलाप समेत समावेस गरिएका छन्। प्रयोगकर्ताहरूले ई-पुस्तकालयमा "
+"रहेका सामग्रीहरूलाई आन्तरिक-नेट (intra-net) अथवा ईन्टरनेटको माध्यमबाट खोलेर अध्ययन "
+"गर्न, भिडियो हेर्न र अडियो पुस्तकहरू सुन्न सक्नुहुन्छ। हाल ई-पुस्तकालयमा नेपाली र अङ्ग्रेजी "
+"भाषाका सङ्ग्रहहरूका साथै नेपालभित्र बोलिने अन्य राष्ट्रिय भाषाका सामग्रीहरू समेत राखिएका "
+"छन्"
+
+#: templates/_partials/footer.html:53
+msgid "SUPPORT"
+msgstr "सहयोग"
+
+#: templates/_partials/footer.html:66 templates/_partials/footer_old.html:69
+#: templates/_partials/navbar.html:171 templates/_partials/navbar_new.html:269
+#: templates/_partials/navbar_new.html:421
+#: templates/static_pages/feedback.html:10
+msgid "Feedback"
+msgstr "सुझाव"
+
+#: templates/_partials/footer.html:69 templates/_partials/footer_old.html:74
+#: templates/_partials/navbar.html:167 templates/_partials/navbar_new.html:272
+#: templates/_partials/navbar_new.html:423
 msgid "Help"
-msgstr ""
+msgstr "सहयोग"
 
-#: templates/_partials/footer.html:16
-msgid "Blog"
-msgstr ""
+#: templates/_partials/footer.html:74
+msgid "CONTACT US"
+msgstr "सम्पर्क"
 
-#: templates/_partials/footer.html:31
-msgid "Developed By"
-msgstr ""
+#: templates/_partials/footer.html:77
+msgid "Sanepa, Lalitpur"
+msgstr "सानेपा, ललितपुर"
 
-#: templates/_partials/footer.html:32
-#, fuzzy
-#| msgid "Nepali"
+#: templates/_partials/footer.html:80
+msgid "+977-1-5544441"
+msgstr "+९७७-१-५५४-४४४१"
+
+#: templates/_partials/footer.html:88
+msgid "FOLLOW US"
+msgstr "सामाजिक सञ्जाल"
+
+#: templates/_partials/footer.html:105
+msgid "DEVELOPED AND MAINTAINED BY"
+msgstr "विकास तथा सम्भारकर्ता "
+
+#: templates/_partials/footer.html:111
+msgid "PAST PARTNERS"
+msgstr "विगतका साझेदार"
+
+#: templates/_partials/footer.html:128
+msgid "CONTENT CONTRIBUTION"
+msgstr "सामग्री सहयोग"
+
+#: templates/_partials/footer.html:146
+msgid ""
+"Unless explicitly mentioned, all the contents on this website are licensed "
+"under <a href='https://creativecommons.org/licenses/by-nc-nd/3.0/' "
+"target='_blank'>Creative Commons </a>"
+msgstr ""
+"निश्चित सामग्रीका लागि उल्लेख गरिए बाहेक, सबै सामग्रीहरु <a href='https://"
+"creativecommons.org/licenses/by-nc-nd/3.0/' target='_blank'>Creative Commons "
+"</a> अनुसार उपलब्ध छन्। "
+
+#: templates/_partials/footer_old.html:43
+msgid "Developed and maintained By"
+msgstr "विकास तथा सम्भारकर्ता"
+
+#: templates/_partials/footer_old.html:44
 msgid "OLE Nepal"
-msgstr "नेपाली"
+msgstr "साझा शिक्षा ई-पाटी, नेपाली"
 
-#: templates/_partials/login_form.html:20
+#: templates/_partials/footer_old.html:79
+msgid "Blog"
+msgstr "ब्लग"
+
+#: templates/_partials/login_form.html:21
 msgid "Login with your registered Email &amp; Password."
-msgstr ""
+msgstr "तपाईँको ईमेल र पासवर्ड प्रयोग गरी लग-ईन गर्नुहोस्। "
 
-#: templates/_partials/login_form.html:34 templates/account/login.html:45
+#: templates/_partials/login_form.html:35 templates/account/login.html:23
 msgid "Forgot Password?"
-msgstr ""
+msgstr "पासवर्ड बिर्सनुभयो?"
 
-#: templates/_partials/login_form.html:35 templates/account/login.html:7
-#: templates/account/login.html:11 templates/account/login.html:46
+#: templates/_partials/login_form.html:36 templates/account/login.html:7
+#: templates/account/login.html:11 templates/account/login.html:25
 msgid "Sign In"
-msgstr ""
+msgstr "लग-ईन"
 
-#: templates/_partials/login_form.html:41
+#: templates/_partials/login_form.html:42
 #, python-format
 msgid ""
 "Please sign in with one\n"
-"            of your existing third party accounts. Or, <a href="
-"\"%(signup_url)s\">sign up</a>\n"
-"            for a %(site_name)s account and sign in below:"
+"            of your existing third party accounts. Or, <a class=\"text-"
+"primary\" href=\"%(signup_url)s\">sign up</a>\n"
+"            for a %(site_name)s account or sign in below:"
 msgstr ""
 
-#: templates/_partials/login_form.html:57
+#: templates/_partials/login_form.html:58
 #, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
-"            <a href=\"%(signup_url)s\">sign up</a> first."
+"            <a href=\"%(signup_url)s\" class=\"text-primary\" style=\"text-"
+"decoration:underline!important;\">sign up</a> first."
 msgstr ""
 
-#: templates/_partials/navbar.html:39 templates/_partials/navbar1.html:41
-msgid "Home"
-msgstr ""
-
-#: templates/_partials/navbar.html:51 templates/_partials/navbar1.html:53
+#: templates/_partials/navbar.html:163
 msgid "Authors"
-msgstr ""
+msgstr "लेखक"
 
-#: templates/_partials/navbar.html:59 templates/_partials/navbar1.html:61
-#: templates/static_pages/feedback.html:10
-msgid "Feedback"
-msgstr ""
+#: templates/_partials/navbar.html:227 templates/_partials/navbar_new.html:529
+msgid "profile"
+msgstr "प्रोफाइल"
 
-#: templates/_partials/navbar.html:108 templates/_partials/navbar1.html:110
+#: templates/_partials/navbar.html:229 templates/_partials/navbar_new.html:396
+#: templates/_partials/navbar_new.html:531
+msgid "logout"
+msgstr "लग-आउट"
+
+#: templates/_partials/navbar_new.html:58
+msgid "All"
+msgstr "सबै"
+
+#: templates/_partials/navbar_new.html:218
+msgid "TITLES"
+msgstr "शिर्षक"
+
+#: templates/_partials/navbar_new.html:221
+msgid "AUTHOR"
+msgstr "लेखक"
+
+#: templates/_partials/navbar_new.html:224
+msgid "CATEGORIES"
+msgstr "विषयगत् कक्षहरू"
+
+#: templates/_partials/navbar_new.html:227
+msgid "Literature And Arts"
+msgstr "साहित्य र कला"
+
+#: templates/_partials/navbar_new.html:243
+msgid "Newspapers & Magazines"
+msgstr "पत्र-पत्रिका"
+
+#: templates/_partials/navbar_new.html:248
+#: templates/_partials/navbar_new.html:249
+msgid "LEVEL"
+msgstr "शैक्षिक तह"
+
+#: templates/_partials/navbar_new.html:363
+#: templates/_partials/navbar_new.html:546
+msgid "Log In"
+msgstr "लग-ईन"
+
+#: templates/_partials/navbar_new.html:385
 msgid "dashboard"
 msgstr ""
 
-#: templates/_partials/navbar.html:113 templates/_partials/navbar1.html:115
-msgid "profile"
+#: templates/_partials/navbar_new.html:390
+msgid "staff admin dashboard"
 msgstr ""
 
-#: templates/_partials/navbar.html:115 templates/_partials/navbar1.html:117
-msgid "logout"
-msgstr ""
+#: templates/_partials/navbar_new.html:416
+msgid "Titles"
+msgstr "शिर्षक"
 
-#: templates/_partials/search_form.html:13
-msgid "Search pustakalaya"
+#: templates/_partials/navbar_new.html:429
+msgid "Literature &amp; Arts"
+msgstr "साहित्य र कला"
+
+#: templates/_partials/navbar_new.html:434 templates/index.html:47
+msgid "Newspapers &amp; Magazines"
+msgstr "पत्र-पत्रिका"
+
+#: templates/_partials/navbar_new.html:436
+msgid "Level"
+msgstr "शैक्षिक तह"
+
+#: templates/_partials/navbar_new.html:471
+msgid "नेपाली"
 msgstr ""
 
 #: templates/_partials/sorting_form.html:12
+#: templates/_partials/sorting_form_for_search_result.html:12
 msgid "updated date"
-msgstr ""
+msgstr "मिति"
 
 #: templates/_partials/sorting_form.html:15
 msgid "Rating"
-msgstr ""
+msgstr "मूल्याङ्कन"
 
 #: templates/_partials/sorting_form.html:23
+#: templates/_partials/sorting_form_for_search_result.html:26
 msgid "Ascending"
-msgstr ""
+msgstr "बढ्दो क्रम"
 
 #: templates/_partials/sorting_form.html:26
+#: templates/_partials/sorting_form_for_search_result.html:29
 msgid "Descending"
-msgstr ""
+msgstr "घट्दो क्रम"
+
+#: templates/_partials/sorting_form_for_search_result.html:15
+msgid "Popularity"
+msgstr "लोकप्रीयता"
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:9
 msgid "Account Inactive"
-msgstr ""
+msgstr "खाता निस्क्रिय"
 
 #: templates/account/account_inactive.html:11
 msgid "This account is inactive."
-msgstr ""
+msgstr "यो खाता निस्क्रिय छ ।"
 
 #: templates/account/email.html:5
 msgid "Account"
-msgstr ""
+msgstr "खाता"
 
 #: templates/account/email.html:9
 msgid "E-mail Addresses"
-msgstr ""
+msgstr "ईमेल ठेगाना"
 
 #: templates/account/email.html:11
 msgid "The following e-mail addresses are associated with your account:"
-msgstr ""
+msgstr "दिएको ईमेल ठेगानाहरू तपाईँको खातासँग सम्बन्धित छन्।"
 
 #: templates/account/email.html:28
 msgid "Verified"
-msgstr ""
+msgstr "स्वीकृत"
 
 #: templates/account/email.html:30
 msgid "Unverified"
-msgstr ""
+msgstr "अस्वीकृत"
 
 #: templates/account/email.html:33
 msgid "Primary"
-msgstr ""
+msgstr "प्राथमिक"
 
 #: templates/account/email.html:40
 msgid "Make Primary"
-msgstr ""
+msgstr "प्राथमिक बनाउनुहोस्"
 
 #: templates/account/email.html:42
 msgid "Re-send Verification"
-msgstr ""
+msgstr "पुन-पठाइएको स्वीकृती"
 
-#: templates/account/email.html:43
+#: templates/account/email.html:43 templates/socialaccount/connections.html:35
 msgid "Remove"
-msgstr ""
+msgstr "हटाउनुहोस्"
 
 #: templates/account/email.html:51
 msgid "Warning:"
-msgstr ""
+msgstr "सावधान:"
 
 #: templates/account/email.html:51
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
+"तपाईँको अहिले कुनै पनि ईमेल ठेगाना राखिएको छैन। तपाईँले एउटा ईमेल ठेगाना राखेर पासवर्ड "
+"रिसेट गर्नु पर्ने छ।"
 
 #: templates/account/email.html:57
 msgid "Add E-mail Address"
-msgstr ""
+msgstr "ईमेल ठेगान राख्नुहोस्"
 
 #: templates/account/email.html:62
 msgid "Add E-mail"
-msgstr ""
+msgstr "ईमेल ठेगाना राख्नुहोस्"
 
 #: templates/account/email.html:72
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "के तपाईँ चयन गरिएको ईमेल ठेगाना हटाउन चाहनुहुन्छ?"
 
 #: templates/account/email/email_confirmation_message.txt:1
 #, python-format
@@ -1438,7 +2354,7 @@ msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
-msgstr ""
+msgstr "कृपया तपाईँको ईमेल ठेगाना निश्चय गर्नुहोस्।"
 
 #: templates/account/email/password_reset_key_message.txt:1
 #, python-format
@@ -1465,12 +2381,12 @@ msgstr ""
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
-msgstr ""
+msgstr "पासवर्ड रिसेट ईमेल"
 
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:11
 msgid "Confirm E-mail Address"
-msgstr ""
+msgstr "ईमेल ठेगाना निश्चय गर्नुहोस्।"
 
 #: templates/account/email_confirm.html:17
 #, python-format
@@ -1483,7 +2399,7 @@ msgstr ""
 
 #: templates/account/email_confirm.html:23
 msgid "Confirm"
-msgstr ""
+msgstr "निश्चय गर्नुहोस्।"
 
 #: templates/account/email_confirm.html:30
 #, python-format
@@ -1493,29 +2409,31 @@ msgid ""
 "request</a>."
 msgstr ""
 
-#: templates/account/login.html:14
+#: templates/account/login.html:34
 #, python-format
 msgid ""
-"Please sign in with one\n"
-"                of your existing third party accounts. Or, <a href="
+"\n"
+"             <h5> To create account:</h5>\n"
+"              <a  class=\"btn ole-btn\" style=\"cursor:hand\" href="
 "\"%(signup_url)s\">sign up</a>\n"
-"                for a %(site_name)s account and sign in below:"
+"\n"
+"              "
 msgstr ""
 
-#: templates/account/login.html:32
+#: templates/account/login.html:52
 msgid ""
-"If you have not created an account yet, then please\n"
-"          <a href=\"/accounts/signup/\">sign up</a> first."
+"Don't have an account:\n"
+"          <a class=\"btn ole-btn\" href=\"/accounts/signup/\" >sign up</a> "
 msgstr ""
 
 #: templates/account/logout.html:5 templates/account/logout.html:9
 #: templates/account/logout.html:18
 msgid "Sign Out"
-msgstr ""
+msgstr "लग-आउट"
 
 #: templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "के तपाईँ लग-आउट गर्न चाहनुहुन्छ?"
 
 #: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
@@ -1544,66 +2462,66 @@ msgstr ""
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
-msgstr ""
+msgstr "तपाईँ लग-आउट हुनु भयो ।"
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
-msgstr ""
+msgstr "पासवर्ड परिवर्तन सफल भयो।"
 
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
-msgstr ""
+msgstr "पासवर्ड कायम सफल भयो।"
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."
-msgstr ""
+msgstr "प्राथमिक ईमेल ठेगाना कायम"
 
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
-msgstr ""
+msgstr "तपाईँको प्राथमिक ईमेल ठेगाना स्वीकृत हुनु पर्छ।"
 
 #: templates/account/password_change.html:6
-#: templates/account/password_change.html:9
-#: templates/account/password_change.html:14
+#: templates/account/password_change.html:10
+#: templates/account/password_change.html:15
 #: templates/account/password_reset_from_key.html:5
-#: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key.html:9
 #: templates/account/password_reset_from_key_done.html:4
-#: templates/account/password_reset_from_key_done.html:7
+#: templates/account/password_reset_from_key_done.html:8
 msgid "Change Password"
-msgstr ""
+msgstr "पासवर्ड परिवर्तन गर्नुहोस्"
 
 #: templates/account/password_reset.html:8
 #: templates/account/password_reset.html:13
 #: templates/account/password_reset_done.html:6
 #: templates/account/password_reset_done.html:10
 msgid "Password Reset"
-msgstr ""
+msgstr "पासवर्ड रिसेट"
 
 #: templates/account/password_reset.html:18
 msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
-msgstr ""
+msgstr "पासवर्ड बिर्सनुभयो? तल ईमेल ठेगाना भर्नुहोस् "
 
 #: templates/account/password_reset.html:25
 msgid "Reset My Password"
-msgstr ""
+msgstr "मेरो पासवर्ड रिसेट गर्नुहोस्"
 
 #: templates/account/password_reset.html:29
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr ""
+msgstr "पासवर्ड रिसेट गर्न केहि समस्या भएमा कृपया हामीलाई सम्पर्क गर्नुहोला।"
 
 #: templates/account/password_reset_done.html:16
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
-msgstr ""
+msgstr "हामीले तपाईँलाई ईमेल पठाएका छौँ। पाउन भएन भने हामीलाई सम्पर्क गर्नुहोस्।"
 
-#: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key.html:9
 msgid "Bad Token"
-msgstr ""
+msgstr "खराब टोकन"
 
-#: templates/account/password_reset_from_key.html:12
+#: templates/account/password_reset_from_key.html:13
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -1611,59 +2529,72 @@ msgid ""
 "a>."
 msgstr ""
 
-#: templates/account/password_reset_from_key.html:21
-#: templates/account/password_reset_from_key_done.html:8
+#: templates/account/password_reset_from_key.html:22
+#: templates/account/password_reset_from_key_done.html:9
 msgid "Your password is now changed."
-msgstr ""
+msgstr "तपाईँको पासवर्ड परिवर्तन भएको छ।"
 
-#: templates/account/password_set.html:6 templates/account/password_set.html:9
-#: templates/account/password_set.html:14
+#: templates/account/password_set.html:6 templates/account/password_set.html:10
+#: templates/account/password_set.html:15
 msgid "Set Password"
-msgstr ""
+msgstr "पासवर्ड सेट गर्नुहोस्"
 
-#: templates/account/signup.html:5
+#: templates/account/signup.html:6
 msgid "Signup"
-msgstr ""
+msgstr "साइन-अप"
 
-#: templates/account/signup.html:11 templates/static_pages/sign_up.html:10
-msgid "Create your Pustakalaya Account"
-msgstr ""
+#: templates/account/signup.html:12
+#, fuzzy
+#| msgid "Create your Pustakalaya Account"
+msgid "Create your E-Pustakalaya Account"
+msgstr "तपाईँको पुस्तकालय खाता खोल्नुहोस्।"
 
-#: templates/account/signup.html:13
+#: templates/account/signup.html:14
 #, python-format
 msgid ""
 "Already have an account? Then please\n"
-"                    <a href=\"%(login_url)s\">sign in</a>."
+"                    <a style=\"font-size:140%%;text-decoration:underline;\"  "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 
-#: templates/account/signup.html:24
+#: templates/account/signup.html:27
+msgid ""
+" By clicking on 'Create E-Pustakalaya Account' below you are agreeing to "
+"the\n"
+"                    <a href=\"/terms-and-conditions/\" target=\"_blank"
+"\">terms & condition and privacy policy</a> of E-Pustakalaya! "
+msgstr ""
+
+#: templates/account/signup.html:31
 msgid "Sign Up"
-msgstr ""
+msgstr "साइन-अप"
 
-#: templates/account/signup.html:26 templates/static_pages/sign_up.html:90
+#: templates/account/signup.html:33 templates/static_pages/sign_up.html:88
 msgid "Log in with"
-msgstr ""
+msgstr "लग-ईन:"
 
-#: templates/account/signup.html:34 templates/static_pages/sign_up.html:98
-msgid "Already have Pustakalaya account"
-msgstr ""
+#: templates/account/signup.html:42 templates/static_pages/sign_up.html:99
+#, fuzzy
+#| msgid "Already have Pustakalaya account"
+msgid "Already have E-Pustakalaya account"
+msgstr "पुस्तकालय खाता पहिले नै छ भने"
 
-#: templates/account/signup.html:35 templates/static_pages/sign_up.html:98
+#: templates/account/signup.html:43 templates/static_pages/sign_up.html:100
 msgid "Log in"
-msgstr ""
+msgstr "लग-ईन"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:9
 msgid "Sign Up Closed"
-msgstr ""
+msgstr "साइन-अप बन्द गरिएको"
 
 #: templates/account/signup_closed.html:11
 msgid "We are sorry, but the sign up is currently closed."
-msgstr ""
+msgstr "हामीलाई माफ गर्नुहोला, तर साइन-अप हाललाई बन्द गरिएको छ।"
 
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
-msgstr ""
+msgstr "टिप्पणी"
 
 #: templates/account/snippets/already_logged_in.html:5
 #, python-format
@@ -1671,11 +2602,16 @@ msgid "you are already logged in as %(user_display)s."
 msgstr ""
 
 #: templates/account/verification_sent.html:5
-#: templates/account/verification_sent.html:9
 #: templates/account/verified_email_required.html:5
 #: templates/account/verified_email_required.html:9
 msgid "Verify Your E-mail Address"
-msgstr ""
+msgstr "तपाईँको ईमेल ठेगाना निश्चय गर्नुहोस्"
+
+#: templates/account/verification_sent.html:9
+#, fuzzy
+#| msgid "Verify Your E-mail Address"
+msgid "Verify your e-mail address"
+msgstr "तपाईँको ईमेल ठेगाना निश्चय गर्नुहोस्"
 
 #: templates/account/verification_sent.html:11
 msgid ""
@@ -1709,64 +2645,112 @@ msgid ""
 "            ."
 msgstr ""
 
-#: templates/base.html:14
-msgid "Pustakalaya"
-msgstr ""
+#: templates/base.html:10 templates/static_pages/about.html:60
+msgid "E-Pustakalaya"
+msgstr "ई-पुस्तकालय"
 
-#: templates/base.html:14 templates/index.html:7 templates/index_new.html:7
+#: templates/base.html:10 templates/base_backup.html:14 templates/index.html:6
+#: templates/index_old.html:7
 msgid "homepage"
-msgstr ""
+msgstr "गृह पृष्ठ"
 
-#: templates/index.html:38 templates/index_new.html:38
-msgid "Browse Pustakalaya"
-msgstr ""
+#: templates/base_backup.html:14
+msgid "Pustakalaya"
+msgstr "पुस्तकालय"
 
-#: templates/index.html:46 templates/index_new.html:46
-msgid "browse the library"
-msgstr ""
+#: templates/index.html:33
+msgid "Browse By Categories"
+msgstr "ब्राउज गर्नुहोस्"
 
-#: templates/index.html:64 templates/index_new.html:64
-msgid "author"
-msgstr ""
-
-#: templates/index.html:72 templates/index_new.html:72
-msgid "sections"
-msgstr ""
-
-#: templates/index.html:80 templates/index_new.html:80
+#: templates/index.html:37
 msgid "literatures and Arts"
-msgstr ""
+msgstr "साहित्य र कला"
 
-#: templates/index.html:86 templates/index_new.html:86
-msgid "Course Materials"
-msgstr ""
-
-#: templates/index.html:92 templates/index_new.html:92
-msgid "Teaching Materials"
-msgstr ""
-
-#: templates/index.html:98 templates/index_new.html:98
+#: templates/index.html:43
 msgid "reference Materials"
-msgstr ""
+msgstr "सन्दर्भ सामग्री"
 
-#: templates/index.html:104 templates/index_new.html:104
+#: templates/index.html:45
 msgid "other educational Materials"
-msgstr ""
+msgstr "अन्य शिक्षाप्रद सामग्री"
 
-#: templates/index.html:110 templates/index_new.html:110
-msgid "Newspapers & Magazines"
-msgstr ""
+#: templates/index.html:57
+msgid "featured titles"
+msgstr "विशेष आकर्षण"
 
-#: templates/index.html:175 templates/index_new.html:166
+#: templates/index.html:117
+msgid "Show all featured items"
+msgstr "सबै विशेष आकर्षण देखाउनुहोस्"
+
+#: templates/index.html:125
+msgid "E-Paath Interactive Lessons"
+msgstr "ई-पाठ अन्तर्क्रियात्मक क्रियाकलाप"
+
+#: templates/index.html:133
+msgid "Educational Softwares"
+msgstr "शैक्षिक सफ्टवेयरहरू"
+
+#: templates/index.html:144
+msgid "E-Learning for Kids"
+msgstr "बालबालिकाका लागि ई-अध्ययन"
+
+#: templates/index.html:152
+msgid "Learn English"
+msgstr "अंग्रेजी भाषा क्रियाकलाप"
+
+#: templates/index.html:160
+msgid "PhET Simulations"
+msgstr "फेट सिमुलेसन"
+
+#: templates/index.html:168
+msgid "Environmental Activities"
+msgstr "वातावरण क्रियाकलाप"
+
+#: templates/index.html:176
+msgid "Khan Academy"
+msgstr "खान एकेडेमी"
+
+#: templates/index.html:202
+msgid "Reference Sites"
+msgstr "सन्दर्भ साइटहरू"
+
+#: templates/index.html:259
+msgid "Collection of Books"
+msgstr "पुस्तक सङ्ग्रह"
+
+#: templates/index.html:264
+msgid "Collection of Audiobooks"
+msgstr "अडियो सङ्ग्रह"
+
+#: templates/index.html:269
+msgid "Collection of Videos"
+msgstr "भिडियो सङ्ग्रह"
+
+#: templates/index.html:274
+msgid "Number of Authors"
+msgstr "लेखक संख्या"
+
+#: templates/index_old.html:260
+msgid "Browse Pustakalaya"
+msgstr "पुस्तकालय खोजी"
+
+#: templates/index_old.html:269
+msgid "browse the library"
+msgstr "पुस्तकालय खोजी"
+
+#: templates/index_old.html:297
+msgid "author"
+msgstr "लेखक"
+
+#: templates/index_old.html:448
 msgid "Interactive educational software"
 msgstr ""
 
-#: templates/index.html:259 templates/index_new.html:250
-#: templates/static_pages/about.html:13
-msgid "About epustakalaya"
+#: templates/index_old.html:538
+msgid "About e-pustakalaya"
 msgstr ""
 
-#: templates/index.html:260 templates/index_new.html:251
+#: templates/index_old.html:539
 msgid ""
 "\n"
 "          E-Pustakalaya is an education-focused digital library containing "
@@ -1786,21 +2770,73 @@ msgid ""
 "          Nepal. "
 msgstr ""
 
-#: templates/index.html:271 templates/index_new.html:262
+#: templates/index_old.html:550
 msgid "Read More"
 msgstr ""
 
-#: templates/index.html:285 templates/index_new.html:276
-msgid "Major partners"
+#: templates/index_old.html:564
+msgid "Major partner"
 msgstr ""
 
-#: templates/index.html:299 templates/index_new.html:290
-msgid "Past supporter"
+#: templates/index_old.html:578
+msgid "Past supporters"
 msgstr ""
 
-#: templates/index.html:334 templates/index_new.html:325
+#: templates/index_old.html:613
 msgid "Content contribution"
 msgstr ""
+
+#: templates/license_agreement.html:9
+msgid "By uploading documents, audios and videos you agree to our"
+msgstr ""
+
+#: templates/license_agreement.html:11 templates/license_agreement.html:20
+msgid "License agreement"
+msgstr "लाइसेन्स"
+
+#: templates/license_agreement.html:26
+msgid ""
+"\n"
+"                    The use of publications included in the electronic "
+"library will be governed by \n"
+"                    Creative Commons 3.0 Attribution-Non Commercial-Share "
+"Alike copyright licenses. \n"
+"                    This means that <br><br>(i) credit to the original "
+"authors/creators of the documents will be maintained and  <br>(ii) while "
+"these materials can be copied, distributed,\n"
+"                    and displayed, they cannot be used for commercial "
+"purposes.\n"
+"\n"
+"                    "
+msgstr ""
+
+#: templates/meta.html:5
+msgid "Digital library of nepal"
+msgstr ""
+
+#: templates/socialaccount/connections.html:5
+#: templates/socialaccount/connections.html:8
+msgid "Account Connections"
+msgstr "खाता निस्क्रिय"
+
+#: templates/socialaccount/connections.html:11
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr ""
+
+#: templates/socialaccount/connections.html:43
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr ""
+
+#: templates/socialaccount/connections.html:46
+msgid "Add a 3rd Party Account"
+msgstr ""
+
+#: templates/static_pages/about.html:13
+msgid "About E-Pustakalaya"
+msgstr "ई-पुस्तकालय बारे"
 
 #: templates/static_pages/about.html:15
 msgid ""
@@ -1862,6 +2898,71 @@ msgid ""
 "\n"
 "                "
 msgstr ""
+"\n"
+"\n"
+"ई-पुस्तकालय शिक्षाकेन्द्रित पुस्तकालय हो। यसमा दस्तावेज, किताब, पत्रपत्रिका, अडियो, "
+"भिडियो लगायत साझा शिक्षा ई-पाटीद्वारा\n"
+"निर्मित राष्ट्रिय पाठ्यक्रममा आधारित अन्तर्क्रियात्मक ई-पाठ क्रियाकलाप समेत समावेस "
+"गरिएका छन्। प्रयोगकर्ताहरूले ई-पुस्तकालयमा रहेका सामग्रीहरूलाई\n"
+"आन्तरिक-नेट (intra-net) अथवा ईन्टरनेटको माध्यमबाट खोलेर अध्ययन गर्न, भिडियो हेर्न र "
+"अडियो पुस्तकहरू सुन्न सक्दछन्। हाल\n"
+"ई-पुस्तकालयमा नेपाली र अङ्ग्रेजी भाषाका सङ्ग्रहहरूका साथै नेपालभित्र बोलिने अन्य राष्ट्रिय "
+"भाषाका सामग्रीहरू समेत राखिएका छन्।\n"
+" <br/><br/>सामान्य भौतिक पुस्तकालयमा जस्तै देखिने ई-पुस्तकालयका विभिन्न कक्षहरूमा प्रवेश "
+"गरेर प्रयोगकर्ताले आफ्नो रूची अनुसारका सामग्रीहरूमा पहुँच\n"
+"राख्न सक्दछन्। ब्राउजिङ, सर्चिङ, र लिङ्‍किङ जस्ता सुविधाहरू भएको ई-पुस्तकालयमा "
+"प्रयोगकर्ताले आफूलाई चाहिएको सामग्रीको शिर्षक,\n"
+"लेखक वा सम्बन्धित शब्दावली अनुसार खोज गर्न सकिने हुँदा अन्वेषणकर्ताहरूका लागि समेत उपयोगी "
+"छ।\n"
+" <br/><br/>ई-पुस्तकालयको मुख्य उद्देश्य विद्यार्थीहरूमा पढ्ने संस्कृतिको विकास गरी स्वअध्ययन, "
+"स्वतन्त्र चिन्तन र स्वतन्त्र अन्वेषणको परिपाटीलाई प्रोत्साहित\n"
+"गर्नु हो। यसले स्रष्टा हरूलाई बढीभन्दा बढी पाठकसम्म पुर्यावएर र पाठकहरुलाई बढीभन्दा बढी "
+"सामग्रीहरुमा पहुँच दिलाएर पढ्ने संस्कृतिको विकास\n"
+"गर्न मद्दत गर्छ। ई-पुस्तकालयमा भएका सामग्रीहरू शैक्षिक प्रयोजनका लागि इन्टरनेटको पहुँच हुने "
+"जोसुकैले पनि निशुल्क पढ्न, हेर्न र सुन्न सक्छन्।\n"
+"साझा शिक्षा ई-पाटी नेपालले सूचना तथा सञ्चानर प्रविधिको प्रयोग गरि गुणस्तरीय शिक्षा र "
+"समान पहुँचका निमित्त शैक्षिक प्रणाली सुधारको क्षेत्रमा\n"
+"कार्य गर्दै आएको छ। यसक्रममा साझा शिक्षा ई-पाटी र साझेदार संस्थाहरूको सहकार्यमा नेपालका "
+"विभिन्न जिल्लाका केहि सार्वजनिक विद्यालय तथा\n"
+"सामुदायिक पुस्तकालयहरूले स्थानिय सर्भरबाटै ई-पुस्तकालयमा पहुँच प्राप्त गर्दै आएका छन्। "
+"पुस्तकालयमा रहेका पुस्तकहरू यसको एन्ड्रोइड एप प्रयोग\n"
+"गरेर पनि पहुँच प्राप्त गर्न सकिन्छ। ई-पुस्तकालय एपको प्रयोग गरेर अनलाइनका साथसाथै "
+"विद्यालयमा रहेको अफलाइन सर्भरबाट समेत पुस्तकहरू\n"
+"डाउनलोड गरेर पढ्न मिल्छ।\n"
+" <br/><br/>हाल ई-पुस्तकालयका लागि सामग्रीहरू सङ्कलन गर्ने क्रममा साझा शिक्षा ई-पाटीले "
+"विभिन्न लेखक, प्रकाशक तथा संघ-संस्थाहरूसित औपचारिक\n"
+"साझेदारी गरी ई-पुस्तकालय मार्फत प्रकाशनहरू उपलब्ध गराउँदै आएको छ। यसैगरी धेरै भन्दा धेरै "
+"प्रकाशनहरूलाई ई-पुस्तकालयमार्फत पाठकहरू\n"
+"समक्ष पुर्याउन सकेमा बालबालिकाहरूको सर्वाङ्गीण विकास गर्न र समाजमा पढ्ने संस्कृतिको विकास "
+"गर्न उल्लेखनीय योगदान पुग्ने विश्वास लिइएको छ।\n"
+"आफ्ना सिर्जनाहरु ई-पुस्तकालयमार्फत पाठकहरु सम्म पुर्याउन चाहनुहुने लेखक स्रष्टाहरूले साझा "
+"शिक्षा ई-पाटी, नेपालको कार्यलयमा पुस्तकको सफ्ट\n"
+"वा हार्ड कपी प्रदान गर्न सक्नुहुनेछ। साथै स्थानिय रूपमा ई-पुस्तकालय जडान गरी लाभ लिन "
+"चाहने विद्यालयहरूले साझा शिक्षा ई-पाटीमा सम्पर्क\n"
+"राख्न सक्नुहुनेछ।\n"
+"\n"
+"\n"
+"                "
+
+#: templates/static_pages/about.html:62
+msgid "Open Learning Exchange Nepal"
+msgstr "साझा शिक्षा ई-पाटी नेपाल"
+
+#: templates/static_pages/about.html:63
+msgid "Telephone: +977-1-554-4441, 552-0075"
+msgstr "टेलिफोन: +९७७-१-५५४-४४४१, ५५२-००७५ "
+
+#: templates/static_pages/about.html:64
+msgid "PO Box 8975, EPC 2394"
+msgstr "पो.बक्स ८९७५, EPC २३९४"
+
+#: templates/static_pages/about.html:65
+msgid "Kathmandu, Nepal"
+msgstr "काठमाडौं, नेपाल"
+
+#: templates/static_pages/about.html:66
+msgid "pustakalaya@olenepal.org"
+msgstr ""
 
 #: templates/static_pages/feedback.html:11
 msgid ""
@@ -1875,52 +2976,536 @@ msgid ""
 "                of E-Pustakalaya.\n"
 "            "
 msgstr ""
+"\n"
+"ई-पुस्तकालय तपाईँलाई कस्तो लाग्यो? यसको विकास र प्रवर्द्धनका लागि हामीले थप के, के गर्नु "
+"पर्ला? कृपया हामीलाई आफ्ना प्रतिक्रिया र सुझाव पठाएर सहयोग गर्नुहोस्। कृपया * चिन्ह "
+"भएको विवरण अनिवार्य रूपमा भर्नुहोला।            "
 
 #: templates/static_pages/feedback.html:31
 msgid "Send Feedback"
-msgstr ""
+msgstr "सुझाव पठाउनुहोस्"
 
-#: templates/static_pages/help.html:13 templates/static_pages/help.html:40
+#: templates/static_pages/help.html:61
+msgid "WHAT IS E-PUSTAKALAYA?"
+msgstr "ई-पुस्तकालय भनेको के हो ?"
+
+#: templates/static_pages/help.html:65
+msgid ""
+"\n"
+"           E-Pustakalaya is an education-focused digital library containing "
+"full-text documents, images, videos and audio files that can be accessed "
+"through an intranet or the internet.E-Pustakalaya users can read books, view "
+"videos, learn through interactive activites and listen to audio clips.\n"
+"            E-Pustakalaya holds collections in Nepali, English and other "
+"languages of Nepal.\n"
+"           "
+msgstr ""
+"\n"
+"ई-पुस्तकालय शिक्षाकेन्द्रित पुस्तकालय हो। यसमा दस्तावेज, किताब, पत्रपत्रिका, अडियो, "
+"भिडियो लगायत साझा शिक्षा ई-पाटीद्वारा निर्मित राष्ट्रिय पाठ्यक्रममा आधारित "
+"अन्तर्क्रियात्मक ई-पाठ क्रियाकलाप समेत समावेसगरिएका छन्। प्रयोगकर्ताहरूले ई-पुस्तकालयमा "
+"रहेका सामग्रीहरूलाई आन्तरिक-नेट (intra-net) अथवा ईन्टरनेटको माध्यमबाट खोलेर अध्ययन "
+"गर्न, भिडियो हेर्न र अडियो पुस्तकहरू सुन्न सक्दछन्। हाल ई-पुस्तकालयमा नेपाली र अङ्ग्रेजी "
+"भाषाका सङ्ग्रहहरूका साथै नेपालभित्र बोलिने अन्य राष्ट्रिय भाषाका सामग्रीहरू समेत राखिएका "
+"छन्। "
+
+#: templates/static_pages/help.html:75
+msgid "WHAT FEATURES DOES E-PUSTAKALAYA HAVE?"
+msgstr "ई-पुस्तकालयका के-के गर्न सकिन्छ ?"
+
+#: templates/static_pages/help.html:80
+msgid ""
+"\n"
+"\n"
+"             E-Pustakalaya has four powerful features that make it easy for "
+"the user to access books, documents, videos, audio files, and images:<br/"
+"><br/>\n"
+"            <b>Browsing capability:</b> The user can browse through the six "
+"major sections looking for items she likes, or she can also browse by "
+"author, subject, date and keyword. </br><br>\n"
+"\n"
+"          <b>Searching capability:</b> If the user knows the specifics about "
+"the item she is looking for (e.g., exact title or author), she can look for "
+"that item using the library search facility.<br/><br>\n"
+"\n"
+"          <b>Linking capability:</b> If the user finds an item she is "
+"looking for and wants to find similar items (e.g., by the same author), she "
+"can list those items with a single click. <br> <br>\n"
+"\n"
+"          <b>Filtering capability: </b> The user can filter the item "
+"listings (obtained from the above three procedures) according to author. "
+"<br>\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"ई-पुस्तकालयमा निम्न लिखित क्रियाकलापहरू गर्न सकिन्छ जसले गर्दा प्रयोगकर्तालाई किताब, "
+"दस्तावेज, भिडियो, अडियो फाइल र चित्रहरू पढ्न, हेर्न र सुन्‍न सजिलो हुन्छ :<br/><br/> १. "
+"ब्राउजिङ : प्रयोकर्ताले आफूलाई चाहिएको सामग्री  माथीका कक्षहरूमा घुम्दै खोज्न सक्नुहुन्छ "
+"जसलाई ब्राउज गर्नु भनिन्छ । <br/><br/>२. सर्चिङ : यदि प्रयोकर्तालाई आफूले  खोजेको "
+"सामग्रीबारे ठ्‍याक्‍कै जानकारी छ भने पुस्तकालयमा भएको ‘खोज’ सुविधाको प्रयोग गर्न सक्नुहुन्छ । "
+"जस्तै शिर्षक थाहा छ भने ‘खोज’ भन्‍ने खाली ठाउँमा शिर्षक टाइप गरी उक्त सामग्री फेला पार्न "
+"सक्नुहुन्छ ।<br/> <br/>३. लिङकिङ : प्रयोगकर्ताले आफूले खोजेको सामग्री प्राप्‍त गरिसकेपछि "
+"त्यस्तै अन्य सामग्री खोज्ने कार्यलाई लिङकिङ भनिन्छ । उदाहरणका लागि कुनै लेखकका अन्य "
+"किताबहरू हेर्नुपरेमा लेखकको नाममा क्लिक गरेर नै ती किताबहरूको सूची पाउन सकिन्छ ।<br/><br/"
+"> ४. फिल्टरिङ : प्रयोगकर्ताले माथीका तीन प्रक्रियाबाट प्राप्‍त गरेका सामग्रीहरूको सूचीलाई "
+"लेखकका आधारमा फिल्टर गर्न सक्नुहुन्छ ।<br>\n"
+"\n"
+
+#: templates/static_pages/help.html:98
+msgid "HOW DO I USE THE BROWSE, LINK AND SEARCH FEATURE OF THE LIBRARY?"
+msgstr "पुस्तकालयमा ब्राउज, लिङ्क र सर्च कसरी गर्ने ?"
+
+#: templates/static_pages/help.html:102
+msgid ""
+"\n"
+"\n"
+"           <ol type=\"a\" class=\"paragraph-font\">\n"
+"             <br>\n"
+"              <b><i>Browsing through the six main sections:</i></b>\n"
+"              <ol type=\"text-justify\">\n"
+"                <li>When you click on any of the main sections, you will see "
+"a page with the\n"
+"                  sub-sections for\n"
+"                  that section. For example, if you want to see what is "
+"available under Nepali\n"
+"                  children's\n"
+"                  literature, first click on the “Sahiyta” section. In the "
+"page that shows up, you\n"
+"                  will see a\n"
+"                  number of subsections, one of which is “Nepali Baal "
+"Sahiya”. Now clicking on the\n"
+"                  “Nepali Baal\n"
+"                  Sahiya” link will display all the materials in that sub-"
+"section. The displayed list\n"
+"                  will\n"
+"                  include the title and author of each item in the "
+"collection. This list is analogous\n"
+"                  to the\n"
+"                  collections of books you see arranged in the book shelves "
+"of physical libraries.\n"
+"                </li>\n"
+"                <br>\n"
+"                <li>Now “pull out” the book you want to read by clicking on "
+"the book title. For example,\n"
+"                  if\n"
+"                  you want to look at the book “Ko Thulo” by Srijan Sharma, "
+"just click on the\n"
+"                  displayed link to\n"
+"                  this book. You will see a new page displaying details "
+"about the book—details you\n"
+"                  would find in\n"
+"                  the first couple of pages of a physical book (e.g., title, "
+"author(s), publication\n"
+"                  date,\n"
+"                  publisher etc.).\n"
+"                </li>\n"
+"                <br>\n"
+"                <li>In order to actually open the book and read it, you will "
+"need to click on the link\n"
+"                  to\n"
+"                  the pdf file displayed under “ Click here to Read/"
+"Download”.\n"
+"\n"
+"                  Depending on your browser configuration, the link will ask "
+"you to either\n"
+"                  save/open the file\n"
+"                  or automatically open the file in a new browser window.In "
+"case you choose to save\n"
+"                  the file, then\n"
+"                  you will have to go into the folder where you have saved "
+"it, and click on the file\n"
+"                  within that\n"
+"                  folder which will open the book with a PDF reading "
+"software (such as Adobe Reader\n"
+"                  for PCs). In\n"
+"                  case you choose to open the file directly, then you can "
+"save it onto your computer\n"
+"                  after it has\n"
+"                  been opened.\n"
+"                </li>\n"
+"                <br>\n"
+"                <li>At any point while the user is browsing through E-"
+"Pustakalaya, if she wants to go to\n"
+"                  any of the six main sections, she can do so directly by "
+"simply clicking on the\n"
+"                  links for these\n"
+"                  sections on the categories bar right above the content "
+"area.\n"
+"              </li></ol>\n"
+"              Note: You can also browse through the library collections in a "
+"similar manner by\n"
+"              clicking on\n"
+"              the links under “Read more” in the home page.\n"
+"              <br><br>\n"
+"\n"
+"\n"
+"              <b><i>Using the link feature:</i><br></b>\n"
+"              <br>\n"
+"              Once you have gotten to step a (ii) described above, and want "
+"to browse through all the\n"
+"              books by Srijana Sharma just click on the “Srijana Sharma” "
+"displayed in the author field.\n"
+"              This\n"
+"              will take you to a new page with a list of books written, "
+"illustrated or edited by Srijana\n"
+"              Sharma.\n"
+"              <br>\n"
+"\n"
+"              <b><i>Using the search feature:</i><br></b>\n"
+"              <br><br>\n"
+"\n"
+"              If you want to look for a specific item rather than just "
+"browse through the library\n"
+"              sections,.say you want to search for a book entitled “putaliko "
+"bihe”, enter the title of the\n"
+"              book\n"
+"              (or the partial title) in the rectangular search field on the "
+"left corner of the top most\n"
+"              navigation bar. Then click on the “search” button. This will "
+"lead you to the search results\n"
+"              page,\n"
+"              which displays complete or partial results in a list with "
+"descending search relevance. In\n"
+"              order\n"
+"              to obtain detailed information about the book, you can click "
+"on your chosen book. Then you\n"
+"              can\n"
+"              proceed to open the book as explained in step a (iii).\n"
+"              <i>Note: If you have more detailed information about the item "
+"and want to enter that\n"
+"                information\n"
+"                to make the search more targeted, you can click on the "
+"“Advanced Search” button next to\n"
+"                the\n"
+"                search field and proceed to fill the empty fields that show "
+"up. </i>\n"
+"            </ol>\n"
+"\n"
+"           "
+msgstr ""
+"\n"
+"\n"
+"क. प्रमुख कक्षहरूमा ब्राउज गर्ने तरीका \n"
+"<br/><br/>१. प्रमुख कक्षहरूमध्ये कुनै एक कक्षमा क्लिक गरेपछि त्यस कक्षको पेज खुल्छ र सम्बन्धित "
+"कक्षअन्तर्गतकासहायक कक्षहरू देखिन्छन् । उदाहरणका लागि यदि तपाईंलाई नेपाली बाल "
+"साहित्यअन्तर्गत के-कस्ता सामाग्रीहरूउपलब्ध छन् भनी हेर्न मन लाग्यो भने सर्वप्रथम ‘साहित्य’ "
+"कक्षमा क्लिक गर्नुहोस् । त्यसपछि खुल्ने पेजमा तपाईंलेविभिन्‍न सहायक कक्षहरू देख्‍नुहुनेछ । तीमध्ये "
+"एउटा ‘नेपाली बाल साहित्य’ हो । अब ‘नेपाली बाल साहित्य’को लिङ्‍कमा क्लिकगरेपछि "
+"त्यसअन्तर्गत रहेका सम्पूर्ण सामग्रीको सूची देखिन्छ । सङ्ग्रह सूचीमा हरेक पुस्तकको शिर्षक र "
+"लेखकको नाम पनि देखिन्छ ।यो सूची हामीले देख्‍ने भौतिक पुस्तकालयको दराजमा ब्यवस्थित गरी "
+"राखिएका पुस्तकहरूको सङ्ग्रहजस्तै हो ।  \n"
+"\n"
+"<br/><br/>२. अब आफूलाई पढ्न मन लागेको किताब निकाल्न त्यस किताबको शिर्षकमा क्लिक "
+"गर्नुहोस् । उदाहरणका लागि यदि तपाईंलाई सिर्जना शर्माबाट लिखित ‘को ठूलो’ किताब पढ्न "
+"मन लाग्यो भने त्यस किताबको शिर्षकमा रहेको लिङ्‍कमा क्लिक गर्नुहोस् । त्यसपछि एउटा नयाँ "
+"पाना खुल्नेछ जसमा किताबका सुरुका केहि पानाहरूमा देखिने विवरणहरू दिइएको हुन्छ, जस्तै "
+"किताबको शिर्षक,लेखक, प्रकाशक, प्रकाशन मिति आदि । \n"
+"\n"
+"<br/><br/>३. किताबै खोलेर पढ्नका लागि भने तपाईंले “पढ्न/डाउनलोड गर्न यहाँ क्लिक "
+"गर्नुहोस्” अन्तर्गत देखिने PDF फाइलको लिङ्‍कमा क्लिक गर्नुपर्छ । तपाईंको कम्प्युटरमा सेट "
+"गरिएको ‘ब्राउजर कनफिगरेशन’ को आधारमा किताब खुल्नु अघि कम्प्युटरले save/open भनी सोध्न "
+"पनि सक्छ अथवा त्यस्तो नसोधिकनै नयाँ ब्राउजर विन्डोमा किताब पूरै खुल्न पनि सक्छ। यदि "
+"तपाईँले ‘save’ छान्नु भएको छ भने सेभ गरेको सामग्रीलाई उपयुक्त फोल्डरमा गई त्यसको फाइलमा "
+"क्लिक गर्नुहोस्। \n"
+"\n"
+"<br/><br/>४. ई-पुस्तकालयको कुनैपनि विन्डो ब्राउज गर्दा यदि तपाईँलाई पुस्तकालयका मुख्य "
+"कक्ष मध्ये कुनै अर्को कक्षमा जाने ईच्छा भयोभने तपाईँले नेभिगेशन् बार मुनीको काटेगोरिज बारमा "
+"रहेका लिङ्कहरूबाट उपयुक्त कक्षमा सिधै जान सक्नु हुन्छ। तपाईंको कम्प्युटरमा सेट गरिएको "
+"browser configuration को आधारमा किताब खुल्नु अगि कम्प्युटरले save/open भनी सोध्नपनि "
+"सक्छ अथवा त्यस्तो नसोधिकनै नयाँ ब्राउजर विन्डोमा किताब पूरै खुल्न सक्छ । नोट : तपाईंले "
+"माथिकै प्रक्रियाबाट होम पेजमा भएको ‘सरसरी हेर्नुहोस्’को लिङ्‍कबाट पनि पुस्तकालयका "
+"सङ्‍ग्रहरूमा ब्राउज गर्न सक्नुहुन्छ । \n"
+"\n"
+"<br/><br/>ख. लिङ्‍क गर्ने तरीका \n"
+"तपाईंले माथीको क(२) प्रक्रियाबाट कुनै एउटा किताब भेटिएपछि सम्बन्धित लेखकका अन्य किताबहरू "
+"पनि हेर्न सक्नुहुन्छ ।उदाहरणका लागि सिर्जना शर्माबाट लिखित अन्य किताबहरूको सूची चाहिएमा "
+"author field मा दिइएको “सिर्जना शर्मा” मा क्लिक गर्नुहोस् ।यसो गरेमा तपाईँ सिर्जना "
+"शर्माले लेखेको, चित्र बनेको, अथवा सम्पादन गरेको सबै सामग्रीहरूको सुची भएको एउटा नयाँ "
+"पानामा पुग्नुहुन्छ। \n"
+"\n"
+"<br/><br/>ग. सर्च गर्ने तरीका \n"
+"<br/>१. एकछिन्‍लाई मानौँ तपाईँ ‘पुतलीको बिहे’ नामको किताब खोज्न चाहनुहुन्छ । यसका लागि "
+"सर्च बारको वायाँ कुनाको आयताकार खाली ठाउँमाचाहिएको किताबको शिर्षक, पूरै शिर्षक थाहा "
+"नभएमा शिर्षकको कुनै अंश, टाइप गर्नुहोस् र लेन्सको आइकनमा क्लिक गर्नुहोस् । त्यसपछि सम्बन्धित "
+"किताबको विस्तृत विवरण सर्च रिजल्ट पानामा देखिन्छ । अब तपाईंले माथीको क(३) मा "
+"बताएजस्तैगरी उक्त सामाग्री खोल्न सक्नुहुन्छ ।नोट : यदि तपाईंसित आफूलाई चाहिएको सामग्रीको "
+"विस्तृत विवरण छ भने तपाईंले आफ्नो खोजीलाई अझ निर्देशित बनाउन सक्नुहुन्छ । यसका लागि "
+"‘विस्तृत खोज’मा क्लिक गरी त्यसपछि देखिने रिक्त स्थानहरूमा उपयुक्त विवरण भरी सामाग्री "
+"खोज्न सक्नुहुन्छ ।\n"
+"           "
+
+#: templates/static_pages/help.html:199
+msgid "WHY CAN'T I SET UP A COLLECTION MYSELF?"
+msgstr "किन आफैले ई-पुस्तकालयको सङ्ग्रहमा सामाग्री राख्‍न सकिदैँन ?"
+
+#: templates/static_pages/help.html:203
+msgid ""
+"\n"
+"            The permissions to create collections within Pustakalaya "
+"communities are currently quite limited. However, please contact Pustakalaya "
+"Administrator to discuss this issue. It is very possible that you could be "
+"granted this right.\n"
+"            "
+msgstr ""
+"\n"
+"हाल पुस्तकालयमा सामग्री थप्ने अनुमति पुस्तकालयको जिम्मेबार व्यक्तिहरूलाई मात्र दिइएको छ । "
+"यससम्बन्धमा छलफल गर्न चाहनुहुन्छ भने कृपया पुस्तकालय प्रशासनसँग सम्पर्क गर्नुहोस् । उहाँहरूले "
+"तपाईंलाई सामग्री थप्ने अनुमति दिन पनि सक्नुहुन्छ । पुस्तकालय प्रशासनसँग सम्पर्क गर्नलाई "
+"मन्तब्य दिने फारमको प्रयोग गर्न सकिन्छ।\n"
+"\n"
+"     "
+
+#: templates/static_pages/help.html:213
+msgid "WHAT IS A FEEDBACK FORM? HOW DO I USE IT?"
+msgstr "'सुझाव’ भनेको के हो? यसको प्रयोग कसरी गर्ने?"
+
+#: templates/static_pages/help.html:217
+msgid ""
+"\n"
+"            Link to the feedback form is titled “feedback” and is situated "
+"on the left side of the navigation bar. The feedback form allows you to post "
+"comments, queries or suggestions to Pustakalaya coordinators who will "
+"appropriately respond to them. All categories marked with asterisks (*) are "
+"mandatory. You do not have to be a registered user to use the feedback "
+"form.\n"
+"            "
+msgstr ""
+"\n"
+"‘सुझाव’ भन्ने लिङ्क तपाईँले नेभिगेशन बार को दायाँपट्टी फेला पार्न सक्नुहुन्छ। यस लिङ्कमा "
+"क्लिकगर्नुभएमा तपाईँ एउटा नया पानामा पुग्नुहुन्छ। त्यहाँ भएको फारम भरेर तपाईँले ई-"
+"पुस्तकालयको बारेमा आफ्नोसुझाव व्यक्त गर्न सक्नुहुनेछ। सुझाव दिने फारम प्रयोग गर्नलाई रेजिस्टर्ड "
+"युजर हुनु आवश्यक छैन।\n"
+"\n"
+"            "
+
+#: templates/static_pages/help.html:229
+msgid "WHAT ARE THE MAJOR SECTIONS?"
+msgstr "यसका मुख्य कक्षहरू के-के हुन ? "
+
+#: templates/static_pages/help.html:233
+msgid ""
+"\n"
+"            There are six major sections in E-Pustakalaya: <br>\n"
+"            <ol>\n"
+"                <li>\n"
+"                  <b>Literature and Art</b> – This section includes Nepali "
+"and English literature\n"
+"                  categorized by language and\n"
+"                  age group. In the future, we also intend to add literature "
+"in other Nepali languages and\n"
+"                  to add\n"
+"                  filtering by genre\n"
+"                  and other characteristics.\n"
+"                  This section also includes books and materials on "
+"different art forms,\n"
+"                  movements and artists,\n"
+"                  along with a diverse array of hands on material that will "
+"be very useful for children\n"
+"                  wishing to\n"
+"                  engage in arts and\n"
+"                  crafts activities that are at the same time educational.\n"
+"                  <br>\n"
+"                </li>\n"
+"                <li>\n"
+"                  <b>Course-related materials</b> – This section includes "
+"public\n"
+"                  school textbooks, as\n"
+"                  well as supplementary reading material by subject and "
+"grade, along with subject and\n"
+"                  grade wise\n"
+"                  interactive learning\n"
+"                  material.\n"
+"                  <br>\n"
+"                </li>\n"
+"                <li>\n"
+"                  <b>Reference materials</b> – This section currently "
+"contains a Nepali\n"
+"                  dictionary,\n"
+"                  encyclopedias (in particular, the School Wikipedia), "
+"atlases, maps, as well as\n"
+"                  government\n"
+"                  documents. This section is\n"
+"                  particularly relevant to those users seeking material for "
+"research projects or general\n"
+"                  information on topics of a\n"
+"                  wide range.\n"
+"                  <br>\n"
+"                </li>\n"
+"                <li>\n"
+"                  <b>Teaching support materials</b> – This section includes "
+"material such as\n"
+"                  the national school\n"
+"                  curriculum, teaching manuals, teacher training materials, "
+"readings on educational\n"
+"                  theory,\n"
+"                  supplementary readings,\n"
+"                  and links to peer-interaction sites all intended to aid "
+"teachers in making lesson plans\n"
+"                  and\n"
+"                  strengthening their\n"
+"                  overall foundation of knowledge.\n"
+"                  <br>\n"
+"                </li>\n"
+"                <li>\n"
+"                  <b>Newspapers and magazines</b> – This section includes "
+"links to key Nepali\n"
+"                  newspapers and\n"
+"                  magazines.\n"
+"                  <br>\n"
+"                </li>\n"
+"                <li>\n"
+"                  <b>Other educational materials</b> – This section has "
+"educational\n"
+"                  material that is\n"
+"                  not curriculum based. It includes awareness building and "
+"advocacy related materials on a\n"
+"                  wide\n"
+"                  range of topics such\n"
+"                  as health and environment, youth development, civic "
+"education and disaster preparedness.\n"
+"                  <br>\n"
+"                </li>\n"
+"                These sections are analogous to the different sections you "
+"see in physical libraries.\n"
+"                The\n"
+"                user can enter any of\n"
+"                these sections and browse through the collections just like "
+"you browse through the book\n"
+"                collections displayed in the\n"
+"                shelves of a physical library.\n"
+"              </ol>\n"
+"\n"
+"\n"
+"            "
+msgstr ""
+"\n"
+"ई-पुस्तकालयभित्र ६ प्रमुख कक्षहरू छन् : <br/><b>१. साहित्य र कला </b>\n"
+"<br/><b>२. विषयगत पाठ्‍यसामग्री </b>\n"
+"<br/><b>३. सन्दर्भ सामग्री </b>\n"
+"<br/><b>४. अन्य शिक्षाप्रद सामग्री </b>\n"
+"<br/><b>५. शिक्षण सामग्री </b>\n"
+"<br/><b>६. पत्रपत्रिका </b>\n"
+"\n"
+"<br/>यी हामीले सामान्य वा भौतिक पुस्तकालयमा देख्‍ने कक्षहरूजस्तै हुन् । प्रयोगकर्ता यी मध्ये "
+"आफूलाई जान मनलागेको कक्षमा जान सक्नुहुन्छ र भौतिक पुस्तकालयको दराजमा राखिएका सङ्ग्रहबाट "
+"किताब निकालेजस्तै गरी ई-पुस्तकालयको सङ्‍ग्रहबाट किताब ‘झिक्न’ सक्नुहुन्छ । \n"
+"\n"
+"            "
+
+#: templates/static_pages/help.html:316
+msgid "HOW DO I RETURN TO THE E-PUSTAKALAYA HOME PAGE FROM ANOTHER PAGE?"
+msgstr "ई-पुस्तकालयको कुनै पनि अर्को पेजबाट होमपेजमा कसरी फर्कने ? "
+
+#: templates/static_pages/help.html:320
+msgid ""
+"\n"
+"\n"
+"            Whenever you are in another page, you can return to the home "
+"page by clicking on the “Home” icon that appears in the top right hand area "
+"of the navigation bar at the top of the page.\n"
+"\n"
+"            "
+msgstr ""
+"\n"
+"\n"
+"पाईं ई-पुस्तकालयको अर्को कुनै पेजमा हुनुहुन्छ भने होमपेजमा फर्कनका लागि त्यस पेजको माथी दायाँ "
+"कुनामा भएको घरको चित्र भएको “गृह पृष्ठ” आइकनमा क्लिक गर्नुहोस् ।\n"
+"            "
+
+#: templates/static_pages/help.html:331
+msgid "WHY SHOULD I BECOME A REGISTERED USER?"
+msgstr "रेजिस्टर्ड युजर किन बन्ने? "
+
+#: templates/static_pages/help.html:335
+msgid ""
+"\n"
+"\n"
+"            Becoming a registered user will allow you to have your own My "
+"Pustakalaya page, which will contain books that you have selected. In "
+"addition to this, you will also be able to use the bookmarking facility. By "
+"doing so, you can “bookmark” any book you choose, include it in your page, "
+"and thus create a personalized library of your favourite books (upto 25). "
+"Additionally, being a registered user will eventually allow you to make "
+"submissions to the library.\n"
+"            "
+msgstr ""
+"\n"
+"\n"
+"रेजिस्टर्ड युजर बनेमा तपाईँले ई-पुस्तकालयका थप सुबिधाहरू उपयोग गर्न सक्नुहुन्छ। यस द्वारा "
+"तपाईँले “bookmarking” को सुबिधा प्रयोग गरेर आफूलाई मन परेको किताबहरूलाई पुस्तकालयको "
+"‘मेरो पुस्तकालय’ पानामा राख्‍न सक्नुहुन्छ। यसका साथै, आगामी दिनहरूमा रेजिस्टर्ड युजरहरूले थप "
+"सुबिधाको उपयोग पानि गर्न सक्नुहुनेछ। \n"
+"            "
+
+#: templates/static_pages/help.html:345
+msgid "WHAT IS E-PAATH?"
+msgstr "ई-पाठ भनेको के हो? "
+
+#: templates/static_pages/help.html:349
+msgid ""
+"\n"
+"           E-Paath is an educational software developed by OLE-Nepal that "
+"includes lesson plans, classroom activities, and exercises that are meant to "
+"supplement the national curriculum. There are activities continuously being "
+"added, so please check for our latest activities.\n"
+"           "
+msgstr ""
+"\n"
+"ई-पाठ साझा शिक्षा ई-पाटी नेपालले, निर्माण गरेको एउटा शिक्षण सफ्टवेयर हो। यस सफ्टवेयर "
+"अन्तर्गत शैक्षिक क्रियाकलाप र पाठ योजनाहरू छन् जसले राष्ट्रिय पाठ्यक्रमलाई थप सहयोग "
+"पुर्‍याउँछन्।           "
+
+#: templates/static_pages/help_old.html:13
+#: templates/static_pages/help_old.html:40
 msgid "What is E-Pustakalaya?"
 msgstr ""
 
-#: templates/static_pages/help.html:15
+#: templates/static_pages/help_old.html:15
 msgid "What are the major sections"
 msgstr ""
 
-#: templates/static_pages/help.html:17 templates/static_pages/help.html:139
+#: templates/static_pages/help_old.html:17
+#: templates/static_pages/help_old.html:139
 msgid "What features does E-Pustakalaya have?"
 msgstr ""
 
-#: templates/static_pages/help.html:19 templates/static_pages/help.html:174
+#: templates/static_pages/help_old.html:19
+#: templates/static_pages/help_old.html:174
 msgid "What are the different sections I see on the E-Pustakalaya home page?"
 msgstr ""
 
-#: templates/static_pages/help.html:21 templates/static_pages/help.html:228
+#: templates/static_pages/help_old.html:21
+#: templates/static_pages/help_old.html:228
 msgid "How do I use the browse, link and search feature of the library?"
 msgstr ""
 
-#: templates/static_pages/help.html:23 templates/static_pages/help.html:323
+#: templates/static_pages/help_old.html:23
+#: templates/static_pages/help_old.html:323
 msgid "How do I return to the E-Pustakalaya home page from another page?"
 msgstr ""
 
-#: templates/static_pages/help.html:25 templates/static_pages/help.html:335
+#: templates/static_pages/help_old.html:25
+#: templates/static_pages/help_old.html:335
 msgid "Why can't I set up a collection myself?"
 msgstr ""
 
-#: templates/static_pages/help.html:27 templates/static_pages/help.html:348
+#: templates/static_pages/help_old.html:27
+#: templates/static_pages/help_old.html:348
 msgid "Why should I become a registered user?"
 msgstr ""
 
-#: templates/static_pages/help.html:29 templates/static_pages/help.html:364
+#: templates/static_pages/help_old.html:29
+#: templates/static_pages/help_old.html:364
 msgid "What is a feedback form? How do I use it?"
 msgstr ""
 
-#: templates/static_pages/help.html:31 templates/static_pages/help.html:378
+#: templates/static_pages/help_old.html:31
+#: templates/static_pages/help_old.html:378
 msgid "What is E-Paath?"
 msgstr ""
 
-#: templates/static_pages/help.html:41
+#: templates/static_pages/help_old.html:41
 msgid ""
 "\n"
 "          E-Pustakalaya is an education-focused digital library containing "
@@ -1935,15 +3520,16 @@ msgid ""
 "          "
 msgstr ""
 
-#: templates/static_pages/help.html:56
+#: templates/static_pages/help_old.html:56
 msgid "What are the major sections?"
 msgstr ""
 
-#: templates/static_pages/help.html:57
+#: templates/static_pages/help_old.html:57
 msgid ""
 "\n"
 "          There are seven major sections in E-Pustakalaya:\n"
-"        <ol class=\"paragraph-font\">\n"
+"        <ol class=\"paragraph-font\" style=\"font-family:sans-serif,arial"
+"\">\n"
 "          <li>\n"
 "            <b>Literature</b> – This section includes Nepali and English "
 "literature\n"
@@ -2035,10 +3621,11 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/static_pages/help.html:140
+#: templates/static_pages/help_old.html:140
 msgid ""
 "\n"
-"        <ol type=\"a\" class=\"paragraph-font\">\n"
+"        <ol type=\"a\" class=\"paragraph-font\" style=\"font-family:sans-"
+"serif,arial\">\n"
 "          E-Pustakalaya has four powerful features that make it easy for the "
 "user to access books,\n"
 "          documents, videos, audio files, and images:\n"
@@ -2073,7 +3660,7 @@ msgid ""
 "          "
 msgstr ""
 
-#: templates/static_pages/help.html:175
+#: templates/static_pages/help_old.html:175
 msgid ""
 "\n"
 "        <ol class=\"paragraph-font\">\n"
@@ -2141,7 +3728,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/static_pages/help.html:229
+#: templates/static_pages/help_old.html:229
 msgid ""
 "\n"
 "        <ol type=\"a\" class=\"paragraph-font\">\n"
@@ -2264,7 +3851,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/static_pages/help.html:324
+#: templates/static_pages/help_old.html:324
 msgid ""
 "\n"
 "          Whenever you are in another page, you can return to the home page "
@@ -2274,7 +3861,7 @@ msgid ""
 "          "
 msgstr ""
 
-#: templates/static_pages/help.html:336
+#: templates/static_pages/help_old.html:336
 msgid ""
 "\n"
 "          The permissions to create collections within Pustakalaya "
@@ -2285,7 +3872,7 @@ msgid ""
 "          "
 msgstr ""
 
-#: templates/static_pages/help.html:349
+#: templates/static_pages/help_old.html:349
 msgid ""
 "\n"
 "          Becoming a registered user will allow you to have your own My "
@@ -2301,7 +3888,7 @@ msgid ""
 "          "
 msgstr ""
 
-#: templates/static_pages/help.html:365
+#: templates/static_pages/help_old.html:365
 msgid ""
 "\n"
 "          Link to the feedback form is titled “feedback” and is situated on "
@@ -2315,7 +3902,7 @@ msgid ""
 "          "
 msgstr ""
 
-#: templates/static_pages/help.html:379
+#: templates/static_pages/help_old.html:379
 msgid ""
 "\n"
 "          E-Paath is an educational software developed by OLE-Nepal that "
@@ -2327,26 +3914,57 @@ msgid ""
 "          "
 msgstr ""
 
-#: templates/static_pages/sign_up.html:13
+#: templates/static_pages/sign_up.html:7
+msgid "Create your Pustakalaya Account"
+msgstr "तपाईँको पुस्तकालय खाता खोल्नुहोस्।"
+
+#: templates/static_pages/sign_up.html:10
 msgid ""
 "Register with basic information, Complete your profile and start browsing "
 "Pustakalaya"
-msgstr ""
+msgstr "तपाईँको आधारभूत जानकारी भरेर रजिस्टर गर्नुहोस्, र पुस्तकालयमा खोजी गर्नुहोस्।"
 
-#: templates/static_pages/sign_up.html:74
+#: templates/static_pages/sign_up.html:73
 msgid ""
-"\n"
-"                        By clicking on 'Create Pustakalaya Account' below "
-"you are agreeing to the'\n"
-"                        <a href=\"/terms-and-conditions/\" target=\"_blank"
-"\">terms</a> and <a href=\"/privacy-policy/\"\n"
-"                      target=\"_blank\">privacy</a>of  Pustakalaya!\n"
-"                        "
+" By clicking on 'Create Pustakalaya Account' below you are agreeing to the\n"
+"                    <a href=\"/terms-and-conditions/\" target=\"_blank"
+"\">terms & condition and privacy policy</a> of Pustakalaya! "
 msgstr ""
 
-#: templates/static_pages/sign_up.html:84
+#: templates/static_pages/sign_up.html:81
 msgid "Create Pustakalaya Account"
+msgstr "पुस्तकालय खाता खोल्नुहोस्।"
+
+#: templates/terms_and_condition.html:3
+msgid ""
+"By clicking Sign Up, you agree to our <a href='/terms-and-conditions/' "
+"target='_blank'>terms</a> , Data Policy and Cookie Policy."
 msgstr ""
 
-#~ msgid "Audio Book"
-#~ msgstr "अडियो पुस्तक"
+#~ msgid "MAJOR PARTNERS"
+#~ msgstr "प्रमुख साझेदार"
+
+#, fuzzy
+#~| msgid "Added to favourite"
+#~ msgid "Added to featured"
+#~ msgstr "मन पर्नेमा थपिएको"
+
+#, fuzzy
+#~| msgid "Add to favourite"
+#~ msgid "Add to featured"
+#~ msgstr "मन पर्नेमा थप्नुहोस्"
+
+#~ msgid "E-Paath"
+#~ msgstr "ई-पाठ"
+
+#~ msgid "Offline Access"
+#~ msgstr "अफलाइन पहुँच"
+
+#~ msgid "DOWNLOAD APP"
+#~ msgstr "एप डाउनलोड"
+
+#~ msgid "Similar Books You May Like"
+#~ msgstr "समान किसिमका सामग्रीहरू"
+
+#~ msgid "Other Learning Softwares"
+#~ msgstr "अन्य शिक्षाप्रद सामग्री"

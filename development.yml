@@ -1,0 +1,131 @@
+version: '2'
+services:
+  nginx:
+    build:
+      context: ./dockerfile-nginx/
+      dockerfile: Dockerfile.dev
+    restart: always
+    hostname: nginx
+    container_name: dev_nginx_01
+    networks:
+      - dev-net-pusta
+    ports:
+      - "81:8000"
+    volumes:
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
+    depends_on:
+     - code
+  code:
+    build:
+      context: .
+      dockerfile: ./dockerfile-code/Dockerfile.dev
+    restart: always
+    hostname: code
+    container_name: dev_code_01
+    env_file:
+      - ./dockerfile-code/code.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=pustakalaya.settings.development
+    depends_on:
+      - pgmaster
+      - elastic
+      - pgslave
+      - celery
+      - rabbitmq
+
+    volumes:
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
+      - ./src:/src:rw
+    networks:
+      - dev-net-pusta
+    tty: true
+
+
+  pgmaster:
+    build:
+      context: ./dockerfile-postgres-master
+      dockerfile: Dockerfile.dev
+    restart: 'always'
+    hostname: pgmaster
+    container_name: dev_pgmaster_01
+    env_file:
+      - ./dockerfile-postgres-master/pgmaster.env
+    volumes:
+     - development_postgres_data_master:/var/lib/postgresql/data
+     - /library/backup/postgres_backup:/backup/postgres_backup
+    networks:
+      - dev-net-pusta
+
+  pgslave:
+    build:
+      context: ./dockerfile-postgres-slave
+      dockerfile: Dockerfile.dev
+    restart: 'always'
+    hostname: db-slave
+    container_name: dev_pgslave_01
+    env_file:
+      - ./dockerfile-postgres-slave/pgslave.env
+    volumes:
+      - development_postgres_data_slave:/var/lib/postgresql/data
+    depends_on:
+      - pgmaster
+    networks:
+      - dev-net-pusta
+
+
+  elastic:
+    build:
+      context: ./dockerfile-elastic
+      dockerfile: Dockerfile.dev
+    hostname: elastic
+    environment:
+      # server memory dependent
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    restart: always
+    container_name: dev_elasticsearch_01
+    volumes:
+      - development_elastic_data:/usr/share/elasticsearch/data
+    networks:
+      - dev-net-pusta
+    depends_on:
+      - pgmaster
+
+  rabbitmq:
+    image: rabbitmq:3.7
+    hostname: rabbitmq
+    restart: always
+    container_name: dev_rabbitmq_01
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    networks:
+      - dev-net-pusta
+
+  celery:
+    build:
+      context: .
+      dockerfile: ./dockerfile-celery/Dockerfile.dev
+    hostname: celery
+    restart: always
+    container_name: dev_celery_01
+    volumes:
+      - ./src:/src:rw
+    networks:
+      - dev-net-pusta
+    depends_on:
+      - pgmaster
+      - rabbitmq
+
+
+volumes:
+  development_postgres_data_slave:
+  development_postgres_data_master:
+  development_elastic_data:
+
+
+
+networks:
+  dev-net-pusta:
+    driver: bridge

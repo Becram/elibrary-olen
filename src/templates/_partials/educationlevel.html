@@ -1,0 +1,7 @@
+{% load pustakalaya_filters %}
+  <!--<ul style="list-style:none">-->
+  {% for x in education_level %}
+   <a class="text-capitalize" href='/search/?q=&form-filter={"education_levels":["{{ x.level }}"]}'>{{ x.level|transtolocal }}</a>
+  {% endfor %}
+  <!--</ul>-->
+

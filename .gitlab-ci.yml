@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 before_script:
   - date
   - echo "new:"  
@@ -10,3 +11,105 @@ rubocop:
   script:
     - date
 
+=======
+# Stages are run in sequence, jobs in the same stage are run in parallel
+# See https://docs.gitlab.com/ce/ci/yaml/
+# TODO: Correct the tags to fit your gitlab
+
+
+stages:
+  - prepare
+  - build
+  - deploy
+
+# Specify custom variables
+# variables:
+#   # Enables multibranch build
+#   COMPOSE_PROJECT_NAME: $CI_PROJECT_NAME-$CI_BUILD_REF_NAME
+#   # How to store the image
+#   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
+# before_script:
+#   - docker-compose -f production.yml exec pgmaster /autopgsqlbackup
+# Prepare
+# -------
+# Removes old images and containers, if they exist
+################################################
+prepare:clean:
+  stage: prepare
+  script:
+    # Stop all containers
+    # - docker-compose -f production.yml exec pgmaster /autopgsqlbackup
+    # - docker-compose -f development.yml down
+    - docker-compose -f production.yml down
+    # Remove all containers and volumes
+    # - docker-compose -f development.yml rm -fv
+    # - docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
+  tags:
+    - development
+##################################################
+# Install
+# -------
+# Build all images
+build:images:
+  stage: build
+  script:
+    - ./get_release_version.sh
+    - ./get_latest_sql.sh
+    # Build the Containers without caching and newest source image
+    - docker-compose -f build.yml  build
+    - docker-compose -f build.yml  push
+    # - docker-compose -f build.yml  push
+  tags:
+    - development
+
+# Push
+# ----
+# Pushes the Docker image to th registry for selected tags
+deploy:production-test:
+  stage: deploy
+  script:
+    # Login to the registry
+    # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    # Push images to the gitlab remote
+    - echo "Deploying Pustakalaya"
+    - docker-compose -f production.yml up -d
+
+
+  # Only these branches are getting pushed
+  # when: manual
+  only:
+    - bikram-stack
+  tags:
+    - development
+
+deploy:production-live:
+  stage: deploy
+  script:
+    # Login to the registry
+    # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    # Push images to the gitlab remote
+    - echo "Deploying Pustakalaya"
+    - ./get_release_version.sh
+    - docker-compose -f production.yml pull
+    - docker-compose -f production.yml down
+    - docker-compose -f production.yml up -d
+
+  # Only these branches are getting pushed
+  when: manual
+  only:
+    - bikram-stack
+  tags:
+    - production
+# Deploy
+# ------
+# Starts the containers
+# deploy:development:
+#   stage: deploy
+#   script:
+#     # Bring up the app
+#     - docker-compose -f development.yml up -d
+#   only:
+#     - bikram-stack
+#   tags:
+#     - development
+>>>>>>> release-s1.11-test

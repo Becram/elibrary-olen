@@ -37,7 +37,7 @@ SECRET_KEY = '*=up=#to)&a6g@v0jjx%9kj4ema&wr5g4yw44fagd#*e1l0^7v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -57,15 +57,20 @@ THIRDPARTY_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    #'allauth.socialaccount.providers.facebook',
-    #'allauth.socialaccount.providers.twitter',
-    #'allauth.socialaccount.providers.google',
+
+    # 'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.google',
+
     'crispy_forms',
     'hitcount',
     'star_ratings',
     'analytical',
     'bootstrap_pagination',
     'admin_reorder',
+    'django_cleanup',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 PUSTAKALAYA_APPS = [
@@ -82,6 +87,7 @@ PUSTAKALAYA_APPS = [
     'pustakalaya_apps.review_system',
     'pustakalaya_apps.favourite_collection',
     'pustakalaya_apps.show_featured',
+    'pustakalaya_apps.set_featured',
 
 
 ]
@@ -117,7 +123,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
-                'django.template.context_processors.media'
+                'django.template.context_processors.media',
+                # Context processor.
+                'pustakalaya_apps.core.context_processor.getlang',
+
             ],
         },
     },
@@ -130,8 +139,10 @@ WSGI_APPLICATION = 'pustakalaya.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+        #---Sqlite settings
+         'ENGINE': 'django.db.backends.sqlite3',
+         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -177,9 +188,37 @@ except KeyError:
     ImproperlyConfigured("{} improperly configured".format("MEDIA_ROOT"))
 # Per application basic
 # static_dist files are dispatched automatically by webpack by reading static_src directory.
-STATICFILES_DIRS = (
-    ('static'),
+
+
+# looks for static files in each app
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+
+# STATICFILES_DIRS = (
+#     ('static'),
+# )
+STATICFILES_DIRS = [
+    ('static'),
+]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+# file upload max size
+# 2.5MB - 2621440 (default)
+# 5MB - 5242880
+# 10MB - 10485760
+# 20MB - 20971520
+# 50MB - 5242880
+# 100MB - 104857600
+# 250MB - 214958080
+# 500MB - 429916160
+
+# FILE_UPLOAD_MAX_MEMORY_SIZE = 214958080
+FILE_UPLOAD_PERMISSIONS = 0o644
 
 # Media Configuration
 MEDIA_URL = '/media/'
@@ -216,28 +255,27 @@ ES_CONNECTIONS = {
         }]
     }
 }
-
-## Cache server configuration.
-try:
-    REDIS_IP = config["REDIS"]["IP"]
-    REDIS_PORT = config["REDIS"]["PORT"]
-
-except KeyError:
-    raise ImproperlyConfigured("{} or {} Improperly configured in config.json".format("REDIS IP", "REDIS_PORT"))
-
-# Cache time to live is 0 minutes.
-CACHE_TTL = 60 * 0  # 0 minutes
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://{}:{}/1".format(REDIS_IP, REDIS_PORT),
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
-        },
-        "KEY_PREFIX": "pustakalaya"
-    }
-}
-
+#### Cache server configuration.
+##try:
+##    REDIS_IP = config["RABBITMQ"]["IP"]
+##    REDIS_PORT = config["RABBITMQ"]["PORT"]
+##
+##except KeyError:
+##    raise ImproperlyConfigured("{} or {} Improperly configured in config.json".format("RABBITMQ IP", "RABBITMQ PORT"))
+##
+### Cache time to live is 0 minutes.
+##CACHE_TTL = 60 * 0  # 0 minutes
+##CACHES = {
+##    "default": {
+##        "BACKEND": "django_redis.cache.RedisCache",
+##        "LOCATION": "rabbitmq://{}:{}/1".format(REDIS_IP, REDIS_PORT),
+##        "OPTIONS": {
+##            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+##        },
+##        "KEY_PREFIX": "pustakalaya"
+##    }
+##}
+##
 # Django jet configuration
 JET_DEFAULT_THEME = 'light-gray'
 JET_SIDE_MENU_COMPACT = True
@@ -315,7 +353,7 @@ try:
     EMAIL_HOST_PASSWORD = config["EMAIL"]["EMAIL_HOST_PASSWORD"]
     EMAIL_USE_TLS = bool(config["EMAIL"]["EMAIL_USE_TLS"])
     FEEDBACK_MESSAGE_TO = config["EMAIL"]["FEEDBACK_MESSAGE_TO"]
-    ADMINS = config["EMAIL"]["ADMIN_EMAILS"]
+    # ADMINS = config["EMAIL"]["ADMIN_EMAILS"]
 except KeyError:
     raise ImproperlyConfigured("{}".format("Email settings"))
 
@@ -357,16 +395,80 @@ GOOGLE_ANALYTICS_ANONYMIZE_IP = True
 GOOGLE_ANALYTICS_SESSION_COOKIE_TIMEOUT = 3600000
 GOOGLE_ANALYTICS_VISITOR_COOKIE_TIMEOUT = 3600000
 
-# Celery configuration
-BROKER_URL = 'redis://{}:{}'.format(REDIS_IP, REDIS_PORT)
-CELERY_RESULT_BACKEND = 'redis://{}:{}'.format(REDIS_IP, REDIS_PORT)
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Kathmandu'
-
+#i# Celery configuration
+#BROKER_URL = 'redis://{}:{}'.format("rabbitmq", "5672")
+#CELERY_RESULT_BACKEND = 'redis://{}:{}'.format("rabbitmq", "5672")
+#CELERY_ACCEPT_CONTENT = ['application/json']
+#CELERY_TASK_SERIALIZER = 'json'
+#CELERY_RESULT_SERIALIZER = 'json'
+#CELERY_TIMEZONE = 'Asia/Kathmandu'
+ELERY_BROKER_URL = 'amqp://admin:mypass@rabbitmq:5672'
 # Django logging settings
 LOG_DIR = os.path.join(os.path.dirname(BASE_DIR), 'logs')
+
+# Django restframework  settings
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser', # Only staff are allowed to access an API
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+}
+
+LOGGING = {
+
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'console': {
+            'format': '[%(module)s].%(levelname)s %(message)s'
+        }
+    },
+
+    'handlers': {
+        'logstash': {
+            'level': 'INFO',
+            'class': 'logstash.TCPLogstashHandler',
+            'host': os.environ.get('DJANGO_LOGSTASH_HOST'),
+            'port': os.environ.get('DJANGO_LOGSTASH_PORT'),
+            'version': 1,
+            'message_type': 'logstash',
+            'fqdn': True,
+            'tags': ['django'],
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+    },
+
+    'loggers': {
+        'app.logger': {
+            'handlers': ['logstash', 'console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        }
+    },
+}
+
+
 
 # LOGGING = {
 #     'version': 1,
@@ -430,3 +532,11 @@ LOG_DIR = os.path.join(os.path.dirname(BASE_DIR), 'logs')
 # STAR_RATINGS_RATING_MODEL = 'pustakalaya_rating.PustakalayaRating'
 
 
+# Security mitigation settings.
+# X_FRAME_OPTIONS = 'DENY'
+# CSRF_COOKIE_SECURE = True # Need ssl support
+# SESSION_COOKIE_SECURE = True # Need ssl support
+# SECURE_SSL_REDIRECT = True # Need https support.
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_HSTS_SECONDS = 3600 # Need ssl

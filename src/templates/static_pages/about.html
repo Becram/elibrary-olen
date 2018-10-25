@@ -4,13 +4,13 @@
 
 
 {% block content %}
-<div class="for-bg-color-container  " >
-        <div class=" pt-4  large-device-padding about-page-margin" >
+<div class="container for-bg-color-container  " >
+        <div class="   large-device-padding about-page-margin" >
           <div class="row">
 
             <div class="col-md-12 col-sm-12 col-xs-12 jumbotron pt-3 pb-3 mb-0">
                 <br>
-             <h6 class=" text-uppercase title-font">{% trans "About epustakalaya" %}</h6>
+             <h6 class=" text-uppercase title-font">{% trans "About E-Pustakalaya" %}</h6>
               <p class="text-justify paragraph-font">
                 {% blocktrans %}
 
@@ -57,13 +57,14 @@
             <div class="col-md-12 col-sm-12 col-xs-12 jumbotron pt-3 pb-3 mt-0 mb-0" >
                    <address>
                        <br>
-                    <h6 class="title-font">E-Pustakalaya</h6>
+                    <h6 class="title-font">{% trans "E-Pustakalaya" %}</h6>
                      <div class="paragraph-font">
-                    Open Learning Exchange Nepal<br/>
-                    Telephone: +977-1-554-4441, 552-0075<br/>
-                    PO Box 8975, EPC 2394<br/>
-                    Kathmandu, Nepal <br/>
-                    pustakalaya@olenepal.org
+                    {% trans "Open Learning Exchange Nepal" %}<br/>
+                    {% trans "Telephone: +977-1-554-4441, 552-0075" %}<br/>
+                    {% trans "PO Box 8975, EPC 2394" %}<br/>
+                    {% trans "Kathmandu, Nepal" %} <br/>
+                    {% trans "pustakalaya@olenepal.org" %}
+                    <p>s1.3</p>
                        </div>
                     </address>
             </div>

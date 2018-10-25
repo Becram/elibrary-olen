@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load pustakalaya_filters %}
 {% load static %}
 
 {% block style %}
@@ -39,11 +40,30 @@
 {% endblock style %}
 
 {% block content %}
-    <div class=" min_height pt-4" style="margin-left:8.0rem;margin-right:8.0rem;" >
+    <div class=" min_height" style="margin-left:8.0rem;margin-right:8.0rem;" >
+
+      {% if object.collections.all%}
+      <span class=" bold">
+        <!-- Bread crums -->
+
+        {% for collection in object.collections.all %}
+        {% if forloop.first %}
+        <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}">{{collection.community_name | transtolocal  }}</a>
+        <span> >> </span>
+        {% endif %}
+
+        <a   href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
+        {{ collection.collection_name | transtolocal }}
+        </a>
+        {%  if not forloop.last %} ,{%  endif %}
+        {% endfor %}
+
+      </span>
+      {% endif %}
         <!--video title-->
     <h4 class="text-capitalize"><b>{{ object.title }}</b></h4>
         <h6 class="text-dark text-uppercase mb-4 description" id="video-title"
-            hidden>{{ object.videofileupload_set.first.file_name }}_nishant</h6>
+            hidden>{{ object.videofileupload_set.first.file_name }}</h6>
 
         <!-- video player -->
         <div class="row">
@@ -57,10 +77,10 @@
                 </video>
             </div>
             <div class="col-md-4 col-sm-12 col-xs-12 p-5 "
-                 style="height: 360px; width:426px; overflow-y: scroll; margin-left: -15px;">
+                 style="max-height: 450px; width:426px; overflow-y: scroll; margin-left: -15px;">
                 <div id="videoList">
                     {% for video in object.videofileupload_set.all %}
-                        <div class="pt-1 pb-1 pl-3 text-capitalize">
+                        <div class="pt-1 pb-1 pl-3  ">
                             <span style="cursor: pointer"
                                   data-src="{{ MEDIA_URL }}{{ video.upload }}"
                                   data-title="{{ video.file_name }}"
@@ -103,68 +123,93 @@
         <div class="row">
           {%  if request.user.is_superuser %}
 
-                     <p class="text-primary description">
-                      <a href="{{ object.get_admin_url }}" class="btn btn-sm">{%  trans "Edit" %}</a>
-                     </p>
+                     <div class="col-12 text-primary description" style="font-size:120%;">
+                      <a href="{{ object.get_admin_url }}" class="btn btn-md btn-secondary">{%  trans "Edit" %}</a>
+                     </div>
 
            {%  endif %}
             <!-- metadata section -->
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <p class="text-justify  tex-dark font-weight-normal"
-                        {% if not object.abstract %}
-                            style="..."
-                        {% endif %}>
-                    {{ object.abstract }}</p>
+            <div class="col-md-12 col-sm-12 col-xs-12"  style="overflow-wrap: break-word;">
+              {% if  object.abstract %}
+                <div class=" text-justify  tex-dark font-weight-normal">
+                    {{ object.abstract }}
+                </div>
+               {% endif %}
                 <!-- publisher section -->
                   {% if  object.publisher.all %}
-                            <div class="pb-1 border-line">
+                            <div class="row pb-1 border-line">
 
-                                <span class="text-capitalize font-weight-normal text-dark">{% trans "Publisher:" %}</span>
-                                <span class="text-dark text-capitalize">
+                                <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Publisher:" %}</div>
+                                <div class="col-lg-10 text-dark  ">
                                  {% for publisher in object.publisher.all %}
                                   {{ publisher.publisher_name }}
                                   {%  if not forloop.last %}
                                             ,
                                   {%  endif %}
                                  {% endfor %}
-                                </span>
+                                </div>
 
                             </div>
                            {% endif %}
-                <!-- place of publication -->
-                <div class="pb-1 border-line"
-                        {% if not object.place_of_publication %}
-                     style="display: none"
-                        {% endif %}>
-                    <span class="capitalize font-weight-normal text-dark">{% trans "Place of publication:" %}</span>
-                    <span class="text-dark text-capitalize"> {{ object.place_of_publication }}</span>
+
+
+                     {% if  object.video_original_document_authors.all %}
+                            <div class="row pb-1 border-line">
+
+                                <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Original author(s):" %}</div>
+                                <div class="col-lg-10 text-dark ">
+                                 {% for author in object.video_original_document_authors.all %}
+                                  <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}">
+                                    {{ author }}
+                                  </a>
+                                  {%  if not forloop.last %}
+                                            ,
+                                  {%  endif %}
+                                 {% endfor %}
+                                </div>
+
+                            </div>
+                           {% endif %}
+
+
+              <!-- release date -->
+              {% if  object.video_release_date %}
+                <div class="row pb-1 border-line">
+                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Release date:" %}</div>
+                    <div class="col-lg-10 text-dark  "> {{ object.video_release_date }}</div>
                 </div>
+              {% endif %}
+
+                <!-- place of publication -->
+              {% if  object.place_of_publication %}
+                <div class="row pb-1 border-line">
+                    <div class="col-lg-2  font-weight-normal text-dark">{% trans "Place of Publication:" %}</div>
+                    <div class="col-lg-10 text-dark  "> {{ object.place_of_publication }}</div>
+                </div>
+              {% endif %}
 
                 <!-- Publication year -->
-                <div class="pb-1 border-line">
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</span>
-                    <span class="text-dark text-capitalize"> {{ object.publication_year }}</span>
+              {% if object.publication_year_on_text %}
+                <div class="row pb-1 border-line">
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</div>
+                    <div class="col-lg-10 text-dark  "> {{ object.publication_year_on_text }}</div>
 
                 </div>
-<<<<<<< HEAD
-
-=======
               {% endif %}
               {% if object.year_of_available_on_text %}
->>>>>>> origin/bhoj
                 <!-- Available year -->
-                <div class="pb-1 border-line">
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</span>
-                    <span class="text-dark text-capitalize"> {{ object.year_of_available_on_text }}</span>
+                <div class="row  pb-1 border-line">
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</div>
+                    <div class="col-lg-10 text-dark  "> {{ object.year_of_available_on_text }}</div>
                 </div>
                 {% endif %}
                 <!-- Keywords -->
               {% if object.keywords.all %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
 
                     <!-- TODO pluralization -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "keywords:" %}</span>
-                    <span class="text-dark text-capitalize">
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "keywords:" %}</div>
+                    <div class="col-lg-10 text-dark  ">
                     {% for keyword in object.keywords.all %}
 
                             <a href="{% url 'keyword:keyword_detail' keyword.keyword %}">{{ keyword.keyword }}</a>
@@ -172,122 +217,234 @@
                                             ,
                       {%  endif %}
                     {% endfor %}
-                    </span>
+                    </div>
 
                 </div>
                 {% endif %}
 
-                {% if object.description  %}
-                <!-- Description -->
-                <div class="pb-1 border-line">
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "description:" %}</span>
-                    <span class="text-capitalize"> {{ object.description }}</span>
-                </div>
-              {% endif %}
+
 
                 {% if object.license.license %}
                 <!-- License type -->
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
                     <!-- TODO pluralization -->
-                    <span class="capitalize font-weight-normal text-dark">{% trans "License type:" %}</span>
-                    <span class="text-capitalize"> {{ object.license.license }}</span>
+                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "License type:" %}</div>
+                    <div class="col-lg-10  "> {{ object.license.license }}</div>
                 </div>
                 {% endif %}
 
                 <!-- video series -->
-                <div class="pb-1 border-line">
+               {% if object.video_series %}
+                <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
-                    <span class="capitalize font-weight-normal text-dark">{% trans "Series:" %}</span>
-                    <span class="text-capitalize">{{ object.video_series }}</span>
+                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Series:" %}</div>
+                    <div class="col-lg-10  ">{{ object.video_series }}</div>
                 </div>
+              {% endif %}
+
+               <!-- video volume -->
+               {% if object.volume %}
+                <div class="row pb-1 border-line">
+                    <!-- Add 2px right margin in each -->
+                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Volume:" %}</div>
+                    <div class="col-lg-10  ">{{ object.volume }}</div>
+                </div>
+              {% endif %}
+
+               <!-- video edition -->
+               {% if object.edition %}
+                <div class="row pb-1 border-line">
+                    <!-- Add 2px right margin in each -->
+                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Edition:" %}</div>
+                    <div class="col-lg-10  ">{{ object.edition }}</div>
+                </div>
+              {% endif %}
 
                 <!-- video running time -->
-                <div class="pb-1 border-line"
-                        {% if not object.video_running_time %}
-                     style="display: none"
-                        {% endif %}>
+              {% if  object.video_running_time %}
+                <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "running time" %}</span>
-                    <span class="text-dark text-capitalize">{{ object.video_running_time }}</span>
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "running time" %}</div>
+                    <div class="col-lg-10 text-dark ">{{ object.video_running_time }}</div>
                 </div>
+               {% endif %}
 
-                <!-- video certificate license -->
-                <div class="pb-1 border-line"
-                        {% if not object.video_certificate_license %}
-                     style="display: none"
-                        {% endif %}>
+                 <!-- video director time -->
+                {% if  object.video_director.all %}
+                <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "certificate license:" %}</span>
-                    <span class="text-capitalize">{{ object.video_certificate_license }}</span>
-                </div>
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "video director" %}</div>
+                    <div class="col-lg-10 text-dark  ">
 
-                <!-- video genre -->
-                <div class="pb-1 border-line">
-                    <!-- Add 2px right margin in each -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "genre:" %}</span>
-                    <span class="text-capitalize">{{ object.video_genre }}</span>
-                </div>
+                     {% for author in object.video_director.all %}
+                      <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}">
+                        {{ author }}
+                      </a>
+                      {%  if not forloop.last %}
+                                ,
+                      {%  endif %}
+                     {% endfor %}
 
-                <!-- Language -->
-                <div class="pb-1 border-line"
-                {% if not object.languages.all %}
-                     style="display: none"
+                    </div>
+                </div>
                 {% endif %}
-                >
+
+                <!-- Video producer -->
+              {% if  object.video_producers.all %}
+                <div class="row pb-1 border-line">
                     <!-- TODO: implement pluralization in total page -->
-                    <span class="text-capitalize hidden text-dark text-capitalize">{% trans "languages" %}:</span>
-                  <span class="text-capitalize">
-                  {% for language in object.languages.all %}
-                        <a href="#"> {{ language }}</a>
+                    <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "Video producer" %}:</div>
+                  <div class="col-lg-10  ">
+                  {% for producer in object.video_producers.all %}
+                         {{ producer }}
                     {%  if not forloop.last %}
                     ,
                    {%  endif %}
                     {% endfor %}
-                  </span>
+                  </div>
                 </div>
+               {% endif %}
+
+                <!-- video certificate license -->
+              {% if  object.video_certificate_license %}
+                <div class="row pb-1 border-line">
+                    <!-- Add 2px right margin in each -->
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "certificate license:" %}</div>
+                    <div class="col-lg-10 ">{{ object.video_certificate_license }}</div>
+                </div>
+              {% endif %}
+
+                <!-- video age group -->
+              {% if  object.age %}
+                <div class="row pb-1 border-line">
+                    <!-- Add 2px right margin in each -->
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Age group:" %}</div>
+                    <div class="col-lg-10 ">{{ object.age }}</div>
+                </div>
+              {% endif %}
+
+                <!-- video genre -->
+                 {% if  object.video_genre.all %}
+                <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
+                  <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "genre:" %}</div>
+                  <div class="col-lg-10 text-dark  ">
+
+                  {% for genre in object.video_genre.all %}
+                    {{ genre.custom_genre }}
+                     {%  if not forloop.last %}
+                                                    ,
+                     {%  endif %}
+                  {% endfor %}
+                  </div>
+                </div>
+                {% endif %}
+
+
+                <!-- Language -->
+                {% if  object.languages.all %}
+                <div class="row pb-1 border-line">
+                    <!-- TODO: implement pluralization in total page -->
+                    <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "languages" %}:</div>
+                  <div class="col-lg-10 ">
+                  {% for language in object.languages.all %}
+                         {{ language }}
+                    {%  if not forloop.last %}
+                    ,
+                   {%  endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endif %}
 
                 <!-- Education level -->
-                <div class="pb-1 border-line"
-                {% if not object.education_levels.all %}
-                     style="display: none"
-                {% endif %}
-                >
+              {% if  object.education_levels.all %}
+                <div class="row pb-1 border-line">
                     <!-- TODO: implement pluralization in total page -->
-                    <span class="text-capitalize hidden text-dark text-capitalize">{% trans "education levels" %}:</span>
-                    <span class="text-capitalize">
+                    <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "education levels" %}:</div>
+                    <div class="col-lg-10  ">
                     {% for education_level in object.education_levels.all %}
                          {{ education_level }}
+                      {%  if not forloop.last %}
+                                            ,
+                      {%  endif %}
                     {% endfor %}
-                    </span>
+                    </div>
 
 
                 </div>
+                {% endif %}
 
-                <!-- Rights -->
-                <div class="pb-1 border-line"
-                        {% if not object.custom_license %}
-                           style="display: none"
-                        {% endif %} >
-
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "right:" %}</span>
-
-                    <span class="text-capitalize"> {{ object.custom_license }} </span>
-                </div>
-
-                <!-- sponsor -->
-                <div class="pb-1 border-line"
-                {% if not object.sponsors.all %}
-                    style="display: none"
-                {% endif %}>
+                 <!-- sponsor -->
+                {% if  object.sponsors.all %}
+                <div class="row pb-1 border-line">
                     <!-- TODO pluralization -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</span>
-                  <span class="text-capitalize">
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</div>
+                  <div class="col-lg-10  ">
                   {% for sponsor in object.sponsors.all %}
                         {{ sponsor }}
+                    {%  if not forloop.last %}
+                                            ,
+                      {%  endif %}
                     {% endfor %}
-                  </span>
+                  </div>
                 </div>
+                {% endif %}
+
+                <!-- Rights -->
+               {% if  object.custom_license %}
+                <div class="row pb-1 border-line">
+
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "right:" %}</div>
+
+                    <div class="col-lg-10 "> {{ object.custom_license }} </div>
+                </div>
+                {% endif %}
+
+
+
+
+                 {% if object.description  %}
+                <!-- Description -->
+                <div class="row pb-1 border-line">
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
+                    <div class="col-lg-10  "> {{ object.description }}</div>
+                </div>
+                {% endif %}
+
+                 <!-- video additional_note -->
+               {% if object.additional_note %}
+                <div class="row pb-1 border-line">
+                    <!-- Add 2px right margin in each -->
+                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Additional note:" %}</div>
+                    <div class="col-lg-10 ">{{ object.additional_note }}</div>
+                </div>
+              {% endif %}
+
+               <!-- link_name and link description -->
+
+               {% if object.videolinkinfo_set.all %}
+                <div class="row pb-1 border-line"
+                     style="overflow-wrap: break-word;max-height: 250px;overflow-y: scroll;"
+                >
+                    <!-- Authors -->
+                    <!-- TODO pluralization -->
+                   {% for link in  object.videolinkinfo_set.all %}
+
+                   <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Link:" %}</div>
+                  <span class="col-lg-10 text-dark "><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></span>
+
+
+                   <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Link Description:" %}</div>
+                    <div class="col-lg-10 text-dark ">{{ link.link_description }}</div>
+
+                   {% endfor %}
+                </div>
+               {% endif %}
+
+
             </div>
+
+
         </div>
        <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -421,10 +578,6 @@
                 videoPlayer.play();
             }
         })(window);
-
-
-  <!-- If you'd like to support IE8 -->
-
     </script>
 
 <script>

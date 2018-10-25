@@ -1,0 +1,44 @@
+To configure pustakalaya please follow following steps:
+
+
+1.  got throught the file /install.rst in the docs(here) folder.
+    Note: don't need to run sass
+
+2. To understand how url are configured,
+    please go throught urls.rst file.
+
+3. to understand project architecute please go through architecute/index.rst file
+    Note :in our architecture redis is not required now.
+
+4. To understand elasticsearch and how it is conigured please go through 
+    elasticsearch_dsl documentation here : https://elasticsearch-dsl.readthedocs.io/en/latest/ 
+    our elasticsearch version is 5.6 
+
+5. Configuration/setting:
+    all the configurations are stored in /src/config folder
+    It is imported in base.py.
+    base.py inside /src/pustakalay/setttings is our settings.py file ,
+    a) for development version we pass --development while runing server or migration of databse
+     like this: python manage.py --settings=pustakalaya.settings.development 
+     similarly for production.
+     While in development mode we do not need to use production.py file.
+
+     Note: Configuration in config/config.json will override the base.py configuration in production
+            it is simple case of variable over writing.
+
+6. We use virtual environment to run our project.
+
+7. In order to know what other folders do please go through these files:
+    a)  pustakalaya/docs/ apps > go through index.rst(to know other components), document, 
+        audio, video to know about them 
+    b) in order to know about where search code is please go through docs/search.rst file.
+
+
+Reference:
+       1. For django tutorial and understanding please go through:
+         https://docs.djangoproject.com/en/1.11/intro/tutorial01/
+        2. To know about elasticsearch:
+            https://elasticsearch-dsl.readthedocs.io/en/latest/ 
+            https://medium.freecodecamp.org/elasticsearch-with-django-the-easy-way-909375bc16cb 
+            https://qbox.io/blog/how-to-elasticsearch-python-django-part1 
+        

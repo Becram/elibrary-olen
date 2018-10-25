@@ -1,5 +1,7 @@
 from  django.utils.html import format_html
 from django.contrib import admin
+import datetime
+from django.utils.functional import curry
 
 from .models import (
     Document,
@@ -17,10 +19,10 @@ class DocumentFileUploadInline(admin.TabularInline):
     fields = ["upload"]
 
 
+
 class DocumentLinkInfoAdminInline(admin.TabularInline):
     model = DocumentLinkInfo
     extra = 1
-
 
 class DocumentIdentifierAdmin(admin.StackedInline):
     model = DocumentIdentifier
@@ -45,6 +47,7 @@ class DocumentAdmin(admin.ModelAdmin):
         DocumentFileUploadInline,
     ]
 
+
     search_fields = (
         'title',
     )
@@ -58,15 +61,16 @@ class DocumentAdmin(admin.ModelAdmin):
         "languages",
         "featured",
         "published",
-        "document_file_type",
-        "document_interactivity",
-        "document_editors",
-        "document_illustrators",
         "place_of_publication",
         "publisher",
         "publication_year_on_text",
         "year_of_available_on_text",
         "keywords",
+        "document_file_type",
+        "document_interactivity",
+        "document_editors",
+        "document_translator",
+        "document_illustrators",
         "document_series",
         "volume",
         "edition",
@@ -80,14 +84,16 @@ class DocumentAdmin(admin.ModelAdmin):
         "thumbnail",
     )
 
-    list_display = ['title_link', 'published_','featured_', 'edit_link', 'updated_date_', 'submitted_by_']
+    #list_display = ['title_link', 'published_','featured_', 'edit_link', 'updated_date_', 'submitted_by_']
+
+    list_display = ['title_link',  'published_', 'featured_', 'edit_link', 'updated_date_',  'submitted_by_' ]
 
     ordering = ('-updated_date',)
 
 
     list_filter = ['published', 'featured']
 
-    list_per_page = 10
+    list_per_page = 25
 
     def save_model(self, request, obj, form, change):
         """Override the submitted_by field to admin user
@@ -101,7 +107,7 @@ class DocumentAdmin(admin.ModelAdmin):
         return format_html("<a href='{url}'>Edit</a>", url=obj.get_admin_url())
 
     def title_link(self,obj):
-        return format_html('<a href="%s">%s</a>' %(obj.get_absolute_url(), obj.document_title()))
+        return format_html('<a href="%s">%s</a>' %(obj.get_absolute_url(), obj.document_title()[0:50]))
 
 
     def published_(self,obj):
@@ -111,7 +117,7 @@ class DocumentAdmin(admin.ModelAdmin):
         return format_html('%s' % (obj.featured_yes_no()))
 
     def updated_date_(self,obj):
-        return format_html('%s' % (obj.updated_date_string()))
+        return format_html('%s' % ( obj.updated_date_string()))
 
     def submitted_by_(self,obj):
         return format_html('%s' % (obj.submited_by()))

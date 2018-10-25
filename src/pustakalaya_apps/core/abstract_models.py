@@ -9,6 +9,7 @@ from .constants import LANGUAGES
 from django.core import urlresolvers
 
 
+
 class AbstractTimeStampModel(models.Model):
     """TimeStampModel that holds created_date and updated_date field"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -45,7 +46,7 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
 
     name = models.CharField(
         _("Name"),
-        max_length=50,
+        max_length=255,
         default=""
 
     )
@@ -55,10 +56,17 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
     )
     dob = models.CharField(
         verbose_name=_("Date of birth"),
-        max_length=30,
+        max_length=255,
         blank=True,
         null=True
     )
+    place_of_birth = models.CharField(
+        verbose_name=_("Place of birth"),
+        max_length=255,
+        blank=True,
+        default=""
+    )
+
     pen_name = models.CharField(
         verbose_name=_("Pen name"),
         max_length=255,
@@ -69,11 +77,13 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
         blank=True
     )
 
+    # this genre is not used instead it is inheriated in biography
     genre = models.CharField(
         verbose_name=_("Genre"),
         max_length=100,
         blank = True
     )
+
 
     thumbnail = models.ImageField(
         verbose_name=_("Creator image"),
@@ -98,6 +108,10 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
     def getname(self):
         return self.name
 
+    def get_underscore_name(self):
+        new_underscore_name = self.name.replace(" ", "_")
+        return new_underscore_name;
+
     def __str__(self):
         return self.name
 
@@ -109,8 +123,11 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
         return reverse("author:author_detail", kwargs={"author_name": slugify(self.name), "pk": self.pk})
 
 
+
+
     class Meta:
         abstract = True
+
 
 
 
@@ -118,8 +135,6 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
 class AbstractSeries(AbstractTimeStampModel):
     """Abstract Series models for data item"""
 
-    class Meta:
-        abstract = True
 
     series_name = models.CharField(
         _("Series name"),
@@ -200,7 +215,8 @@ class AbstractItem(AbstractTimeStampModel):
     year_of_available = models.DateField(
         _("Year of available on text"),
         blank=True,
-        null=True
+        null=True,
+
     )
 
     publication_year = models.DateField(
@@ -213,14 +229,14 @@ class AbstractItem(AbstractTimeStampModel):
         _("Year of available"),
         blank=True,
         null=True,
-        max_length=20
+        max_length=255
     )
 
     publication_year_on_text = models.CharField(
         _("Publication year"),
         blank=True,
         null=True,
-        max_length=20
+        max_length=255
     )
 
     place_of_publication = models.CharField(
@@ -269,17 +285,18 @@ class AbstractItem(AbstractTimeStampModel):
         return dict(
             meta={'id': self.id},
             id=self.id,
-
             title = self.title,
-            title_suggest={"input": [self.title]},
+            title_search = self.title,
+            title_suggest={ "input": [self.title]  },
+            # published_suggest={"input": [self.published,self.published]},
             abstract=self.abstract,
-            license_type=self.license_type,
             description=self.description,
             year_of_available=self.year_of_available,
             publication_year=self.publication_year,
             created_date=self.created_date,
             updated_date=self.updated_date,
-            view_count = self.get_view_count
+            view_count = self.get_view_count,
+            published = self.published
         )
 
     @abc.abstractmethod
@@ -296,12 +313,32 @@ class AbstractItem(AbstractTimeStampModel):
 
 class LinkInfo(AbstractTimeStampModel):
     link_name = models.URLField(
-        verbose_name=_("Link URL")
+        verbose_name=_("Link URL"),
+        max_length = 500,
     )
 
-    link_description = models.CharField(
+    link_description = models.TextField(
         max_length=500,
-        verbose_name=_("Link Description")
+        verbose_name=_("Link Description"),
+        blank=True
+    )
+
+    class Meta:
+        abstract = True
+
+
+
+
+class EmbedVideoAudioLink(AbstractTimeStampModel):
+    video_audio_link_name = models.URLField(
+        verbose_name=_("Embed Link URL(add only if you do not upload item)"),
+        max_length = 500,
+    )
+
+    video_audio_link_description = models.TextField(
+        max_length=500,
+        verbose_name=_("Embed Link Description"),
+        blank=True
     )
 
     class Meta:

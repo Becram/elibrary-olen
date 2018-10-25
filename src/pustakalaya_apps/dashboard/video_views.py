@@ -6,9 +6,11 @@ from django.contrib.auth.decorators import login_required
 from pustakalaya_apps.video.models import Video
 from .forms import VideoFileUploadForm,VideoForm, VideoFileUploadFormSet
 from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class AddVideoView(SuccessMessageMixin,CreateView):
+class AddVideoView(LoginRequiredMixin,  SuccessMessageMixin,CreateView):
     model = Video
     form_class = VideoForm
     template_name = "dashboard/video/video_add.html/"
@@ -46,6 +48,15 @@ class AddVideoView(SuccessMessageMixin,CreateView):
             # Here instance is Document.
             inlines.instance = self.object
             inlines.save()
+
+            # Clear all other message and add message
+            storage = messages.get_messages(self.request)
+            storage.used = True
+            messages.add_message(
+               self.request,
+                messages.SUCCESS,
+                 'Video added successfully, we will notify you after reviewing it.'
+                )
             return redirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data(form=form))
@@ -58,43 +69,48 @@ class AddVideoView(SuccessMessageMixin,CreateView):
 
 
 
-class UpdateVideoView(UpdateView):
+class UpdateVideoView(LoginRequiredMixin, UpdateView):
     model = Video
 
     fields = [
                 'title',
-                'collections',
-                'education_levels',
-                'languages',
-                'publisher',
-                'video_director',
-                'video_genre',
-                'keywords',
-                'video_series',
-                'license_type'
+                # 'collections',
+                'description',
+                # 'education_levels',
+                # 'languages',
+                # 'publisher',
+                # 'video_director',
+                # 'video_genre',
+                # 'keywords',
+                # 'video_series',
+                # 'license_type'
     ]
 
     template_name = "dashboard/video/video_edit.html/"
-    success_url = "/dashboard/"
+    success_url = "/dashboard/submission/list/"
 
     def clean(self, UpdateVideo):
         cleaned_data = super(UpdateVideo, self).clean()
         title = cleaned_data.get('title')
-        collections = cleaned_data.get('collections')
-        education_levels = cleaned_data.get('education_levels')
-        languages = cleaned_data.get('languages')
-        publisher = cleaned_data.get('publisher')
-        video_director = cleaned_data.get('video_director')
-        video_genre = cleaned_data.get('video_genre')
-        keywords = cleaned_data.get('keywords')
-        video_series = cleaned_data.get('video_series')
-        license_type = cleaned_data.get('license_type')
+        # collections = cleaned_data.get('collections')
+        description = cleaned_data.get('description')
+        # education_levels = cleaned_data.get('education_levels')
+        # languages = cleaned_data.get('languages')
+        # publisher = cleaned_data.get('publisher')
+        # video_director = cleaned_data.get('video_director')
+        # video_genre = cleaned_data.get('video_genre')
+        # keywords = cleaned_data.get('keywords')
+        # video_series = cleaned_data.get('video_series')
+        # license_type = cleaned_data.get('license_type')
 
-        if not title and not collections and not education_levels and not languages and not video_director and not video_genre and not publisher and not keywords and not video_series and not license_type:
+        # if not title and not collections and not education_levels and not languages and not video_director and not video_genre and not publisher and not keywords and not video_series and not license_type:
+        #     raise cleaned_data.ValidationError('You have to write something!')
+
+        if not title:
             raise cleaned_data.ValidationError('You have to write something!')
 
 
-class DeleteVideoView(SuccessMessageMixin, DeleteView):
+class DeleteVideoView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Video
 
     fields = [
@@ -111,5 +127,9 @@ class DeleteVideoView(SuccessMessageMixin, DeleteView):
     ]
 
     template_name = "dashboard/video/video_delete.html/"
-    success_url = 'dashboard:profile'
-    success_message = "was deleted successfully"
+    success_url = '/dashboard/submission/list/'
+    success_message = "Video was deleted successfully"
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeleteVideoView, self).delete(request, *args, **kwargs)

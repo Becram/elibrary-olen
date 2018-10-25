@@ -39,7 +39,6 @@ def transtolocal(value):
 
     try:
         second = value.rstrip("]]").split("[[")[1] or None
-        print(second)
     except IndexError:
         second = None
 
@@ -97,3 +96,20 @@ def file_size_format(value):
         ext = _("GB")
     return '%s %s' % (str(round(value, 2)), ext)
 
+@register.filter
+def get(obj,attr):
+
+    """ Try to get an attribute from an object.
+
+    Example: {% if block|getattr:"editable,True" %}
+
+    Beware that the default is always a string, if you want this
+    to return False, pass an empty second argument:
+    {% if block|getattr:"editable," %}
+    """
+    try:
+        return obj[attr]
+    except AttributeError:
+         return []
+    except:
+        return default

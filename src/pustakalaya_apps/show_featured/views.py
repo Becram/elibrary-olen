@@ -7,21 +7,27 @@ from pustakalaya_apps.document.models import Document
 
 def show_all_featured_item(request):
 
-    item_list = Document.objects.filter(featured="yes")
+    item_list = Document.objects.filter(featured="yes",published="yes")
 
+    total_count = len(item_list)
+
+
+    # Pagination configuration before executing a query.
     paginator = Paginator(item_list, 24)
-    page = request.GET.get('page')
+
+    page_no = request.GET.get('page')
     try:
-        doc = paginator.page(page)
+        page = paginator.page(page_no)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        doc = paginator.page(1)
+        page = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 7777), deliver last page of results.
-        doc = paginator.page(paginator.num_pages)
+        page = paginator.page(paginator.num_pages)
 
     return render(request, "show_featured/all_featured_item.html", {
-        'favourite_documents':doc
+        'favourite_documents':page,
+        'total_count':total_count,
+        'page_obj':page,
+        "paginator":paginator
     })
 
 

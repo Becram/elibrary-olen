@@ -1,87 +1,92 @@
-{% extends 'dashboard/base.html' %}
+{% extends 'dashboard/dashboard.html' %}
 {% load i18n %}
+{% load static %}
 {
 {% load crispy_forms_tags %}
-{% block content %}
-    <div class="container">
+{% block dashboard_content %}
+<div class="container">
+  <div class="row">
+      <div class="col-md-12">
+      <div class="card">
+          <div class="header">
+          </div>
+          <div class="content">
+              {%  if items %}
+              <h5 id="det-book-title">{% trans "Item submitted by you" %}</h5>
+              <div class="row">
 
+              {% for doc in items %}
+                  <a href="{{doc.get_absolute_url}}">
+                  <div class="col-md-3 col-sm-6 col-6">
+                      <div class="grid-book-cont">
+                        <div class="img-cont">
+                          {% if doc.thumbnail  %}
+                          <img  src="{{ MEDIA_URL }}{{ doc.thumbnail }}"
+                              alt="{{ doc.title }}" title="{{ doc.title }}">
+                         {% else %}
+                          {% if doc.type == "document"%}
+                          <img  src="{% static 'images_new/book_thumnail.png' %}"/>
+                         {% elif doc.type == "audio"%}
+                          <img  src="{% static 'images_new/audio_thumnail.png' %}"/>
+                         {% else %}
+                          <img  src="{% static 'images_new/video_thumnail.png' %}"/>
+                          {% endif %}
+                         {% endif %}
+                        </div>
+                        <p class="book-label">
+                          <a href="{{doc.get_absolute_url}}">{{doc.title}}</a>
+                        </p>
+                        <p class="book-type">
+                            {% if doc.type == "document" %}
+                            <i class="fa fa-book "></i>
+                              {% elif doc.type == "audio" %}
+                              <i class="fa fa-headphones"></i>
+                             {% else %}
+                                <i class="fa fa-video-camera"></i>
+                             {% endif %}
+                             {{doc.type}}
+                             </p>
+                             <p class="text-center p1">
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="header">
-                        <h4 class="title">Item submitted by you</h4>
-                    </div>
-                    <div class="content">
-                        {%  if items %}
-                            <ul class="list-unstyled team-members">
-                            <li>
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <div class="avatar">
+                                  {% if doc.published == "no" %}
+                              <p class="text-muted text-small">Not published &nbsp;</p>
+                               <span class="p-3">
+                                <a href="{{doc.get_dashboard_edit_url}}{{doc.pk}}">{% trans "Edit" %}</a>
+                                &nbsp;&nbsp;
+                                <a class="text-danger" href="{{doc.get_dashboard_delete_url}}{{doc.pk}}">{% trans "Delete" %}</a>
 
-                                        </div>
+                               </span>
+                              {% else %}
+                                  <p class="text-muted">Published</p>
+                             {% endif %}
 
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <h5 class="text-primary text-bold"> Title</h5>
-                                        <br>
-                                        <span class="text-muted"><small>{{ item.type }}</small></span>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <h5 class="text-primary text-bold"> Edit</h5>
-                                        <br>
+                              </p>
 
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <h5 class="text-primary text-bold"> Delete</h5>
-                                        <br>
+                      </div>
+                        </div>
 
-                                    </div>
-
-
-                                </div>
-                            </li>
-                            {% for item in items %}
-                                <li>
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <div class="avatar">
-                                                <img src="{{ MEDIA_URL }}{{ item.thumbnail }}" alt="{{ item.title }}"
-                                                >
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-xs-3">
-                                            {{ item.title }}
-                                            <br>
-                                            <span class="text-muted"><small>{{ item.type }}</small></span>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <i class="ti-new-window"></i>
-                                            <br>
-
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <i class="ti-trash"></i>
-                                            <br>
-
-                                        </div>
-                                    </div>
-                                </li>
-
-                            {% endfor %}
-
-                        </ul>
-                            {%  else %}
-                            <p class="text-primary">{%  trans "You haven't submitted any item" %}</p>
-                        {%  endif %}
-                    </div>
-                </div>
+                  {% endfor %}
+              </a>
             </div>
 
 
-        </div>
+
+              <!--add pagination link here-->
+            <div class="row">
+            <div class="col-md-12 col-md-offset-2">
+                {% include '_partials/new_pagination.html' %}
+            </div>
+            </div>
+
+              </div>
+                      {%  else %}
+                      <p class="text-primary">{%  trans "You haven't submitted any item" %}</p>
+                  {%  endif %}
+              </div>
+          </div>
+      </div>
+
+
+  </div>
     </div>
-{% endblock content %}
+{% endblock dashboard_content %}

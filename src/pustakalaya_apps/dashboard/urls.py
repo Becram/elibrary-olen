@@ -6,6 +6,16 @@ from . import collection_views
 urlpatterns = [
 
     url(r'^$', views.dashboard, name="dashboard"),
+    # show all favourite item
+    url(r'^show_all_favourite/$', views.show_all_favourite_item, name="show_all_favourite"),
+
+    # show all favourite item
+    url(r'^show_all_rated/$', views.show_all_rated_item, name="show_all_rated"),
+
+    # show all reviewed item
+    url(r'^show_all_reviewed/$', views.show_all_reviewed_item, name="show_all_reviewed"),
+
+
     # url(r'^profile/$', views.profile, name="profile"),
     # /dashboard/profile/edit/
     url(r'^profile/edit/(?P<pk>\d+)/$', views.ProfileEdit.as_view(), name="profile_edit"),
