@@ -30,6 +30,9 @@ prepare:clean:
     # Remove all containers and volumes
     # - docker-compose -f development.yml rm -fv
     # - docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(release))/
   tags:
     - development
 ##################################################
@@ -45,6 +48,9 @@ build:images:
     - docker-compose -f build.yml  build
     # - docker-compose -f build.yml  push
     # - docker-compose -f build.yml  push
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(release))/
   tags:
     - development
 
@@ -61,6 +67,9 @@ deploy:production-test:
     - docker-compose -f production.yml up -d
   # Only these branches are getting pushed
   # when: manual
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(release))/
   tags:
     - development
 
@@ -76,6 +85,9 @@ deploy:production-live:
     - docker-compose -f production.yml down
     - docker-compose -f production.yml up -d
   # Only these branches are getting pushed
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(release))/
   when: manual
   tags:
     - production
