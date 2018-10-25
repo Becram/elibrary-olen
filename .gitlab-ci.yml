@@ -63,8 +63,6 @@ deploy:production-test:
 
   # Only these branches are getting pushed
   # when: manual
-  only:
-    - bikram-stack
   tags:
     - development
 
@@ -82,7 +80,5 @@ deploy:production-live:
 
   # Only these branches are getting pushed
   when: manual
-  only:
-    - bikram-stack
   tags:
     - production
