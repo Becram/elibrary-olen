@@ -50,7 +50,7 @@ build:images:
     # - docker-compose -f build.yml  push
   only:
     variables:
-      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(release))/
+      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(Release))/
   tags:
     - development
 
@@ -69,7 +69,7 @@ deploy:production-test:
   # when: manual
   only:
     variables:
-      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(release))/
+      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(Release))/
   tags:
     - development
 
@@ -87,7 +87,7 @@ deploy:production-live:
   # Only these branches are getting pushed
   only:
     variables:
-      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(release))/
+      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(Release))/
   when: manual
   tags:
     - production

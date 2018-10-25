@@ -1,0 +1,19 @@
+FROM elasticsearch:5.6.8
+
+
+ENV ES_JAVA_OPTS="-Des.path.conf=/etc/elasticsearch ${ES_JAVA_OPTS}"
+
+
+
+COPY elasticsearch.yml  /etc/elasticsearch/elasticsearch.yml
+
+#Set timezone
+ENV TZ=Asia/Kathmandu
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+EXPOSE 9300
+EXPOSE 9200
+
+CMD ["-E", "network.host=0.0.0.0", "-E", "discovery.zen.minimum_master_nodes=1"]
+
+WORKDIR /etc/elasticsearch
