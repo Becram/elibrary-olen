@@ -113,7 +113,7 @@ else
   # Push master
   git add .
   git commit -m "Dockerfiles for version:v$next_version"
-  git push --tags
+  git push --tags origin
   echo "v$next_version" >> versions
   echo -e "\e[32mRelease done: $next_version\e[0m"
 fi
