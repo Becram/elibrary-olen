@@ -100,10 +100,7 @@ else
     cp -v "${FILE}" "${FILE/.build/.$next_version}"
   done
 
-  # Push master
-  git add .
-  git commit -m "Dcokerfiles Backup for version:$next_version"
-  git push origin $prodBranch
+
 
   # If it's not a dry run, let's go!
   # 3) Add git tag
@@ -113,7 +110,10 @@ else
   # 4) Push the new tag
 
   echo "Push the tag"
-  git push --tags origin
+  # Push master
+  git add .
+  git commit -m "Dcokerfiles Backup for version:$next_version"
+  git push --tags origin $prodBranch
   echo "v$next_version" >> versions
   echo -e "\e[32mRelease done: $next_version\e[0m"
 fi
