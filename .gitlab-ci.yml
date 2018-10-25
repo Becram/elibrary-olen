@@ -32,7 +32,7 @@ prepare:clean:
     # - docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
   only:
     variables:
-      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(release))/
+      - $CI_COMMIT_MESSAGE =~ /(\[release\]|(Release))/
   tags:
     - development
 ##################################################
