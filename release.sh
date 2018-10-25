@@ -1,42 +1,123 @@
+
 #!/bin/bash
 
-# current Git branch
-branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+# Script to simplify the release flow.
+# 1) Fetch the current release version
+# 2) Increase the version (major, minor, patch)
+# 3) Add a new git tag
+# 4) Push the tag
 
-# v1.0.0, v1.5.2, etc.
-versionLabel=s$1
+#production branch
+prodBranch=bikram-stack
 
-# establish branch and tag name variables
-devBranch=bikram-stack
-masterBranch=master
-releaseBranch=release-$versionLabel
 
-# create the release branch from the -develop branch
-git checkout -b $releaseBranch $devBranch
 
-# file in which to update version number
-versionFile="version.txt"
 
-# find version number assignment ("= v1.5.5" for example)
-# and replace it with newly specified version number
-sed -i.backup -E "s/\= v[0-9.]+/\= $versionLabel/" $versionFile $versionFile
+# Parse command line options.
+while getopts ":Mmpd" Option
+do
+  case $Option in
+    M ) major=true;;
+    m ) minor=true;;
+    p ) patch=true;;
+    d ) dry=true;;
+  esac
+done
 
-# remove backup file created by sed command
-rm $versionFile.backup
+shift $(($OPTIND - 1))
 
-# commit version number increment
-git commit -am "Incrementing version number to $versionLabel"
+# Display usage
+if [ -z $major ] && [ -z $minor ] && [ -z $patch ];
+then
+  echo "usage: $(basename $0) [Mmp] [message]"
+  echo ""
+  echo "  -d Dry run"
+  echo "  -M for a major release"
+  echo "  -m for a minor release"
+  echo "  -p for a patch release"
+  echo ""
+  echo " Example: release -p \"Some fix\""
+  echo " means create a patch release with the message \"Some fix\""
+  exit 1
+fi
 
-# # merge release branch with the new version number into master
-# git checkout $masterBranch
-# git merge --no-ff $releaseBranch
+# Force to the root of the project
+# pushd "$(dirname $0)/../"
 
-# create tag for new version from -master
-git tag $versionLabel
+# 1) Fetch the current release version
 
-# merge release branch with the new version number back into develop
-git checkout $devBranch
-git merge --no-ff $releaseBranch
+echo "Fetch tags"
+git fetch --prune --tags
 
-# remove release branch
-git branch -d $releaseBranch
+version=$(git describe --abbrev=0 --tags)
+version=${version:1} # Remove the v in the tag v0.37.10 for example
+
+echo "Current version: $version"
+
+# 2) Increase version number
+
+# Build array from version string.
+
+a=( ${version//./ } )
+
+# Increment version numbers as requested.
+
+if [ ! -z $major ]
+then
+  ((a[0]++))
+  a[1]=0
+  a[2]=0
+fi
+
+if [ ! -z $minor ]
+then
+  ((a[1]++))
+  a[2]=0
+fi
+
+if [ ! -z $patch ]
+then
+  ((a[2]++))
+fi
+
+next_version="${a[0]}.${a[1]}.${a[2]}"
+
+username=$(git config user.name)
+msg="$1 by $username"
+
+# If its a dry run, just display the new release version number
+if [ ! -z $dry ]
+then
+  echo "Tag message: $msg"
+  echo "Next version: v$next_version"
+else
+  # If a command fails, exit the script
+  set -e
+
+  #Creating dockerfile backups
+  find . -type f -iname "Dockerfile.build" | while read -r FILE
+  do
+    cp -v "${FILE}" "${FILE/.build/.$next_version}"
+  done
+
+  # Push master
+  git add .
+  git commit -m "Dcokerfiles Backup for version:$next_version"
+  git push origin $prodBranch
+
+  # If it's not a dry run, let's go!
+  # 3) Add git tag
+  echo "Add git tag v$next_version with message: $msg"
+  git tag -a "v$next_version" -m "$msg"
+
+  # 4) Push the new tag
+
+  echo "Push the tag"
+  git push --tags origin
+
+  echo -e "\e[32mRelease done: $next_version\e[0m"
+fi
+
+
+
+# popd
