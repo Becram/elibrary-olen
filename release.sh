@@ -97,7 +97,8 @@ else
   #Creating dockerfile backups
   find . -type f -iname "Dockerfile.build" | while read -r FILE
   do
-    cp -v "${FILE}" "${FILE/.build/.$next_version}"
+    echo "Creating Dockerfile.$next_version"
+    cp  "${FILE}" "${FILE/.build/.$next_version}"
   done
 
 
