@@ -59,8 +59,6 @@ deploy:production-test:
     # Push images to the gitlab remote
     - echo "Deploying Pustakalaya"
     - docker-compose -f production.yml up -d
-
-
   # Only these branches are getting pushed
   # when: manual
   tags:
@@ -77,7 +75,6 @@ deploy:production-live:
     - docker-compose -f production.yml pull
     - docker-compose -f production.yml down
     - docker-compose -f production.yml up -d
-
   # Only these branches are getting pushed
   when: manual
   tags:
