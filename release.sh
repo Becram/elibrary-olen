@@ -111,6 +111,7 @@ else
 
   echo "Push the tag"
   # Push master
+  git push --tags
   git add .
   git commit -m "Release version:v$next_version"
   git push --tags origin $prodBranch
