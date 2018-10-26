@@ -5,3 +5,4 @@ gunicorn
 python-logstash
 gevent
 numpy==1.8.0
+safety
