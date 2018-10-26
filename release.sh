@@ -116,8 +116,8 @@ fi
 
 if [[ -f  build.yml.template && -f  production.yml.template ]]; then
 	  echo "Releasing version is $next_version"
-    sed -i.bak "s/\bRELEASE_TAG/$next_version/g" build.yml.template > build.yml
-    sed -i.bak "s/\bRELEASE_TAG/$next_version/g" production.yml.template > production.yml
+    sed "s/\bRELEASE_TAG/$next_version/g" build.yml.template > build.yml
+    sed "s/\bRELEASE_TAG/$next_version/g" production.yml.template > production.yml
 else
     echo "build.yml.template and production.yml.template do not exist "
     exit 1

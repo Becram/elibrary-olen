@@ -1,0 +1,115 @@
+version: '2'
+services:
+  nginx:
+    image: becram/olen-elib-nginx:25.0.0
+    restart: always
+    container_name: prod_nginx_01
+    networks:
+      - prod-net-pusta
+    ports:
+      - "80:8000"
+    volumes:
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
+    depends_on:
+     - code
+
+
+  code:
+    image: becram/olen-elib-code:25.0.0
+    restart: always
+    container_name: prod_code_01
+    env_file:
+      - ./dockerfile-code/code.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=pustakalaya.settings.production
+    depends_on:
+      - pgmaster
+      - elastic
+      - pgslave
+      - celery
+      - rabbitmq
+
+    volumes:
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
+    networks:
+      - prod-net-pusta
+
+
+
+  pgmaster:
+    image: becram/olen-elib-db-master:25.0.0
+    restart: 'always'
+    container_name: prod_pgmaster_01
+    env_file:
+      - ./dockerfile-postgres-master/pgmaster.env
+    volumes:
+     - production_postgres_data_master:/var/lib/postgresql/data
+     - /library/backup/postgres_backup:/backup/postgres_backup
+    networks:
+      - prod-net-pusta
+
+  pgslave:
+    image: becram/olen-elib-db-slave:25.0.0
+    restart: 'always'
+    container_name: prod_pgslave_01
+    env_file:
+      - ./dockerfile-postgres-slave/pgslave.env
+    volumes:
+      - production_postgres_data_slave:/var/lib/postgresql/data
+    depends_on:
+      - pgmaster
+    networks:
+      - prod-net-pusta
+
+
+  elastic:
+    image: becram/olen-elib-elastic:25.0.0
+    hostname: elastic
+    container_name: prod_elastic_01
+    environment:
+      # server memory dependent
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    restart: always
+    volumes:
+      - ./conf:/conf
+    volumes:
+      - production_elastic_data:/usr/share/elasticsearch/data
+    networks:
+      - prod-net-pusta
+    depends_on:
+      - pgmaster
+
+  rabbitmq:
+    image: rabbitmq:3.7
+    hostname: rabbitmq
+    container_name: prod_rabbitmq_01
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    networks:
+      - prod-net-pusta
+
+  celery:
+    image: becram/olen-elib-celery:25.0.0
+    restart: always
+    container_name: prod_celery_01
+    networks:
+      - prod-net-pusta
+    depends_on:
+      - pgmaster
+      - rabbitmq
+
+
+volumes:
+  production_postgres_data_slave:
+  production_postgres_data_master:
+  production_elastic_data:
+
+
+
+networks:
+  prod-net-pusta:
+    driver: bridge
