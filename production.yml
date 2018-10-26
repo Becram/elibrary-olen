@@ -1,7 +1,7 @@
 version: '2'
 services:
   nginx:
-    image: becram/olen-elib-nginx:v25.18.0
+    image: becram/olen-elib-nginx:v25.19.0
     restart: always
     container_name: prod_nginx_01
     networks:
@@ -16,7 +16,7 @@ services:
 
 
   code:
-    image: becram/olen-elib-code:v25.18.0
+    image: becram/olen-elib-code:v25.19.0
     restart: always
     container_name: prod_code_01
     env_file:
@@ -39,7 +39,7 @@ services:
 
 
   pgmaster:
-    image: becram/olen-elib-db-master:v25.18.0
+    image: becram/olen-elib-db-master:v25.19.0
     restart: 'always'
     container_name: prod_pgmaster_01
     env_file:
@@ -51,7 +51,7 @@ services:
       - prod-net-pusta
 
   pgslave:
-    image: becram/olen-elib-db-slave:v25.18.0
+    image: becram/olen-elib-db-slave:v25.19.0
     restart: 'always'
     container_name: prod_pgslave_01
     env_file:
@@ -65,7 +65,7 @@ services:
 
 
   elastic:
-    image: becram/olen-elib-elastic:v25.18.0
+    image: becram/olen-elib-elastic:v25.19.0
     hostname: elastic
     container_name: prod_elastic_01
     environment:
@@ -93,7 +93,7 @@ services:
       - prod-net-pusta
 
   celery:
-    image: becram/olen-elib-celery:v25.18.0
+    image: becram/olen-elib-celery:v25.19.0
     restart: always
     container_name: prod_celery_01
     networks:
