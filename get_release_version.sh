@@ -15,8 +15,8 @@ fi
 grep -q 'stable' build.yml
 if [ $? -eq 0 ]; then
 	echo "Releasing version is ${RELEASE_TAG}"
-    sed -i.bak "s/\bstable-[^ ]*/${RELEASE_TAG}/g" build.yml
-    sed -i.bak "s/\bstable-[^ ]*/${RELEASE_TAG}/g" production.yml
+    sed -i.bak "s/\{RELEASE_TAG\}/${RELEASE_TAG}/g" build.yml.template > build.yml
+    sed -i.bak "s/\bstable-[^ ]*/${RELEASE_TAG}/g" production.yml.template > production.yml
 else
     echo "Failed to build because there is no version in build.yml file"
     exit 1
