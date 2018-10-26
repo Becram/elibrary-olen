@@ -1,4 +1,0 @@
-FROM kibana:latest  
-
-
-#COPY kibana.yml /etc/kibana/kibana.yml
