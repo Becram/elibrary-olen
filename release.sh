@@ -135,7 +135,7 @@ fi
   git add .
   git commit -m "Release version:v$next_version"
   git tag -a "v$next_version" -m "$msg"
-  git push origin --tags
+  git push  --tags origin $prodBranch
 
   echo -e "\e[32mRelease done: $next_version\e[0m"
 fi
