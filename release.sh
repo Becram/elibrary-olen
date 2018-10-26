@@ -128,12 +128,13 @@ fi
   # 4) Push the new tag
 
   echo "Push the tag $next_version"
+  echo "v$next_version" >> versions
   # Push master
   git add .
   git commit -m "Release version:v$next_version"
   git push  origin $prodBranch
   git push --tags
-  echo "v$next_version" >> versions
+
   echo -e "\e[32mRelease done: $next_version\e[0m"
 fi
 
