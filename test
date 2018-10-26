@@ -1,0 +1,9 @@
+#!/bin/bash
+next_version=24.0.1
+
+if [[ -f  build.yml.template && -f  production.yml.template ]]; then
+	  echo "Releasing version is $next_version"
+    sed   "s/RELEASE_TAG/${next_version}/g" build.yml.template > build.yml
+    sed   "s/RELEASE_TAG/${next_version}/g" production.yml.template > production.yml
+    exit 1
+fi
