@@ -114,13 +114,12 @@ if [ -z "$next_version" ]; then
        die "No release tag found; quitting"
 fi
 
-grep -q 'stable' build.yml
-if [ $? -eq 0 ]; then
-	echo "Releasing version is ${next_version}"
-    sed -i.bak "s/\bstable-[^ ]*/${next_version}/g" build.yml
-    sed -i.bak "s/\bstable-[^ ]*/${next_version}/g" production.yml
+if [[ -f  build.yml.template && -f  production.yml.template ]]; then
+	  echo "Releasing version is $next_version"
+    sed -i.bak "s/\bRELEASE_TAG/$next_version/g" build.yml.template > build.yml
+    sed -i.bak "s/\bRELEASE_TAG/$next_version/g" production.yml.template > production.yml
 else
-    echo "Failed to build because there is no version in build.yml file"
+    echo "build.yml.template and production.yml.template do not exist "
     exit 1
 fi
 
