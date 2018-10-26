@@ -1,6 +1,0 @@
-#!/bin/bash
-RELEASE=s1.8
-find . -type f -iname "Dockerfile.build" | while read -r FILE
-do
-  cp -v "${FILE}" "${FILE/.build/.$RELEASE}"
-done
