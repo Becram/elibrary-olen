@@ -1,7 +1,7 @@
 version: '3'
 services:
   nginx:
-    image: becram/olen-elib-nginx:v25.16.0
+    image: becram/olen-elib-nginx:v25.17.0
     networks:
       - pustakalaya-stack-network
     ports:
@@ -21,7 +21,7 @@ services:
 
 
   code:
-    image: becram/olen-elib-code:v25.16.0
+    image: becram/olen-elib-code:v25.17.0
     env_file:
       - ./dockerfile-code/code.env
     environment:
@@ -48,7 +48,7 @@ services:
 
 
   pgmaster:
-    image: becram/olen-elib-db-master:v25.16.0
+    image: becram/olen-elib-db-master:v25.17.0
     env_file:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
@@ -65,7 +65,7 @@ services:
         condition: on-failure
 
   pgslave:
-    image: becram/olen-elib-db-slave:v25.16.0
+    image: becram/olen-elib-db-slave:v25.17.0
     env_file:
       - ./dockerfile-postgres-slave/pgslave.env
     volumes:
@@ -84,11 +84,10 @@ services:
 
 
   elastic:
-    image: becram/olen-elib-elastic:v25.16.0
+    image: becram/olen-elib-elastic:v25.17.0
     environment:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-    restart: always
     volumes:
       - ./conf:/conf
     volumes:
@@ -107,9 +106,6 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.7
-    hostname: rabbitmq
-    container_name: prod_rabbitmq_01
-    restart: always
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
@@ -117,7 +113,7 @@ services:
       - pustakalaya-stack-network
 
   celery:
-    image: becram/olen-elib-celery:v25.16.0
+    image: becram/olen-elib-celery:v25.17.0
     networks:
       - pustakalaya-stack-network
     depends_on:
