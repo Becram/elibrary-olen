@@ -105,9 +105,7 @@ else
 
 
   # If it's not a dry run, let's go!
-  # 3) Add git tag
-  echo "Add git tag v$next_version with message: $msg"
-  git tag -a "v$next_version" -m "$msg"
+
 
 #  change build
 if [ -z "$next_version" ]; then
@@ -125,6 +123,10 @@ else
 fi
 
 
+# 3) Add git tag
+   echo "Add git tag v$next_version with message: $msg"
+
+
   # 4) Push the new tag
 
   echo "Push the tag $next_version"
@@ -132,8 +134,8 @@ fi
   # Push master
   git add .
   git commit -m "Release version:v$next_version"
-  git push  origin $prodBranch
-  git push --tags
+  git tag -a "v$next_version" -m "$msg"
+  git push origin --tags
 
   echo -e "\e[32mRelease done: $next_version\e[0m"
 fi
