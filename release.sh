@@ -95,12 +95,15 @@ else
   set -e
 
   #Creating dockerfile backups
+if [ -z $major ]
+then
   echo "Creating Dockerfile.$next_version"
   find . -type f -iname "Dockerfile.build" | while read -r FILE
   do
 
     cp  "${FILE}" "${FILE/.build/.$next_version}"
   done
+fi
 
 
 
