@@ -41,7 +41,7 @@ prepare:clean:
 build:images:
   stage: build
   script:
-    - ./get_release_version.sh
+    # - ./get_release_version.sh
     - ./get_latest_sql.sh
     # Build the Containers without caching and newest source image
     - docker-compose -f build.yml  build
