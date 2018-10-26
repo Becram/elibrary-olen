@@ -113,10 +113,11 @@ if [ -z "$next_version" ]; then
        exit 1
 fi
 
-if [[ -f  build.yml.template && -f  production.yml.template ]]; then
+if [[ -f  build.yml.template && -f  production.yml.template && -f  django-swarm.yml.template ]]; then
     echo "Releasing version is $next_version"
     sed   "s/RELEASE_TAG/v${next_version}/g" build.yml.template > build.yml
     sed   "s/RELEASE_TAG/v${next_version}/g" production.yml.template > production.yml
+    sed   "s/RELEASE_TAG/v${next_version}/g" django-swarm.yml.template > django-swarm.yml
 else
     echo "build.yml.template and production.yml.template do not exist "
     exit 1

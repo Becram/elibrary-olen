@@ -1,11 +1,9 @@
-version: '2'
+version: '3'
 services:
   nginx:
     image: becram/olen-elib-nginx:v25.15.0
-    restart: always
-    container_name: prod_nginx_01
     networks:
-      - prod-net-pusta
+      - pustakalaya-stack-network
     ports:
       - "80:8000"
     volumes:
@@ -13,12 +11,17 @@ services:
       - /library/static_root:/library/static_root:rw
     depends_on:
      - code
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
 
 
   code:
     image: becram/olen-elib-code:v25.15.0
-    restart: always
-    container_name: prod_code_01
     env_file:
       - ./dockerfile-code/code.env
     environment:
@@ -29,45 +32,59 @@ services:
       - pgslave
       - celery
       - rabbitmq
-
     volumes:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
     networks:
-      - prod-net-pusta
+      - pustakalaya-stack-network
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
 
 
 
   pgmaster:
     image: becram/olen-elib-db-master:v25.15.0
-    restart: 'always'
-    container_name: prod_pgmaster_01
     env_file:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
-     - production_postgres_data_master:/var/lib/postgresql/data
+     - stack_postgres_data_master:/var/lib/postgresql/data
      - /library/backup/postgres_backup:/backup/postgres_backup
     networks:
-      - prod-net-pusta
+      - pustakalaya-stack-network
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
 
   pgslave:
     image: becram/olen-elib-db-slave:v25.15.0
-    restart: 'always'
-    container_name: prod_pgslave_01
     env_file:
       - ./dockerfile-postgres-slave/pgslave.env
     volumes:
-      - production_postgres_data_slave:/var/lib/postgresql/data
+      - stack_postgres_data_slave:/var/lib/postgresql/data
     depends_on:
       - pgmaster
     networks:
-      - prod-net-pusta
+      - pustakalaya-stack-network
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
 
 
   elastic:
     image: becram/olen-elib-elastic:v25.15.0
-    hostname: elastic
-    container_name: prod_elastic_01
     environment:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -75,11 +92,18 @@ services:
     volumes:
       - ./conf:/conf
     volumes:
-      - production_elastic_data:/usr/share/elasticsearch/data
+      - stack_elastic_data:/usr/share/elasticsearch/data
     networks:
-      - prod-net-pusta
+      - pustakalaya-stack-network
     depends_on:
       - pgmaster
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
 
   rabbitmq:
     image: rabbitmq:3.7
@@ -90,26 +114,31 @@ services:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
     networks:
-      - prod-net-pusta
+      - pustakalaya-stack-network
 
   celery:
     image: becram/olen-elib-celery:v25.15.0
-    restart: always
-    container_name: prod_celery_01
     networks:
-      - prod-net-pusta
+      - pustakalaya-stack-network
     depends_on:
       - pgmaster
       - rabbitmq
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
 
 
 volumes:
-  production_postgres_data_slave:
-  production_postgres_data_master:
-  production_elastic_data:
+  stack_postgres_data_slave:
+  stack_postgres_data_master:
+  stack_elastic_data:
 
 
 
 networks:
-  prod-net-pusta:
-    driver: bridge
+  pustakalaya-stack-network:
+    driver: overlay
