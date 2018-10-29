@@ -7,6 +7,8 @@
 # 3) Add a new git tag
 # 4) Push the tag
 
+
+DATE=`date '+%Y-%m-%d %H:%M:%S'`
 #production branch
 prodBranch=bikram-stack
 
@@ -134,7 +136,7 @@ fi
   # 4) Push the new tag
 
   echo "Push the tag $next_version"
-  echo "v$next_version" >> versions
+  echo "v$next_version on $DATE" >> versions
   sed -i "67s/.*/\<p\>v$next_version\<\/p\>/" src/templates/static_pages/about.html
   # Push master
   git add .
