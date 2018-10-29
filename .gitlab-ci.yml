@@ -90,6 +90,7 @@ deploy:production-live:
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     # Push images to the gitlab remote
     - echo "Deploying Pustakalaya"
+    - docker-compose -f build.yml pull
     - docker stack deploy --compose-file django-swarm.yml pusta
   # Only these branches are getting pushed
   only:
