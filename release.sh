@@ -135,7 +135,7 @@ fi
 
   echo "Push the tag $next_version"
   echo "v$next_version" >> versions
-  sed -i "67s/.*/\<p\>$next_version\<\/p\>/" src/templates/static_pages/about.html
+  sed -i "67s/.*/\<p\>v$next_version\<\/p\>/" src/templates/static_pages/about.html
   # Push master
   git add .
   git commit -m "Release version:v$next_version"
