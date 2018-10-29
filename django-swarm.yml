@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   nginx:
-    image: becram/olen-elib-nginx:v25.25.0
+    image: becram/olen-elib-nginx:v25.26.0
     networks:
       - pustakalaya-stack-network
     ports:
@@ -16,13 +16,13 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
-        order: start-first 
+        order: start-first
       restart_policy:
         condition: on-failure
 
 
   code:
-    image: becram/olen-elib-code:v25.25.0
+    image: becram/olen-elib-code:v25.26.0
     env_file:
       - ./dockerfile-code/code.env
     environment:
@@ -43,13 +43,14 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
+        order: start-first
       restart_policy:
         condition: on-failure
 
 
 
   pgmaster:
-    image: becram/olen-elib-db-master:v25.25.0
+    image: becram/olen-elib-db-master:v25.26.0
     env_file:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
@@ -62,11 +63,12 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
+        order: start-first
       restart_policy:
         condition: on-failure
 
   pgslave:
-    image: becram/olen-elib-db-slave:v25.25.0
+    image: becram/olen-elib-db-slave:v25.26.0
     env_file:
       - ./dockerfile-postgres-slave/pgslave.env
     volumes:
@@ -80,12 +82,13 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
+        order: start-first
       restart_policy:
         condition: on-failure
 
 
   elastic:
-    image: becram/olen-elib-elastic:v25.25.0
+    image: becram/olen-elib-elastic:v25.26.0
     environment:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -102,6 +105,7 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
+        order: start-first
       restart_policy:
         condition: on-failure
 
@@ -114,7 +118,7 @@ services:
       - pustakalaya-stack-network
 
   celery:
-    image: becram/olen-elib-celery:v25.25.0
+    image: becram/olen-elib-celery:v25.26.0
     networks:
       - pustakalaya-stack-network
     depends_on:
@@ -125,6 +129,7 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
+        order: start-first
       restart_policy:
         condition: on-failure
 
