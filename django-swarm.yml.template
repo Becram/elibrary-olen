@@ -14,8 +14,8 @@ services:
     deploy:
       replicas: 2
       update_config:
-        parallelism: 2
-        delay: 10s
+        parallelism: 1
+        delay: 5m
         order: start-first
       restart_policy:
         condition: on-failure
@@ -41,8 +41,8 @@ services:
     deploy:
       replicas: 2
       update_config:
-        parallelism: 2
-        delay: 10s
+        parallelism: 1
+        delay: 5m
         order: start-first
       restart_policy:
         condition: on-failure
@@ -59,9 +59,9 @@ services:
     networks:
       - pustakalaya-stack-network
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
-        parallelism: 2
+        parallelism: 1
         delay: 10s
         order: start-first
       restart_policy:
@@ -78,9 +78,9 @@ services:
     networks:
       - pustakalaya-stack-network
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
-        parallelism: 2
+        parallelism: 1
         delay: 10s
         order: start-first
       restart_policy:
@@ -101,9 +101,9 @@ services:
     depends_on:
       - pgmaster
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
-        parallelism: 2
+        parallelism: 1
         delay: 10s
         order: start-first
       restart_policy:
@@ -125,10 +125,10 @@ services:
       - pgmaster
       - rabbitmq
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
-        parallelism: 2
-        delay: 10s
+        parallelism: 1
+        delay: 5m
         order: start-first
       restart_policy:
         condition: on-failure

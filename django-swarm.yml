@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   nginx:
-    image: becram/olen-elib-nginx:v25.29.0
+    image: becram/olen-elib-nginx:v25.30.0
     networks:
       - pustakalaya-stack-network
     ports:
@@ -14,15 +14,15 @@ services:
     deploy:
       replicas: 2
       update_config:
-        parallelism: 2
-        delay: 10s
+        parallelism: 1
+        delay: 5m
         order: start-first
       restart_policy:
         condition: on-failure
 
 
   code:
-    image: becram/olen-elib-code:v25.29.0
+    image: becram/olen-elib-code:v25.30.0
     env_file:
       - ./dockerfile-code/code.env
     environment:
@@ -41,8 +41,8 @@ services:
     deploy:
       replicas: 2
       update_config:
-        parallelism: 2
-        delay: 10s
+        parallelism: 1
+        delay: 5m
         order: start-first
       restart_policy:
         condition: on-failure
@@ -50,7 +50,7 @@ services:
 
 
   pgmaster:
-    image: becram/olen-elib-db-master:v25.29.0
+    image: becram/olen-elib-db-master:v25.30.0
     env_file:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
@@ -59,16 +59,16 @@ services:
     networks:
       - pustakalaya-stack-network
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
-        parallelism: 2
+        parallelism: 1
         delay: 10s
         order: start-first
       restart_policy:
         condition: on-failure
 
   pgslave:
-    image: becram/olen-elib-db-slave:v25.29.0
+    image: becram/olen-elib-db-slave:v25.30.0
     env_file:
       - ./dockerfile-postgres-slave/pgslave.env
     volumes:
@@ -78,9 +78,9 @@ services:
     networks:
       - pustakalaya-stack-network
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
-        parallelism: 2
+        parallelism: 1
         delay: 10s
         order: start-first
       restart_policy:
@@ -88,7 +88,7 @@ services:
 
 
   elastic:
-    image: becram/olen-elib-elastic:v25.29.0
+    image: becram/olen-elib-elastic:v25.30.0
     environment:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -101,9 +101,9 @@ services:
     depends_on:
       - pgmaster
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
-        parallelism: 2
+        parallelism: 1
         delay: 10s
         order: start-first
       restart_policy:
@@ -118,17 +118,17 @@ services:
       - pustakalaya-stack-network
 
   celery:
-    image: becram/olen-elib-celery:v25.29.0
+    image: becram/olen-elib-celery:v25.30.0
     networks:
       - pustakalaya-stack-network
     depends_on:
       - pgmaster
       - rabbitmq
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
-        parallelism: 2
-        delay: 10s
+        parallelism: 1
+        delay: 5m
         order: start-first
       restart_policy:
         condition: on-failure
