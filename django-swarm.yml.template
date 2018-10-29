@@ -15,7 +15,7 @@ services:
       replicas: 2
       update_config:
         parallelism: 1
-        delay: 5m
+        delay: 10s
         order: start-first
       restart_policy:
         condition: on-failure
@@ -42,7 +42,7 @@ services:
       replicas: 2
       update_config:
         parallelism: 1
-        delay: 5m
+        delay: 10s
         order: start-first
       restart_policy:
         condition: on-failure
@@ -128,7 +128,7 @@ services:
       replicas: 2
       update_config:
         parallelism: 1
-        delay: 5m
+        delay: 10m
         order: start-first
       restart_policy:
         condition: on-failure
