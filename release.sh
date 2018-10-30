@@ -10,7 +10,7 @@
 
 DATE=`date '+%Y-%m-%d %H:%M:%S'`
 #production branch
-prodBranch=bikram-stack
+prodBranch=production
 
 
 

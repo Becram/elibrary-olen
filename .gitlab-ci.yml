@@ -26,7 +26,7 @@ prepare:clean:
     # Stop all containers
     # - docker-compose -f production.yml exec pgmaster /autopgsqlbackup
     # - docker-compose -f development.yml down
-    - docker-compose -f development down
+    - docker-compose -f development.yml down
     # Remove all containers and volumes
     # - docker-compose -f development.yml rm -fv
     # - docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
