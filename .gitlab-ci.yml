@@ -1,10 +1,11 @@
 # Stages are run in sequence, jobs in the same stage are run in parallel
 # See https://docs.gitlab.com/ce/ci/yaml/
 # TODO: Correct the tags to fit your gitlab
+
+
 stages:
   - prepare
-  - install
-  # - push
+  - build
   - deploy
 
 # Specify custom variables
@@ -13,58 +14,85 @@ stages:
 #   COMPOSE_PROJECT_NAME: $CI_PROJECT_NAME-$CI_BUILD_REF_NAME
 #   # How to store the image
 #   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
-
+before_script:
+  - cp -rv versions /library/media_root/release_version.txt
 # Prepare
 # -------
 # Removes old images and containers, if they exist
+################################################
 prepare:clean:
   stage: prepare
   script:
     # Stop all containers
-    - docker-compose -f development.yml stop
+    # - docker-compose -f production.yml exec pgmaster /autopgsqlbackup
+    # - docker-compose -f development.yml down
+    - docker-compose -f development down
     # Remove all containers and volumes
-    - docker-compose -f development.yml rm -fv
-    - docker-compose -f development.yml ps
+    # - docker-compose -f development.yml rm -fv
+    # - docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
+  only:
+    - tags
   tags:
-    - production
-
+    - development
+##################################################
 # Install
 # -------
 # Build all images
-install:containers:
-  stage: install
-  script:
-    # Build the Containers without caching and newest source image
-    - docker-compose -f development.yml  build --pull
-  tags:
-    - production
+# build:images:
+#   stage: build
+#   script:
+#     # - ./get_release_version.sh
+#     # - ./get_latest_sql.sh
+#     # Build the Containers without caching and newest source image
+#     - docker-compose -f build.yml  build
+#     # - docker-compose -f build.yml  push
+#     # - docker-compose -f build.yml  push
+#   only:
+#     - tags
+#   tags:
+#     - development
 
 # Push
 # ----
 # Pushes the Docker image to th registry for selected tags
-# push:image:
-#   stage: push
-#   script:
-#     # Login to the registry
-#     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-#     # Push images to the gitlab remote
-#     - docker-compose push
-#   # Only these branches are getting pushed
-#   only:
-#     - develop
-#     - master
-#     - tags
-#   tags:
-#     - meetup
-
-# Deploy
-# ------
-# Starts the containers
-deploy:http:
+deploy:development-cloud:
   stage: deploy
   script:
-    # Bring up the app
-    - docker-compose -f development.yml up -d
+    # Login to the registry
+    # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    # Push images to the gitlab remote
+    - docker-compose -f development.yml up  --build -d
+    # - docker stack deploy --compose-file django-swarm.yml pusta
+  # Only these branches are getting pushed
+  # when: manual
+  only:
+    - tags
+  tags:
+    - development
+
+deploy:push-image:
+  stage: deploy
+  script:
+    # - docker-compose -f production.yml up -d
+    - docker-compose -f build.yml push
+  # Only these branches are getting pushed
+  # when: manual
+  only:
+    - tags
+  tags:
+    - development
+
+deploy:production-live:
+  stage: deploy
+  script:
+    # Login to the registry
+    # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    # Push images to the gitlab remote
+    - docker-compose -f build.yml pull
+    - docker stack deploy --compose-file django-swarm.yml pusta
+  # Only these branches are getting pushed
+  only:
+    - tags
+  # when: manual
   tags:
     - production
-

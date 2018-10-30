@@ -8,7 +8,7 @@ services:
     hostname: nginx
     container_name: dev_nginx_01
     networks:
-      - net-pusta
+      - dev-net-pusta
     ports:
       - "81:8000"
     volumes:
@@ -23,18 +23,10 @@ services:
     restart: always
     hostname: code
     container_name: dev_code_01
+    env_file:
+      - ./dockerfile-code/code.env
     environment:
       - DJANGO_SETTINGS_MODULE=pustakalaya.settings.development
-      - DJANGO_DATABASE_ENGINE=django.db.backends.postgresql_psycopg2
-      - DJANGO_DATABASE_HOST=pgmaster
-      - DJANGO_DATABASE_NAME=pustakalaya
-      - DJANGO_DATABASE_USER=pustakalaya_user
-      - DJANGO_DATABASE_PASSWORD=pustakalaya123
-      - DJANGO_LOGSTASH_HOST=logstash
-      - DJANGO_LOGSTASH_PORT=5000
-      - GUNICORN_NAME=pustakalaya
-      - GUNICORN_NUM_WORKERS=4
-      - DJANGO_WSGI_MODULE=pustakalaya.wsgi
     depends_on:
       - pgmaster
       - elastic
@@ -47,7 +39,7 @@ services:
       - /library/static_root:/library/static_root:rw
       - ./src:/src:rw
     networks:
-      - net-pusta
+      - dev-net-pusta
     tty: true
 
 
@@ -58,16 +50,13 @@ services:
     restart: 'always'
     hostname: pgmaster
     container_name: dev_pgmaster_01
-    environment:
-      - POSTGRES_USER=pustakalaya_user
-      - POSTGRES_DB=pustakalaya
-      - POSTGRES_PASSWORD=pustakalaya123
-      - PGDATA=/var/lib/postgresql/data/pgdata
+    env_file:
+      - ./dockerfile-postgres-master/pgmaster.env
     volumes:
-     - postgres_data_master:/var/lib/postgresql/data
-     - postgres_dump:/pg_backups
+     - development_postgres_data_master:/var/lib/postgresql/data
+     - /library/backup/postgres_backup:/backup/postgres_backup
     networks:
-      - net-pusta
+      - dev-net-pusta
 
   pgslave:
     build:
@@ -76,18 +65,14 @@ services:
     restart: 'always'
     hostname: db-slave
     container_name: dev_pgslave_01
-    environment:
-      - POSTGRES_USER=pustakalaya_user
-      - POSTGRES_DB=pustakalaya
-      - POSTGRES_PASSWORD=pustakalaya123
-      - PGDATA=/var/lib/postgresql/data/pgdata
-      - REPLICATE_FROM=pgmaster
+    env_file:
+      - ./dockerfile-postgres-slave/pgslave.env
     volumes:
-      - postgres_data_slave:/var/lib/postgresql/data
+      - development_postgres_data_slave:/var/lib/postgresql/data
     depends_on:
       - pgmaster
     networks:
-      - net-pusta
+      - dev-net-pusta
 
 
   elastic:
@@ -101,9 +86,9 @@ services:
     restart: always
     container_name: dev_elasticsearch_01
     volumes:
-      - pusta_elastic:/usr/share/elasticsearch/data
+      - development_elastic_data:/usr/share/elasticsearch/data
     networks:
-      - net-pusta
+      - dev-net-pusta
     depends_on:
       - pgmaster
 
@@ -116,32 +101,31 @@ services:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
     networks:
-      - net-pusta
+      - dev-net-pusta
 
   celery:
     build:
       context: .
-      dockerfile: ./dockerfile-celery/Dockerfile.summit
+      dockerfile: ./dockerfile-celery/Dockerfile.dev
     hostname: celery
     restart: always
     container_name: dev_celery_01
     volumes:
       - ./src:/src:rw
     networks:
-      - net-pusta
+      - dev-net-pusta
     depends_on:
       - pgmaster
       - rabbitmq
 
 
 volumes:
-  postgres_data_slave:
-  postgres_data_master:
-  postgres_dump:
-  pusta_elastic:
+  development_postgres_data_slave:
+  development_postgres_data_master:
+  development_elastic_data:
 
 
 
 networks:
-  net-pusta:
+  dev-net-pusta:
     driver: bridge

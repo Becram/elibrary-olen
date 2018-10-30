@@ -26,11 +26,6 @@ done
 
 echo "$(date) - connected successfully"
 
-python manage.py migrate --settings=pustakalaya.settings.production >> /dev/stdout 2>&1 &&
-
-python manage.py index_pustakalaya --settings=pustakalaya.settings.production >> /dev/stdout 2>&1  &&
-
-python manage.py collectstatic --settings=pustakalaya.settings.production   --noinput >> /dev/stdout 2>&1
 
 # django-admin migrate --noinput
 # django-admin collectstatic --noinput
@@ -43,7 +38,6 @@ python manage.py collectstatic --settings=pustakalaya.settings.production   --no
 if ! [ -z "${DJANGO_DEBUG}" ]; then
     django-admin runserver 0.0.0.0:8001
 else
-    export DJANGO_SETTINGS_MODULE=pustakalaya.settings.production
     gunicorn ${DJANGO_WSGI_MODULE}:application \
     --name $GUNICORN_NAME  \
     --workers $GUNICORN_NUM_WORKERS  \
@@ -52,3 +46,9 @@ else
     --timeout=90 \
     --log-file=/var/log/gunicorn-error.log
 fi
+
+python manage.py migrate --settings=${DJANGO_SETTINGS_MODULE} >> /dev/stdout 2>&1 &&
+
+python manage.py index_pustakalaya --settings=${DJANGO_SETTINGS_MODULE} >> /dev/stdout 2>&1  &&
+
+python manage.py collectstatic --settings=${DJANGO_SETTINGS_MODULE}   --noinput >> /dev/stdout 2>&1
