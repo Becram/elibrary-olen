@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   nginx:
-    image: becram/olen-elib-nginx:v2.0.0
+    image: becram/olen-elib-nginx:v2.1.0
     networks:
       - pustakalaya-stack-network
     ports:
@@ -22,7 +22,7 @@ services:
 
 
   code:
-    image: becram/olen-elib-code:v2.0.0
+    image: becram/olen-elib-code:v2.1.0
     env_file:
       - ./dockerfile-code/code.env
     environment:
@@ -50,7 +50,7 @@ services:
 
 
   pgmaster:
-    image: becram/olen-elib-db-master:v2.0.0
+    image: becram/olen-elib-db-master:v2.1.0
     env_file:
       - ./dockerfile-postgres-master/pgmaster.env
     volumes:
@@ -68,7 +68,7 @@ services:
         condition: on-failure
 
   pgslave:
-    image: becram/olen-elib-db-slave:v2.0.0
+    image: becram/olen-elib-db-slave:v2.1.0
     env_file:
       - ./dockerfile-postgres-slave/pgslave.env
     volumes:
@@ -88,7 +88,7 @@ services:
 
 
   elastic:
-    image: becram/olen-elib-elastic:v2.0.0
+    image: becram/olen-elib-elastic:v2.1.0
     environment:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -118,7 +118,7 @@ services:
       - pustakalaya-stack-network
 
   celery:
-    image: becram/olen-elib-celery:v2.0.0
+    image: becram/olen-elib-celery:v2.1.0
     networks:
       - pustakalaya-stack-network
     depends_on:
