@@ -74,7 +74,9 @@ deploy:push-image:
   stage: deploy
   script:
     # - docker-compose -f production.yml up -d
+    - docker-compose -f build.yml build
     - docker-compose -f build.yml push
+
   # Only these branches are getting pushed
   # when: manual
   only:
