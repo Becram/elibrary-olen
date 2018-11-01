@@ -30,8 +30,8 @@ prepare:clean:
     # Remove all containers and volumes
     # - docker-compose -f development.yml rm -fv
     # - docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
-  only:
-    - tags
+  # only:
+  #   - tags
   tags:
     - development
 ##################################################
@@ -55,7 +55,7 @@ prepare:clean:
 # Push
 # ----
 # Pushes the Docker image to th registry for selected tags
-deploy:development-cloud:
+deploy:dev.pustakalaya.org:
   stage: deploy-dev
   script:
     # Login to the registry
@@ -65,8 +65,8 @@ deploy:development-cloud:
     # - docker stack deploy --compose-file django-swarm.yml pusta
   # Only these branches are getting pushed
   # when: manual
-  only:
-    - tags
+  # only:
+  #   - tags
   tags:
     - development
 
@@ -83,7 +83,7 @@ deploy:push-image:
   tags:
     - development
 
-deploy:production-live:
+deploy:pustakalaya.org:
   stage: deploy-prod
   script:
     # Login to the registry
