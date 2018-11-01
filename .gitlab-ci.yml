@@ -19,7 +19,7 @@ prepare:clean:
     - development
 
 build:dev:
-  stage: deploy-dev
+  stage: build
   script:
     - docker-compose -f development.yml build
   # when: manual
