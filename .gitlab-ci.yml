@@ -1,0 +1,41 @@
+# Stages are run in sequence, jobs in the same stage are run in parallel
+# See https://docs.gitlab.com/ce/ci/yaml/
+# TODO: Correct the tags to fit your gitlab
+
+
+stages:
+  - clean
+  - build
+  - deploy-dev
+
+
+prepare:clean:
+  stage: clean
+  script:
+    - docker-compose -f development.yml down
+  only:
+    - sumit-stack
+  tags:
+    - development
+
+build:dev:
+  stage: deploy-dev
+  script:
+    - docker-compose -f development.yml build
+  # when: manual
+  only:
+    - sumit-stack
+  tags:
+    - development
+# Push
+# ----
+# Pushes the Docker image to th registry for selected tags
+deploy:dev.pustakalaya.org:
+  stage: deploy-dev
+  script:
+    - docker-compose -f development.yml up  -d
+  # when: manual
+  only:
+    - sumit-stack
+  tags:
+    - development
