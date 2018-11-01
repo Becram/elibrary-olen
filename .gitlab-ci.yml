@@ -5,8 +5,8 @@
 
 stages:
   - prepare
-  - build
-  - deploy
+  - deploy-dev
+  - deploy-prod
 
 # Specify custom variables
 # variables:
@@ -56,7 +56,7 @@ prepare:clean:
 # ----
 # Pushes the Docker image to th registry for selected tags
 deploy:development-cloud:
-  stage: deploy
+  stage: deploy-dev
   script:
     # Login to the registry
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
@@ -76,7 +76,6 @@ deploy:push-image:
     # - docker-compose -f production.yml up -d
     - docker-compose -f build.yml build
     - docker-compose -f build.yml push
-
   # Only these branches are getting pushed
   # when: manual
   only:
@@ -85,7 +84,7 @@ deploy:push-image:
     - development
 
 deploy:production-live:
-  stage: deploy
+  stage: deploy-prod
   script:
     # Login to the registry
     # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
