@@ -18,6 +18,7 @@ from pustakalaya_apps.document.models import (
     DocumentIdentifier
 )
 
+
 @api_view(['GET', "POST"])
 def document_lists(request, format=None):
     """
@@ -28,8 +29,8 @@ def document_lists(request, format=None):
     if request.method == 'GET':
         pagination_class = PageNumberPagination 
         paginator = PageNumberPagination()
-        paginator.page_size = 1
-        documents = Document.objects.all()
+        paginator.page_size = 10
+        documents = Document.objects.filter(published="yes")
         page = paginator.paginate_queryset(documents, request)
         serializer = DocumentSerializer(page, many=True)
 
@@ -113,7 +114,6 @@ documentlinkinfo_detail = DocumentLinkInfoViewSet.as_view({
 })
 
 
-
 class DocumentSeriesViewSet(viewsets.ModelViewSet):
     """
     DocumentSeries endpoint to  `list`, `create`, `retrieve`,
@@ -134,6 +134,7 @@ documentseries_detail = DocumentSeriesViewSet.as_view({
     'patch': 'partial_update',
     'delete': 'destroy'
 })
+
 
 # DocumentIdentifierSerializer viewsets
 class DocumentIdentifierViewSet(viewsets.ModelViewSet):
