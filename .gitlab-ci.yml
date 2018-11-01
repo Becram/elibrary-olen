@@ -30,8 +30,8 @@ prepare:clean:
     # Remove all containers and volumes
     # - docker-compose -f development.yml rm -fv
     # - docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
-  # only:
-  #   - tags
+  only:
+    - tags
   tags:
     - development
 ##################################################
@@ -65,8 +65,8 @@ deploy:dev.pustakalaya.org:
     # - docker stack deploy --compose-file django-swarm.yml pusta
   # Only these branches are getting pushed
   # when: manual
-  # only:
-  #   - tags
+  only:
+    - tags
   tags:
     - development
 
