@@ -71,7 +71,7 @@ deploy:development-cloud:
     - development
 
 deploy:push-image:
-  stage: deploy
+  stage: deploy-dev
   script:
     # - docker-compose -f production.yml up -d
     - docker-compose -f build.yml build
