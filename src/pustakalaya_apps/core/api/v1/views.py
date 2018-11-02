@@ -1,4 +1,6 @@
-from rest_framework import viewsets
+from rest_framework import status, viewsets
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from .serializers import (
     BiographySerializer,
     KeyWordSerializer,
@@ -19,13 +21,44 @@ from pustakalaya_apps.core.models import (
     LicenseType,
 )
 
+from pustakalaya_apps.document.models import Document
+from pustakalaya_apps.document.api.v1.serializers import DocumentSerializer
+
+from pustakalaya_apps.audio.models import Audio
+from pustakalaya_apps.audio.api.v1.serializers import AudioSerializers
+
+from pustakalaya_apps.video.models import Video
+from pustakalaya_apps.video.api.v1.serializers import VideoSerializers
+
+
+@api_view(['GET'])
+def items_list_by_collection(request, pk):
+    """
+    Endpoint to get list of audios, videos
+    and documents based on collection
+    """
+
+    if request.method == 'GET':
+        documents = Document.objects.filter(published="yes", collections=pk).order_by("-created_date")
+        documents_serializer = DocumentSerializer(documents, many=True)
+        audios = Audio.objects.filter(published="yes", collections=pk).order_by("-created_date")
+        audios_serializer = AudioSerializers(audios, many=True)
+        videos = Video.objects.filter(published="yes", collections=pk).order_by("-created_date")
+        videos_serializer = VideoSerializers(videos, many=True)
+        return Response(
+            [{'documents': documents_serializer.data,
+              'audios': audios_serializer.data,
+              'videos': videos_serializer.data}],
+            status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 class BiographyViewSet(viewsets.ModelViewSet):
     """
     Endpoint to CRUD Authors
     """
     queryset = Biography.objects.all()
     serializer_class = BiographySerializer
-
 
 
 biography_list = BiographyViewSet.as_view({
@@ -49,6 +82,7 @@ class KeywordViewSet(viewsets.ModelViewSet):
     queryset = Keyword.objects.all()
     serializer_class = KeyWordSerializer
 
+
 keyword_list = KeywordViewSet.as_view({
     'get': 'list',
     'post': 'create'
@@ -60,7 +94,6 @@ keyword_detail = KeywordViewSet.as_view({
     'patch': 'partial_update',
     'delete': 'destroy'
 })
-
 
 
 class LanguageViewSet(viewsets.ModelViewSet):
@@ -107,7 +140,6 @@ publisher_detail = PublisherViewSet.as_view({
 })
 
 
-
 class EducationLevelViewSet(viewsets.ModelViewSet):
     """
      Education Level endpoint to  `list`, `create`, `retrieve`,
@@ -128,9 +160,6 @@ educationlevel_detail = EducationLevelViewSet.as_view({
     'patch': 'partial_update',
     'delete': 'destroy'
 })
-
-
-
 
 
 class SponsorViewSet(viewsets.ModelViewSet):
