@@ -6,7 +6,7 @@ RUN apt-get -qq update -y  && apt-get -qq upgrade -y  && apt-get -qq install -y 
 RUN apt-get autoremove -y
 
 # upgrade pip
-RUN pip install --upgrade pip
+RUN pip  --quiet  install --upgrade pip
 
 
 RUN mkdir -p /library/media_root
