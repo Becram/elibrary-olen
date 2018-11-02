@@ -52,7 +52,7 @@ USER ${APP_USER}
 
 # Prepare initial
 
-#COPY ./dockerfile-code/entrypoint.sh /src/entrypoint.sh
+COPY ./dockerfile-code/entrypoint.sh /src/entrypoint.sh
 
 
 

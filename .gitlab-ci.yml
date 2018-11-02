@@ -4,38 +4,64 @@
 
 
 stages:
-  - clean
-  - build
-  - deploy-dev
+  - prepare-images
+  - push-images
+  - pull-images-test
+  - deploy-test
+  - pull-images-live
+  - deploy-live
 
+before_script:
+  - cp -rv versions /library/media_root/release_version.txt
 
-prepare:clean:
-  stage: clean
+prepare:image:
+  stage: prepare-images
   script:
-    - docker-compose -f development.yml down
+    - docker-compose -f build.yml build
   only:
-    - sumit-stack
+    - tags
   tags:
     - development
 
-build:dev:
-  stage: build
-  script:
-    - docker-compose -f development.yml build
-  # when: manual
-  only:
-    - sumit-stack
-  tags:
-    - development
 # Push
 # ----
 # Pushes the Docker image to th registry for selected tags
-deploy:dev.pustakalaya.org:
-  stage: deploy-dev
+push:image:
+  stage: push-images
   script:
-    - docker-compose -f development.yml up  -d
+    - docker-compose -f build.yml push
   # when: manual
   only:
-    - sumit-stack
+    - tags
   tags:
     - development
+
+pull:production-test:pull-image:
+  stage: pull-images-test
+  script:
+    - docker-compose -f build.yml pull
+  # when: manual
+  only:
+    - tags
+  tags:
+    - production-test
+
+deploy:production-test:
+  stage: pull-images-live
+  script:
+    - docker stack deploy --compose-file django-swarm.yml pusta
+  only:
+    - tags
+  when: manual
+  tags:
+    - production
+
+deploy:production-live:pull-image:
+  stage: deploy-live
+  script:
+    - docker stack deploy --compose-file django-swarm.yml pusta
+  only:
+    - tags
+  when: manual
+  tags:
+    - production
