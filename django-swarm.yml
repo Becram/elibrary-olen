@@ -1,0 +1,146 @@
+version: '3.4'
+services:
+  nginx:
+    image: becram/olen-elib-nginx:v3.4.0
+    networks:
+      - pustakalaya-stack-network
+    ports:
+      - "80:8000"
+    volumes:
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
+    depends_on:
+     - code
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+
+
+  code:
+    image: becram/olen-elib-code:v3.4.0
+    env_file:
+      - ./dockerfile-code/code.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=pustakalaya.settings.production
+    depends_on:
+      - pgmaster
+      - elastic
+      - pgslave
+      - celery
+      - rabbitmq
+    volumes:
+      - /library/media_root:/library/media_root:rw
+      - /library/static_root:/library/static_root:rw
+    networks:
+      - pustakalaya-stack-network
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+
+
+
+  pgmaster:
+    image: becram/olen-elib-db-master:v3.4.0
+    env_file:
+      - ./dockerfile-postgres-master/pgmaster.env
+    volumes:
+     - stack_postgres_data_master:/var/lib/postgresql/data
+     - /library/backup/postgres_backup:/backup/postgres_backup
+    networks:
+      - pustakalaya-stack-network
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+
+  pgslave:
+    image: becram/olen-elib-db-slave:v3.4.0
+    env_file:
+      - ./dockerfile-postgres-slave/pgslave.env
+    volumes:
+      - stack_postgres_data_slave:/var/lib/postgresql/data
+    depends_on:
+      - pgmaster
+    networks:
+      - pustakalaya-stack-network
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+
+
+  elastic:
+    image: becram/olen-elib-elastic:v3.4.0
+    environment:
+      # server memory dependent
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    volumes:
+      - ./conf:/conf
+    volumes:
+      - stack_elastic_data:/usr/share/elasticsearch/data
+    networks:
+      - pustakalaya-stack-network
+    depends_on:
+      - pgmaster
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+
+  rabbitmq:
+    image: rabbitmq:3.7
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    networks:
+      - pustakalaya-stack-network
+
+  celery:
+    image: becram/olen-elib-celery:v3.4.0
+    networks:
+      - pustakalaya-stack-network
+    depends_on:
+      - pgmaster
+      - rabbitmq
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10m
+        order: start-first
+      restart_policy:
+        condition: on-failure
+
+
+volumes:
+  stack_postgres_data_slave:
+  stack_postgres_data_master:
+  stack_elastic_data:
+
+
+
+networks:
+  pustakalaya-stack-network:
+    driver: overlay

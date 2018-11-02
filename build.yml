@@ -1,35 +1,35 @@
 version: '2'
 services:
   nginx:
-    image: becram/olen-elib-nginx:s1.2
+    image: becram/olen-elib-nginx:v3.4.0
     build:
       context: ./dockerfile-nginx/
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.build
 
-  web:
+  code:
     build:
       context: .
-      dockerfile: ./dockerfile-code/Dockerfile.dev
-    image: becram/olen-elib-code:s1.2
+      dockerfile: ./dockerfile-code/Dockerfile.build
+    image: becram/olen-elib-code:v3.4.0
 
   pgmaster:
-    image: becram/olen-elib-db-master:s1.2
+    image: becram/olen-elib-db-master:v3.4.0
     build:
       context: ./dockerfile-postgres-master
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.build
 
   pgslave:
-    image: becram/olen-elib-db-slave:s1.2
+    image: becram/olen-elib-db-slave:v3.4.0
     build:
       context: ./dockerfile-postgres-slave
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.build
 
 
   elastic:
-    image: becram/olen-elib-elastic:s1.2
+    image: becram/olen-elib-elastic:v3.4.0
     build:
       context: ./dockerfile-elastic
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.build
 
 
   rabbitmq:
@@ -37,17 +37,17 @@ services:
 
 
   celery:
-    image: becram/olen-elib-celery:s1.2
+    image: becram/olen-elib-celery:v3.4.0
     build:
       context: .
-      dockerfile: ./dockerfile-celery/Dockerfile.dev
+      dockerfile: ./dockerfile-celery/Dockerfile.build
 
 
   # kibana:
   #   image: becram/olen-elib-kibana:s1.0
   #   build:
   #     context: ./dockerfile-kibana
-  #     dockerfile: Dockerfile.dev
+  #     dockerfile: Dockerfile.build
   #   container_name: pusta_kibana_01
   #   ports:
   #     - "5601:5601"
@@ -60,7 +60,7 @@ services:
   #   image: becram/olen-elib-logstash:s1.0
   #   build:
   #     context: ./dockerfile-logstash
-  #     dockerfile: Dockerfile.dev
+  #     dockerfile: Dockerfile.build
   #   hostname: logstash
   #   container_name: pusta_logstash_01
   # #  command: sh -c "logstash -e 'input { syslog  { type => syslog port => 10514   } gelf { } } output { stdout { codec => rubydebug } elasticsearch { hosts => [ \"elastic:9200\" ] } }'"

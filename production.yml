@@ -1,48 +1,28 @@
 version: '2'
 services:
   nginx:
-    image: becram/olen-elib-nginx:s1.1
-    build:
-      context: ./dockerfile-nginx/
-      dockerfile: Dockerfile.dev
+    image: becram/olen-elib-nginx:v3.4.0
     restart: always
-    hostname: nginx
-    container_name: pusta_nginx_01
+    container_name: prod_nginx_01
     networks:
-      - net-pusta
+      - prod-net-pusta
     ports:
       - "80:8000"
     volumes:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
-    logging:
-      driver: gelf
-      options:
-        gelf-address: udp://127.0.0.1:8012
-        tag: nginx
-    tty: true
     depends_on:
-     - web
-  web:
-    build:
-      context: .
-      dockerfile: ./dockerfile-code/Dockerfile.dev
-    image: becram/olen-elib-code:s1.2
+     - code
+
+
+  code:
+    image: becram/olen-elib-code:v3.4.0
     restart: always
-    hostname: web
-    container_name: pusta_web_01
+    container_name: prod_code_01
+    env_file:
+      - ./dockerfile-code/code.env
     environment:
-      - DJANGO_SETTINGS_MODULE=project.settings
-      - DJANGO_DATABASE_ENGINE=django.db.backends.postgresql_psycopg2
-      - DJANGO_DATABASE_HOST=pgmaster
-      - DJANGO_DATABASE_NAME=pustakalaya
-      - DJANGO_DATABASE_USER=pustakalaya_user
-      - DJANGO_DATABASE_PASSWORD=pustakalaya123
-      - DJANGO_LOGSTASH_HOST=logstash
-      - DJANGO_LOGSTASH_PORT=5000
-      - GUNICORN_NAME=pustakalaya
-      - GUNICORN_NUM_WORKERS=4
-      - DJANGO_WSGI_MODULE=pustakalaya.wsgi
+      - DJANGO_SETTINGS_MODULE=pustakalaya.settings.production
     depends_on:
       - pgmaster
       - elastic
@@ -54,113 +34,82 @@ services:
       - /library/media_root:/library/media_root:rw
       - /library/static_root:/library/static_root:rw
     networks:
-      - net-pusta
-    ports:
-      - '8001:8001'
-    expose:
-      - "8001"
-    tty: true
+      - prod-net-pusta
+
 
 
   pgmaster:
-    image: becram/olen-elib-db-master:s1.1
-    build:
-      context: ./dockerfile-postgres
-      dockerfile: Dockerfile-dev
+    image: becram/olen-elib-db-master:v3.4.0
     restart: 'always'
-    hostname: pgmaster
-    container_name: pusta_pgmaster_01
-    environment:
-      - POSTGRES_USER=pustakalaya_user
-      - POSTGRES_DB=pustakalaya
-      - POSTGRES_PASSWORD=pustakalaya123
-      - PGDATA=/var/lib/postgresql/data/pgdata
+    container_name: prod_pgmaster_01
+    env_file:
+      - ./dockerfile-postgres-master/pgmaster.env
     volumes:
-     - postgres_data_master:/var/lib/postgresql/data
-     - postgres_dump:/pg_backups
-    expose:
-     - '5432'
+     - production_postgres_data_master:/var/lib/postgresql/data
+     - /library/backup/postgres_backup:/backup/postgres_backup
     networks:
-      - net-pusta
+      - prod-net-pusta
 
   pgslave:
-    image: becram/olen-elib-db-slave:s1.1
-    build:
-      context: ./dockerfile-postgres
-      dockerfile: Dockerfile
+    image: becram/olen-elib-db-slave:v3.4.0
     restart: 'always'
-    hostname: db-slave
-    container_name: pusta_pgslave_01
-    environment:
-      - POSTGRES_USER=pustakalaya_user
-      - POSTGRES_DB=pustakalaya
-      - POSTGRES_PASSWORD=pustakalaya123
-      - PGDATA=/var/lib/postgresql/data/pgdata
-      - REPLICATE_FROM=pgmaster
+    container_name: prod_pgslave_01
+    env_file:
+      - ./dockerfile-postgres-slave/pgslave.env
     volumes:
-      - postgres_data_slave:/var/lib/postgresql/data
-    expose:
-      - '5432'
+      - production_postgres_data_slave:/var/lib/postgresql/data
     depends_on:
       - pgmaster
     networks:
-      - net-pusta
+      - prod-net-pusta
 
 
   elastic:
-    image: becram/olen-elib-elastic:s1.1
-    build:
-      context: ./dockerfile-elastic
-      dockerfile: Dockerfile.dev
+    image: becram/olen-elib-elastic:v3.4.0
     hostname: elastic
+    container_name: prod_elastic_01
     environment:
       # server memory dependent
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     restart: always
-    container_name: pusta_elasticsearch_01
     volumes:
       - ./conf:/conf
     volumes:
-      - pusta_elastic:/usr/share/elasticsearch/data
+      - production_elastic_data:/usr/share/elasticsearch/data
     networks:
-      - net-pusta
+      - prod-net-pusta
     depends_on:
       - pgmaster
 
   rabbitmq:
     image: rabbitmq:3.7
     hostname: rabbitmq
+    container_name: prod_rabbitmq_01
     restart: always
-    container_name: pusta_rabbitmq_01
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
     networks:
-      - net-pusta
+      - prod-net-pusta
 
   celery:
-    image: becram/olen-elib-celery:s1.1
-    build:
-      context: .
-      dockerfile: ./dockerfile-celery/Dockerfile.dev
-    hostname: celery
+    image: becram/olen-elib-celery:v3.4.0
     restart: always
-    container_name: pusta_celery_01
+    container_name: prod_celery_01
     networks:
-      - net-pusta
+      - prod-net-pusta
     depends_on:
       - pgmaster
       - rabbitmq
 
 
 volumes:
-  postgres_data_slave:
-  postgres_data_master:
-  postgres_dump:
-  pusta_elastic:
+  production_postgres_data_slave:
+  production_postgres_data_master:
+  production_elastic_data:
 
 
 
 networks:
-  net-pusta:
+  prod-net-pusta:
     driver: bridge

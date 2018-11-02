@@ -30,7 +30,7 @@
 #
 # Path to directory where to store the data (separate multiple locations by comma):
 #
-path.data: /var/lib/elasticsearch/data
+path.data: /usr/share/elasticsearch/data
 #
 # Path to log files:
 #
@@ -52,7 +52,7 @@ path.logs: /var/log/elasticsearch/elastic.log
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
 #
-network.host: web
+network.host: code
 #
 # Set a custom port for HTTP:
 #

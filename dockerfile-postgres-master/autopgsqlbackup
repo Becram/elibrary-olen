@@ -48,7 +48,7 @@ DBHOST=localhost
 DBNAMES=$POSTGRES_DB
 
 # Backup directory location e.g /backups
-BACKUPDIR=$DIR/backup
+BACKUPDIR=$DIR/postgres_backup
 
 # Mail setup
 # What would you like to be mailed to you?
@@ -75,7 +75,7 @@ MDBNAMES="$DBNAMES"
 DBEXCLUDE=""
 
 # Include CREATE DATABASE in backup?
-CREATE_DATABASE=yes
+CREATE_DATABASE=no
 
 # Separate backup directory and file for each DB? (yes or no)
 SEPDIR=yes
