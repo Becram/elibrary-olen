@@ -12,7 +12,9 @@ We have implemented Docker ro containerise the deloyment. For development we hav
 [image of the architecture]
 
 ### Directory structure
-[tree images]
+
+![Tree diagram](readme_assets/tree.png)
+
 All the dockerfiles are located a respective **dockerfile-[xxxx]**. Inside the docker
 file-[CONTAINER] folder you may find two main files **Dockerfile.dev** and **Dockerfile.build**. **Dockerfile.dev** is used for development by developers while **Dockerfile.build** will used for production ie to create image  for final deployment. Apart from these two files you will also find repective container's  configuration files and script files and also the Dockerfile of each major relase tag (we will get to it later).
 
