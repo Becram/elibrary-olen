@@ -46,13 +46,24 @@ pull:production-test:pull-image:
   tags:
     - production-test
 
+
+
 deploy:production-test:
-  stage: pull-images-live
+  stage: deploy-test
   script:
     - docker stack deploy --compose-file django-swarm.yml pusta
   only:
     - tags
+  tags:
+    - production-test
+
+pull:production-live:pull-image:
+  stage: pull-images-live
+  script:
+    - docker-compose -f build.yml pull
   when: manual
+  only:
+    - tags
   tags:
     - production
 

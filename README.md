@@ -1,6 +1,6 @@
 # Pustakalaya Project: Continous Integration and Deployment
 E-Pustakalaya is an education-focused free and open digital library. It contains thousands of books, educational videos, audio-books, reference materials and interactive learning software.
-E-Pustakalaya is accessible on the Internet fron [here](www.pustakalaya.org).
+E-Pustakalaya is accessible on the Internet [www.pustakalaya.org].
 ## Technology used:
 **Development :** Python's Django Framework, Elatic search, Postgres, Celery, Rabbitmq
 **Deployment:** Docker, Docker-swarm, Docker compose, gitlab-ci, Bash
@@ -19,6 +19,10 @@ All the dockerfiles are located a respective **dockerfile-[xxxx]**. Inside the d
 file-[CONTAINER] folder you may find two main files **Dockerfile.dev** and **Dockerfile.build**. **Dockerfile.dev** is used for development by developers while **Dockerfile.build** will used for production ie to create image  for final deployment. Apart from these two files you will also find repective container's  configuration files and script files and also the Dockerfile of each major relase tag (we will get to it later).
 
 All the developer's code are located in **src** folder. Deveopers are encouraged not to tweak the Dockerfiles unless extremely necessary.
+
+All the variables located in the the file **env_variables/code-variables.env**
+
+*TO-DO*
 
 
 
