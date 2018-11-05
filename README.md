@@ -104,6 +104,7 @@ click to each task to view details
 ![Pipeline](readme_assets/pipelinele-dev-done.png)
 
 NB: Notice the tag they are the identifir for the servers (gitlab runners) currently we have three runners like stated above:
+
 * developent(for dev.pustakalaya.org)
 * production (for pustakalaya.org)
 * production-test (for testing production)
