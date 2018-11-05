@@ -129,4 +129,6 @@ output:
 
 The **release.sh** script will automatically increase the version number and make  a push to repository and run the DevOps Pipeline to deploy in the servers.
 
+![Pipeline](readme_assets/pipeline-prod-doing.png)
+
 DevOps Pipeline will run a task to build image and push to registry which will be pulled to local server to (for now 192.168.5.31:8000) to test. Once all the testing is done, the Pipeline should be manually triggered to deploy in the pustakalaya.org server. Every thing goes will (pustakalaya.org/en/about/) page should show version number below pustakalaya@olenepal.org.ou may also view the entire release history from (pustakalaya.org/release)
