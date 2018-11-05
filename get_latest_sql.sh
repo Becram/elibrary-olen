@@ -3,8 +3,8 @@
 SCRIPT_SRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 TEMP=/tmp/pustakalaya
 #BACKUP_SRC=sysadmin@pustakalaya.org:/library/backup/postgres_backup/daily/pustakalaya/*
-BACKUP_SRC=sysadmin@192.168.5.231:/library/backup/postgres_backup/daily/pustakalaya/*
-# BACKUP_SRC=/library/backup/postgres_backup/daily/pustakalaya/*
+BACKUP_SRC=/library/backup/postgres_backup/daily/pustakalaya/*
+rm -rf $TEMP
 mkdir -p $TEMP
 rsync -aP --delete $BACKUP_SRC  $TEMP
 

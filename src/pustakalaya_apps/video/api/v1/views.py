@@ -1,3 +1,6 @@
+from rest_framework import mixins
+from rest_framework import generics, viewsets
+from rest_framework.pagination import PageNumberPagination
 from pustakalaya_apps.video.models import (
     Video,
     VideoFileUpload,
@@ -12,22 +15,24 @@ from .serializers import (
     VideoGenreSerializer,
     VideoSeriesSerializer
 )
-from rest_framework import mixins
-from rest_framework import generics, viewsets
 
 
-
-class VideoList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
-    queryset = Video.objects.all()
+class VideoList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Video.objects.filter(published="yes")
     serializer_class = VideoSerializers
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+    def get(self, request):
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        page = paginator.paginate_queryset(self.queryset, request)
+        serializer = VideoSerializers(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-class VideoDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin,generics.GenericAPIView):
+
+class VideoDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
     queryset = Video.objects.all()
     serializer_class = VideoSerializers
 
@@ -41,9 +46,6 @@ class VideoDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Des
         return self.destroy(request, *args, **kwargs)
 
 
-
-
-
 class VideoFileUploadViewSet(viewsets.ModelViewSet):
     """
      Document Fileupload endpoint to  `list`, `create`, `retrieve`,
@@ -51,7 +53,6 @@ class VideoFileUploadViewSet(viewsets.ModelViewSet):
     """
     queryset = VideoFileUpload.objects.all()
     serializer_class = VideoFileSerializer
-
 
 
 videofile_list = VideoFileUploadViewSet.as_view({
@@ -89,7 +90,6 @@ videolinkinfo_detail = VideoLinkInfoViewSet.as_view({
 })
 
 
-
 # Video series 
 class VideoSeriesViewSet(viewsets.ModelViewSet):
     """
@@ -111,7 +111,6 @@ videoseries_detail = VideoSeriesViewSet.as_view({
     'patch': 'partial_update',
     'delete': 'destroy'
 })
-
 
 
 # Video Genre

@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext as _
 from elasticsearch.exceptions import ConnectionError, NotFoundError
+from elasticsearch_dsl import Search
 from elasticsearch_dsl.connections import connections
 
 from pustakalaya_apps.core.abstract_models import AbstractTimeStampModel
@@ -43,6 +44,11 @@ class Collection(AbstractTimeStampModel):
     # def get_underscore_collection_name(self):
     #     new_underscore_collection_name = self.collection_name.replace(" ", "_")
     #     return new_underscore_collection_name;
+
+    def get_item_count(self):
+        client = connections.get_connection()
+        item_count = Search(index="pustakalaya").using(client).query("match", collections_ids=self.pk).count()
+        return item_count
 
     def save(self, *args, **kwargs):
         # Check the index server, If index server is down, reject the save
