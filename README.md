@@ -97,7 +97,7 @@ deploy:dev.pustakalaya.org:
 ```
 Once you push your changes to development branch DevOps pipeline will trigger and will be shown as below:
 
-![Pipeline](readme_assets/pipelinele-dev-doing.png)
+![Pipeline](readme_assets/pipeline-dev-doing.png)
 
 click to each task to view details
 
