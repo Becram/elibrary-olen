@@ -34,7 +34,7 @@ build:dev:
 deploy:dev.pustakalaya.org:
   stage: deploy-dev
   script:
-    - sed -i "67s/.*/\<p\>$(date)\<\/p\>/" src/templates/static_pages/about.html
+    - sed -i "67s/.*/\<p\>$(date '+%Y-%m-%d %H:%M:%S')\<\/p\>/" src/templates/static_pages/about.html
     - docker-compose -f development.yml up  -d
   # when: manual
   only:
