@@ -49,19 +49,17 @@ Gitlab runs several runner to run the code. currently we have 2 of these,
 2.  **192.168.5.231**  (mutable,local; to test production before live deploy)
 
 ## For Developers
-Developers are required to use **development** branch for their development purpose. You will find docker compose file run.yml which is trimmed version of the development.yml where have removed the nginx conatiner and made it run solely on the gunicorn server provided by python. Please use your local machine for regular developemnt task.
+Developers are required to use **development** branch for their development purpose. You will find docker compose file run.yml which is trimmed version of the development.yml where have removed the nginx conatiner and made it run solely on the gunicorn server provided by python. Please use your local machine for regular developemnt task. Please merge your branch with the **development** branch and push your commit to the remote repository
 
 Our development server (dev.pustakalaya.org) is triggered once push your changes in development branch to git.olenepal.org. gitlab-ci to run this trigger is
 
+
 ```
-#file .gitlab-ci.yml
-# Stages are run in sequence, jobs in the same stage are run in parallel
-# See https://docs.gitlab.com/ce/ci/yaml/
-# TODO: Correct the tags to fit your gitlab
 stages:
   - clean
   - build
   - deploy-dev
+
 prepare:clean:
   stage: clean
   script:
@@ -80,11 +78,13 @@ build:dev:
     - development
   tags:
     - development
-
+# Push
+# ----
 # Pushes the Docker image to th registry for selected tags
 deploy:dev.pustakalaya.org:
   stage: deploy-dev
   script:
+    - sed -i "67s/.*/\<p\>$(date '+%Y-%m-%d %H:%M:%S')\<\/p\>/" src/templates/static_pages/about.html
     - docker-compose -f development.yml up  -d
   # when: manual
   only:
@@ -92,4 +92,18 @@ deploy:dev.pustakalaya.org:
   tags:
     - development
 ```
-NB: Notice the tag
+Once you push your changes to development branch DevOps pipeline will trigger and will be shown as below:
+
+![Pipeline](readme_assets/pipelinele-dev-doing.png)
+click to each task to view details
+
+![Pipeline](readme_assets/pipelinele-dev-done.png)
+
+NB: Notice the tag they are the identifir for the servers (gitlab runners) currently we have three runners like stated above:
+* developent(for dev.pustakalaya.org)
+* production (for pustakalaya.org)
+* production-test (for testing production)
+
+## Release Process
+
+In order to release, after thorough testing in development system deveoper will merge their changes to the production branch (from development)
