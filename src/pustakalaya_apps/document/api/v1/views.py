@@ -4,6 +4,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from .serializers import (
+    DocumentListSerializer,
     DocumentSerializer,
     DocumentFileSerializer,
     DocumentLinkInfoSerializer,
@@ -32,12 +33,12 @@ def document_lists(request, format=None):
         paginator.page_size = 10
         documents = Document.objects.filter(published="yes")
         page = paginator.paginate_queryset(documents, request)
-        serializer = DocumentSerializer(page, many=True)
+        serializer = DocumentListSerializer(page, many=True)
 
         return paginator.get_paginated_response(serializer.data)
     
     elif request.method == 'POST':
-        serializer = DocumentSerializer(data=request.data)
+        serializer = DocumentListSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -47,7 +48,7 @@ def document_lists(request, format=None):
 @api_view(['GET', 'PUT', 'DELETE'])
 def document_detail(request, pk, format=None):
     """
-    API endpoint to retrive and update a document. 
+    API endpoint to retrieve and update a document.
     """
     try:
         document = Document.objects.get(pk=pk)
