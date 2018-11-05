@@ -1,4 +1,7 @@
+
 # Pustakalaya Project: Continous Integration and Deployment
+[![N|Solid](http://www.olenepal.org/wp-content/uploads/2016/08/ole-logo-new-mainpage.png)](https://olenepal.org)
+
 E-Pustakalaya is an education-focused free and open digital library. It contains thousands of books, educational videos, audio-books, reference materials and interactive learning software.
 E-Pustakalaya is accessible on the Internet fron [www.pustakalaya.org].
 ## Technology used:
@@ -92,9 +95,38 @@ deploy:dev.pustakalaya.org:
   tags:
     - development
 ```
-Once you push your changes to development branch DevOps pipeline will trigger and will be shown and below:
+Once you push your changes to development branch DevOps pipeline will trigger and will be shown as below:
+
+![Pipeline](readme_assets/pipelinele-dev-doing.png)
+
+click to each task to view details
+
+![Pipeline](readme_assets/pipelinele-dev-done.png)
 
 NB: Notice the tag they are the identifir for the servers (gitlab runners) currently we have three runners like stated above:
 * developent(for dev.pustakalaya.org)
 * production (for pustakalaya.org)
 * production-test (for testing production)
+
+## Release Process
+
+In order to release, after thorough testing in development system, deveoper will merge their changes to the production branch (from development).
+
+In order to release, there is a software versioning through git tag feature. There is a script in root directory called **release.sh** which does all the necessary tasks for you which includes tag versioning increment. Run script as
+```
+./release.sh -M  "commit message"
+
+
+```
+output:
+
+![Pipeline](readme_assets/release-script.png)
+
+**Versiong standard vXX.YY.ZZ**
+    XX => for Major release(-M)
+    YY => for Minor Release(-m)
+    ZZ => For Patch release(-p)
+
+The **release.sh** script will automatically increase the version number and make  a push to repository and run the DevOps Pipeline to deploy in the servers.
+
+DevOps Pipeline will run a task to build image and push to registry which will be pulled to local server to (for now 192.168.5.31:8000) to test. Once all the testing is done, the Pipeline should be manually triggered to deploy in the pustakalaya.org server. Every thing goes will (pustakalaya.org/en/about/) page should show version number below pustakalaya@olenepal.org.ou may also view the entire release history from (pustakalaya.org/release)
