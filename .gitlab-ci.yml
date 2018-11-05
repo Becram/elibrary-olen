@@ -4,97 +4,40 @@
 
 
 stages:
-  - prepare
+  - clean
   - build
-  - deploy
+  - deploy-dev
 
-# Specify custom variables
-# variables:
-#   # Enables multibranch build
-#   COMPOSE_PROJECT_NAME: $CI_PROJECT_NAME-$CI_BUILD_REF_NAME
-#   # How to store the image
-#   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
-before_script:
-  - cp -rv versions /library/media_root/release_version.txt
-# Prepare
-# -------
-# Removes old images and containers, if they exist
-################################################
+
+
 prepare:clean:
-  stage: prepare
+  stage: clean
   script:
-    # Stop all containers
-    # - docker-compose -f production.yml exec pgmaster /autopgsqlbackup
-    # - docker-compose -f development.yml down
-    - docker-compose -f production.yml down
-    # Remove all containers and volumes
-    # - docker-compose -f development.yml rm -fv
-    # - docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
+    - docker-compose -f development.yml down
   only:
-    - tags
+    - development
   tags:
     - development
-##################################################
-# Install
-# -------
-# Build all images
-build:images:
+
+build:dev:
   stage: build
   script:
-    # - ./get_release_version.sh
-    # - ./get_latest_sql.sh
-    # Build the Containers without caching and newest source image
-    - docker-compose -f build.yml  build
-    # - docker-compose -f build.yml  push
-    # - docker-compose -f build.yml  push
+    - docker-compose -f development.yml build
+  # when: manual
   only:
-    - tags
+    - development
   tags:
     - development
-
 # Push
 # ----
 # Pushes the Docker image to th registry for selected tags
-deploy:production-test:
-  stage: deploy
+deploy:dev.pustakalaya.org:
+  stage: deploy-dev
   script:
-    # Login to the registry
-    # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    # Push images to the gitlab remote
-    - echo "Deploying Pustakalaya"
-    # - docker-compose -f production.yml up -d
-    - docker stack deploy --compose-file django-swarm.yml pusta
-  # Only these branches are getting pushed
+    - sed -i "67s/.*/\<p\>$(date)\<\/p\>/" src/templates/static_pages/about.html
+    - docker-compose -f development.yml up  -d
   # when: manual
   only:
-    - tags
+    - development
   tags:
     - development
-
-deploy:push-image:
-  stage: deploy
-  script:
-    # - docker-compose -f production.yml up -d
-    - docker-compose -f build.yml push
-  # Only these branches are getting pushed
-  when: manual
-  only:
-    - tags
-  tags:
-    - development
-
-deploy:production-live:
-  stage: deploy
-  script:
-    # Login to the registry
-    # - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    # Push images to the gitlab remote
-    - echo "Deploying Pustakalaya"
-    - docker-compose -f build.yml pull
-    - docker stack deploy --compose-file django-swarm.yml pusta
-  # Only these branches are getting pushed
-  only:
-    - tags
-  when: manual
-  tags:
-    - production
