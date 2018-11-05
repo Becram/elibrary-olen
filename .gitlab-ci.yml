@@ -6,10 +6,16 @@
 stages:
   - prepare-images
   - push-images
-  - pull-images-test
   - deploy-test
-  - pull-images-live
   - deploy-live
+
+variables:
+  PACKAGE_NAME: "awesome-django-app"
+  RELEASE: $(git describe --abbrev=0 --tags)
+  DEV_SERVER: "dev.pustakalaya.org"
+  PROD_SERVER: "pustakalaya.org"
+  TEST_SERVER: "olenepal local"
+
 
 before_script:
   - cp -rv versions /library/media_root/release_version.txt
@@ -36,21 +42,12 @@ push:image:
   tags:
     - development
 
-pull:production-test:pull-image:
-  stage: pull-images-test
-  script:
-    - docker-compose -f build.yml pull
-  # when: manual
-  only:
-    - tags
-  tags:
-    - production-test
-
 
 
 deploy:production-test:
   stage: deploy-test
   script:
+     - docker-compose -f build.yml pull
      - docker-compose -f production.yml down
      - docker-compose -f production.yml up -d
 #    - docker stack deploy --compose-file django-swarm.yml pusta
@@ -59,21 +56,14 @@ deploy:production-test:
   tags:
     - production-test
 
-pull:production-live:pull-image:
-  stage: pull-images-live
-  script:
-    - docker-compose -f build.yml pull
-  when: manual
-  only:
-    - tags
-  tags:
-    - production
 
 deploy:production-live:pull-image:
   stage: deploy-live
   script:
+    - docker-compose -f build.yml pull
     - docker-compose -f production.yml down
     - docker-compose -f production.yml up -d
+    - echo "Version $RELEASE is released  and can be accessed from https://pustakalaya.org" |mail -s "Pustakalaya $RELEASE released" bikram.dhoju@olenepal.org
   only:
     - tags
   when: manual
