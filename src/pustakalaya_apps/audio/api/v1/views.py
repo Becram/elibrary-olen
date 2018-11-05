@@ -22,12 +22,11 @@ class AudioList(APIView):
     def get(self, request, format=None):
         pagination_class = PageNumberPagination 
         paginator = PageNumberPagination()
-        paginator.page_size = 1
-        audios = Audio.objects.all()
+        paginator.page_size = 10
+        audios = Audio.objects.filter(published="yes")
         page = paginator.paginate_queryset(audios, request)
         serializer = AudioSerializers(page, many=True)
         return paginator.get_paginated_response(serializer.data)
-        
 
     def post(self, request, format=None):   
         serializer = AudioSerializers(data=request.data)
@@ -35,7 +34,6 @@ class AudioList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class AudioDetail(APIView):

@@ -11,6 +11,8 @@ from pustakalaya_apps import (
 
 from pustakalaya_apps.core.api.v1.views import (
     BiographyViewSet,
+    featured_recent_popular_list,
+    items_list_by_collection,
     biography_list,
     biography_detail,
     KeywordViewSet,
@@ -44,6 +46,7 @@ from pustakalaya_apps.video.api.v1.views import (
 
 from pustakalaya_apps.collection.api.v1.views import (
     collection_list,
+    collection_by_category,
     collection_detail
 )
 
@@ -56,8 +59,19 @@ from pustakalaya_apps.collection.api.v1.views import (
 urlpatterns = [
     # Entry point for urls 
     url(r'^$',api_v1_root_view, name="api_v1"),
+
+    # Retrieve the list of featured,recent and popular documents
+    url(r'^featured-recent-popular/$', featured_recent_popular_list, name="featured_recent_popular_list"),
+
+    # Retrieve the list of collections based on community name(category)
+    url(r'^category/(?P<community_name>[-\w]+)/$', collection_by_category, name="collection_list_by_category"),
+
+    url(
+        r'^collection/(?P<pk>\b[0-9A-Fa-f]{8}\b(-\b[0-9A-Fa-f]{4}\b){3}-\b[0-9A-Fa-f]{12}\b)/items/$',
+        items_list_by_collection, name="items_list_by_collection"
+    ),
     
-    # Retrive the list of documents
+    # Retrieve the list of documents
     url(r'^documents/$', document_lists, name="document_list"),
     # Retrive the single document i
     url(
