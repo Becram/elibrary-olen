@@ -8,10 +8,9 @@ stages:
   - push-images
   - deploy-test
   - deploy-live
-
 variables:
   PACKAGE_NAME: "awesome-django-app"
-  RELEASE: $(git describe --abbrev=0 --tags)
+  RELEASE: "$(git describe --abbrev=0 --tags)"
   DEV_SERVER: "dev.pustakalaya.org"
   PROD_SERVER: "pustakalaya.org"
   TEST_SERVER: "olenepal local"
@@ -50,14 +49,14 @@ deploy:production-test:
      - docker-compose -f build.yml pull
      - docker-compose -f production.yml down
      - docker-compose -f production.yml up -d
-#    - docker stack deploy --compose-file django-swarm.yml pusta
+     - echo "Test Version $RELEASE is released  and can be accessed from 192.168.5.231:8000" |mail -s "TEST Pustakalaya $RELEASE released" bikram.dhoju@olenepal.org
   only:
     - tags
   tags:
     - production-test
 
 
-deploy:production-live:pull-image:
+deploy:production-live:
   stage: deploy-live
   script:
     - docker-compose -f build.yml pull
