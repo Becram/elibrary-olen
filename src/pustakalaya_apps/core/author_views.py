@@ -1,5 +1,6 @@
 import string
 from django.core.paginator import PageNotAnInteger, Paginator, EmptyPage
+from django.db.models import Q
 from collections import defaultdict
 from django.views.generic.detail import DetailView
 from .models import Biography
@@ -16,6 +17,7 @@ nepali_letters = ['अ', 'आ', 'इ', 'ई', 'उ', 'ऋ', 'ए', 'क', 'ख',
 # All letters
 all_letters = letters + nepali_letters
 
+
 def home(request):
     return render(request, "index.html", {})
 
@@ -26,22 +28,50 @@ class AuthorDetail(DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
-        books = Document.objects.filter(document_authors=self.object.pk)
-        context["books"]= books
+        books = Document.objects.filter(Q(document_authors=self.object.pk) |
+                                        Q(document_editors=self.object.pk) |
+                                        Q(document_illustrators=self.object.pk)).distinct()
+        print('books......', books)
+        context["books"] = books
+        print("authors in = ", self.object.authors_name_in_other_language.all())
+        # author_other_books = []
 
-        print("authors in = ",self.object.authors_name_in_other_language.all())
+        authors_name_in_other_language = self.object.authors_name_in_other_language.all()
 
-        author_other_books = []
+        other_books = Document.objects.filter(
+            Q(document_authors__in=authors_name_in_other_language) |
+            Q(document_editors__in=authors_name_in_other_language) |
+            Q(document_illustrators__in=authors_name_in_other_language)).distinct()
 
-        for author in self.object.authors_name_in_other_language.all():
-            author_other_books.append(Document.objects.filter(document_authors=author.pk))
-        context["author_other_books"] = author_other_books
+        # for author in self.object.authors_name_in_other_language.all():
+        #     author_other_books.append(Document.objects.filter(Q(document_authors=author.pk) |
+        #                                                       Q(document_editors=author.pk) |
+        #                                                       Q(document_illustrators=author.pk)).distinct())
+        # context["author_other_books"] = author_other_books
+        # print('author other books.......', author_other_books)
+
+        all_books = Document.objects.filter(Q(id__in=books) | Q(id__in=other_books), published="yes")
+        print('all books.....', all_books)
+        paginator = Paginator(all_books, 18)
+        page_no = request.GET.get('page')
+        try:
+            page = paginator.page(page_no)
+        except PageNotAnInteger:
+            page = paginator.page(1)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+
+        response = page.object_list
+        print('response....' , response)
+
+        context["all_books"] = response
+        context["page_obj"] = page
+        context["paginator"] = paginator
 
 
         return self.render_to_response(context)
 
     template_name = "core/author_detail_new.html"
-
 
 
 def author_list(request):

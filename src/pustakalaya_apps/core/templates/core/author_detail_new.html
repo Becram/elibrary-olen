@@ -4,8 +4,6 @@
 {% load pustakalaya_filters %}
 {% block content %}
 
-
-
 <div class="main-contain">
   <div class="container">
     <br>
@@ -141,7 +139,7 @@
     </div>
 
 
-    {% for book in books %}
+    {% for book in all_books %}
      <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
              <a href=" {% url 'document:detail_without_slug'  book.pk %}">
@@ -162,38 +160,14 @@
        </div>
     {% endfor %}
 
+     </div>
 
-    {% for books in author_other_books %}
-    {% for book in books %}
-     <div class="col-md-2 col-sm-6 col-6">
-        <div class="grid-book-cont">
-             <a href=" {% url 'document:detail_without_slug'  book.pk %}">
-          <div class="img-cont">
-             {% if book.thumbnail  %}
-                  <img  src="{{ MEDIA_URL }}{{ book.thumbnail }}"
-                         alt="{{ book.title }}" title="{{ book.title }}">
-            {% else %}
-                  <img src="{% static 'base_assets/img/book_image_default.png' %}"
-                         alt="{{ book.title }}" title="{{ book.title }}">
-            {% endif %}
-
-           </div>
-          <p class="book-label text-capitalize"> {{ book.title }}</p>
-          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>{% trans "Document" %}</p>
-          </a>
-      </div>
-       </div>
-    {% endfor %}
-    {% endfor %}
-
-
-
-  </div>
+        <div class="row">
+            <div class="col-md-12 col-md-offset-2">
+                {% include '_partials/new_pagination.html' %}
+            </div>
+        </div>
 </div>
-
 </div>
-
-
-
 
 {% endblock content %}
