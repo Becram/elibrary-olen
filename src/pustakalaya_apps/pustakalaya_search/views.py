@@ -49,9 +49,9 @@ def search(request):
 
             }
 
-        order_by = request.GET.get('sort_order') or 'asc'
+        order_by = request.GET.get('sort_order') or 'desc'
         # print(order_by)
-        sort_by = request.GET.get('sort_by') or 'title.keyword'
+        sort_by = request.GET.get('sort_by') or 'updated_date'
         # print(sort_by)
 
         # this if not is added to remove error for default value with keyword sortby and asc orderby
