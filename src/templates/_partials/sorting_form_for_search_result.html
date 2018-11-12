@@ -4,31 +4,31 @@
   <div class="row">
     <div class="col-md-6 col-sm-12 col-xs-12 pr-1">
           <select class="form-control form-control-sm text-capitalize tit-drpdn"  name="sort_by">
-              <option class="text-capitalize" value="title.keyword" readonly
-                      {% if sort_by == "title.keyword" %} selected {% endif %}>{% trans "Title" %}
-              </option>
               <option class="text-capitalize"
                       value="updated_date" readonly
-                      {% if sort_by == "updated_date" %} selected {% endif %}>{% trans "updated date" %}
+                      {% if sort_by == "updated_date" %} selected {% endif %}>{% trans "Date" %}
+              </option>
+              <option class="text-capitalize" value="title.keyword" readonly
+                      {% if sort_by == "title.keyword" %} selected {% endif %}>{% trans "Title" %}
               </option>
               <option class="text-capitalize" value="view_count" readonly
                       {% if sort_by == "view_count" %} selected {% endif %}>{% trans "Popularity" %}
               </option>
 
-        </select>
+          </select>
       <input type="hidden" name = "form-filter" id="filter_form">
       <input type="hidden" name = "q" id="q_filter">
 
     </div>
     <div class="col-md-6 col-sm-12 col-xs-12 pr-1">
         <select class="form-control form-control-sm form-control-xs tit-drpdn"  name="sort_order">
-            <option class="text-capitalize" value="asc"
-                    {% if sort_order == "asc" %} selected {% endif %} >{% trans "Ascending" %}
-            </option>
             <option class="text-capitalize" value="desc" {% if sort_order == "desc" %} selected {% endif %} >
             {% trans "Descending" %}
             </option>
-      </select>
+            <option class="text-capitalize" value="asc"
+                    {% if sort_order == "asc" %} selected {% endif %} >{% trans "Ascending" %}
+            </option>
+        </select>
     </div>
   </div>
   <!-- sort based on descendingascending -->
